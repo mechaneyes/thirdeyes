@@ -11,12 +11,21 @@ export default function Chat() {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    setAspectRatio(w / h);
-    setImageLoaded(true);
+    const handleResize = () => {
+      setAspectRatio(window.innerWidth / window.innerHeight);
+      setImageLoaded(true);
+    };
 
-    // console.log(aspectRatio);
+    // Call once initially
+    handleResize();
+
+    // Then call it every time the window is resized
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   });
 
   return (
