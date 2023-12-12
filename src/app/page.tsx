@@ -70,6 +70,7 @@ export default function Chat() {
               {m.content}
             </div>
           ))}
+          <div className="chat__messages__anchor"></div>
         </div>
 
         <div className="chat__form">
