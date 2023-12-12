@@ -3,20 +3,37 @@
 import Image from "next/image";
 import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
+import { useEffect, useState } from "react";
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const [aspectRatio, setAspectRatio] = useState(1);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  const aspectRatio = w / h;
-  // console.log(aspectRatio);
+  useEffect(() => {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    setAspectRatio(w / h);
+    setImageLoaded(true);
+
+    // console.log(aspectRatio);
+  });
 
   return (
     <main className="chat">
       <section className="chat__hero">
         <h1>Thirdeyes</h1>
-        <div className={`chat__hero__image ${aspectRatio > 1.3 ? "chat__hero__image--landscape" : "chat__hero__image--portrait"}`}>
+        <div
+          className={`chat__hero__image ${
+            imageLoaded && aspectRatio < 1.3
+              ? "chat__hero__image--portrait"
+              : ""
+          } ${
+            imageLoaded && aspectRatio > 1.3
+              ? "chat__hero__image--landscape"
+              : ""
+          }`}
+        >
           <Image
             src="/images/hero--steve-johnson-unsplash.jpg"
             alt="Generative Illustration by Steve Johnson on Unsplash"
