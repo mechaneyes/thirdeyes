@@ -3,12 +3,77 @@
 import Image from "next/image";
 import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
   const [aspectRatio, setAspectRatio] = useState(1);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [messageExists, setMessageExists] = useState(false);
+  const [isHeightEqual, setIsHeightEqual] = useState(false);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const chatMessagesRef = useRef<HTMLDivElement>(null);
+  const chatPanelRef = useRef<HTMLDivElement>(null);
+  const anchorRef = useRef<HTMLDivElement>(null);
+
+  const { messages, input, handleInputChange, handleSubmit } = useChat();
+
+  useEffect(() => {
+    // MutationObserver run when DOM changes are made
+    const mutationObserver = new MutationObserver(() => {
+      if (chatMessagesRef.current) {
+        // Get all elements within chatMessagesRef.current
+        // Convert the HTMLCollection to an array of HTMLDivElement
+        const messages = Array.from(
+          chatMessagesRef.current.getElementsByClassName(
+            "chat__messages__message"
+          )
+        ) as HTMLDivElement[];
+
+        // Calculate total height of messages
+        const totalMessagesHeight = messages.reduce(
+          (total, message) => total + message.offsetHeight,
+          0
+        );
+
+        setIsHeightEqual(
+          totalMessagesHeight > chatMessagesRef.current.offsetHeight
+        );
+      }
+    });
+
+    // Start observing chatMessagesRef with the MutationObserver.
+    // Observer will react to changes in the text content of 
+    // chatMessagesRef.current and its descendants
+    // 
+    if (chatMessagesRef.current) {
+      mutationObserver.observe(chatMessagesRef.current, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+      });
+    }
+
+    // cleanup function stopping observing any changes
+    return () => {
+      mutationObserver.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isHeightEqual === true && anchorRef.current) {
+      setMessageExists(true);
+      anchorRef.current.scrollIntoView({ block: "end" });
+    }
+  }, [isHeightEqual]);
+
+  // Focus on input when page loads
+  // 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -64,8 +129,20 @@ export default function Chat() {
           )}
         </div>
       </section>
-      <section className="chat__panel">
-        <div className="chat__messages">
+      <section ref={chatPanelRef} className="chat__panel">
+        <div
+          ref={chatMessagesRef}
+          className={`${
+            messageExists
+              ? "chat__messages"
+              : "chat__messages chat__messages--hidden"
+          }`}
+        >
+          {!messageExists && (
+            <div className="chat__messages__intro">
+              Type something, you fithy animal.
+            </div>
+          )}
           {messages.map((m) => (
             <div
               key={m.id}
@@ -75,17 +152,17 @@ export default function Chat() {
                   : "chat__messages__message--ai"
               }`}
             >
-              {/* {m.role === "user" ? "User: " : "AI: "} */}
               {m.content}
             </div>
           ))}
-          <div className="chat__messages__anchor"></div>
+          <div ref={anchorRef} className="chat__messages__anchor"></div>
         </div>
 
         <div className="chat__form">
           <form className="chat__form__form" onSubmit={handleSubmit}>
             <label>
               <input
+                ref={inputRef}
                 className="chat__form__input"
                 value={input}
                 onChange={handleInputChange}
