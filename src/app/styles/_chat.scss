@@ -1,0 +1,121 @@
+.chat {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  height: 100vh;
+  padding: 2rem 2rem 2rem 0;
+  background: var(--BG, #292f47);
+
+  * {
+    box-sizing: border-box;
+  }
+
+  &__hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 2.5rem;
+
+    h1 {
+      position: absolute;
+      top: 0;
+      left: 2rem;
+      color: #fff;
+      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      font-family: Democratica OT;
+      font-size: 2.25rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+
+    &__image {
+      max-height: 75vh;
+      aspect-ratio: 720/1080;
+      border: 1px solid #868da3;
+      border-radius: 47px 0 47px 0;
+      overflow: hidden;
+    }
+  }
+
+  &__panel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 2.25rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #868da3;
+    border-radius: 47px 0 47px 0;
+  }
+
+  &__messages {
+    width: calc(100% - 2.25rem);
+    height: calc(100% - 6.5rem);
+    padding-right: 2rem;
+    color: #fff;
+    font-family: Prometo;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1.5rem;
+    position: absolute;
+    bottom: 6.5rem;
+    overflow-y: scroll;
+    @include scrollbars(10px, #9697f1, #41465c);
+
+    &__message--user {
+      width: 100%;
+      margin: 4rem 0 2.5rem;
+      color: #aeaeae;
+      text-align: right;
+    }
+
+    &__message--ai {
+      margin-right: 6rem;
+    }
+  }
+
+  &__form {
+    position: fixed;
+    bottom: 2.25rem;
+    width: calc(45vw - 5rem);
+
+    &__form {
+      position: relative;
+    }
+
+    &__input {
+      width: 100%;
+      // max-width: 28rem;
+      margin-bottom: 2rem;
+      padding: 0.5rem;
+      font-family: Prometo;
+      color: white;
+      font-weight: 300;
+      box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+        var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+        0 8px 10px -6px rgb(0 0 0 / 0.1);
+      --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color),
+        0 8px 10px -6px var(--tw-shadow-color);
+      border-width: 1px;
+      border-radius: 1rem 0;
+      border-color: #868da3;
+      background-color: rgba(55, 59, 68, 0.4);
+      outline-color: #9697f1;
+      outline: none;
+      caret-color: white;
+    }
+
+    button {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 1rem;
+    }
+
+    &__send-icon {
+      fill: #868da3;
+    }
+  }
+}
