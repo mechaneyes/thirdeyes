@@ -7,16 +7,22 @@ import { Upload } from "@carbon/icons-react";
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
 
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  const aspectRatio = w / h;
+  // console.log(aspectRatio);
+
   return (
     <main className="chat">
       <section className="chat__hero">
         <h1>Thirdeyes</h1>
-        <div className="chat__hero__image">
+        <div className={`chat__hero__image ${aspectRatio > 1.3 ? "chat__hero__image--landscape" : "chat__hero__image--portrait"}`}>
           <Image
             src="/images/hero--steve-johnson-unsplash.jpg"
             alt="Generative Illustration by Steve Johnson on Unsplash"
             width={828}
-            height={552}
+            height={828}
+            priority={true}
           />
         </div>
       </section>
