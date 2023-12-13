@@ -2,17 +2,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  @include font-main;
+  // font-weight: 300;
 
   &--outline-primary {
-    width: 110px;
+    width: 8rem;
     padding: 0.25rem;
     color: white;
     border: 1px solid white;
+    border-radius: 9px 0 9px 0;
     background-color: transparent;
 
     &:hover {
       background-color: white;
       color: black;
     }
+  }
+
+  &--saved-chats {
+    width: 8rem;
   }
 }

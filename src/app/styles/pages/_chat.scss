@@ -20,22 +20,23 @@ body {
     box-sizing: border-box;
   }
 
+  h1 {
+    // position: absolute;
+    top: 0;
+    left: 0;
+  }
+
   &__hero {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     position: relative;
-
-    h1 {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
 
     &__image {
       display: none;
       aspect-ratio: 720/1080;
+      margin-bottom: 1rem;
       border: 1px solid #868da3;
       border-radius: 47px 0 47px 0;
       overflow: hidden;
@@ -104,7 +105,7 @@ body {
       margin-top: auto;
       text-align: center;
     }
-    
+
     &__message {
       &:first-child {
         margin-top: auto;
@@ -159,5 +160,19 @@ body {
     &__send-icon {
       fill: #868da3;
     }
+  }
+}
+
+.chats-saved {
+  padding: 4rem;
+  @include font-main;
+
+  ul {
+    font-size: 1.25rem;
+    list-style-type: circle;
+  }
+
+  li {
+    padding-bottom: 0.25rem;
   }
 }
