@@ -53,6 +53,15 @@ $breakpoints: (
   }
 }
 
+@mixin font-home {
+  font-family: Geom Graphic;
+  font-size: 1rem;
+  font-weight: 200;
+  line-height: 1.5rem;
+  color: #fff;
+  
+}
+
 @mixin font-main {
   font-family: Prometo, sans-serif;
   font-weight: 300;

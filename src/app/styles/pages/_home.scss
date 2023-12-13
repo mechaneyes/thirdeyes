@@ -1,0 +1,70 @@
+body {
+  background: #292f47;
+}
+
+.home {
+  height: calc(100% - 4rem);
+  margin: 2rem;
+  @include font-main;
+
+  h1 {
+    font-family: "variex", variex, sans-serif;
+    font-size: 2.5rem;
+    color: #fff;
+    font-weight: 300;
+    line-height: normal;
+  }
+
+  h2 {
+    padding-bottom: 1rem;
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 2.6rem;
+  }
+
+  h3 {
+    padding-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: normal;
+  }
+
+  p {
+    font-size: 1.2rem;
+    font-weight: 200;
+  }
+
+  &__main__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 8vh;
+
+    @include bp(medium) {
+        padding-top: 8vh;
+    }
+
+    @include bp(large) {
+        padding-top: 7vh;
+    }
+  }
+
+  &__main {
+    display: grid;
+    grid-template-columns: calc(36.84% - 1rem) calc(63.16% - 1rem);
+    grid-gap: 2rem;
+    width: 100%;
+
+    &__left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__image {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
