@@ -116,27 +116,27 @@ export default function Chat() {
                   : ""
               }`}
             >
-              {savedChatsVisible && <ChatsSaved />}
-              {!savedChatsVisible &&
-                (aspectRatio < 1.3 ? (
-                  <Image
-                    src="/images/hero--steve-johnson-portrait.jpg"
-                    alt="Generative Illustration by Steve Johnson on Unsplash"
-                    width={720}
-                    height={1080}
-                    layout="responsive"
-                    priority={true}
-                  />
-                ) : (
-                  <Image
-                    src="/images/hero--steve-johnson-landscape.jpg"
-                    alt="Generative Illustration by Steve Johnson on Unsplash"
-                    width={900}
-                    height={600}
-                    layout="responsive"
-                    priority={true}
-                  />
-                ))}
+              {savedChatsVisible ? (
+                <ChatsSaved />
+              ) : aspectRatio < 1.3 ? (
+                <Image
+                  src="/images/hero--steve-johnson-portrait.jpg"
+                  alt="Generative Illustration by Steve Johnson on Unsplash"
+                  width={720}
+                  height={1080}
+                  layout="responsive"
+                  priority={true}
+                />
+              ) : (
+                <Image
+                  src="/images/hero--steve-johnson-landscape.jpg"
+                  alt="Generative Illustration by Steve Johnson on Unsplash"
+                  width={900}
+                  height={600}
+                  layout="responsive"
+                  priority={true}
+                />
+              )}
             </div>
             <button
               onClick={() => setSavedChatsVisible((value) => !value)}

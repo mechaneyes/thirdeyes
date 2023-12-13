@@ -45,11 +45,11 @@
 
       &--portrait {
         display: block;
+        aspect-ratio: 720/1080;
       }
 
       &--landscape {
         display: block;
-        width: 100%;
         aspect-ratio: 1080/720;
       }
     }
