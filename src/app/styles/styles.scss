@@ -1,13 +1,20 @@
+@use "@carbon/grid";
 @import "abstracts/mixins";
 @import "pages/home";
 @import "pages/chat";
 @import "components/btn";
+@import "components/header";
 
-h1 {
-  font-family: "variex", variex, sans-serif;
-  font-size: 2.5rem;
-  color: #fff;
-  font-weight: 300;
-  line-height: normal;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+@include grid.flex-grid();
+
+html,
+body {
+  height: 100%;
+  background: var(--BG, #292f47);
+}
+
+.thirdeyes {
+  position: relative;
+  height: 100%;
+  padding: 2rem;
 }

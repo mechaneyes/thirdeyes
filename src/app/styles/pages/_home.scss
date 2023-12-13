@@ -4,7 +4,6 @@ body {
 
 .home {
   height: calc(100% - 4rem);
-  margin: 2rem;
   @include font-main;
 
   h2 {

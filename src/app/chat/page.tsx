@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
 
+import Header from "../_components/header";
 import ChatsSaved from "./chats-saved";
 
 export default function Chat() {
@@ -100,99 +101,97 @@ export default function Chat() {
 
   return (
     <>
-      <div className="header">
-        <Link href="/">
-          <h1>Thirdeyes</h1>
-        </Link>
-      </div>
-      <main className="chat">
-        <section className="chat__hero">
-          <div
-            className={`chat__hero__image ${
-              imageLoaded && aspectRatio < 1.3
-                ? "chat__hero__image--portrait"
-                : ""
-            } ${
-              imageLoaded && aspectRatio > 1.3
-                ? "chat__hero__image--landscape"
-                : ""
-            }`}
-          >
-            {savedChatsVisible && <ChatsSaved />}
-            {!savedChatsVisible &&
-              (aspectRatio < 1.3 ? (
-                <Image
-                  src="/images/hero--steve-johnson-portrait.jpg"
-                  alt="Generative Illustration by Steve Johnson on Unsplash"
-                  width={720}
-                  height={1080}
-                  layout="responsive"
-                  priority={true}
-                />
-              ) : (
-                <Image
-                  src="/images/hero--steve-johnson-landscape.jpg"
-                  alt="Generative Illustration by Steve Johnson on Unsplash"
-                  width={900}
-                  height={600}
-                  layout="responsive"
-                  priority={true}
-                />
+      <main className="chat thirdeyes">
+        <Header />
+        <div className="chat__container">
+          <section className="chat__hero">
+            <div
+              className={`chat__hero__image ${
+                imageLoaded && aspectRatio < 1.3
+                  ? "chat__hero__image--portrait"
+                  : ""
+              } ${
+                imageLoaded && aspectRatio > 1.3
+                  ? "chat__hero__image--landscape"
+                  : ""
+              }`}
+            >
+              {savedChatsVisible && <ChatsSaved />}
+              {!savedChatsVisible &&
+                (aspectRatio < 1.3 ? (
+                  <Image
+                    src="/images/hero--steve-johnson-portrait.jpg"
+                    alt="Generative Illustration by Steve Johnson on Unsplash"
+                    width={720}
+                    height={1080}
+                    layout="responsive"
+                    priority={true}
+                  />
+                ) : (
+                  <Image
+                    src="/images/hero--steve-johnson-landscape.jpg"
+                    alt="Generative Illustration by Steve Johnson on Unsplash"
+                    width={900}
+                    height={600}
+                    layout="responsive"
+                    priority={true}
+                  />
+                ))}
+            </div>
+            <button
+              onClick={() => setSavedChatsVisible((value) => !value)}
+              type="button"
+              className="btn btn--outline-primary btn--saved-chats"
+            >
+              Saved Chats
+            </button>
+          </section>
+          <section ref={chatPanelRef} className="chat__panel">
+            <div
+              ref={chatMessagesRef}
+              className={`${
+                messageExists
+                  ? "chat__messages"
+                  : "chat__messages chat__messages--hidden"
+              }`}
+            >
+              {!messageExists && (
+                <div className="chat__messages__intro">
+                  The quick brown fox jumps over the lazy dog
+                </div>
+              )}
+              {messages.map((m) => (
+                <div
+                  key={m.id}
+                  className={`chat__messages__message ${
+                    m.role === "user"
+                      ? "chat__messages__message--user "
+                      : "chat__messages__message--ai"
+                  }`}
+                >
+                  {m.content}
+                </div>
               ))}
-          </div>
-          <button
-            onClick={() => setSavedChatsVisible((value) => !value)}
-            type="button"
-            className="btn btn--outline-primary btn--saved-chats"
-          >
-            Saved Chats
-          </button>
-        </section>
-        <section ref={chatPanelRef} className="chat__panel">
-          <div
-            ref={chatMessagesRef}
-            className={`${
-              messageExists
-                ? "chat__messages"
-                : "chat__messages chat__messages--hidden"
-            }`}
-          >
-            {!messageExists && (
-              <div className="chat__messages__intro">
-                The quick brown fox jumps over the lazy dog
-              </div>
-            )}
-            {messages.map((m) => (
-              <div
-                key={m.id}
-                className={`chat__messages__message ${
-                  m.role === "user"
-                    ? "chat__messages__message--user "
-                    : "chat__messages__message--ai"
-                }`}
-              >
-                {m.content}
-              </div>
-            ))}
-            <div ref={anchorRef} className="chat__messages__anchor"></div>
-          </div>
+              <div ref={anchorRef} className="chat__messages__anchor"></div>
+            </div>
 
-          <div className="chat__form">
-            <form className="chat__form__form" onSubmit={handleSubmit}>
-              <label>
-                <input
-                  ref={inputRef}
-                  className="chat__form__input"
-                  value={input}
-                  onChange={handleInputChange}
-                />
-                <button type="submit">
-                  <Upload size={24} className="chat__form__send-icon" />
-                </button>
-              </label>
-            </form>
-          </div>
-        </section>
+            <div className="chat__form">
+              <form className="chat__form__form" onSubmit={handleSubmit}>
+                <label>
+                  <input
+                    ref={inputRef}
+                    className="chat__form__input"
+                    value={input}
+                    onChange={handleInputChange}
+                  />
+                  <button type="submit">
+                    <Upload size={24} className="chat__form__send-icon" />
+                  </button>
+                </label>
+              </form>
+            </div>
+          </section>
+        </div>
       </main>
     </>
   );

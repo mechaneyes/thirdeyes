@@ -3,15 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import Header from "./_components/header";
+
 export default function Chat() {
   return (
     <>
-      <main className="home">
-        <div className="header">
-          <Link href="/">
-            <h1>Thirdeyes</h1>
-          </Link>
-        </div>
+      <main className="home thirdeyes">
+        <Header />
         <div className="home__main__container">
           <section className="home__main">
             <div className="home__main__left">
