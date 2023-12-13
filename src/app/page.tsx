@@ -1,11 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Chat() {
   return (
     <main className="home">
-      <h1>Thirdeyes</h1>
+      <Link href="/">
+        <h1>Thirdeyes</h1>
+      </Link>
       <div className="home__main__container">
         <section className="home__main">
           <div className="home__main__left">
@@ -17,6 +20,11 @@ export default function Chat() {
               a family affair, with brothers Lenny and Lawrence Burden
               occasionally assisted by siblings Lynell, Lorne, and Lance.
             </p>
+            <Link href="/chat">
+              <button type="button" className="btn btn--outline-primary">
+                Enter Chat
+              </button>
+            </Link>
           </div>
           <div className="home__main__right home__main__image">
             <Image

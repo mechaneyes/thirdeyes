@@ -1,3 +1,13 @@
-@import 'abstracts/mixins';
-@import 'pages/home';
-@import 'pages/chat';
+@import "abstracts/mixins";
+@import "pages/home";
+@import "pages/chat";
+@import "components/btn";
+
+h1 {
+  font-family: "variex", variex, sans-serif;
+  font-size: 2.5rem;
+  color: #fff;
+  font-weight: 300;
+  line-height: normal;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}

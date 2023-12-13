@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
 import { useEffect, useState, useRef } from "react";
@@ -96,7 +97,9 @@ export default function Chat() {
   return (
     <main className="chat">
       <section className="chat__hero">
+      <Link href="/">
         <h1>Thirdeyes</h1>
+      </Link>
         <div
           className={`chat__hero__image ${
             imageLoaded && aspectRatio < 1.3
