@@ -44,7 +44,7 @@ export default function Chat() {
         );
 
         setIsHeightEqual(
-          totalMessagesHeight > chatMessagesRef.current.offsetHeight
+          totalMessagesHeight > chatMessagesRef.current.offsetHeight - 76
         );
       }
     });
@@ -102,10 +102,14 @@ export default function Chat() {
 
   return (
     <>
-      <main className="chat thirdeyes">
-        <Header />
-        <div className="chat__container">
-          <section className="chat__hero">
+      <main className="chat thirdeyes cds--grid">
+        <div className="chat__header cds--row">
+          <div className="chat__header__inner cds--col-lg-16">
+            <Header />
+          </div>
+        </div>
+        <div className="chat__container cds--row">
+          <section className="chat__hero cds--col-lg-6">
             <div
               className={`chat__hero__image ${
                 imageLoaded && aspectRatio < 1.3
@@ -121,13 +125,12 @@ export default function Chat() {
                 <ChatSaved />
               ) : settingsVisible ? (
                 <ChatSettings />
-              ) : aspectRatio < 1.3 ? (
+              ) : aspectRatio < 1.6 ? (
                 <Image
                   src="/images/hero--steve-johnson-portrait.jpg"
                   alt="Generative Illustration by Steve Johnson on Unsplash"
                   width={720}
                   height={1080}
-                  layout="responsive"
                   priority={true}
                 />
               ) : (
@@ -136,7 +139,6 @@ export default function Chat() {
                   alt="Generative Illustration by Steve Johnson on Unsplash"
                   width={900}
                   height={600}
-                  layout="responsive"
                   priority={true}
                 />
               )}
@@ -176,49 +178,52 @@ export default function Chat() {
               </button>
             </div>
           </section>
-          <section ref={chatPanelRef} className="chat__panel">
-            <div
-              ref={chatMessagesRef}
-              className={`${
-                messageExists
-                  ? "chat__messages"
-                  : "chat__messages chat__messages--hidden"
-              }`}
-            >
-              {!messageExists && (
-                <div className="chat__messages__intro">
-                  The quick brown fox jumps over the lazy dog
-                </div>
-              )}
-              {messages.map((m) => (
-                <div
-                  key={m.id}
-                  className={`chat__messages__message ${
-                    m.role === "user"
-                      ? "chat__messages__message--user "
-                      : "chat__messages__message--ai"
-                  }`}
-                >
-                  {m.content}
-                </div>
-              ))}
-              <div ref={anchorRef} className="chat__messages__anchor"></div>
-            </div>
+          <section ref={chatPanelRef} className="chat__panel cds--col-lg-10">
+            <div className="chat__panel__inner">
+              <div
+                ref={chatMessagesRef}
+                className={`${
+                  messageExists
+                    ? "chat__messages"
+                    : "chat__messages chat__messages--hidden"
+                }`}
+              >
+                {!messageExists && (
+                  <div className="chat__messages__intro">
+                    The quick brown fox jumps over the lazy dog
+                  </div>
+                )}
+                {messages.map((m) => (
+                  <div
+                    key={m.id}
+                    className={`chat__messages__message ${
+                      m.role === "user"
+                        ? "chat__messages__message--user "
+                        : "chat__messages__message--ai"
+                    }`}
+                  >
+                    {m.content}
+                  </div>
+                ))}
 
-            <div className="chat__form">
-              <form className="chat__form__form" onSubmit={handleSubmit}>
-                <label>
-                  <input
-                    ref={inputRef}
-                    className="chat__form__input"
-                    value={input}
-                    onChange={handleInputChange}
-                  />
-                  <button type="submit">
-                    <Upload size={24} className="chat__form__send-icon" />
-                  </button>
-                </label>
-              </form>
+                <div ref={anchorRef} className="chat__messages__anchor"></div>
+              </div>
+
+              <div className="chat__form">
+                <form className="chat__form__form" onSubmit={handleSubmit}>
+                  <label>
+                    <input
+                      ref={inputRef}
+                      className="chat__form__input"
+                      value={input}
+                      onChange={handleInputChange}
+                    />
+                    <button type="submit">
+                      <Upload size={24} className="chat__form__send-icon" />
+                    </button>
+                  </label>
+                </form>
+              </div>
             </div>
           </section>
         </div>
