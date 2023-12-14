@@ -1,4 +1,4 @@
-const ChatsSaved = () => {
+const ChatSettings = () => {
   return (
     <div className="chats-saved">
       <ul>
@@ -14,21 +14,9 @@ const ChatsSaved = () => {
           Give me a 20 song playlist inspired by David Mancuso's party, The Loft{" "}
           <span className="chats-saved__date">2023.12.19</span>
         </li>
-        <li>
-          Dissect Radiohead's Kid A{" "}
-          <span className="chats-saved__date">2023.12.18</span>
-        </li>
-        <li>
-          What is the history of the Roland TB-303?{" "}
-          <span className="chats-saved__date">2023.12.17</span>
-        </li>
-        <li>
-          Tell me about music that incorporates NASA mission sounds{" "}
-          <span className="chats-saved__date">2023.12.01</span>
-        </li>
       </ul>
     </div>
   );
 };
 
-export default ChatsSaved;
+export default ChatSettings;

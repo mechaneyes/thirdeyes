@@ -7,14 +7,16 @@ import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
 
 import Header from "../_components/header";
-import ChatsSaved from "./_chats-saved";
+import ChatSaved from "./_chat-saved";
+import ChatSettings from "./_chat-settings";
 
 export default function Chat() {
   const [aspectRatio, setAspectRatio] = useState(1);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [messageExists, setMessageExists] = useState(false);
   const [isHeightEqual, setIsHeightEqual] = useState(false);
-  const [savedChatsVisible, setSavedChatsVisible] = useState(false);
+  const [savedChatVisible, setSavedChatVisible] = useState(false);
+  const [settingsVisible, setSettingsVisible] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const chatMessagesRef = useRef<HTMLDivElement>(null);
@@ -115,8 +117,10 @@ export default function Chat() {
                   : ""
               }`}
             >
-              {savedChatsVisible ? (
-                <ChatsSaved />
+              {savedChatVisible ? (
+                <ChatSaved />
+              ) : settingsVisible ? (
+                <ChatSettings />
               ) : aspectRatio < 1.3 ? (
                 <Image
                   src="/images/hero--steve-johnson-portrait.jpg"
@@ -136,14 +140,41 @@ export default function Chat() {
                   priority={true}
                 />
               )}
+              {(savedChatVisible || settingsVisible) && (
+                <button
+                  onClick={() => {
+                    setSavedChatVisible(false);
+                    setSettingsVisible(false);
+                  }}
+                  type="button"
+                  className="btn btn--outline-primary btn--chat-hero-close"
+                >
+                  Close
+                </button>
+              )}
             </div>
-            <button
-              onClick={() => setSavedChatsVisible((value) => !value)}
-              type="button"
-              className="btn btn--outline-primary btn--saved-chats"
-            >
-              Saved Chats
-            </button>
+            <div className="chat__buttons">
+              <button
+                onClick={() => {
+                  setSavedChatVisible(true);
+                  setSettingsVisible(false);
+                }}
+                type="button"
+                className="btn btn--outline-primary btn--saved-chats"
+              >
+                Saved Chat
+              </button>
+              <button
+                onClick={() => {
+                  setSettingsVisible(true);
+                  setSavedChatVisible(false);
+                }}
+                type="button"
+                className="btn btn--outline-primary btn--saved-chats"
+              >
+                Settings
+              </button>
+            </div>
           </section>
           <section ref={chatPanelRef} className="chat__panel">
             <div
