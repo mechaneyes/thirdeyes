@@ -149,7 +149,7 @@ export default function Chat() {
                 type="button"
                 className="btn btn--outline-primary btn--saved-chats"
               >
-                Saved Chat
+                Saved Chats
               </button>
               <button
                 onClick={() => {

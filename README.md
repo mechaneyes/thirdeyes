@@ -1,6 +1,6 @@
 # Thirdeyes
 
-Thirdeyes is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Homepage Screenshot - Thursday, 14 Dec 2023 14.21.44 PM PST](./readme/home2023.12.14.jpg)
 
 ## What in the ... ?
 
