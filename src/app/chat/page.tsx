@@ -104,41 +104,26 @@ export default function Chat() {
     <>
       <main className="chat thirdeyes cds--grid">
         <div className="chat__header cds--row">
-          <div className="chat__header__inner cds--col-lg-16">
+          <div className="chat__header__inner cds--col-sm-2 cds--col-md-16 cds--col-lg-16 cds--col-xlg-16 cds--col-max-16">
             <Header />
           </div>
         </div>
         <div className="chat__container cds--row">
-          <section className="chat__hero cds--col-lg-6">
+          <section className="chat__hero cds--col-sm-2 cds--col-md-3 cds--col-lg-6 cds--col-xlg-6 cds--col-max-6">
             <div
-              className={`chat__hero__image ${
-                imageLoaded && aspectRatio < 1.3
-                  ? "chat__hero__image--portrait"
-                  : ""
-              } ${
-                imageLoaded && aspectRatio > 1.3
-                  ? "chat__hero__image--landscape"
-                  : ""
-              }`}
+              className="chat__hero__image chat__hero__image--portrait"
+              // "chat__hero__image--landscape"
             >
               {savedChatVisible ? (
                 <ChatSaved />
               ) : settingsVisible ? (
                 <ChatSettings />
-              ) : aspectRatio < 1.6 ? (
+              ) : (
                 <Image
                   src="/images/hero--steve-johnson-portrait.jpg"
                   alt="Generative Illustration by Steve Johnson on Unsplash"
                   width={720}
                   height={1080}
-                  priority={true}
-                />
-              ) : (
-                <Image
-                  src="/images/hero--steve-johnson-landscape.jpg"
-                  alt="Generative Illustration by Steve Johnson on Unsplash"
-                  width={900}
-                  height={600}
                   priority={true}
                 />
               )}
@@ -178,7 +163,7 @@ export default function Chat() {
               </button>
             </div>
           </section>
-          <section ref={chatPanelRef} className="chat__panel cds--col-lg-10">
+          <section ref={chatPanelRef} className="chat__panel cds--col-sm-2 cds--col-md-5 cds--col-lg-10 cds--col-xlg-10 cds--col-max-10">
             <div className="chat__panel__inner">
               <div
                 ref={chatMessagesRef}

@@ -13,11 +13,6 @@
 
   &__container {
     height: calc(100% - 5rem);
-
-    @include bp("xlarge") {
-      padding: 4rem 6rem;
-      gap: 3rem;
-    }
   }
 
   &__hero {
@@ -166,6 +161,7 @@
     position: absolute;
     bottom: 2rem;
     left: 2rem;
+    background-color: #292f47;
   }
 
   &__buttons {
@@ -177,7 +173,9 @@
 
 .chats-saved {
   padding: 2rem;
+  padding-bottom: 6rem;
   @include font-main;
+  background-color: #3f455a40;
 
   ul {
     font-size: 1rem;
