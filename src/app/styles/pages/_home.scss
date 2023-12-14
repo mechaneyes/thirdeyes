@@ -33,11 +33,11 @@ body {
     padding-top: 8vh;
 
     @include bp(medium) {
-        padding-top: 8vh;
+      padding-top: 8vh;
     }
 
     @include bp(large) {
-        padding-top: 7vh;
+      padding-top: 7vh;
     }
   }
 
@@ -56,6 +56,8 @@ body {
     &__image {
       img {
         width: 100%;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 8px 10px -6px rgba(0, 0, 0, 0.4);
       }
     }
   }
