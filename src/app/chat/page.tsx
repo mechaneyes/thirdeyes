@@ -2,13 +2,12 @@
 
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 
 import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
 
 import Header from "../_components/header";
-import ChatsSaved from "./chats-saved";
+import ChatsSaved from "./_chats-saved";
 
 export default function Chat() {
   const [aspectRatio, setAspectRatio] = useState(1);
