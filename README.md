@@ -8,13 +8,13 @@ Thirdeyes is an exploration into fine-tuning LLMs. The goal is to fine tune a mo
 
 My client works with different platforms that each have their very specific styles of presenting their information. Thirdeyes should allow the client to select a platform, then the style of an individual writer working for the client. The output will be copy written in the style of a specific individual tailored for a specific platform.
 
+<br>
+
+# Working w Large Language Models
+
 The app is currently wired up with Llama-2-13b-chat. Though I'm rapidly testing other models, so YMMV ... your model may vary. heh.
 
-### Customize models in Amazon Bedrock with your own data using fine-tuning and continued pre-training
-
-https://aws.amazon.com/blogs/aws/customize-models-in-amazon-bedrock-with-your-own-data-using-fine-tuning-and-continued-pre-training/
-
-For LLama 2 I followed the Amazon's guide. 👆
+For LLama 2 I followed the Amazon's guide, [Customize models in Amazon Bedrock with your own data using fine-tuning and continued pre-training](https://aws.amazon.com/blogs/aws/customize-models-in-amazon-bedrock-with-your-own-data-using-fine-tuning-and-continued-pre-training/).
 
 The fine-tuning job was based on a dataset provided by a client. Concurrently I'm actively exploring fine-tuning for a public version of the app using the [18,393 Pitchfork Reviews](https://www.kaggle.com/datasets/nolanbconaway/pitchfork-data) dataset on Kaggle.
 
