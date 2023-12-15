@@ -15,9 +15,15 @@
     background-color: transparent;
 
     &:hover {
-      background-color: white;
-      color: black;
+      background-color: #3f455a;
+      color: white;
     }
+  }
+
+  &--selected {
+    background-color: #3f455a;
+    // color: black;
+    // border-width: 2px;
   }
 
   &--saved-chats {
