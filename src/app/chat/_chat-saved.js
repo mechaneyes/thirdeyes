@@ -1,4 +1,19 @@
+import React, { useState, useEffect } from "react";
+
 const ChatSaved = ()=> {
+  const [savedChats, setSavedChats] = useState([]);
+ 
+  const fetchChats = async () => {
+    const response = await fetch("/api/chat-kv");
+    const data = await response.json();
+    setSavedChats(data);
+    console.log('data', data)
+  };
+
+  useEffect(() => {
+    fetchChats();
+  }, []);
+
   return (
     <div className="chats-saved">
       <ul>

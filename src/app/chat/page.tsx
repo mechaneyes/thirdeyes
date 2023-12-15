@@ -171,7 +171,9 @@ export default function Chat() {
                   setSettingsVisible(false);
                 }}
                 type="button"
-                className={`btn btn--outline-primary btn--saved-chats ${savedChatVisible ? "btn--selected" : ""}`}
+                className={`btn btn--outline-primary btn--saved-chats ${
+                  savedChatVisible ? "btn--selected" : ""
+                }`}
               >
                 Saved Chats
               </button>
@@ -181,7 +183,9 @@ export default function Chat() {
                   setSavedChatVisible(false);
                 }}
                 type="button"
-                className={`btn btn--outline-primary btn--saved-chats ${settingsVisible ? "btn--selected" : ""}`}
+                className={`btn btn--outline-primary btn--saved-chats ${
+                  settingsVisible ? "btn--selected" : ""
+                }`}
               >
                 Settings
               </button>
