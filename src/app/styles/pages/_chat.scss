@@ -40,12 +40,12 @@
 
       &--portrait {
         display: block;
-        // aspect-ratio: 720/1080;
+        aspect-ratio: 720/1080;
       }
 
       &--landscape {
         display: block;
-        // aspect-ratio: 1080/720;
+        aspect-ratio: 1080/720;
       }
     }
   }
@@ -172,6 +172,7 @@
 }
 
 .chats-saved {
+  height: 100%;
   padding: 2rem;
   padding-bottom: 6rem;
   @include font-main;

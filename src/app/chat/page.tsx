@@ -17,6 +17,7 @@ export default function Chat() {
   const [isHeightEqual, setIsHeightEqual] = useState(false);
   const [savedChatVisible, setSavedChatVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const chatMessagesRef = useRef<HTMLDivElement>(null);
@@ -100,6 +101,10 @@ export default function Chat() {
     };
   });
 
+  useEffect(() => {
+    setIsPortrait(window.innerWidth < 1312);
+  }, []);
+
   return (
     <>
       <main className="chat thirdeyes cds--grid">
@@ -110,13 +115,17 @@ export default function Chat() {
         </div>
         <div className="chat__container cds--row">
           <section className="chat__hero cds--col-sm-2 cds--col-md-3 cds--col-lg-6 cds--col-xlg-7 cds--col-max-8">
-          <div
+            <div
               className={`chat__hero__image ${
-                imageLoaded && typeof window !== 'undefined' && window.innerWidth < 1312
+                imageLoaded &&
+                typeof window !== "undefined" &&
+                window.innerWidth < 1312
                   ? "chat__hero__image--portrait"
                   : ""
               } ${
-                imageLoaded && typeof window !== 'undefined' && window.innerWidth >= 1312
+                imageLoaded &&
+                typeof window !== "undefined" &&
+                window.innerWidth >= 1312
                   ? "chat__hero__image--landscape"
                   : ""
               }`}
@@ -125,7 +134,7 @@ export default function Chat() {
                 <ChatSaved />
               ) : settingsVisible ? (
                 <ChatSettings />
-              ) : typeof window !== 'undefined' && window.innerWidth < 1312 ? (
+              ) : isPortrait ? (
                 <Image
                   src="/images/hero--steve-johnson-portrait.jpg"
                   alt="Generative Illustration by Steve Johnson on Unsplash"

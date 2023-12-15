@@ -111,6 +111,9 @@ https://github.com/carbon-design-system/carbon/tree/main/packages/layout
 # Mechaneyes Notes
 
 - Explore native Grid component v CSS classes
+- Track TS Icons issue
+  - Thursday, 14 Dec 2023 18.15.33 PM PST
+  - https://github.com/carbon-design-system/carbon/pull/14714#issuecomment-1777878629
 
 
 
