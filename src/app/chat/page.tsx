@@ -110,13 +110,13 @@ export default function Chat() {
         </div>
         <div className="chat__container cds--row">
           <section className="chat__hero cds--col-sm-2 cds--col-md-3 cds--col-lg-6 cds--col-xlg-7 cds--col-max-8">
-            <div
+          <div
               className={`chat__hero__image ${
-                imageLoaded && window.innerWidth < 1312
+                imageLoaded && typeof window !== 'undefined' && window.innerWidth < 1312
                   ? "chat__hero__image--portrait"
                   : ""
               } ${
-                imageLoaded && window.innerWidth >= 1312
+                imageLoaded && typeof window !== 'undefined' && window.innerWidth >= 1312
                   ? "chat__hero__image--landscape"
                   : ""
               }`}
@@ -125,7 +125,7 @@ export default function Chat() {
                 <ChatSaved />
               ) : settingsVisible ? (
                 <ChatSettings />
-              ) : window.innerWidth < 1312 ? (
+              ) : typeof window !== 'undefined' && window.innerWidth < 1312 ? (
                 <Image
                   src="/images/hero--steve-johnson-portrait.jpg"
                   alt="Generative Illustration by Steve Johnson on Unsplash"
