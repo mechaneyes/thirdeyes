@@ -1,39 +1,66 @@
-import {
-    BedrockRuntimeClient,
-    InvokeModelWithResponseStreamCommand,
-  } from '@aws-sdk/client-bedrock-runtime';
-  import { AWSBedrockLlama2Stream, StreamingTextResponse } from 'ai';
-  import { experimental_buildLlama2Prompt } from 'ai/prompts';
-   
-  export async function POST(req: Request) {
-    // Extract the `prompt` from the body of the request
-    const { messages } = await req.json();
-   
-    const bedrockClient = new BedrockRuntimeClient({
-      region: process.env.AWS_REGION ?? '',
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? '',
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? '',
-      },
-    });
-   
-    // Ask Claude for a streaming chat completion given the prompt
-    const bedrockResponse = await bedrockClient.send(
-      new InvokeModelWithResponseStreamCommand({
-        modelId: 'meta.llama2-13b-chat-v1',
-        // modelId: 'arn:aws:bedrock:us-east-1:923157297013:custom-model/meta.llama2-13b-v1:0:4k/qdllw9a421u9',
-        contentType: 'application/json',
-        accept: 'application/json',
-        body: JSON.stringify({
-          prompt: experimental_buildLlama2Prompt(messages),
-          max_gen_len: 1000,
-        }),
-      }),
-    );
-   
-    // Convert the response into a friendly text-stream
-    const stream = AWSBedrockLlama2Stream(bedrockResponse);
-   
-    // Respond with the stream
-    return new StreamingTextResponse(stream);
+// import { kv } from "@vercel/kv";
+import { OpenAIStream, StreamingTextResponse } from "ai";
+import OpenAI from "openai";
+
+// import { auth } from "@/auth";
+// import { nanoid } from "@/lib/utils";
+
+export const runtime = "edge";
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+export async function POST(req: Request) {
+  const json = await req.json();
+  const { messages, previewToken } = json;
+  // const userId = (await auth())?.user.id;
+
+  // if (!userId) {
+  //   return new Response("Unauthorized", {
+  //     status: 401,
+  //   });
+  // }
+
+  if (previewToken) {
+    openai.apiKey = previewToken;
   }
+
+  const res = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages,
+    temperature: 0.7,
+    stream: true,
+  });
+
+  const stream = OpenAIStream(res, {
+    async onCompletion(completion) {
+      const title = json.messages[0].content.substring(0, 100);
+      // const id = json.id ?? nanoid();
+      const id = json.id;
+      const createdAt = Date.now();
+      const path = `/chat/${id}`;
+      // const payload = {
+      //   id,
+      //   title,
+      //   userId,
+      //   createdAt,
+      //   path,
+      //   messages: [
+      //     ...messages,
+      //     {
+      //       content: completion,
+      //       role: "assistant",
+      //     },
+      //   ],
+      // };
+      // await kv.hmset(`chat:${id}`, payload);
+      // await kv.zadd(`user:chat:${userId}`, {
+      //   score: createdAt,
+      //   member: `chat:${id}`,
+      // });
+    },
+  });
+
+  return new StreamingTextResponse(stream);
+}
