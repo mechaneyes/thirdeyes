@@ -3,7 +3,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 import OpenAI from "openai";
 
 // import { auth } from "@/auth";
-import { nanoid } from "../../lib/utils";
+import { nanoid } from "../../../../lib/utils";
 
 export const runtime = "edge";
 
@@ -27,7 +27,8 @@ export async function POST(req: Request) {
   }
 
   const res = await openai.chat.completions.create({
-    model: "gpt-4-1106-preview",
+    // model: "gpt-4-1106-preview",
+    model: "ft:gpt-3.5-turbo-1106:mechaneyes::8WAwG0sF",
     messages,
     temperature: 0.7,
     stream: true,

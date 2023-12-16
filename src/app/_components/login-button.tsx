@@ -3,7 +3,7 @@
 import * as React from "react";
 import { signIn } from "next-auth/react";
 
-import { cn } from "../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Button, type ButtonProps } from "./button";
 import { IconGitHub, IconSpinner } from "./icons";
 
