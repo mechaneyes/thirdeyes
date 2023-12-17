@@ -1,6 +1,10 @@
 import React from "react";
 import type { Metadata } from "next";
 import Provider from "@/app/_context/client-provider";
+import { ApolloProvider } from "@apollo/client";
+import apolloClient from "../../lib/apollo";
+import { ApolloWrapper } from "../../lib/apollo-wrapper";
+
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -27,7 +31,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <UserProvider>{children}</UserProvider>
+        {/* <ApolloProvider client={apolloClient}> */}
+          <ApolloWrapper>
+            {/* <UserProvider>{children}</UserProvider> */}
+            {children}
+          </ApolloWrapper>
+        {/* </ApolloProvider> */}
       </body>
     </html>
   );
