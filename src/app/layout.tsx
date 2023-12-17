@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Provider from "@/app/_context/client-provider";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Inter } from "next/font/google";
@@ -26,9 +27,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider session={session}>
-          {children && React.cloneElement(children, pageProps)}
-        </Provider>
+        <UserProvider>{children}</UserProvider>
       </body>
     </html>
   );
