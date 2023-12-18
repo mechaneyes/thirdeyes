@@ -1,12 +1,12 @@
 "use client";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
+import React from "react";
+import { SignupButton } from "../../buttons/signup-button";
+import { LoginButton } from "../../buttons/login-button";
+import { LogoutButton } from "../../buttons/logout-button";
 
-import { SignupButton } from "../_components/buttons/signup-button";
-import { LoginButton } from "../_components/buttons/login-button";
-import { LogoutButton } from "../_components/buttons/logout-button";
-
-const Profile = () => {
+export const NavBarButtons = () => {
   const { user } = useUser();
 
   return (
@@ -25,5 +25,3 @@ const Profile = () => {
     </div>
   );
 };
-
-export default Profile;

@@ -30,7 +30,6 @@
     "graphql": "^16.8.1",
     "graphql-yoga": "^5.0.2",
     "next": "14.0.4",
-    "next-auth": "^4.24.5",
     "nodemailer": "^6.9.7",
     "openai": "^4.22.0",
     "react": "^18",
