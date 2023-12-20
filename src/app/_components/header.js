@@ -3,7 +3,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 const Header = () => {
   const { user } = useUser();
-  console.log(user);
+
   return (
     <header>
       <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
