@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import Header from "./_components/header";
 
-export default function Chat() {
+export default function Home() {
   return (
     <>
       <main className="home thirdeyes">
