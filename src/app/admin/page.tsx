@@ -49,7 +49,7 @@ const Admin = () => {
     onCompleted: () => reset(),
   });
 
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     const { title, url, category, description } = data;
     const imageUrl = `https://via.placeholder.com/300`;
     const variables = { title, url, category, description, imageUrl };
