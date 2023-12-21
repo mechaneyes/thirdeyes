@@ -97,7 +97,7 @@ const Profile = () => {
   }, [users]);
 
   return (
-    <main className="home thirdeyes">
+    <main className="profile thirdeyes">
       <Header />
       <Image
         src="/images/home--jorik-kleen.jpg"

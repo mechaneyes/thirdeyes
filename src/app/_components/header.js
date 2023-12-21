@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 const Header = () => {
@@ -13,24 +14,24 @@ const Header = () => {
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
           {user ? (
             <div className="flex items-center space-x-5">
-              <Link
-                href="/api/auth/logout"
-                className="inline-flex items-center text-black bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
-              >
-                Logout
+              <Link href="/api/auth/logout">
+                <button type="button" className="btn btn--outline-primary btn--login-logout">
+                  Logout
+                </button>
               </Link>
-              <img
-                alt="profile"
-                className="rounded-full w-12 h-12"
+              <Image
                 src={user.picture ? user.picture : ""}
+                className="rounded-full w-12 h-12"
+                alt="User Profile Picture"
+                width={48}
+                height={48}
               />
             </div>
           ) : (
-            <Link
-              href="/api/auth/login"
-              className="inline-flex items-center text-black bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
-            >
-              Login
+            <Link href="/api/auth/login">
+              <button type="button" className="btn btn--outline-primary btn--login-logout">
+                Login
+              </button>
             </Link>
           )}
         </nav>
