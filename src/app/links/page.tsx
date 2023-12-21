@@ -7,7 +7,7 @@ import { gql, useQuery } from "@apollo/client";
 // import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import type { Link } from "@prisma/client";
 
-import Header from "../_components/header";
+import Header from "../_components/Header";
 
 const AllLinksQuery = gql`
   query {

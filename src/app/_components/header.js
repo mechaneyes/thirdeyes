@@ -6,7 +6,7 @@ const Header = () => {
 
   return (
     <header>
-      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <div className="header container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <Link href="/">
           <h1>Thirdeyes</h1>
         </Link>

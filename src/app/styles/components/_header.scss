@@ -9,4 +9,12 @@ h1 {
 
 header {
   z-index: 1;
+
+  .container {
+    max-width: none;
+  }
+
+  .p-5 {
+    padding: 0;
+  }
 }

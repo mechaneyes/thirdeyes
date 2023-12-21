@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Header from "./_components/header";
+import Header from "./_components/Header";
 
 export default function Home() {
   return (
@@ -17,9 +17,7 @@ export default function Home() {
               <h3>An account of people who are lost in music</h3>
               <p>
                 Detroit techno’s twin poles of mind-bending futurism and
-                roof-raising melodicism come together in Octave One. The group
-                is a family affair, with brothers Lenny and Lawrence Burden
-                occasionally assisted by siblings Lynell, Lorne, and Lance.
+                roof-raising melodicism come together in Octave One.
               </p>
               <Link href="/chat">
                 <button type="button" className="btn btn--outline-primary">
