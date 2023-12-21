@@ -122,7 +122,12 @@ https://github.com/carbon-design-system/carbon/tree/main/packages/layout
 # Construction Soundtrack
 
 ### Lora - Robag's Fandara Qualv NB
-https://open.spotify.com/track/7MeqyBDAMU218wNmYSG1ei?si=1f6303ff55f643a2
+[Spotify](https://open.spotify.com/track/7MeqyBDAMU218wNmYSG1ei?si=1f6303ff55f643a2)
 
 ### Max Cooper - Live at the Barbican (Yearning for the Infinite)
-https://www.youtube.com/watch?v=owdva7V2M0o&t=1121
+[YouTube](https://www.youtube.com/watch?v=owdva7V2M0o&t=1121)
+
+### The Upper Cuts (2023 Edition)
+by Alan Braxe, Fred Falke & Friends  
+[Bandcamp](https://alanbraxe.bandcamp.com/album/the-upper-cuts-2023-edition)  
+[Spotify](https://open.spotify.com/album/0TeXdrfFO67UgPpj1mMUAM?si=ugtAnrKZT42zYmmLNOgprQ)

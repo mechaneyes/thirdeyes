@@ -1,43 +1,104 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import useSWR from 'swr'
 import Link from "next/link";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../lib/prisma";
 
-import { createUser } from "../../lib/create-user";
 import { SignupButton } from "../_components/buttons/signup-button";
 import { LoginButton } from "../_components/buttons/login-button";
 import { LogoutButton } from "../_components/buttons/logout-button";
 
+interface User {
+  email: string;
+  image: string;
+}
+
 const Profile = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [hasCreatedUser, setHasCreatedUser] = useState(false);
   const { user } = useUser();
 
-  user && console.log("user.email", user.email);
-
+  // get all users from db
+  // 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await fetch('/api/user');
+      const response = await fetch("/api/user");
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const usersData = await response.json();
-      setUsers(usersData);
+      setUsers(usersData.users);
     };
 
-    fetchUsers().catch(error => console.error(error));
+    fetchUsers().catch((error) => console.error(error));
   }, []);
 
-  useEffect(() => {
-    console.log('users', users);
-  }, [users]);
+  // if loggedInUser.email is not in db, build
+  // userToCreate object and create a new user
+  //
+  const checkUser = () => {
+    if (user) {
+      const loggedInUser: any = user;
 
+      const userToCreate = {
+        email: loggedInUser.email,
+        image: loggedInUser.picture,
+      };
+
+      // const testUser = {
+      //   email: "11@beep.beep"
+      // }
+
+      const userExists = users.find(
+        (user) => user.email === loggedInUser.email
+        // (user) => user.email === testUser.email
+      );
+      if (userExists) {
+        console.log("userExists", userExists);
+        return;
+      }
+
+      if (!userExists && !hasCreatedUser) {
+        // console.log("userToCreate", userToCreate);
+        createUser(userToCreate);
+        setHasCreatedUser(true);
+      }
+    }
+  };
+
+  const createUser = async (userToCreate: {
+    email: string;
+    image?: string;
+  }) => {
+    try {
+      const response = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userToCreate),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Oh Noe! HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("user created", data);
+
+    } catch (error) {
+      console.error("Oh Noe! An error occurred:", error);
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [users]);
 
   return (
     <div className="nav-bar__buttons">
