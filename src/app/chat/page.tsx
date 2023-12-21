@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
 
-import Header from "../_components/Header";
+import Header from "../components/Header";
 import ChatSaved from "./_chat-saved";
 import ChatSettings from "./_chat-settings";
 
