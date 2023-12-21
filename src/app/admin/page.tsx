@@ -1,72 +1,72 @@
-import { type SubmitHandler, useForm } from "react-hook-form";
-import { gql, useMutation } from "@apollo/client";
-import toast, { Toaster } from "react-hot-toast";
-import { getSession } from "@auth0/nextjs-auth0";
-import prisma from "../../lib/prisma";
-import type { GetServerSideProps } from "next";
+// import { type SubmitHandler, useForm } from "react-hook-form";
+// import { gql, useMutation } from "@apollo/client";
+// import toast, { Toaster } from "react-hot-toast";
+// import { getSession } from "@auth0/nextjs-auth0";
+// import prisma from "../../lib/prisma";
+// import type { GetServerSideProps } from "next";
 
-type FormValues = {
-  title: string;
-  url: string;
-  category: string;
-  description: string;
-  image: FileList;
-};
+// type FormValues = {
+//   title: string;
+//   url: string;
+//   category: string;
+//   description: string;
+//   image: FileList;
+// };
 
-const CreateLinkMutation = gql`
-  mutation createLink(
-    $title: String!
-    $url: String!
-    $imageUrl: String!
-    $category: String!
-    $description: String!
-  ) {
-    createLink(
-      title: $title
-      url: $url
-      imageUrl: $imageUrl
-      category: $category
-      description: $description
-    ) {
-      title
-      url
-      imageUrl
-      category
-      description
-    }
-  }
-`;
+// const CreateLinkMutation = gql`
+//   mutation createLink(
+//     $title: String!
+//     $url: String!
+//     $imageUrl: String!
+//     $category: String!
+//     $description: String!
+//   ) {
+//     createLink(
+//       title: $title
+//       url: $url
+//       imageUrl: $imageUrl
+//       category: $category
+//       description: $description
+//     ) {
+//       title
+//       url
+//       imageUrl
+//       category
+//       description
+//     }
+//   }
+// `;
 
 const Admin = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormValues>();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  //   reset,
+  // } = useForm<FormValues>();
 
-  const [createLink, { loading, error }] = useMutation(CreateLinkMutation, {
-    onCompleted: () => reset(),
-  });
+  // const [createLink, { loading, error }] = useMutation(CreateLinkMutation, {
+  //   onCompleted: () => reset(),
+  // });
 
-const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    const { title, url, category, description } = data;
-    const imageUrl = `https://via.placeholder.com/300`;
-    const variables = { title, url, category, description, imageUrl };
-    try {
-      toast.promise(createLink({ variables }), {
-        loading: "Creating new link..",
-        success: "Link successfully created!🎉",
-        error: `Something went wrong 😥 Please try again -  ${error}`,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const onSubmit: SubmitHandler<FormValues> = async (data) => {
+  //   const { title, url, category, description } = data;
+  //   const imageUrl = `https://via.placeholder.com/300`;
+  //   const variables = { title, url, category, description, imageUrl };
+  //   try {
+  //     toast.promise(createLink({ variables }), {
+  //       loading: "Creating new link..",
+  //       success: "Link successfully created!🎉",
+  //       error: `Something went wrong 😥 Please try again -  ${error}`,
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div className="container mx-auto max-w-md py-12">
-      <Toaster />
+      {/* <Toaster />
       <h1 className="text-3xl font-medium my-5">Create a new link</h1>
       <form
         className="grid grid-cols-1 gap-y-6 shadow-lg p-8 rounded-lg"
@@ -134,7 +134,7 @@ const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
             <span>Create Link</span>
           )}
         </button>
-      </form>
+      </form> */}
     </div>
   );
 };

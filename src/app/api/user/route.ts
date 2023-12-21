@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import prisma from "../../../lib/prisma";
 
 type User = {
@@ -21,7 +21,7 @@ export async function GET() {
   return Response.json({ users });
 }
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest, res: NextApiResponse) {
   let passedValue = await new Response(req.body).text();
   let valueToJson = JSON.parse(passedValue);
 

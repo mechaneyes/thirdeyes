@@ -59,7 +59,7 @@ builder.mutationField("createLink", (t) =>
         throw new Error("You have to be logged in to perform this action");
       }
 
-      return prisma.link.create({
+      const link = await prisma.link.create({
         ...query,
         data: {
           title,
@@ -69,6 +69,8 @@ builder.mutationField("createLink", (t) =>
           category,
         },
       });
+
+      return [link];
     },
   })
 );
