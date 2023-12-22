@@ -18,4 +18,5 @@ body {
   position: relative;
   height: 100%;
   padding: 2rem;
+  @include font-main;
 }
