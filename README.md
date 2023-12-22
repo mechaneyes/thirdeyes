@@ -60,9 +60,9 @@ https://carbondesignsystem.com/developing/react-tutorial/step-2#add-landing-page
 The CSS Grid is a 16 column grid. We will specify the span of a `<Column>` using the sm, md, and lg props. For example, `<Column sm={2} md={8} lg={8}/>` means the column will span 2/4 columns at the small breakpoint, 8/8 columns at the medium breakpoint, 8/16 columns at the large breakpoint.
 
 
-## Brekpoints
+## Breakpoints
 
-I had to hunt for them ... Better sense in the making
+I had to hunt for them ... here for reference
 
 ```scss
 $grid-breakpoints: (
@@ -131,3 +131,6 @@ https://github.com/carbon-design-system/carbon/tree/main/packages/layout
 by Alan Braxe, Fred Falke & Friends  
 [Bandcamp](https://alanbraxe.bandcamp.com/album/the-upper-cuts-2023-edition)  
 [Spotify](https://open.spotify.com/album/0TeXdrfFO67UgPpj1mMUAM?si=ugtAnrKZT42zYmmLNOgprQ)
+
+### House of Others #045 | BOO LEAN | In My House
+[Soundcloud](https://soundcloud.com/otherstothefront/house-of-others-045)

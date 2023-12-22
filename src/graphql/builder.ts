@@ -2,7 +2,7 @@ import SchemaBuilder from "@pothos/core";
 import PrismaPlugin from '@pothos/plugin-prisma';
 // @ts-ignore
 import type PrismaTypes from '@pothos/plugin-prisma/generated';
-import prisma from "../lib/prisma";
+import prisma from "@/lib/prisma";
 import { createContext } from './context'
 
 export const builder = new SchemaBuilder<{

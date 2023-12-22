@@ -14,8 +14,20 @@ const Header = () => {
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
           {user ? (
             <div className="flex items-center space-x-5">
+              {user && (
+                <Link href="/admin">
+                  <button
+                    type="button"
+                    className="btn btn--outline-primary btn--login-logout"
+                  >Create
+                  </button>
+                </Link>
+              )}
               <Link href="/api/auth/logout">
-                <button type="button" className="btn btn--outline-primary btn--login-logout">
+                <button
+                  type="button"
+                  className="btn btn--outline-primary btn--login-logout"
+                >
                   Logout
                 </button>
               </Link>
@@ -29,7 +41,10 @@ const Header = () => {
             </div>
           ) : (
             <Link href="/api/auth/login">
-              <button type="button" className="btn btn--outline-primary btn--login-logout">
+              <button
+                type="button"
+                className="btn btn--outline-primary btn--login-logout"
+              >
                 Login
               </button>
             </Link>

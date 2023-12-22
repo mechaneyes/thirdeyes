@@ -1,82 +1,81 @@
-// import { type SubmitHandler, useForm } from "react-hook-form";
-// import { gql, useMutation } from "@apollo/client";
-// import toast, { Toaster } from "react-hot-toast";
-// import { getSession } from "@auth0/nextjs-auth0";
-// import prisma from "../../lib/prisma";
-// import type { GetServerSideProps } from "next";
+"use client"
 
-// type FormValues = {
-//   title: string;
-//   url: string;
-//   category: string;
-//   description: string;
-//   image: FileList;
-// };
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { type SubmitHandler, useForm } from 'react-hook-form'
+import { gql, useMutation } from '@apollo/client'
+import toast, { Toaster } from 'react-hot-toast'
+import { useUser } from '@auth0/nextjs-auth0/client';
+import prisma from '@/lib/prisma'
 
-// const CreateLinkMutation = gql`
-//   mutation createLink(
-//     $title: String!
-//     $url: String!
-//     $imageUrl: String!
-//     $category: String!
-//     $description: String!
-//   ) {
-//     createLink(
-//       title: $title
-//       url: $url
-//       imageUrl: $imageUrl
-//       category: $category
-//       description: $description
-//     ) {
-//       title
-//       url
-//       imageUrl
-//       category
-//       description
-//     }
-//   }
-// `;
+type FormValues = {
+  title: string;
+  url: string;
+  category: string;
+  description: string;
+  image: FileList;
+}
+
+const CreateLinkMutation = gql`
+  mutation createLink($title: String!, $url: String!, $imageUrl: String!, $category: String!, $description: String!) {
+    createLink(title: $title, url: $url, imageUrl: $imageUrl, category: $category, description: $description) {
+      title
+      url
+      imageUrl
+      category
+      description
+    }
+  }
+`
 
 const Admin = () => {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  //   reset,
-  // } = useForm<FormValues>();
+  const { user, isLoading } = useUser();
+  const router = useRouter()
 
-  // const [createLink, { loading, error }] = useMutation(CreateLinkMutation, {
-  //   onCompleted: () => reset(),
-  // });
+  useEffect(() => {
+    // If not loading and no user, redirect to the login page
+    if (!isLoading && !user) {
+      router.push('/api/auth/login')
+    }
+  }, [user, isLoading, router])
 
-  // const onSubmit: SubmitHandler<FormValues> = async (data) => {
-  //   const { title, url, category, description } = data;
-  //   const imageUrl = `https://via.placeholder.com/300`;
-  //   const variables = { title, url, category, description, imageUrl };
-  //   try {
-  //     toast.promise(createLink({ variables }), {
-  //       loading: "Creating new link..",
-  //       success: "Link successfully created!🎉",
-  //       error: `Something went wrong 😥 Please try again -  ${error}`,
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormValues>()
+
+  const [createLink, { loading, error }] = useMutation(CreateLinkMutation, {
+    onCompleted: () => reset()
+  })
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const { title, url, category, description } = data
+    const imageUrl = `https://via.placeholder.com/300`
+    const variables = { title, url, category, description, imageUrl }
+    try {
+      toast.promise(createLink({ variables }), {
+        loading: 'Creating new link..',
+        success: 'Link successfully created!🎉',
+        error: `Something went wrong 😥 Please try again -  ${error}`,
+      })
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div className="container mx-auto max-w-md py-12">
-      {/* <Toaster />
+      <Toaster />
       <h1 className="text-3xl font-medium my-5">Create a new link</h1>
-      <form
-        className="grid grid-cols-1 gap-y-6 shadow-lg p-8 rounded-lg"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="grid grid-cols-1 gap-y-6 shadow-lg p-8 rounded-lg" onSubmit={handleSubmit(onSubmit)}>
         <label className="block">
           <span className="text-gray-700">Title</span>
           <input
             placeholder="Title"
-            {...register("title", { required: true })}
+            {...register('title', { required: true })}
             name="title"
             type="text"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -86,7 +85,7 @@ const Admin = () => {
           <span className="text-gray-700">Description</span>
           <input
             placeholder="Description"
-            {...register("description", { required: true })}
+            {...register('description', { required: true })}
             name="description"
             type="text"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -96,7 +95,7 @@ const Admin = () => {
           <span className="text-gray-700">Url</span>
           <input
             placeholder="https://example.com"
-            {...register("url", { required: true })}
+            {...register('url', { required: true })}
             name="url"
             type="text"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -106,7 +105,7 @@ const Admin = () => {
           <span className="text-gray-700">Category</span>
           <input
             placeholder="Name"
-            {...register("category", { required: true })}
+            {...register('category', { required: true })}
             name="category"
             type="text"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -134,12 +133,12 @@ const Admin = () => {
             <span>Create Link</span>
           )}
         </button>
-      </form> */}
+      </form>
     </div>
-  );
-};
+  )
+}
 
-export default Admin;
+export default Admin
 
 // export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 //   const session = await getSession(req, res);
@@ -148,13 +147,13 @@ export default Admin;
 //     return {
 //       redirect: {
 //         permanent: false,
-//         destination: "/api/auth/login",
+//         destination: '/api/auth/login',
 //       },
 //       props: {},
-//     };
+//     }
 //   }
 
 //   return {
 //     props: {},
 //   };
-// };
+// }

@@ -2,9 +2,9 @@
 
 import { useUser } from "@auth0/nextjs-auth0/client";
 import React from "react";
-import { SignupButton } from "../../buttons/signup-button";
-import { LoginButton } from "../../buttons/login-button";
-import { LogoutButton } from "../../buttons/logout-button";
+import { SignupButton } from "@/app/components/buttons/signup-button";
+import { LoginButton } from "@/app/components/buttons/login-button";
+import { LogoutButton } from "@/app/components/buttons/logout-button";
 
 export const NavBarButtons = () => {
   const { user } = useUser();

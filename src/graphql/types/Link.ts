@@ -1,5 +1,5 @@
-import prisma from "../../lib/prisma";
-import { builder } from "../builder";
+import prisma from "@/lib/prisma";
+import { builder } from "@/graphql/builder";
 
 // builder.prismaObject("Link", {
 //   fields: (t) => ({
@@ -44,7 +44,7 @@ builder.queryField("links", (t) =>
 
 builder.mutationField("createLink", (t) =>
   t.prismaField({
-    type: "Link",
+    type: ["Link"],
     args: {
       title: t.arg.string({ required: true }),
       description: t.arg.string({ required: true }),
@@ -54,11 +54,11 @@ builder.mutationField("createLink", (t) =>
     },
     resolve: async (query, _parent, args, ctx) => {
       const { title, description, url, imageUrl, category } = args;
-
+    
       if (!(await ctx).user) {
         throw new Error("You have to be logged in to perform this action");
       }
-
+    
       const link = await prisma.link.create({
         ...query,
         data: {
@@ -69,8 +69,8 @@ builder.mutationField("createLink", (t) =>
           category,
         },
       });
-
-      return [link];
+    
+      return [link]; // return created Link object inside an array
     },
   })
 );

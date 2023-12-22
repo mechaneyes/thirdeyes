@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 // import Provider from "@/app/_context/client-provider";
 // import { ApolloProvider } from "@apollo/client";
 // import apolloClient from "../lib/apollo";
-import { ApolloWrapper } from "../lib/apollo-wrapper";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { Inter } from "next/font/google";
+import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import "./globals.css";
 import "./styles/styles.scss";
 

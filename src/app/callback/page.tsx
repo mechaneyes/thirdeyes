@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-import Header from "../components/Header";
+import Header from "@/app/components/Header";
 
 interface User {
   email: string;
