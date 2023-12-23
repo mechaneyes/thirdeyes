@@ -30,8 +30,7 @@
       margin-bottom: 1rem;
       border: 1px solid #868da3;
       border-radius: 47px 0 47px 0;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-        0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      box-shadow: 4px 20px 25px -5px rgba(0, 0, 0, 0.15);
       overflow: hidden;
 
       img {
@@ -62,8 +61,7 @@
       border: 1px solid #868da3;
       border-radius: 47px 0 47px 0;
       background-color: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-        0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      box-shadow: 4px 20px 25px -5px rgba(0, 0, 0, 0.15);
     }
   }
 
@@ -135,8 +133,7 @@
       padding: 0.5rem 1rem;
       @include font-main;
       font-weight: 300;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-        0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      box-shadow: 4px 20px 25px -5px rgba(0, 0, 0, 0.15);
       border-width: 1px;
       border-radius: 1rem 0;
       border-color: #868da3;

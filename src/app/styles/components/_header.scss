@@ -21,4 +21,8 @@ header {
   nav {
     @include font-main;
   }
+
+  img {
+    box-shadow: 4px 20px 25px -5px rgba(0, 0, 0, 0.15);
+  }
 }

@@ -134,3 +134,9 @@ by Alan Braxe, Fred Falke & Friends
 
 ### House of Others #045 | BOO LEAN | In My House
 [Soundcloud](https://soundcloud.com/otherstothefront/house-of-others-045)
+
+### Orbital: Farenheit 303
+[Spotify](https://open.spotify.com/track/664NRJCZCorDlsWWaBkhcd?si=5a037221518b49fb)
+
+### Pangea - Changing Channels
+[Spotify](https://open.spotify.com/album/3bKp9TUgbHGhfRBsTQTAxS?si=9GTEkKkaS0a34KraBaAewQ)

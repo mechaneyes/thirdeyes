@@ -13,7 +13,7 @@ const Header = () => {
         </Link>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
           {user ? (
-            <div className="flex items-center space-x-5">
+            <div className="flex items-center space-x-4">
               {user && (
                 <Link href="/admin">
                   <button
