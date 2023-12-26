@@ -9,6 +9,7 @@ import { Upload } from "@carbon/icons-react";
 import Header from "@/app/components/Header";
 import ChatSaved from "./_chat-saved";
 import ChatSettings from "./_chat-settings";
+import { PrimaryButton } from "@/app/components/buttons/primary-button";
 
 export default function Chat() {
   const [aspectRatio, setAspectRatio] = useState(1);
@@ -108,10 +109,8 @@ export default function Chat() {
   return (
     <>
       <main className="chat thirdeyes cds--grid">
-        <div className="chat__header cds--row">
-          <div className="chat__header__inner cds--col-sm-2 cds--col-md-16 cds--col-lg-16 cds--col-xlg-16 cds--col-max-16">
-            <Header />
-          </div>
+        <div className="cds--row">
+          <Header />
         </div>
         <div className="chat__container cds--row">
           <section className="chat__hero cds--col-sm-2 cds--col-md-3 cds--col-lg-6 cds--col-xlg-7 cds--col-max-8">
@@ -136,18 +135,18 @@ export default function Chat() {
                 <ChatSettings />
               ) : isPortrait ? (
                 <Image
-                  src="/images/hero--steve-johnson-portrait.jpg"
+                  src="/images/hero--whirli-hero.png"
                   alt="Generative Illustration by Steve Johnson on Unsplash"
-                  width={720}
+                  width={1080}
                   height={1080}
                   priority={true}
                 />
               ) : (
                 <Image
-                  src="/images/hero--steve-johnson-landscape.jpg"
+                  src="/images/hero--whirli-hero.png"
                   alt="Generative Illustration by Steve Johnson on Unsplash"
-                  width={900}
-                  height={600}
+                  width={1080}
+                  height={1080}
                   priority={true}
                 />
               )}
@@ -165,30 +164,24 @@ export default function Chat() {
               )}
             </div>
             <div className="chat__buttons">
-              <button
-                onClick={() => {
-                  setSavedChatVisible(true);
-                  setSettingsVisible(false);
-                }}
-                type="button"
-                className={`btn btn--outline-primary btn--saved-chats ${
-                  savedChatVisible ? "btn--selected" : ""
-                }`}
-              >
-                Saved Chats
-              </button>
-              <button
+              <PrimaryButton
                 onClick={() => {
                   setSettingsVisible(true);
                   setSavedChatVisible(false);
                 }}
-                type="button"
-                className={`btn btn--outline-primary btn--saved-chats ${
-                  settingsVisible ? "btn--selected" : ""
+                name="Saved Chats"
+                classes={`btn--saved-chats ${
+                  savedChatVisible ? "btn--selected" : ""
                 }`}
-              >
-                Settings
-              </button>
+              />
+              <PrimaryButton
+                onClick={() => {
+                  setSettingsVisible(true);
+                  setSavedChatVisible(false);
+                }}
+                name="Settings"
+                classes="btn--saved-chats"
+              />
             </div>
           </section>
           <section

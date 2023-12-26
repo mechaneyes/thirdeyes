@@ -140,3 +140,6 @@ by Alan Braxe, Fred Falke & Friends
 
 ### Pangea - Changing Channels
 [Spotify](https://open.spotify.com/album/3bKp9TUgbHGhfRBsTQTAxS?si=9GTEkKkaS0a34KraBaAewQ)
+
+### 20 Years of Phonica
+[Spotify](https://open.spotify.com/playlist/45dNdBTDF1d80yCowFsAkI?si=508d90f401e04731)

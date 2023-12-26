@@ -1,6 +1,7 @@
 .chat {
   &.thirdeyes {
     // height: calc(100% - 5rem);
+    max-width: 1400px;
   }
 
   * {
@@ -28,9 +29,10 @@
       width: 100%;
       max-height: 70vh;
       margin-bottom: 1rem;
-      border: 1px solid #868da3;
+      border: $borders;
       border-radius: 47px 0 47px 0;
-      box-shadow: 4px 20px 25px -5px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(180deg, #0E4274 4.95%, rgba(23, 48, 72, 0.00) 100%);
+      box-shadow: $boxshadow-heavy;
       overflow: hidden;
 
       img {
@@ -38,13 +40,30 @@
       }
 
       &--portrait {
+        position: relative;
         display: block;
         aspect-ratio: 720/1080;
+
+        img {
+          position: absolute;
+          top: 10%;
+          right: -8.5%;
+          width: 180%;
+          max-width: none;
+        }
       }
 
       &--landscape {
         display: block;
         aspect-ratio: 1080/720;
+
+        img {
+          position: absolute;
+          top: 0;
+          right: 2%;
+          width: 120%;
+          max-width: none;
+        }
       }
     }
   }
@@ -58,10 +77,10 @@
       display: grid;
       grid-template-rows: 1fr 7rem;
       height: 100%;
-      border: 1px solid #868da3;
+      border: $borders;
       border-radius: 47px 0 47px 0;
-      background-color: rgba(255, 255, 255, 0.1);
-      box-shadow: 4px 20px 25px -5px rgba(0, 0, 0, 0.15);
+      background-color: #1D3D5C;
+      box-shadow: $boxshadow-heavy;
     }
   }
 
@@ -76,7 +95,7 @@
     @include font-main;
     font-size: 1.2rem;
     overflow-y: scroll;
-    @include scrollbars(10px, #9697f1, #41465c);
+    @include scrollbars(10px, #3f455a, #1D3D5C);
 
     &--hidden {
       display: flex;
@@ -133,7 +152,7 @@
       padding: 0.5rem 1rem;
       @include font-main;
       font-weight: 300;
-      box-shadow: 4px 20px 25px -5px rgba(0, 0, 0, 0.15);
+      box-shadow: $boxshadow-heavy;
       border-width: 1px;
       border-radius: 1rem 0;
       border-color: #868da3;

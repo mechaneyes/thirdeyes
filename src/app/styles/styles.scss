@@ -1,5 +1,6 @@
 @use "@carbon/grid";
 @import "abstracts/mixins";
+@import "abstracts/variables";
 @import "pages/chat";
 @import "pages/home";
 @import "pages/profile";
@@ -11,7 +12,7 @@
 html,
 body {
   height: 100%;
-  background: var(--BG, #292f47);
+  background: var(--BG, #1E374E);
 }
 
 .thirdeyes {
@@ -19,4 +20,10 @@ body {
   height: 100%;
   padding: 2rem;
   @include font-main;
+}
+
+.cds {
+  &--row {
+    width: 100%;
+  }
 }

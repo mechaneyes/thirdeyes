@@ -7,11 +7,11 @@ const Header = () => {
 
   return (
     <header>
-      <div className="header container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <div className="cds--col cds--col-sm-16 cds--col-md-16 cds--col-lg-16 cds--col-xlg-16 cds--col-max-16">
         <Link href="/">
           <h1>Thirdeyes</h1>
         </Link>
-        <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
+        <nav>
           {user ? (
             <div className="flex items-center space-x-4">
               {user && (
