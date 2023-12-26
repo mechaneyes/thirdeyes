@@ -32,14 +32,14 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 8vh;
+    padding-top: 2rem;
 
     @include bp(medium) {
-      padding-top: 8vh;
+      // padding-top: 8vh;
     }
 
     @include bp(large) {
-      padding-top: 7vh;
+      // padding-top: 7vh;
     }
   }
 

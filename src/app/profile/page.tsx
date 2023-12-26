@@ -97,16 +97,18 @@ const Profile = () => {
   }, [users]);
 
   return (
-    <main className="profile thirdeyes">
+    <>
       <Header />
-      <Image
-        src="/images/home--jorik-kleen.jpg"
-        alt="ALTALTALTALTALTALTALT"
-        width={1024}
-        height={768}
-        priority={true}
-      />
-    </main>
+      <main className="profile thirdeyes">
+        <Image
+          src="/images/home--jorik-kleen.jpg"
+          alt="ALTALTALTALTALTALTALT"
+          width={1024}
+          height={768}
+          priority={true}
+        />
+      </main>
+    </>
   );
 };
 

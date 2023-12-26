@@ -1,4 +1,4 @@
-@use "@carbon/grid";
+@use "carbon-components-react";
 @import "abstracts/mixins";
 @import "abstracts/variables";
 @import "pages/chat";
@@ -7,24 +7,21 @@
 @import "components/btn";
 @import "components/header";
 
-@include grid.flex-grid();
+// @include grid.flex-grid();
 
 html,
 body {
   height: 100%;
-  background: var(--BG, #1E374E);
+  background: var(--BG, #1e374e);
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .thirdeyes {
   position: relative;
   height: 100%;
-  padding: 2rem;
+  padding: 1rem;
   @include font-main;
-}
-
-.cds {
-  &--row {
-    width: 100%;
-    margin-inline: auto;
-  }
 }

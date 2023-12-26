@@ -1,6 +1,6 @@
 .chat {
   &.thirdeyes {
-    // height: calc(100% - 5rem);
+    height: calc(100% - 6rem);
     max-width: 1400px;
   }
 
@@ -19,7 +19,7 @@
   &__hero {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     position: relative;
 
@@ -30,8 +30,12 @@
       max-height: 70vh;
       margin-bottom: 1rem;
       border: $borders;
-      border-radius: 47px 0 47px 0;
-      background: linear-gradient(180deg, #0E4274 4.95%, rgba(23, 48, 72, 0.00) 100%);
+      border-radius: $border-radius-large;
+      background: linear-gradient(
+        180deg,
+        #0e4274 4.95%,
+        rgba(23, 48, 72, 0) 100%
+      );
       box-shadow: $boxshadow-heavy;
       overflow: hidden;
 
@@ -80,8 +84,8 @@
       grid-template-rows: 1fr 7rem;
       height: 100%;
       border: $borders;
-      border-radius: 47px 0 47px 0;
-      background-color: #1D3D5C;
+      border-radius: $border-radius-large;
+      background-color: #1d3d5c;
       box-shadow: $boxshadow-heavy;
     }
   }
@@ -97,7 +101,7 @@
     @include font-main;
     font-size: 1.2rem;
     overflow-y: scroll;
-    @include scrollbars(10px, #3f455a, #1D3D5C);
+    @include scrollbars(10px, #3f455a, #1d3d5c);
 
     &--hidden {
       display: flex;
@@ -155,9 +159,8 @@
       @include font-main;
       font-weight: 300;
       box-shadow: $boxshadow-heavy;
-      border-width: 1px;
+      border: $borders;
       border-radius: 1rem 0;
-      border-color: #868da3;
       background-color: rgba(55, 59, 68, 0.4);
       outline-color: #9697f1;
       outline: none;
@@ -166,8 +169,10 @@
 
     button {
       position: absolute;
-      bottom: 0.75rem;
-      right: 1rem;
+      bottom: 0.5rem;
+      right: 0.5rem;
+      border: 0;
+      background-color: transparent;
     }
 
     &__send-icon {
