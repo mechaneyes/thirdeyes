@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 
 import { useChat } from "ai/react";
+import { Grid, Column } from "@carbon/react";
 import { Upload } from "@carbon/icons-react";
 
 import Header from "@/app/components/Header";
@@ -108,12 +109,13 @@ export default function Chat() {
 
   return (
     <>
-      <main className="chat thirdeyes cds--grid">
+      {/* <main className="chat thirdeyes cds--grid"> */}
+      <Grid className="chat thirdeyes" fullWidth>
         <div className="cds--row">
           <Header />
         </div>
         <div className="chat__container cds--row">
-          <section className="chat__hero cds--col-sm-2 cds--col-md-3 cds--col-lg-6 cds--col-xlg-7 cds--col-max-8">
+          <Column max={8} xlg={7} lg={6} md={3} sm={2} className="chat__hero">
             <div
               className={`chat__hero__image ${
                 imageLoaded &&
@@ -183,10 +185,15 @@ export default function Chat() {
                 classes="btn--saved-chats"
               />
             </div>
-          </section>
-          <section
+          </Column>
+          <Column
             ref={chatPanelRef}
-            className="chat__panel cds--col-sm-2 cds--col-md-5 cds--col-lg-10 cds--col-xlg-9 cds--col-max-8"
+            max={8}
+            xlg={7}
+            lg={6}
+            md={3}
+            sm={2}
+            className="chat__panel"
           >
             <div className="chat__panel__inner">
               <div
@@ -234,9 +241,10 @@ export default function Chat() {
                 </form>
               </div>
             </div>
-          </section>
+          </Column>
         </div>
-      </main>
+        {/* </main> */}
+      </Grid>
     </>
   );
 }

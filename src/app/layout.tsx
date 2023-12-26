@@ -4,12 +4,9 @@ import type { Metadata } from "next";
 // import { ApolloProvider } from "@apollo/client";
 // import apolloClient from "../lib/apollo";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
-import { Inter } from "next/font/google";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import "./globals.css";
 import "./styles/styles.scss";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Thirdeyes",
@@ -23,7 +20,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <UserProvider>
           <ApolloWrapper>{children}</ApolloWrapper>
         </UserProvider>
