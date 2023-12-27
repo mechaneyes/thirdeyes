@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Close } from "@carbon/icons-react";
 
 export default function Modal({ classes, onClick }) {
@@ -9,10 +10,24 @@ export default function Modal({ classes, onClick }) {
         </button>
         <div className="modal__body">
           <ul>
-            <li>Login</li>
-            <li>Profile</li>
-            <li>Saved Chats</li>
-            <li>Settings</li>
+            <li>
+              <Link href="/">/ Home</Link>
+            </li>
+            <li>
+              <Link href="/chat">/ Chat</Link>
+            </li>
+            <li>
+              <Link href="/profile">/ Profile</Link>
+            </li>
+            <li>
+              <Link href="/">Saved Chats</Link>
+            </li>
+            <li>
+              <Link href="/">Settings</Link>
+            </li>
+            <li>
+              <Link href="/">Login</Link>
+            </li>
           </ul>
         </div>
       </div>

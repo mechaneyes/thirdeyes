@@ -4,6 +4,10 @@
     justify-content: flex-start;
     gap: 2rem;
 
+    @include bp("medium") {
+      padding: 0 2rem 0;
+    }
+
     img {
         width: 100%;
     }

@@ -13,6 +13,14 @@ $modal-opacity-speed: 0.2s;
     visibility 0s ease-in-out $modal-opacity-speed;
   z-index: 1;
 
+  a {
+    color: white;
+
+    &:hover {
+        color: #2fbfff;
+    }
+  }
+
   &--visible {
     opacity: 1;
     visibility: visible;
