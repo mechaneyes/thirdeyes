@@ -1,11 +1,26 @@
+$modal-opacity-speed: 0.2s;
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
+  @include font-main;
   background-color: #0000005e;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $modal-opacity-speed ease-in-out,
+    visibility 0s ease-in-out $modal-opacity-speed;
   z-index: 1;
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity $modal-opacity-speed ease-in-out;
+  }
+
+  &--chat {
+  }
 
   &__inner {
     display: block;
@@ -16,10 +31,34 @@
     width: calc(100vw - 2rem);
     height: calc(100vh - 2rem);
     margin-bottom: 1rem;
+    padding: 2rem;
     border: $borders;
     border-radius: $border-radius-large;
     background-color: #283c52;
     box-shadow: $boxshadow-heavy;
     overflow: hidden;
+  }
+
+  &__body {
+    li {
+      font-size: 1.25rem;
+      line-height: 2rem;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  svg.modal__svg {
+    fill: #2fbfff;
   }
 }

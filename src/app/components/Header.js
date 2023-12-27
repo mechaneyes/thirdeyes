@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 import Modal from "@/app/components/Modal";
-import {ButtonPrimary} from "@/app/components/buttons/ButtonPrimary"
+import { ButtonPrimary } from "@/app/components/buttons/ButtonPrimary";
 import { ButtonHamburger } from "@/app/components/buttons/ButtonHamburger";
 
 const Header = () => {
@@ -13,7 +13,10 @@ const Header = () => {
 
   return (
     <header className="header">
-      <ButtonHamburger classes="btn--header__modal" onClick={() => setIsModalOpen(!isModalOpen)} />
+      <ButtonHamburger
+        classes="btn--header__modal"
+        onClick={() => setIsModalOpen(!isModalOpen)}
+      />
 
       <Link href="/">
         <h2>Thirdeyes</h2>
@@ -53,9 +56,12 @@ const Header = () => {
           </Link>
         )}
       </nav>
-      {isModalOpen && (
-        <Modal classes="modal--chat" onClick={() => setIsModalOpen(false)} />
-      )}
+      <Modal
+        classes={`modal modal--chat ${
+          isModalOpen ? "modal--visible" : "modal--hidden"
+        }`}
+        onClick={() => setIsModalOpen(false)}
+      />
     </header>
   );
 };
