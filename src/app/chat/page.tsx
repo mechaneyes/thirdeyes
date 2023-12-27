@@ -10,7 +10,7 @@ import { Upload } from "@carbon/icons-react";
 import Header from "@/app/components/Header";
 import ChatSaved from "./_chat-saved";
 import ChatSettings from "./_chat-settings";
-import { ButtonPrimary } from "@/app/components/buttons/button-primary";
+import { ButtonPrimary } from "@app/components/buttons/ButtonPrimary";
 
 export default function Chat() {
   const [aspectRatio, setAspectRatio] = useState(1);
@@ -168,7 +168,7 @@ export default function Chat() {
               }}
               name="Saved Chats"
               classes={`btn--saved-chats ${
-                savedChatVisible ? "btn--selected" : ""
+                savedChatVisible ? "btn--disabled" : ""
               }`}
             />
             <ButtonPrimary
@@ -178,7 +178,7 @@ export default function Chat() {
               }}
               name="Settings"
               classes={`btn--saved-chats ${
-                settingsVisible ? "btn--selected" : ""
+                settingsVisible ? "btn--disabled" : ""
               }`}
             />
           </div>

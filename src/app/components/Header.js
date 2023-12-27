@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-import { ButtonPrimary } from "@/app/components/buttons/button-primary";
+import { ButtonPrimary } from "@app/components/buttons/ButtonPrimary";
 
 const Header = () => {
   const { user } = useUser();
@@ -18,7 +18,7 @@ const Header = () => {
             {user && (
               <ButtonPrimary
                 link="/admin"
-                name="Create"
+                name="Admin"
                 classes="btn--login-logout"
               />
             )}

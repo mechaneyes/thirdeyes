@@ -22,18 +22,10 @@
     }
   }
 
-  &--selected {
-    pointer-events: none;
+  &--disabled {
     color: #868da3;
     background-color: #34394c;
-  }
-
-  &--saved-chats {
-    // width: 8rem;
-  }
-
-  &--login-logout {
-    // width: auto;
-    padding: 0.25rem 1.5rem;
+    pointer-events: none;
+    user-select: none;
   }
 }
