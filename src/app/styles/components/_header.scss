@@ -13,7 +13,9 @@ header {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 2rem 2rem 0 2rem;
+  max-width: 1400px;
+  margin: auto;
+  padding: 2rem 2rem 1rem;
   z-index: 1;
 
   a {

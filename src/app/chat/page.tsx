@@ -111,7 +111,7 @@ export default function Chat() {
     <>
       <Header />
       <Grid className="thirdeyes chat">
-        <Column max={8} xlg={7} lg={6} md={3} sm={2} className="chat__hero">
+        <Column max={6} xlg={6} lg={6} md={3} sm={2} className="chat__hero">
           <div
             className={`chat__hero__image ${
               imageLoaded &&
@@ -183,17 +183,9 @@ export default function Chat() {
             />
           </div>
         </Column>
-        
-        <Column
-          ref={chatPanelRef}
-          max={8}
-          xlg={9}
-          lg={10}
-          md={5}
-          sm={2}
-          className="chat__panel"
-        >
-          <div className="chat__panel__inner">
+
+        <Column max={10} xlg={10} lg={10} md={5} sm={2} className="chat__panel">
+          <div className="chat__panel__inner" ref={chatPanelRef}>
             <div
               ref={chatMessagesRef}
               className={`${
@@ -204,7 +196,7 @@ export default function Chat() {
             >
               {!messageExists && (
                 <div className="chat__messages__intro">
-                  The quick brown fox jumps over the lazy dog
+                  Caught in a trap /No turnin' back /We're lost in music
                 </div>
               )}
               {messages.map((m) => (
