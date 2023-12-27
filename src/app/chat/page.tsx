@@ -149,36 +149,36 @@ export default function Chat() {
               />
             )}
             {(savedChatVisible || settingsVisible) && (
-              <button
+              <ButtonPrimary
                 onClick={() => {
                   setSavedChatVisible(false);
                   setSettingsVisible(false);
                 }}
-                type="button"
-                className="btn btn--outline-primary btn--chat-hero-close"
-              >
-                Close
-              </button>
+                name="Close"
+                classes="btn--chat-hero-close"
+              />
             )}
           </div>
 
           <div className="chat__buttons">
             <ButtonPrimary
               onClick={() => {
-                setSettingsVisible(true);
-                setSavedChatVisible(false);
+                setSettingsVisible(false);
+                setSavedChatVisible(true);
               }}
-              name="Settings"
-              classes="btn--saved-chats"
+              name="Saved Chats"
+              classes={`btn--saved-chats ${
+                savedChatVisible ? "btn--selected" : ""
+              }`}
             />
             <ButtonPrimary
               onClick={() => {
                 setSettingsVisible(true);
                 setSavedChatVisible(false);
               }}
-              name="Saved Chats"
+              name="Settings"
               classes={`btn--saved-chats ${
-                savedChatVisible ? "btn--selected" : ""
+                settingsVisible ? "btn--selected" : ""
               }`}
             />
           </div>
@@ -196,7 +196,7 @@ export default function Chat() {
             >
               {!messageExists && (
                 <div className="chat__messages__intro">
-                  Caught in a trap /No turnin' back /We're lost in music
+                  Caught in a trap · No turnin' back · We're lost in music
                 </div>
               )}
               {messages.map((m) => (
