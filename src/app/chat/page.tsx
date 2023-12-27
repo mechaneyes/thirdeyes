@@ -8,7 +8,6 @@ import { Grid, Column } from "@carbon/react";
 import { Upload } from "@carbon/icons-react";
 
 import Header from "@/app/components/Header";
-import Modal from "@/app/components/Modal";
 import ChatSaved from "./_chat-saved";
 import ChatSettings from "./_chat-settings";
 import { ButtonPrimary } from "@app/components/buttons/ButtonPrimary";
@@ -28,8 +27,6 @@ export default function Chat() {
   const anchorRef = useRef<HTMLDivElement>(null);
 
   const { messages, input, handleInputChange, handleSubmit } = useChat();
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     // MutationObserver run when DOM changes are made
@@ -184,7 +181,6 @@ export default function Chat() {
                 settingsVisible ? "btn--disabled" : ""
               }`}
             />
-            <ButtonPrimary onClick={() => setIsModalOpen(true)} name="Modal" />
           </div>
         </Column>
 
@@ -237,8 +233,6 @@ export default function Chat() {
           </div>
         </Column>
       </Grid>
-
-      {isModalOpen && <Modal classes="modal--chat" onClick={() => setIsModalOpen(false)} />}
     </>
   );
 }

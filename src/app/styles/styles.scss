@@ -22,6 +22,10 @@ body {
 
 .thirdeyes {
   position: relative;
-  padding: 1rem;
+  padding: 1rem 0;
   @include font-main;
+
+  @include bp("small") {
+    padding: 1rem;
+  }
 }

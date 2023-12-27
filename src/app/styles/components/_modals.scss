@@ -4,16 +4,17 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #1e374e;
+  background-color: #0000005e;
+  z-index: 1;
 
   &__inner {
     display: block;
     position: fixed;
-    top: 4rem;
-    left: 2rem;
+    top: 1rem;
+    left: 1rem;
     aspect-ratio: 8/16;
-    width: calc(100vw - 4rem);
-    height: calc(100vh - 9rem);
+    width: calc(100vw - 2rem);
+    height: calc(100vh - 2rem);
     margin-bottom: 1rem;
     border: $borders;
     border-radius: $border-radius-large;

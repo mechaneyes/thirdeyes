@@ -1,15 +1,11 @@
 .chat {
   &.thirdeyes {
-    height: calc(100vh - 6rem);
+    height: 100vh;
     max-width: 1400px;
   }
 
   @include bp("small") {
-    grid-template-rows: 1fr 1fr;
-  }
-
-  @include bp("medium") {
-    grid-template-rows: 1fr;
+    height: calc(100vh - 6rem);
   }
 
   * {
@@ -25,13 +21,17 @@
   }
 
   &__hero {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     position: relative;
     height: 100%;
     max-height: 100%;
+
+    @include bp("medium") {
+      display: flex;
+    }
 
     &__image {
       display: none;
@@ -91,7 +91,11 @@
 
   &__panel {
     position: relative;
-    height: calc(100vh - 9rem);
+    height: calc(100vh - 2rem);
+    
+    @include bp("small") {
+      height: calc(100vh - 9rem);
+    }
 
     &__inner {
       display: grid;
@@ -190,7 +194,7 @@
     }
 
     &__send-icon {
-      fill: #2FBFFF;
+      fill: #2fbfff;
     }
   }
 
@@ -207,24 +211,12 @@
     gap: 1rem;
 
     button {
-      &:nth-child(-n + 2) {
-        display: none;
-      }
-
-      &:last-child {
-        display: block;
-      }
+      display: none;
     }
 
     @include bp("medium") {
       button {
-        &:nth-child(-n + 2) {
-          display: block;
-        }
-
-        &:last-child {
-          display: none;
-        }
+        display: block;
       }
     }
   }
