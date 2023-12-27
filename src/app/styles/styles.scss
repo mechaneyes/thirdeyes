@@ -28,4 +28,8 @@ body {
   @include bp("small") {
     padding: 1rem;
   }
+
+  * {
+    box-sizing: border-box;
+  }
 }

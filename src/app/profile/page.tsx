@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { Grid, Column } from "@carbon/react";
 
 import Header from "@/app/components/Header";
 
@@ -99,15 +100,22 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <main className="profile thirdeyes">
-        <Image
-          src="/images/home--jorik-kleen.jpg"
-          alt="ALTALTALTALTALTALTALT"
-          width={1024}
-          height={768}
-          priority={true}
-        />
-      </main>
+      <Grid className="thirdeyes profile">
+        <Column
+          lg={16}
+          md={8}
+          sm={4}
+          className="profile__body"
+        >
+          <Image
+            src="/images/home--jorik-kleen.jpg"
+            alt="ALTALTALTALTALTALTALT"
+            width={1024}
+            height={768}
+            priority={true}
+          />
+        </Column>
+      </Grid>
     </>
   );
 };
