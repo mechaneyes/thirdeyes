@@ -59,7 +59,7 @@
 
     @include bp("medium") {
       justify-content: center;
-      padding-bottom: 6rem;
+      padding-bottom: 25vh;
     }
 
     &--left {
@@ -84,6 +84,15 @@
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
           0 8px 10px -6px rgba(0, 0, 0, 0.4);
         box-shadow: $boxshadow-heavy;
+        object-fit: cover;
+
+        @include bp("medium") {
+          aspect-ratio: 5 / 4;
+        }
+
+        @include bp("large") {
+          aspect-ratio: 1080 / 720;
+        }
       }
     }
   }

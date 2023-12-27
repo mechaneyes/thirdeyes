@@ -101,12 +101,7 @@ const Profile = () => {
     <>
       <Header />
       <Grid className="thirdeyes profile">
-        <Column
-          lg={16}
-          md={8}
-          sm={4}
-          className="profile__body"
-        >
+        <Column lg={16} md={8} sm={4} className="profile__body">
           <Image
             src="/images/home--jorik-kleen.jpg"
             alt="ALTALTALTALTALTALTALT"

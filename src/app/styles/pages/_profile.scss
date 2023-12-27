@@ -9,11 +9,16 @@
   }
 
   &__body {
-    height: calc(100vh - 9rem);
+    position: relative;
+    height: calc(100vh - 2rem);
     border: $borders;
     border-radius: $border-radius-large;
     box-shadow: $boxshadow-heavy;
     overflow: hidden;
+    
+    @include bp("small") {
+      height: calc(100vh - 9rem);
+    }
 
     img {
       width: 100%;
