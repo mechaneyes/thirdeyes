@@ -205,6 +205,28 @@
     display: flex;
     justify-content: flex-start;
     gap: 1rem;
+
+    button {
+      &:nth-child(-n + 2) {
+        display: none;
+      }
+
+      &:last-child {
+        display: block;
+      }
+    }
+
+    @include bp("medium") {
+      button {
+        &:nth-child(-n + 2) {
+          display: block;
+        }
+
+        &:last-child {
+          display: none;
+        }
+      }
+    }
   }
 }
 
