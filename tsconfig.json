@@ -30,7 +30,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "lib/client.js"
-  ],
+, "src/app/components/Modal.js"  ],
   "exclude": ["node_modules"],
   "ts-node": {
     "compilerOptions": {

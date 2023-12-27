@@ -4,6 +4,14 @@
     max-width: 1400px;
   }
 
+  @include bp("small") {
+    grid-template-rows: 1fr 1fr;
+  }
+
+  @include bp("medium") {
+    grid-template-rows: 1fr;
+  }
+
   * {
     box-sizing: border-box;
   }
@@ -41,21 +49,25 @@
       box-shadow: $boxshadow-heavy;
       overflow: hidden;
 
+      @include bp("medium") {
+        display: block;
+      }
+
       img {
         width: 100%;
       }
 
       &--portrait {
         position: relative;
-        display: block;
-        aspect-ratio: 720/1080;
+        // display: block;
+        aspect-ratio: 1080/769;
 
         img {
           position: absolute;
-          top: 10%;
-          right: -8.5%;
-          width: 180%;
-          height: auto;
+          top: -17%;
+          right: -21%;
+          width: 134%;
+          height: 293%;
           max-width: none;
         }
       }
@@ -178,7 +190,7 @@
     }
 
     &__send-icon {
-      fill: #868da3;
+      fill: #2FBFFF;
     }
   }
 

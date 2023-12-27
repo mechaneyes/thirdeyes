@@ -1,4 +1,5 @@
 @use "carbon-components-react";
+@import '@carbon/themes/scss/themes';
 @import "abstracts/mixins";
 @import "abstracts/variables";
 @import "abstracts/typography";
@@ -7,13 +8,12 @@
 @import "pages/profile";
 @import "components/buttons";
 @import "components/header";
-
-// @include grid.flex-grid();
+@import "components/modals";
 
 html,
 body {
   height: 100%;
-  background: var(--BG, #1e374e);
+  background: #1e374e;
 
   a {
     text-decoration: none;
@@ -22,7 +22,6 @@ body {
 
 .thirdeyes {
   position: relative;
-  // height: 100%;
   padding: 1rem;
   @include font-main;
 }

@@ -8,6 +8,7 @@ import { Grid, Column } from "@carbon/react";
 import { Upload } from "@carbon/icons-react";
 
 import Header from "@/app/components/Header";
+import Modal from "@/app/components/Modal";
 import ChatSaved from "./_chat-saved";
 import ChatSettings from "./_chat-settings";
 import { ButtonPrimary } from "@app/components/buttons/ButtonPrimary";
@@ -27,6 +28,8 @@ export default function Chat() {
   const anchorRef = useRef<HTMLDivElement>(null);
 
   const { messages, input, handleInputChange, handleSubmit } = useChat();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     // MutationObserver run when DOM changes are made
@@ -111,18 +114,18 @@ export default function Chat() {
     <>
       <Header />
       <Grid className="thirdeyes chat">
-        <Column max={6} xlg={6} lg={6} md={3} sm={2} className="chat__hero">
+        <Column max={6} xlg={6} lg={6} md={3} sm={4} className="chat__hero">
           <div
             className={`chat__hero__image ${
               imageLoaded &&
               typeof window !== "undefined" &&
-              window.innerWidth < 1312
+              window.innerWidth < 672
                 ? "chat__hero__image--portrait"
                 : ""
             } ${
               imageLoaded &&
               typeof window !== "undefined" &&
-              window.innerWidth >= 1312
+              window.innerWidth >= 672
                 ? "chat__hero__image--landscape"
                 : ""
             }`}
@@ -134,7 +137,7 @@ export default function Chat() {
             ) : isPortrait ? (
               <Image
                 src="/images/hero--whirli-hero.png"
-                alt="Generative Illustration by Steve Johnson on Unsplash"
+                alt='The character, "m" from the Whirligig font by Zuzana Liko for Emigre'
                 width={1080}
                 height={1080}
                 priority={true}
@@ -142,7 +145,7 @@ export default function Chat() {
             ) : (
               <Image
                 src="/images/hero--whirli-hero.png"
-                alt="Generative Illustration by Steve Johnson on Unsplash"
+                alt='The character, "m" from the Whirligig font by Zuzana Liko for Emigre'
                 width={1080}
                 height={1080}
                 priority={true}
@@ -181,10 +184,11 @@ export default function Chat() {
                 settingsVisible ? "btn--disabled" : ""
               }`}
             />
+            <ButtonPrimary onClick={() => setIsModalOpen(true)} name="Modal" />
           </div>
         </Column>
 
-        <Column max={10} xlg={10} lg={10} md={5} sm={2} className="chat__panel">
+        <Column max={10} xlg={10} lg={10} md={5} sm={4} className="chat__panel">
           <div className="chat__panel__inner" ref={chatPanelRef}>
             <div
               ref={chatMessagesRef}
@@ -233,6 +237,8 @@ export default function Chat() {
           </div>
         </Column>
       </Grid>
+
+      {isModalOpen && <Modal classes="modal--chat" onClick={() => setIsModalOpen(false)} />}
     </>
   );
 }
