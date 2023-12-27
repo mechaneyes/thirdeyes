@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Header />
       <Grid className="thirdeyes home">
-        <Column  lg={6} md={3} sm={2} className="home__main home__main--left">
+        <Column  lg={6} md={3} sm={4} className="home__main home__main--left">
           <h1>Future Echoes: Detroit</h1>
           <h3>An account of people who are lost in music</h3>
           <p>
@@ -27,7 +27,7 @@ export default function Home() {
         <Column
           lg={10}
           md={5}
-          sm={2}
+          sm={4}
           className="home__main home__main--right"
         >
           <Image

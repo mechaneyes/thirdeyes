@@ -11,13 +11,19 @@ export default function Modal({ classes, onClick }) {
         <div className="modal__body">
           <ul>
             <li>
-              <Link href="/">/ Home</Link>
+              <Link onClick={onClick} href="/">
+                / Home
+              </Link>
             </li>
             <li>
-              <Link href="/chat">/ Chat</Link>
+              <Link onClick={onClick} href="/chat">
+                / Chat
+              </Link>
             </li>
             <li>
-              <Link href="/profile">/ Profile</Link>
+              <Link onClick={onClick} href="/profile">
+                / Profile
+              </Link>
             </li>
             <li>
               <Link href="/">Saved Chats</Link>

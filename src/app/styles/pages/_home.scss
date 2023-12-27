@@ -1,13 +1,27 @@
 .home {
   height: calc(100vh - 6rem);
+  height: auto;
   max-width: 1400px;
   margin: auto;
 
-  p {
-    padding-bottom: 1.5rem;
+  @include bp("medium") {
+    height: calc(100vh - 6rem);
+  }
+  h1 {
+    padding-bottom: 0.5rem;
+    font-size: 1.75rem;
   }
 
-  @include bp("medium") {
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  p {
+    padding-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+
+  @include bp("small") {
     h1 {
       padding-bottom: 0.5rem;
       font-size: 1.75rem;
@@ -40,10 +54,29 @@
   &__main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding-bottom: 6rem;
+    justify-content: flex-start;
+    padding-bottom: 1rem;
+
+    @include bp("medium") {
+      justify-content: center;
+      padding-bottom: 6rem;
+    }
+
+    &--left {
+      order: 2;
+
+      @include bp("medium") {
+        order: 1;
+      }
+    }
 
     &--right {
+      order: 1;
+
+      @include bp("medium") {
+        order: 2;
+      }
+
       img {
         aspect-ratio: 1080 / 720;
         width: 100%;

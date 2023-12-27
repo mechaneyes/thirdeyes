@@ -9,7 +9,7 @@
   }
 
   &__body {
-    height: 80vh;
+    height: calc(100vh - 9rem);
     border: $borders;
     border-radius: $border-radius-large;
     box-shadow: $boxshadow-heavy;
