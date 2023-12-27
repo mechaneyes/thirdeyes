@@ -40,29 +40,6 @@ header {
     padding: 0;
   }
 
-  .btn--header__modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 2rem;
-    left: 2rem;
-    width: 48px;
-    height: 48px;
-    border: $borders;
-    border-radius: 50%;
-    z-index: 1;
-
-    @include bp("medium") {
-      display: none;
-    }
-
-    svg {
-      width: 24px;
-      height: 24px;
-    }
-  }
-
   nav {
     display: flex;
     justify-content: flex-end;

@@ -11,6 +11,7 @@ import Header from "@/app/components/Header";
 import ChatSaved from "./_chat-saved";
 import ChatSettings from "./_chat-settings";
 import { ButtonPrimary } from "@app/components/buttons/ButtonPrimary";
+import { ButtonChatOptions } from "@app/components/buttons/ButtonChatOptions";
 
 export default function Chat() {
   const [aspectRatio, setAspectRatio] = useState(1);
@@ -180,6 +181,14 @@ export default function Chat() {
               classes={`btn--saved-chats ${
                 settingsVisible ? "btn--disabled" : ""
               }`}
+            />
+            <ButtonChatOptions
+              classes={`btn--chat-options ${
+                settingsVisible ? "btn--disabled" : ""
+              }`}
+              onClick={() => {
+                setSettingsVisible(true);
+              }}
             />
           </div>
         </Column>

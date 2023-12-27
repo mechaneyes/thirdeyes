@@ -92,7 +92,7 @@
   &__panel {
     position: relative;
     height: calc(100vh - 2rem);
-    
+
     @include bp("small") {
       height: calc(100vh - 9rem);
     }
@@ -210,15 +210,29 @@
     justify-content: flex-start;
     gap: 1rem;
 
-    button {
+    .btn--saved-chats {
       display: none;
     }
 
-    @include bp("medium") {
-      button {
+    .btn--chat-options {
+      display: flex;
+    }
+
+    @media (min-width: 844px) {
+      .btn--saved-chats {
         display: block;
       }
+
+      .btn--chat-options {
+        display: none;
+      }
     }
+
+    // @include bp("medium") {
+    //   button {
+    //     display: block;
+    //   }
+    // }
   }
 }
 
