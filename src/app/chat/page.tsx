@@ -172,7 +172,7 @@ export default function Chat() {
                 savedChatVisible ? "btn--disabled" : ""
               }`}
             />
-            <ButtonPrimary
+            {/* <ButtonPrimary
               onClick={() => {
                 setSettingsVisible(true);
                 setSavedChatVisible(false);
@@ -181,13 +181,14 @@ export default function Chat() {
               classes={`btn--saved-chats ${
                 settingsVisible ? "btn--disabled" : ""
               }`}
-            />
+            /> */}
             <ButtonChatOptions
               classes={`btn--chat-options ${
                 settingsVisible ? "btn--disabled" : ""
               }`}
               onClick={() => {
                 setSettingsVisible(true);
+                setSavedChatVisible(false);
               }}
             />
           </div>

@@ -212,21 +212,22 @@
 
     .btn--saved-chats {
       display: none;
+      display: block;
     }
 
     .btn--chat-options {
       display: flex;
     }
 
-    @media (min-width: 844px) {
-      .btn--saved-chats {
-        display: block;
-      }
+    // @media (min-width: 844px) {
+    //   .btn--saved-chats {
+    //     display: block;
+    //   }
 
-      .btn--chat-options {
-        display: none;
-      }
-    }
+    //   .btn--chat-options {
+    //     display: none;
+    //   }
+    // }
 
     // @include bp("medium") {
     //   button {
