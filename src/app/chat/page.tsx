@@ -193,7 +193,7 @@ export default function Chat() {
             >
               {!messageExists && (
                 <div className="chat__messages__intro">
-                  Caught in a trap · No turnin' back · We're lost in music
+                    Caught in a trap &middot; No turnin&apos; back &middot; We&apos;re lost in music
                 </div>
               )}
               {messages.map((m) => (
