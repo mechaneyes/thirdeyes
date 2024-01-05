@@ -1,9 +1,4 @@
 .chat {
-  &.thirdeyes {
-    height: 100vh;
-    max-width: 1400px;
-  }
-
   @include bp("small") {
     height: calc(100vh - 6rem);
   }
@@ -59,7 +54,6 @@
 
       &--portrait {
         position: relative;
-        // display: block;
         aspect-ratio: 1080/769;
 
         img {
@@ -109,15 +103,12 @@
   }
 
   &__messages {
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: flex-end;
     bottom: 6.5rem;
     height: 100%;
     width: 100%;
     padding: 2.25rem;
     @include font-main;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     overflow-y: scroll;
     @include scrollbars(10px, #3f455a, #1d3d5c);
 

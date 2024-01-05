@@ -20,7 +20,6 @@ export default function Chat() {
   const [isHeightEqual, setIsHeightEqual] = useState(false);
   const [savedChatVisible, setSavedChatVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
-  const [isPortrait, setIsPortrait] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const chatMessagesRef = useRef<HTMLDivElement>(null);
@@ -78,7 +77,7 @@ export default function Chat() {
     }
   }, [isHeightEqual]);
 
-  // Focus on input when page loads
+  // focus on input when page loads
   //
   useEffect(() => {
     if (inputRef.current) {
@@ -95,18 +94,14 @@ export default function Chat() {
     // Call once initially
     handleResize();
 
-    // Then call it every time the window is resized
+    // call every time window is resized
     window.addEventListener("resize", handleResize);
 
-    // Clean up the event listener when the component unmounts
+    // clean up event listener when component unmounts
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   });
-
-  useEffect(() => {
-    setIsPortrait(window.innerWidth < 1312);
-  }, []);
 
   return (
     <>
@@ -132,14 +127,6 @@ export default function Chat() {
               <ChatSaved />
             ) : settingsVisible ? (
               <ChatSettings />
-            ) : isPortrait ? (
-              <Image
-                src="/images/hero--whirli-hero.png"
-                alt='The character, "m" from the Whirligig font by Zuzana Liko for Emigre'
-                width={1080}
-                height={1080}
-                priority={true}
-              />
             ) : (
               <Image
                 src="/images/hero--whirli-hero.png"

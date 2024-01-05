@@ -1,5 +1,5 @@
 @use "carbon-components-react";
-@import '@carbon/themes/scss/themes';
+@import "@carbon/themes/scss/themes";
 @import "abstracts/mixins";
 @import "abstracts/variables";
 @import "abstracts/typography";
@@ -9,6 +9,8 @@
 @import "components/buttons";
 @import "components/header";
 @import "components/modals";
+
+$maxWidth: 1300px;
 
 html,
 body {
@@ -22,6 +24,7 @@ body {
 
 .thirdeyes {
   position: relative;
+  max-width: $maxWidth;
   padding: 1rem 0;
   @include font-main;
 
@@ -32,4 +35,8 @@ body {
   * {
     box-sizing: border-box;
   }
+}
+
+header {
+  max-width: $maxWidth;
 }
