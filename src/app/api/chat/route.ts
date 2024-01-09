@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     // model: "gpt-4-1106-preview",
     model: "ft:gpt-3.5-turbo-1106:mechaneyes:het-ps-1224-01:8ZRROlSO",
     messages,
-    temperature: 0.7,
+    temperature: 0.8,
     stream: true,
   });
 
