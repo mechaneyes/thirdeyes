@@ -193,7 +193,9 @@ export default function Chat() {
             >
               {!messageExists && (
                 <div className="chat__messages__intro">
-                    Caught in a trap &middot; No turnin&apos; back &middot; We&apos;re lost in music
+                    {/* Caught in a trap &middot; No turnin&apos; back &middot; We&apos;re lost in music<br /> */}
+                    Thirdeyes expects a prompt in the following format:<br /><br />
+                    <div className="italic">Give me a bio for the artist, Erol Alkan, in the style of 'hetfield_phils'.</div>
                 </div>
               )}
               {messages.map((m) => (
