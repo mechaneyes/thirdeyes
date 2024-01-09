@@ -15,8 +15,7 @@ export default function Home() {
           <h1>Future Echoes: Detroit</h1>
           <h3>An account of people who are lost in music</h3>
           <p>
-            Detroit techno’s twin poles of mind-bending futurism and
-            roof-raising melodicism come together in Octave One.
+            Thirdeyes produces first drafts of artist bios emulating a specific writer, &quot;phils&quot;, and a specific editorial style, &quot;hetfield&quot;.
           </p>
           <Link href="/chat">
             <button type="button" className="btn btn--outline-primary">
