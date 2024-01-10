@@ -123,19 +123,22 @@ export default function Chat() {
                 : ""
             }`}
           >
-            {savedChatVisible ? (
-              <ChatSaved />
-            ) : settingsVisible ? (
+            <>
+              {/* {savedChatVisible ? (
+                <ChatSaved />
+              ) : settingsVisible ? (
+                <ChatSettings />
+              ) : (
+                <Image
+                  src="/images/hero--whirli-hero.png"
+                  alt='The character, "m" from the Whirligig font by Zuzana Liko for Emigre'
+                  width={1080}
+                  height={1080}
+                  priority={true}
+                />
+              )} */}
               <ChatSettings />
-            ) : (
-              <Image
-                src="/images/hero--whirli-hero.png"
-                alt='The character, "m" from the Whirligig font by Zuzana Liko for Emigre'
-                width={1080}
-                height={1080}
-                priority={true}
-              />
-            )}
+            </>
             {(savedChatVisible || settingsVisible) && (
               <ButtonPrimary
                 onClick={() => {
@@ -149,7 +152,7 @@ export default function Chat() {
           </div>
 
           <div className="chat__buttons">
-            <ButtonPrimary
+            {/* <ButtonPrimary
               onClick={() => {
                 setSettingsVisible(false);
                 setSavedChatVisible(true);
@@ -157,16 +160,6 @@ export default function Chat() {
               name="Saved Chats"
               classes={`btn--saved-chats ${
                 savedChatVisible ? "btn--disabled" : ""
-              }`}
-            />
-            {/* <ButtonPrimary
-              onClick={() => {
-                setSettingsVisible(true);
-                setSavedChatVisible(false);
-              }}
-              name="Settings"
-              classes={`btn--saved-chats ${
-                settingsVisible ? "btn--disabled" : ""
               }`}
             /> */}
             <ButtonChatOptions
@@ -193,9 +186,14 @@ export default function Chat() {
             >
               {!messageExists && (
                 <div className="chat__messages__intro">
-                    {/* Caught in a trap &middot; No turnin&apos; back &middot; We&apos;re lost in music<br /> */}
-                    Thirdeyes expects a prompt in the following format:<br /><br />
-                    <div className="italic">Give me a bio for the artist, Erol Alkan, in the style of &apos;hetfield_phils&apos;.</div>
+                  {/* Caught in a trap &middot; No turnin&apos; back &middot; We&apos;re lost in music<br /> */}
+                  Thirdeyes expects a prompt in the following format:
+                  <br />
+                  <br />
+                  <div className="italic">
+                    Give me a bio for the artist, Erol Alkan, in the style of
+                    &apos;hetfield_phils&apos;.
+                  </div>
                 </div>
               )}
               {messages.map((m) => (

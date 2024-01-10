@@ -1,0 +1,30 @@
+.chat {
+  &__sidebar {
+    height: 100%;
+    padding: 2rem 1rem;
+    padding-bottom: 6rem;
+    @include font-main;
+    background-color: #3f455a40;
+
+    ul {
+      font-size: 1rem;
+      list-style-type: circle;
+    }
+
+    li {
+      padding-bottom: 0.25rem;
+    }
+
+    &__date {
+      color: #aeaeae;
+    }
+  }
+
+  &__dropdown {
+    margin-bottom: 1rem;
+
+    .cds--list-box__field:focus {
+        outline: 0;
+    }
+  }
+}

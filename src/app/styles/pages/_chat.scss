@@ -228,23 +228,23 @@
   }
 }
 
-.chat__sidebar {
-  height: 100%;
-  padding: 2rem 3rem;
-  padding-bottom: 6rem;
-  @include font-main;
-  background-color: #3f455a40;
+// .chat__sidebar {
+//   height: 100%;
+//   padding: 2rem 3rem;
+//   padding-bottom: 6rem;
+//   @include font-main;
+//   background-color: #3f455a40;
 
-  ul {
-    font-size: 1rem;
-    list-style-type: circle;
-  }
+//   ul {
+//     font-size: 1rem;
+//     list-style-type: circle;
+//   }
 
-  li {
-    padding-bottom: 0.25rem;
-  }
+//   li {
+//     padding-bottom: 0.25rem;
+//   }
 
-  &__date {
-    color: #aeaeae;
-  }
-}
+//   &__date {
+//     color: #aeaeae;
+//   }
+// }
