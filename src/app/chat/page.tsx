@@ -19,7 +19,7 @@ export default function Chat() {
   const [messageExists, setMessageExists] = useState(false);
   const [isHeightEqual, setIsHeightEqual] = useState(false);
   const [savedChatVisible, setSavedChatVisible] = useState(false);
-  const [settingsVisible, setSettingsVisible] = useState(false);
+  const [settingsVisible, setSettingsVisible] = useState(true);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const chatMessagesRef = useRef<HTMLDivElement>(null);
@@ -107,47 +107,24 @@ export default function Chat() {
     <>
       <Header />
       <Grid className="thirdeyes chat">
-        <Column max={6} xlg={6} lg={6} md={3} sm={4} className="chat__hero">
+        <Column max={6} xlg={6} lg={6} md={3} sm={4} className="chat__sidebar">
           <div
-            className={`chat__hero__image ${
+            className={`chat__sidebar__inner ${
               imageLoaded &&
               typeof window !== "undefined" &&
               window.innerWidth < 672
-                ? "chat__hero__image--portrait"
+                ? "chat__sidebar__inner--portrait"
                 : ""
             } ${
               imageLoaded &&
               typeof window !== "undefined" &&
               window.innerWidth >= 672
-                ? "chat__hero__image--landscape"
+                ? "chat__sidebar__inner--landscape"
                 : ""
             }`}
           >
-            <>
-              {/* {savedChatVisible ? (
-                <ChatSaved />
-              ) : settingsVisible ? (
-                <ChatSettings />
-              ) : (
-                <Image
-                  src="/images/hero--whirli-hero.png"
-                  alt='The character, "m" from the Whirligig font by Zuzana Liko for Emigre'
-                  width={1080}
-                  height={1080}
-                  priority={true}
-                />
-              )} */}
-              <ChatSettings />
-            </>
-            {(savedChatVisible || settingsVisible) && (
-              <ButtonPrimary
-                onClick={() => {
-                  setSavedChatVisible(false);
-                  setSettingsVisible(false);
-                }}
-                name="Close"
-                classes="btn--chat-hero-close"
-              />
+            {settingsVisible && (
+              <ChatSettings onClick={() => setSettingsVisible(false)} />
             )}
           </div>
 
