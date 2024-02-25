@@ -20,6 +20,8 @@ export default function Chat() {
   const [isHeightEqual, setIsHeightEqual] = useState(false);
   const [savedChatVisible, setSavedChatVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(true);
+  const [query, setQuery] = useState("");
+  const [returnedData, setReturnedData] = useState("");
 
   const inputRef = useRef<HTMLInputElement>(null);
   const chatMessagesRef = useRef<HTMLDivElement>(null);
@@ -27,6 +29,16 @@ export default function Chat() {
   const anchorRef = useRef<HTMLDivElement>(null);
 
   const { messages, input, handleInputChange, handleSubmit } = useChat();
+
+  const handlQeuery = async () => {
+    const response = await fetch(
+      `https://thirdeyes-backend.vercel.app/google?form-input=${input}`
+      // `https://thirdeyes-backend.vercel.app/google?form-input=${encodeURIComponent("What is House music?")}`
+    );
+    const data = await response.json();
+    console.log(data);
+    setReturnedData(data);
+  };
 
   useEffect(() => {
     // MutationObserver run when DOM changes are made
@@ -190,7 +202,13 @@ export default function Chat() {
             </div>
 
             <div className="chat__form">
-              <form className="chat__form__form" onSubmit={handleSubmit}>
+              <form
+                className="chat__form__form"
+                onSubmit={(event) => {
+                  handleSubmit(event);
+                  handlQeuery();
+                }}
+              >
                 <label>
                   <input
                     ref={inputRef}
