@@ -3,42 +3,26 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 
-import { useChat } from "ai/react";
 import { Grid, Column } from "@carbon/react";
-import { Upload } from "@carbon/icons-react";
 
 import Header from "@/app/components/Header";
+
 import ChatSaved from "./_chat-saved";
 import ChatSettings from "./_chat-settings";
+import Messages from "./_chat-messages";
+
+import GoogleSearch from "@app/components/modules/GoogleSearch";
 import { ButtonPrimary } from "@app/components/buttons/ButtonPrimary";
 import { ButtonChatOptions } from "@app/components/buttons/ButtonChatOptions";
 
 export default function Chat() {
   const [aspectRatio, setAspectRatio] = useState(1);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [messageExists, setMessageExists] = useState(false);
   const [isHeightEqual, setIsHeightEqual] = useState(false);
   const [savedChatVisible, setSavedChatVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(true);
-  const [query, setQuery] = useState("");
-  const [returnedData, setReturnedData] = useState("");
 
-  const inputRef = useRef<HTMLInputElement>(null);
-  const chatMessagesRef = useRef<HTMLDivElement>(null);
-  const chatPanelRef = useRef<HTMLDivElement>(null);
-  const anchorRef = useRef<HTMLDivElement>(null);
-
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
-
-  const handlQeuery = async () => {
-    const response = await fetch(
-      `https://thirdeyes-backend.vercel.app/google?form-input=${input}`
-      // `https://thirdeyes-backend.vercel.app/google?form-input=${encodeURIComponent("What is House music?")}`
-    );
-    const data = await response.json();
-    console.log(data);
-    setReturnedData(data);
-  };
+  const chatMessagesRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     // MutationObserver run when DOM changes are made
@@ -83,21 +67,6 @@ export default function Chat() {
   }, []);
 
   useEffect(() => {
-    if (isHeightEqual === true && anchorRef.current) {
-      setMessageExists(true);
-      anchorRef.current.scrollIntoView({ block: "end" });
-    }
-  }, [isHeightEqual]);
-
-  // focus on input when page loads
-  //
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
-
-  useEffect(() => {
     const handleResize = () => {
       setAspectRatio(window.innerWidth / window.innerHeight);
       setImageLoaded(true);
@@ -136,7 +105,8 @@ export default function Chat() {
             }`}
           >
             {settingsVisible && (
-              <ChatSettings onClick={() => setSettingsVisible(false)} />
+              // <ChatSettings onClick={() => setSettingsVisible(false)} />
+              <GoogleSearch />
             )}
           </div>
 
@@ -164,65 +134,7 @@ export default function Chat() {
         </Column>
 
         <Column max={10} xlg={10} lg={10} md={5} sm={4} className="chat__panel">
-          <div className="chat__panel__inner" ref={chatPanelRef}>
-            <div
-              ref={chatMessagesRef}
-              className={`${
-                messageExists
-                  ? "chat__messages"
-                  : "chat__messages chat__messages--hidden"
-              }`}
-            >
-              {!messageExists && (
-                <div className="chat__messages__intro">
-                  {/* Caught in a trap &middot; No turnin&apos; back &middot; We&apos;re lost in music<br /> */}
-                  Thirdeyes expects a prompt in the following format:
-                  <br />
-                  <br />
-                  <div className="italic">
-                    Give me a bio for the artist, Erol Alkan, in the style of
-                    &apos;hetfield_phils&apos;.
-                  </div>
-                </div>
-              )}
-              {messages.map((m) => (
-                <div
-                  key={m.id}
-                  className={`chat__messages__message ${
-                    m.role === "user"
-                      ? "chat__messages__message--user "
-                      : "chat__messages__message--ai"
-                  }`}
-                >
-                  {m.content}
-                </div>
-              ))}
-
-              <div ref={anchorRef} className="chat__messages__anchor"></div>
-            </div>
-
-            <div className="chat__form">
-              <form
-                className="chat__form__form"
-                onSubmit={(event) => {
-                  handleSubmit(event);
-                  handlQeuery();
-                }}
-              >
-                <label>
-                  <input
-                    ref={inputRef}
-                    className="chat__form__input"
-                    value={input}
-                    onChange={handleInputChange}
-                  />
-                  <button type="submit">
-                    <Upload size={24} className="chat__form__send-icon" />
-                  </button>
-                </label>
-              </form>
-            </div>
-          </div>
+          <Messages chatMessagesRef={chatMessagesRef} isHeightEqual={isHeightEqual} />
         </Column>
       </Grid>
     </>
