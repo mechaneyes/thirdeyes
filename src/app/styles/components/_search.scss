@@ -1,0 +1,27 @@
+.search {
+  li.search__result {
+    padding-bottom: 0.75rem;
+    list-style-type: none;
+
+    &:hover {
+      * {
+        color: $highlight-color;
+      }
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    color: white;
+  }
+
+  p.search__snippet {
+    padding-bottom: 0rem;
+    font-size: 1rem;
+  }
+
+  p.search__hostname {
+    padding-bottom: 0rem;
+    font-size: 0.75rem;
+  }
+}

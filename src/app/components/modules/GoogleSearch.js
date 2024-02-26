@@ -8,27 +8,41 @@ const GoogleSearch = () => {
   const query = useAtomValue(queryAtom);
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       const response = await fetch(
-        // `https://thirdeyes-backend.vercel.app/google?form-input=${searchQuery}`
-        `http://127.0.0.1:5328/google?form-input=${query}`
+        `https://thirdeyes-backend.vercel.app/google?form-input=${query}`
+        // `http://127.0.0.1:5328/google?form-input=${query}`
       );
       const data = await response.json();
-      console.log("data", data);
-      setReturnedData(data);
-    };
-
-    fetchData();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      query !== null && setReturnedData(data);
+    })();
   }, [query]);
 
   return (
     <>
-      <div className="chat__sidebar__settings">
-        <pre style={{ whiteSpace: "pre-wrap" }}>
-          {JSON.stringify(returnedData, null, 2)}
-        </pre>
+      <div className="chat__sidebar__search">
+        {returnedData &&
+          returnedData.map((item) => {
+            const url = new URL(item.link);
+            const hostname = url.hostname.replace("www.", "");
+            return (
+              <ul key={item.title} className="search">
+                <li className="search__result">
+                  <a href={item.link} className="search__link">
+                    {item.title.length > 50
+                      ? item.title.substring(0, 50) + "..."
+                      : item.title}
+                    <p className="search__snippet">
+                      {item.snippet.length > 50
+                        ? item.snippet.substring(0, 50) + "..."
+                        : item.snippet}
+                    </p>
+                    <p className="search__hostname">{hostname}</p>
+                  </a>
+                </li>
+              </ul>
+            );
+          })}
       </div>
     </>
   );
