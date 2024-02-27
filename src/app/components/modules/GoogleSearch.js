@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useAtomValue } from "jotai";
 import { queryAtom } from "@/app/store/atoms";
 
-const GoogleSearch = () => {
+const GoogleSearch = ({ query, index }) => {
   const [returnedData, setReturnedData] = useState(null);
-  const query = useAtomValue(queryAtom);
+  //   const query = useAtomValue(queryAtom);
 
   useEffect(() => {
     (async () => {
@@ -20,13 +20,13 @@ const GoogleSearch = () => {
 
   return (
     <>
-      <div className="chat__sidebar__search">
+      <div className={`search ${index}`}>
         {returnedData &&
           returnedData.map((item) => {
             const url = new URL(item.link);
             const hostname = url.hostname.replace("www.", "");
             return (
-              <ul key={item.title} className="search">
+              <ul key={item.title} className="search__list">
                 <li className="search__result">
                   <a href={item.link} className="search__link">
                     {item.title.length > 50

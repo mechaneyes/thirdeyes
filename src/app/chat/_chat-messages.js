@@ -1,28 +1,59 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-import { useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 import { Upload } from "@carbon/icons-react";
 import { useChat } from "ai/react";
 
 import { queryAtom } from "@/app/store/atoms";
+import GoogleSearch from "@app/components/modules/GoogleSearch";
 
 const Messages = ({ chatMessagesRef, isHeightEqual }) => {
-  const setQuery = useSetAtom(queryAtom);
-
+  const [query, setQuery] = useState(null);
   const [messageExists, setMessageExists] = useState(false);
 
   const inputRef = useRef(null);
   const chatPanelRef = useRef(null);
   const anchorRef = useRef(null);
 
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const [searches, setSearches] = useState([]);
+
+  let index = 1;
+
+  const { messages, input, handleInputChange, handleSubmit, setMessages } =
+    useChat({
+      messages: [],
+      onFinish: (messages) => {
+        setMessages((messages) => [
+          ...messages,
+          {
+            role: "assistant",
+            content: "search_placeholder",
+            id: `search_placeholder-${index}`,
+          },
+        ]);
+      },
+    });
 
   const handleQuery = (event) => {
     event.preventDefault();
     setQuery(input);
+    setMessageExists(true);
   };
+
+  useEffect(() => {
+    setSearches((prevSearches) => [
+      ...prevSearches,
+      <GoogleSearch
+        key={new Date().getTime()}
+        query={query}
+        // prevSearches.length + 2 is the index of the search. It's handled this way
+        // to stay in line with the index of the messages. Incrementing index was problematic
+        index={prevSearches.length + 2}
+      />,
+    ]);
+  }, [query]);
 
   // focus on input when page loads
   //
@@ -51,7 +82,6 @@ const Messages = ({ chatMessagesRef, isHeightEqual }) => {
       >
         {!messageExists && (
           <div className="chat__messages__intro">
-            {/* Caught in a trap &middot; No turnin&apos; back &middot; We&apos;re lost in music<br /> */}
             Thirdeyes expects a prompt in the following format:
             <br />
             <br />
@@ -61,18 +91,26 @@ const Messages = ({ chatMessagesRef, isHeightEqual }) => {
             </div>
           </div>
         )}
-        {messages.map((m) => (
-          <div
-            key={m.id}
-            className={`chat__messages__message ${
-              m.role === "user"
-                ? "chat__messages__message--user "
-                : "chat__messages__message--ai"
-            }`}
-          >
-            {m.content}
-          </div>
-        ))}
+
+        {messages.map((message) => {
+          if (message.id === `search_placeholder-${index}`) {
+            index++;
+            return searches[index];
+          } else {
+            return (
+              <div
+                key={message.id}
+                className={`chat__messages__message ${
+                  message.role === "user"
+                    ? "chat__messages__message--user "
+                    : "chat__messages__message--ai"
+                }`}
+              >
+                {message.content}
+              </div>
+            );
+          }
+        })}
 
         <div ref={anchorRef} className="chat__messages__anchor"></div>
       </div>

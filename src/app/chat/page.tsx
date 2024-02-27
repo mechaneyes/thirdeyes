@@ -106,7 +106,11 @@ export default function Chat() {
           >
             {settingsVisible && (
               // <ChatSettings onClick={() => setSettingsVisible(false)} />
-              <GoogleSearch />
+              <GoogleSearch
+                key={new Date().getTime()}
+                query="what is house music?"
+                index={0}
+              />
             )}
           </div>
 
@@ -134,7 +138,10 @@ export default function Chat() {
         </Column>
 
         <Column max={10} xlg={10} lg={10} md={5} sm={4} className="chat__panel">
-          <Messages chatMessagesRef={chatMessagesRef} isHeightEqual={isHeightEqual} />
+          <Messages
+            chatMessagesRef={chatMessagesRef}
+            isHeightEqual={isHeightEqual}
+          />
         </Column>
       </Grid>
     </>
