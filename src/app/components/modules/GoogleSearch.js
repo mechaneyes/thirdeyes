@@ -10,8 +10,8 @@ const GoogleSearch = ({ query, index }) => {
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        `https://thirdeyes-backend.vercel.app/google?form-input=${query}`
-        // `http://127.0.0.1:5328/google?form-input=${query}`
+        // `https://thirdeyes-backend.vercel.app/google?form-input=${query}`
+        `http://127.0.0.1:5328/google?form-input=${query}`
       );
       const data = await response.json();
       query !== null && setReturnedData(data);
@@ -20,29 +20,35 @@ const GoogleSearch = ({ query, index }) => {
 
   return (
     <>
-      <div className={`search ${index}`}>
-        {returnedData &&
-          returnedData.map((item) => {
-            const url = new URL(item.link);
-            const hostname = url.hostname.replace("www.", "");
-            return (
-              <ul key={item.title} className="search__list">
-                <li className="search__result">
-                  <a href={item.link} className="search__link">
-                    {item.title.length > 50
-                      ? item.title.substring(0, 50) + "..."
-                      : item.title}
-                    <p className="search__snippet">
+      <div className="module module--search">
+        <ul className="module--search__list">
+          {returnedData &&
+            returnedData.map((item) => {
+              const url = new URL(item.link);
+              const hostname = url.hostname.replace("www.", "");
+              return (
+                <a
+                  key={item.title}
+                  href={item.link}
+                  className="module--search__link"
+                >
+                  <li className="module--search__result">
+                    <p className="module--search__title">
+                      {item.title.length > 40
+                        ? item.title.substring(0, 40) + "..."
+                        : item.title}
+                    </p>
+                    <p className="module--search__snippet">
                       {item.snippet.length > 50
                         ? item.snippet.substring(0, 50) + "..."
                         : item.snippet}
                     </p>
-                    <p className="search__hostname">{hostname}</p>
-                  </a>
-                </li>
-              </ul>
-            );
-          })}
+                    <p className="module--search__hostname">{hostname}</p>
+                  </li>
+                </a>
+              );
+            })}
+        </ul>
       </div>
     </>
   );

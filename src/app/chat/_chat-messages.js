@@ -2,22 +2,19 @@
 
 import React, { useState, useEffect, useRef } from "react";
 
-import { useAtom } from "jotai";
-import { Upload } from "@carbon/icons-react";
 import { useChat } from "ai/react";
+import { Upload } from "@carbon/icons-react";
 
-import { queryAtom } from "@/app/store/atoms";
 import GoogleSearch from "@app/components/modules/GoogleSearch";
 
 const Messages = ({ chatMessagesRef, isHeightEqual }) => {
-  const [query, setQuery] = useState(null);
   const [messageExists, setMessageExists] = useState(false);
-
-  const inputRef = useRef(null);
-  const chatPanelRef = useRef(null);
-  const anchorRef = useRef(null);
-
+  const [query, setQuery] = useState(null);
   const [searches, setSearches] = useState([]);
+
+  const anchorRef = useRef(null);
+  const chatPanelRef = useRef(null);
+  const inputRef = useRef(null);
 
   let index = 1;
 
@@ -25,6 +22,7 @@ const Messages = ({ chatMessagesRef, isHeightEqual }) => {
     useChat({
       messages: [],
       onFinish: (messages) => {
+        // adding placeholder to be filled by search module
         setMessages((messages) => [
           ...messages,
           {
@@ -48,8 +46,9 @@ const Messages = ({ chatMessagesRef, isHeightEqual }) => {
       <GoogleSearch
         key={new Date().getTime()}
         query={query}
-        // prevSearches.length + 2 is the index of the search. It's handled this way
-        // to stay in line with the index of the messages. Incrementing index was problematic
+        // prevSearches.length + 2 === index in search array. It's
+        // handled this way to stay in line with the index of the place 
+        // holder. Hacky due to problematic incrementing component-wide
         index={prevSearches.length + 2}
       />,
     ]);
@@ -65,7 +64,6 @@ const Messages = ({ chatMessagesRef, isHeightEqual }) => {
 
   useEffect(() => {
     if (isHeightEqual === true && anchorRef.current) {
-      setMessageExists(true);
       anchorRef.current.scrollIntoView({ block: "end" });
     }
   }, [isHeightEqual]);
