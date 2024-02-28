@@ -1,6 +1,7 @@
 import { kv } from "@vercel/kv";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import OpenAI from "openai";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 // import { auth } from "@/auth";
 import { nanoid } from 'nanoid'
@@ -15,12 +16,13 @@ export async function POST(req: Request) {
   const json = await req.json();
   const { messages, previewToken } = json;
   // const userId = (await auth())?.user.id;
+  const { user } = useUser();
 
-  // if (!userId) {
-  //   return new Response("Unauthorized", {
-  //     status: 401,
-  //   });
-  // }
+  if (!user || !user.user_id) {
+    return new Response("Unauthorized", {
+      status: 401,
+    });
+  }
 
   if (previewToken) {
     openai.apiKey = previewToken;
@@ -45,6 +47,7 @@ export async function POST(req: Request) {
         id,
         title,
         // userId,
+        // user.user_id,
         createdAt,
         path,
         messages: [
@@ -55,13 +58,14 @@ export async function POST(req: Request) {
           },
         ],
       };
+      console.log('user.user_id', user.user_id)
       // await kv.hmset(`chat:${id}`, payload);
-      // await kv.zadd(`user:chat:${userId}`, {
+      // await kv.zadd(`user:chat:${user.user_id}`, {
       //   score: createdAt,
       //   member: `chat:${id}`,
       // });
-      // await kv.hset('userSession', { userId: 123, email: 'ex@example.com' });
-      await kv.hset(`chat`, payload);
+      // // await kv.hset('userSession', { userId: 123, email: 'ex@example.com' });
+      // await kv.hset(`chat`, payload);
     },
   });
 

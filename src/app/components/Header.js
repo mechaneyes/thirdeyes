@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
+// import { ChatHistory } from './chat-history'
 import Modal from "@/app/components/Modal";
 import { ButtonPrimary } from "@/app/components/buttons/ButtonPrimary";
 import { ButtonHamburger } from "@/app/components/buttons/ButtonHamburger";
@@ -21,6 +22,8 @@ const Header = () => {
       <Link href="/">
         <h2>Thirdeyes</h2>
       </Link>
+
+      {/* {user ?? <ChatHistory userId={user.id} />} */}
 
       <nav>
         {user ? (
