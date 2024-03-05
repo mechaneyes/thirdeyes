@@ -1,3 +1,20 @@
+![crop of image used for neuromancer cover](neuromancer.png)
+Cover Art by Josan Gonzalez from a recent edition of [William Gibson's Neuromancer](https://en.wikipedia.org/wiki/Neuromancer)
+
+<br><br>
+
+# AI Reading List
+
+*A less than exhaustive list of links to articles surrounding AI.*
+
+The list is an additional sub-list of books to mine for deeper understandings of topics covered. Videos would be good, as well as more podcasts outside Hard Fork which is already below.
+
+Also missing is information about regulation. In addition to copyright being a huge issue, there's a lot to explore concerning how AI is shaping society, what pitfalls are looming and what companies and governments are or should be doing about this.
+
+But this is a living document, so I'll add more items as they're discovered or remembered.
+
+<br><br>
+
 # Overviews via DeepLearning.AI
 
 ## Complete Guide to Natural Language Processing
