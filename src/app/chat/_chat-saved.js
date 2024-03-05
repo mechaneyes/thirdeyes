@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const ChatSaved = ()=> {
+const ChatSaved = () => {
   const [savedChats, setSavedChats] = useState([]);
- 
+
   const fetchChats = async () => {
     const response = await fetch("/api/chat-kv");
     const data = await response.json();
     setSavedChats(data);
-    console.log('data', data)
+    console.log("data", data);
   };
 
   useEffect(() => {
@@ -26,8 +26,8 @@ const ChatSaved = ()=> {
           <span className="chat__saved__date">2023.12.31</span>
         </li>
         <li>
-          Give me a 20 song playlist inspired by David Mancuso&apos;s party, The Loft{" "}
-          <span className="chat__saved__date">2023.12.19</span>
+          Give me a 20 song playlist inspired by David Mancuso&apos;s party, The
+          Loft <span className="chat__saved__date">2023.12.19</span>
         </li>
         <li>
           Dissect Radiohead&apos;s Kid A{" "}

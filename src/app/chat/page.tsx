@@ -88,6 +88,9 @@ export default function Chat() {
     <>
       <Header />
       <Grid className="thirdeyes chat">
+        {/* // ————————————————————————————————————o————————————————————————————————————o sidebar -->
+            // ————————————————————————————————————o sidebar —>
+        //  */}
         <Column max={6} xlg={6} lg={6} md={3} sm={4} className="chat__sidebar">
           <div
             className={`chat__sidebar__inner ${
@@ -106,11 +109,12 @@ export default function Chat() {
           >
             {settingsVisible && (
               // <ChatSettings onClick={() => setSettingsVisible(false)} />
-              <GoogleSearch
-                key={new Date().getTime()}
-                query="what is house music?"
-                index={0}
-              />
+              // <GoogleSearch
+              //   key={new Date().getTime()}
+              //   query="what is house music?"
+              //   index={0}
+              // />
+              <ChatSaved />
             )}
           </div>
 
@@ -137,6 +141,9 @@ export default function Chat() {
           </div>
         </Column>
 
+        {/* // ————————————————————————————————————o————————————————————————————————————o chat -->
+            // ————————————————————————————————————o chat —>
+        //  */}
         <Column max={10} xlg={10} lg={10} md={5} sm={4} className="chat__panel">
           <Messages
             chatMessagesRef={chatMessagesRef}
