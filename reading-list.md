@@ -60,6 +60,12 @@ Great podcast in general. Not surprisingly they're focusing on AI a lot these da
 
 # Text-to-Image
 
+## [From the darkroom to generative AI](https://contentauthenticity.org/blog/from-the-darkroom-to-generative-ai)
+
+>In this era of generative AI, how do we determine whether an image is human-created or machine-made? For the Content Authenticity Initiative (CAI), Professor Hany Farid shares the techniques used for identifying real and synthetic images — including analyzing shadows, reflections, vanishing points, environmental lighting, and GAN-generated faces. A world-renowned expert in the field of misinformation, disinformation, and digital forensics as well as an advisor to the CAI, Professor Farid explores the limits of these techniques and their part in a larger ecosystem needed to regain trust in the visual record.
+
+
+
 ## Bruce Sterling on the Art of Text-to-Image Generative AI
 
 ### [Notes and Video on WinterWerk](https://winterwerk.one/posts/bruce-sterling-on-the-art-of-text-to-image-generative-ai)
