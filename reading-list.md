@@ -1,4 +1,5 @@
 ![crop of image used for neuromancer cover](neuromancer.png)
+
 Cover Art by Josan Gonzalez from a recent edition of [William Gibson's Neuromancer](https://en.wikipedia.org/wiki/Neuromancer)
 
 <br><br>
