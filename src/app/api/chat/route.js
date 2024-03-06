@@ -39,17 +39,8 @@ export async function POST(req) {
   });
 
   const { user } = await getSession();
-  
   const key = `user_${user.email}`;
-  const userDataString = await kv.get(key);
-
-  let userData;
-  try {
-    userData = JSON.parse(JSON.stringify(userDataString));
-    // console.log('userData 🥝', userData)
-  } catch (error) {
-    console.error("Invalid JSON:", userDataString);
-  }
+  const userData = await kv.get(key);
 
   if (previewToken) {
     openai.apiKey = previewToken;
@@ -91,7 +82,7 @@ export async function POST(req) {
       let chat = userData.chats.find((chat) => chat.chatId === chatId);
 
       if (chat) {
-        // Update the messages array in the chat
+        // update the messages array for given chat
         chat.messages = messages;
       } else {
         let chatData = {
@@ -104,7 +95,10 @@ export async function POST(req) {
       }
 
       console.log("🥝🥝 Updated userData 🥝🥝", userData);
-      // await kv.hmset(`chat:${id}`, payload);
+      
+      await kv.set(key, JSON.stringify(userData));
+
+      // await kv.hset(key, JSON.stringify(userData));
       // await kv.zadd(`user:chat:${userId}`, {
       //   score: createdAt,
       //   member: `chat:${id}`,
