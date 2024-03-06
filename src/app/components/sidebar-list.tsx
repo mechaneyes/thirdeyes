@@ -1,4 +1,4 @@
-import { clearChats, getChats } from '@app/actions'
+import { clearChats, getChats } from '@app/lib/chat-actions'
 import { ClearHistory } from '@app/components/clear-history'
 import { SidebarItems } from '@app/components/sidebar-items'
 import { cache } from 'react'

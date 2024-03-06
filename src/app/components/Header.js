@@ -76,7 +76,7 @@ const Header = () => {
       setUser(user);
     }
 
-    console.log(`Key: ${key}`, userData);
+    // console.log(`Key: ${key}`, userData);
   }
 
   useEffect(() => {
