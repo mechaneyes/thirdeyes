@@ -39,6 +39,7 @@ export async function POST(req) {
   });
 
   const { user } = await getSession();
+  
   const key = `user_${user.email}`;
   const userDataString = await kv.get(key);
 
@@ -94,8 +95,8 @@ export async function POST(req) {
         chat.messages = messages;
       } else {
         let chatData = {
-          chatId: chatId,
-          chatStart: chatStart,
+          id: chatId,
+          start: chatStart,
           title: title,
           messages: messages,
         };
