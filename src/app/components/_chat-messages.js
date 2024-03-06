@@ -40,19 +40,19 @@ const Messages = ({ chatMessagesRef, isHeightEqual }) => {
     setMessageExists(true);
   };
 
-  useEffect(() => {
-    setSearches((prevSearches) => [
-      ...prevSearches,
-      <GoogleSearch
-        key={new Date().getTime()}
-        query={query}
-        // prevSearches.length + 2 === index in search array. It's
-        // handled this way to stay in line with the index of the place 
-        // holder. Hacky due to problematic incrementing component-wide
-        index={prevSearches.length + 2}
-      />,
-    ]);
-  }, [query]);
+  // useEffect(() => {
+  //   setSearches((prevSearches) => [
+  //     ...prevSearches,
+  //     <GoogleSearch
+  //       key={new Date().getTime()}
+  //       query={query}
+  //       // prevSearches.length + 2 === index in search array. It's
+  //       // handled this way to stay in line with the index of the place 
+  //       // holder. Hacky due to problematic incrementing component-wide
+  //       index={prevSearches.length + 2}
+  //     />,
+  //   ]);
+  // }, [query]);
 
   // focus on input when page loads
   //

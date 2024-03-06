@@ -1,11 +1,7 @@
 import { kv } from "@vercel/kv";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import OpenAI from "openai";
-import { withMiddlewareAuthRequired, getSession } from '@auth0/nextjs-auth0/edge';
-
-
-// import { auth } from "@/auth";
-// import { config } from '@/middleware';
+import { getSession } from '@auth0/nextjs-auth0/edge';
 import { nanoid } from 'nanoid'
 
 export const runtime = "edge";
@@ -14,24 +10,18 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export async function POST(req: Request) {
+export async function POST(req) {
   const json = await req.json();
   const { messages, previewToken } = json;
-  const { user } = await getSession() as { user: { user_id: string } };
 
-  console.log('user', user?.user_id ?? '');
-
-  // if (!userId) {
-  //   return new Response("Unauthorized", {
-  //     status: 401,
-  //   });
-  // }
+  const { user } = await getSession();
+  console.log('user', user);
 
   if (previewToken) {
     openai.apiKey = previewToken;
   }
 
-  const res = await openai.chat.completions.create({
+  const oaiRes = await openai.chat.completions.create({
     // model: "gpt-4-1106-preview",
     // model: "ft:gpt-3.5-turbo-1106:mechaneyes:het-ps-1224-01:8ZRROlSO",
     model: 'gpt-3.5-turbo',
@@ -40,7 +30,7 @@ export async function POST(req: Request) {
     stream: true,
   });
 
-  const stream = OpenAIStream(res, {
+  const stream = OpenAIStream(oaiRes, {
     async onCompletion(completion) {
       const title = json.messages[0].content.substring(0, 100);
       const id = json.id ?? nanoid();
@@ -60,6 +50,7 @@ export async function POST(req: Request) {
           },
         ],
       };
+      console.log('stream id title:', id, title);
       // await kv.hmset(`chat:${id}`, payload);
       // await kv.zadd(`user:chat:${userId}`, {
       //   score: createdAt,
