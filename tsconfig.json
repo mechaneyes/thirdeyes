@@ -30,7 +30,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "lib/client.js"
-, "src/app/components/Modal.js"  ],
+, "src/app/components/Modal.js", "src/app/(chat)/page.jsx", "src/app/(chat)/chat/[id]/page.jsx", "src/app/components/chat.jsx", "src/app/(chat)/layout.jsx"  ],
   "exclude": ["node_modules"],
   "ts-node": {
     "compilerOptions": {

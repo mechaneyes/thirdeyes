@@ -1,22 +1,17 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
-
 import { Grid, Column } from "@carbon/react";
 
 import Header from "@/app/components/Header";
-
 import ChatSaved from "./_chat-saved";
 import ChatSettings from "./_chat-settings";
 import Messages from "./_chat-messages";
-
 import GoogleSearch from "@app/components/modules/GoogleSearch";
 import { ButtonPrimary } from "@app/components/buttons/ButtonPrimary";
 import { ButtonChatOptions } from "@app/components/buttons/ButtonChatOptions";
 
 export default function Chat() {
-  const [aspectRatio, setAspectRatio] = useState(1);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isHeightEqual, setIsHeightEqual] = useState(false);
   const [savedChatVisible, setSavedChatVisible] = useState(false);
@@ -65,24 +60,6 @@ export default function Chat() {
       mutationObserver.disconnect();
     };
   }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setAspectRatio(window.innerWidth / window.innerHeight);
-      setImageLoaded(true);
-    };
-
-    // Call once initially
-    handleResize();
-
-    // call every time window is resized
-    window.addEventListener("resize", handleResize);
-
-    // clean up event listener when component unmounts
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  });
 
   return (
     <>

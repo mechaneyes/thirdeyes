@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useAtom } from "jotai";
+import { theUserAtom } from "@/app/store/atoms";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { createClient } from "@vercel/kv";
 
@@ -12,8 +14,10 @@ import { ButtonHamburger } from "@/app/components/buttons/ButtonHamburger";
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useUser();
+  const [theUser, setTheUser] = useAtom(theUserAtom);
 
   // user && console.log("auth0 user", user);
+  // console.log('theUser', theUser)
 
   const kv = createClient({
     url: process.env.NEXT_PUBLIC_KV_REST_API_URL,
@@ -26,7 +30,7 @@ const Header = () => {
   //
   async function setUser(user) {
     if (!user) return;
-  
+
     const key = `user_${user.email}`;
     const userObject = {
       name: user.name,
@@ -34,7 +38,7 @@ const Header = () => {
       email: user.email,
       chats: [],
     };
-  
+
     await kv.set(key, JSON.stringify(userObject), { nx: true });
   }
 
@@ -43,25 +47,27 @@ const Header = () => {
   async function getUser() {
     const key = `user_${user.email}`;
     const userDataString = await kv.get(key);
-  
+
     let userData;
     try {
       userData = JSON.parse(JSON.stringify(userDataString));
     } catch (error) {
       console.error("Invalid JSON:", userDataString);
     }
-  
+
     if (userData) {
       // Check if any of the properties in userObject are not present
-      const missingItems = ['name', 'nickname', 'email', 'chats'].filter((item) => !(item in userData));
-  
+      const missingItems = ["name", "nickname", "email", "chats"].filter(
+        (item) => !(item in userData)
+      );
+
       if (missingItems.length > 0) {
         // If any items are missing, add them
         userData = missingItems.reduce((acc, item) => {
           acc[item] = user[item] || [];
           return acc;
         }, userData);
-  
+
         // Save the updated userData back to the key-value store
         await setUser(user);
       }
@@ -69,12 +75,14 @@ const Header = () => {
       console.log("User not found");
       setUser(user);
     }
-  
+
     console.log(`Key: ${key}`, userData);
   }
 
   useEffect(() => {
     if (user) {
+      setTheUser(user);
+
       getUser().catch(console.error);
 
       // ————————————————————————————————————o deleting users —>

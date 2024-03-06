@@ -17,7 +17,7 @@ const openai = new OpenAI({
 export async function POST(req: Request) {
   const json = await req.json();
   const { messages, previewToken } = json;
-  const { user } = await getSession();
+  const { user } = await getSession() as { user: { user_id: string } };
 
   console.log('user', user?.user_id ?? '');
 
