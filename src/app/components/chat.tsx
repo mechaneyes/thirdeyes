@@ -1,15 +1,16 @@
 "use client";
 
+import React from 'react'
 import { useEffect, useState, useRef } from "react";
 import { Grid, Column } from "@carbon/react";
 
-import Header from "@/app/components/Header";
-import ChatSaved from "./_chat-saved";
-import ChatSettings from "./_chat-settings";
-import Messages from "./_chat-messages";
-import GoogleSearch from "@app/components/modules/GoogleSearch";
-import { ButtonPrimary } from "@app/components/buttons/ButtonPrimary";
-import { ButtonChatOptions } from "@app/components/buttons/ButtonChatOptions";
+import Header from "./Header";
+import ChatSaved from "./chat-saved";
+import ChatSettings from "./chat-settings";
+import Messages from "./chat-messages";
+import GoogleSearch from "./modules/GoogleSearch";
+import { ButtonPrimary } from "./buttons/ButtonPrimary";
+import { ButtonChatOptions } from "./buttons/ButtonChatOptions";
 
 export default function Chat() {
   const [imageLoaded, setImageLoaded] = useState(false);
