@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { createClient } from "@vercel/kv";
+import { useAtomValue } from "jotai";
+import { firstPromptAtom } from "@/app/store/atoms";
 
 const ChatSaved = () => {
   const { user, error, isLoading } = useUser();
   const [savedChats, setSavedChats] = useState([]);
+  const fistPrompt = useAtomValue(firstPromptAtom);
 
   // ————————————————————————————————————o get users —>
   // get the user data from KV the associated chat titles
@@ -23,7 +26,9 @@ const ChatSaved = () => {
         setSavedChats(chatTitles);
       });
     }
-  }, [user]);
+    // when first prompt is triggerd in chat-messages.js this useEffect
+    // will fire and present that initial prompt in a refreshed savedChats
+  }, [user, fistPrompt]);
 
   useEffect(() => {
     console.log("savedChats", savedChats);

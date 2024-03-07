@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
+import { useAtom } from "jotai";
+import { firstPromptAtom } from "@/app/store/atoms";
 
 import GoogleSearch from "@app/components/modules/GoogleSearch";
 
@@ -10,6 +12,7 @@ const Messages = ({ chatMessagesRef, isHeightEqual }) => {
   const [messageExists, setMessageExists] = useState(false);
   const [query, setQuery] = useState(null);
   const [searches, setSearches] = useState([]);
+  const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
 
   const anchorRef = useRef(null);
   const chatPanelRef = useRef(null);
@@ -33,6 +36,7 @@ const Messages = ({ chatMessagesRef, isHeightEqual }) => {
             id: `search_placeholder-${index}`,
           },
         ]);
+        !fistPrompt && setFistPrompt(true);
       },
     });
 
