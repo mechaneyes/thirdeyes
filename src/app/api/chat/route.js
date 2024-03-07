@@ -28,7 +28,6 @@ const chatStart = today
   .replace(",", "")
   .replace(" ", "T");
 
-
 export async function POST(req) {
   const json = await req.json();
   const { messages, previewToken } = json;
@@ -59,14 +58,13 @@ export async function POST(req) {
     async onCompletion(completion) {
       const title = json.messages[0].content.substring(0, 100);
       const id = json.id ?? nanoid();
-      const createdAt = Date.now();
       const path = `/chat/${id}`;
+
       const payload = {
-        id,
-        title,
-        // userId,
-        createdAt,
-        path,
+        id: chatId,
+        start: chatStart,
+        path: path,
+        title: title,
         messages: [
           ...messages,
           {
@@ -76,35 +74,8 @@ export async function POST(req) {
         ],
       };
 
-      // look for an existing chat. If it exists, update the messages array
-      // otherwise, create a new chat object with the messages array
-      // 
-      let chat = userData.chats.find((chat) => chat.chatId === chatId);
-
-      if (chat) {
-        // update the messages array for given chat
-        chat.messages = messages;
-      } else {
-        let chatData = {
-          id: chatId,
-          start: chatStart,
-          title: title,
-          messages: messages,
-        };
-        userData.chats.push(chatData);
-      }
-
-      console.log("🥝🥝 Updated userData 🥝🥝", userData);
-      
+      userData.chats.push(payload);
       await kv.set(key, JSON.stringify(userData));
-
-      // await kv.hset(key, JSON.stringify(userData));
-      // await kv.zadd(`user:chat:${userId}`, {
-      //   score: createdAt,
-      //   member: `chat:${id}`,
-      // });
-      // // await kv.hset('userSession', { userId: 123, email: 'ex@example.com' });
-      // await kv.hset(`chat`, payload);
     },
   });
 
