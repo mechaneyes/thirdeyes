@@ -1,32 +1,36 @@
 "use client";
 
-import React, { use } from "react";
 import { useEffect, useState, useRef } from "react";
 import { Grid, Column } from "@carbon/react";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 import { useAtom } from "jotai";
-import { firstPromptAtom } from "../store/atoms";
+import { isLoggedInAtom } from "@/app/store/atoms";
 import Header from "./Header";
 import ChatSaved from "./chat-saved";
-import ChatSettings from "./chat-settings";
 import Messages from "./chat-messages";
 import ChatLogin from "./chat-login";
-import GoogleSearch from "./modules/GoogleSearch";
 import { ButtonPrimary } from "./buttons/ButtonPrimary";
-import { ButtonChatOptions } from "./buttons/ButtonChatOptions";
 
 export default function Chat() {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isHeightEqual, setIsHeightEqual] = useState(false);
-  const [savedChatVisible, setSavedChatVisible] = useState(false);
-  const [settingsVisible, setSettingsVisible] = useState(true);
-  const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
-
+  const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
   const chatMessagesRef = useRef<HTMLElement | null>(null);
 
+  const { user } = useUser();
+
   useEffect(() => {
-    // setFistPrompt(false);
-  }, []);
+    const checkUserStatus = async () => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkUserStatus();
+  }, [user, setIsLoggedIn]);
 
   useEffect(() => {
     // MutationObserver run when DOM changes are made
@@ -93,29 +97,18 @@ export default function Chat() {
                 : ""
             }`}
           >
-            {settingsVisible && (
-              // <ChatSettings onClick={() => setSettingsVisible(false)} />
-              // <GoogleSearch
-              //   key={new Date().getTime()}
-              //   query="what is house music?"
-              //   index={0}
-              // />
-              <ChatSaved />
-            )}
+            <ChatSaved />
           </div>
 
           <div className="chat__buttons">
-            {/* <ButtonPrimary
+            <ButtonPrimary
               onClick={() => {
-                setSettingsVisible(false);
-                setSavedChatVisible(true);
+                window.location.reload();
               }}
-              name="Saved Chats"
-              classes={`btn--saved-chats ${
-                savedChatVisible ? "btn--disabled" : ""
-              }`}
-            /> */}
-            <ButtonChatOptions
+              name="New Chat"
+              classes="btn--saved-chats"
+            />
+            {/* <ButtonChatOptions
               classes={`btn--chat-options ${
                 settingsVisible ? "btn--disabled" : ""
               }`}
@@ -123,7 +116,7 @@ export default function Chat() {
                 setSettingsVisible(true);
                 setSavedChatVisible(false);
               }}
-            />
+            /> */}
           </div>
         </Column>
 
@@ -131,11 +124,14 @@ export default function Chat() {
             // ————————————————————————————————————o chat —>
         //  */}
         <Column max={10} xlg={10} lg={10} md={5} sm={4} className="chat__panel">
-          {/* <Messages
-            chatMessagesRef={chatMessagesRef}
-            isHeightEqual={isHeightEqual}
-          /> */}
-          <ChatLogin />
+          {!isLoggedIn ? (
+            <ChatLogin />
+          ) : (
+            <Messages
+              chatMessagesRef={chatMessagesRef}
+              isHeightEqual={isHeightEqual}
+            />
+          )}
         </Column>
       </Grid>
     </>
