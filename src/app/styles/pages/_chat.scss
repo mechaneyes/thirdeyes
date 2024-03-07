@@ -99,6 +99,20 @@
       border-radius: $border-radius-large;
       background-color: #1d3d5c;
       box-shadow: $boxshadow-heavy;
+
+      &--login {
+        // background-color: black;
+        grid-template-rows: 1fr;
+      }
+
+      .login-message {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+      }
     }
   }
 

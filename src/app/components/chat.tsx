@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use } from 'react'
+import React, { use } from "react";
 import { useEffect, useState, useRef } from "react";
 import { Grid, Column } from "@carbon/react";
 
@@ -10,6 +10,7 @@ import Header from "./Header";
 import ChatSaved from "./chat-saved";
 import ChatSettings from "./chat-settings";
 import Messages from "./chat-messages";
+import ChatLogin from "./chat-login";
 import GoogleSearch from "./modules/GoogleSearch";
 import { ButtonPrimary } from "./buttons/ButtonPrimary";
 import { ButtonChatOptions } from "./buttons/ButtonChatOptions";
@@ -130,10 +131,11 @@ export default function Chat() {
             // ————————————————————————————————————o chat —>
         //  */}
         <Column max={10} xlg={10} lg={10} md={5} sm={4} className="chat__panel">
-          <Messages
+          {/* <Messages
             chatMessagesRef={chatMessagesRef}
             isHeightEqual={isHeightEqual}
-          />
+          /> */}
+          <ChatLogin />
         </Column>
       </Grid>
     </>
