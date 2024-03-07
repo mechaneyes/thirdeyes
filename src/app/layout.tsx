@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 // import { ApolloProvider } from "@apollo/client";
 // import apolloClient from "../lib/apollo";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
-import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import "./globals.css";
 import "./styles/styles.scss";
 
@@ -21,9 +20,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <UserProvider>
-          <ApolloWrapper>{children}</ApolloWrapper>
-        </UserProvider>
+        <UserProvider>{children}</UserProvider>
       </body>
     </html>
   );

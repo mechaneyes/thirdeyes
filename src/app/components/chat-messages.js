@@ -6,7 +6,7 @@ import { Upload } from "@carbon/icons-react";
 import { useAtom } from "jotai";
 import { firstPromptAtom } from "@/app/store/atoms";
 
-import GoogleSearch from "@app/components/modules/GoogleSearch";
+import GoogleSearch from "@/app/components/modules/GoogleSearch";
 
 const Messages = ({ chatMessagesRef, isHeightEqual }) => {
   const [messageExists, setMessageExists] = useState(false);

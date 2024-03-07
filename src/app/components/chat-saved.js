@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { createClient } from "@vercel/kv";
 import { useAtomValue } from "jotai";
@@ -10,28 +11,30 @@ const ChatSaved = () => {
   const fistPrompt = useAtomValue(firstPromptAtom);
 
   useEffect(() => {
-    // Signal refresh to api. Run on page refresh. This allows the 
+    // Signal refresh to api. Run on page refresh. This allows the
     // app to reset the chatId and create a new object in the chats array
-    fetch('/api/chat');
-  }, []); 
+    fetch("/api/chat");
+  }, []);
 
   // ————————————————————————————————————o get users —>
   // get the user data from KV the associated chat titles
-  // 
+  //
   useEffect(() => {
     const kv = createClient({
       url: process.env.NEXT_PUBLIC_KV_REST_API_URL,
       token: process.env.NEXT_PUBLIC_KV_REST_API_TOKEN,
     });
 
-    if(user) {
+    if (user) {
       const key = `user_${user.email}`;
       const userData = kv.get(key);
 
-      userData.then(data => {
+      userData.then((data) => {
         if (Array.isArray(data.chats)) {
-          const chatTitles = data.chats.map(chat => chat.title);
-          setSavedChats(chatTitles);
+          const chatTitles = data.chats.map((chat) => chat.title);
+          setSavedChats(data.chats);
+
+          console.log("data.chats", data.chats);
         }
       });
     }
@@ -41,15 +44,20 @@ const ChatSaved = () => {
   }, [user, fistPrompt]);
 
   // useEffect(() => {
-  //   console.log("savedChats", savedChats);
-  // }, [savedChats]);
+  //   console.log("userData", userData);
+  // }, [userData]);
 
   return (
     <div className="chat__sidebar chat__saved">
       <ul>
-        {savedChats.slice().reverse().map((chat, index) => (
-          <li key={index}>{chat}</li>
-        ))}
+        {savedChats
+          .slice()
+          .reverse()
+          .map((chat, index) => (
+            <li key={index}>
+              <Link href={`/chat/${chat.id}`}>{chat.title}</Link>
+            </li>
+          ))}
       </ul>
     </div>
   );
