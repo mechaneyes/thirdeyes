@@ -30,9 +30,12 @@ const chatStart = today
 
 // reset chatId on page refresh. creates a new object in the chats array
 // 
-export async function GET(request) {
+export async function GET(req, res) {
   chatId = nanoid();
   console.log("Refresh signal received");
+  return new Response('Refresh signal received', {
+    status: 200,
+  })
 }
 
 export async function POST(req) {
@@ -86,15 +89,15 @@ export async function POST(req) {
       let existingChat = userData.chats.find((c) => c.id === chatId);
 
       if (existingChat) {
-        console.log("present 🟢", chatId);
+        // console.log("present 🟢", chatId);
         existingChat.messages = payload.messages;
       } else {
-        console.log("undefined 🍄", chatId);
+        // console.log("undefined 🍄", chatId);
         userData.chats.push(payload);
       }
 
       // userData.chats = []
-      console.log("userData.chats 🔵🔵", userData.chats);
+      // console.log("userData.chats 🔵🔵", userData.chats);
       await kv.set(key, JSON.stringify(userData));
     },
   });

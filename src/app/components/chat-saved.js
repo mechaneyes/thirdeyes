@@ -10,7 +10,8 @@ const ChatSaved = () => {
   const fistPrompt = useAtomValue(firstPromptAtom);
 
   useEffect(() => {
-    // Signal refresh on page refresh
+    // Signal refresh to api. Run on page refresh. This allows the 
+    // app to reset the chatId and create a new object in the chats array
     fetch('/api/chat');
   }, []); 
 
@@ -26,7 +27,7 @@ const ChatSaved = () => {
     if(user) {
       const key = `user_${user.email}`;
       const userData = kv.get(key);
-      console.log('userData', userData)
+
       userData.then(data => {
         if (Array.isArray(data.chats)) {
           const chatTitles = data.chats.map(chat => chat.title);
@@ -34,14 +35,14 @@ const ChatSaved = () => {
         }
       });
     }
-    console.log('fistPrompt', fistPrompt)
+    // console.log('fistPrompt', fistPrompt)
     // when first prompt is triggerd in chat-messages.js this useEffect
     // will fire and present that initial prompt in a refreshed savedChats
   }, [user, fistPrompt]);
 
-  useEffect(() => {
-    console.log("savedChats", savedChats);
-  }, [savedChats]);
+  // useEffect(() => {
+  //   console.log("savedChats", savedChats);
+  // }, [savedChats]);
 
   return (
     <div className="chat__sidebar chat__saved">
