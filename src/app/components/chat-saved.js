@@ -9,6 +9,11 @@ const ChatSaved = () => {
   const [savedChats, setSavedChats] = useState([]);
   const fistPrompt = useAtomValue(firstPromptAtom);
 
+  useEffect(() => {
+    // Signal refresh on page refresh
+    fetch('/api/chat');
+  }, []); 
+
   // ————————————————————————————————————o get users —>
   // get the user data from KV the associated chat titles
   // 
@@ -21,11 +26,15 @@ const ChatSaved = () => {
     if(user) {
       const key = `user_${user.email}`;
       const userData = kv.get(key);
+      console.log('userData', userData)
       userData.then(data => {
-        const chatTitles = data.chats.map(chat => chat.title);
-        setSavedChats(chatTitles);
+        if (Array.isArray(data.chats)) {
+          const chatTitles = data.chats.map(chat => chat.title);
+          setSavedChats(chatTitles);
+        }
       });
     }
+    console.log('fistPrompt', fistPrompt)
     // when first prompt is triggerd in chat-messages.js this useEffect
     // will fire and present that initial prompt in a refreshed savedChats
   }, [user, fistPrompt]);

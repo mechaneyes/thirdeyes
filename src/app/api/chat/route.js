@@ -10,7 +10,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const chatId = nanoid();
+let chatId = nanoid();
 
 let today = new Date();
 const chatStart = today
@@ -27,6 +27,13 @@ const chatStart = today
   .replace(/\//g, "-")
   .replace(",", "")
   .replace(" ", "T");
+
+// reset chatId on page refresh. creates a new object in the chats array
+// 
+export async function GET(request) {
+  chatId = nanoid();
+  console.log("Refresh signal received");
+}
 
 export async function POST(req) {
   const json = await req.json();
@@ -74,7 +81,20 @@ export async function POST(req) {
         ],
       };
 
-      userData.chats.push(payload);
+      // if this `chatId` is not in the user's chats, add chat.
+      // if it's already there, update the messages. save to db
+      let existingChat = userData.chats.find((c) => c.id === chatId);
+
+      if (existingChat) {
+        console.log("present 🟢", chatId);
+        existingChat.messages = payload.messages;
+      } else {
+        console.log("undefined 🍄", chatId);
+        userData.chats.push(payload);
+      }
+
+      // userData.chats = []
+      console.log("userData.chats 🔵🔵", userData.chats);
       await kv.set(key, JSON.stringify(userData));
     },
   });

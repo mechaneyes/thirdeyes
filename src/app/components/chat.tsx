@@ -1,9 +1,11 @@
 "use client";
 
-import React from 'react'
+import React, { use } from 'react'
 import { useEffect, useState, useRef } from "react";
 import { Grid, Column } from "@carbon/react";
 
+import { useAtom } from "jotai";
+import { firstPromptAtom } from "../store/atoms";
 import Header from "./Header";
 import ChatSaved from "./chat-saved";
 import ChatSettings from "./chat-settings";
@@ -17,8 +19,13 @@ export default function Chat() {
   const [isHeightEqual, setIsHeightEqual] = useState(false);
   const [savedChatVisible, setSavedChatVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(true);
+  const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
 
   const chatMessagesRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    // setFistPrompt(false);
+  }, []);
 
   useEffect(() => {
     // MutationObserver run when DOM changes are made
