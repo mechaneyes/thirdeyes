@@ -8,7 +8,7 @@ import { firstPromptAtom } from "@/app/store/atoms";
 
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
 
-const Messages = ({ chatMessagesRef, isHeightEqual }) => {
+const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
   const [messageExists, setMessageExists] = useState(false);
   const [query, setQuery] = useState(null);
   const [searches, setSearches] = useState([]);
@@ -22,7 +22,7 @@ const Messages = ({ chatMessagesRef, isHeightEqual }) => {
 
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
-      // endpoint: '/api/chat',
+      endpoint: '/api/chat-saved',
       messages: [],
       onFinish: (messages) => {
         // adding placeholder to be filled by search module
@@ -142,4 +142,4 @@ const Messages = ({ chatMessagesRef, isHeightEqual }) => {
   );
 };
 
-export default Messages;
+export default MessagesIds;

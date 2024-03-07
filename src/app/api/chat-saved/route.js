@@ -41,6 +41,7 @@ export async function GET(req, res) {
 export async function POST(req) {
   const json = await req.json();
   const { messages, previewToken } = json;
+  console.log('messages', messages)
 
   const kv = createClient({
     url: process.env.NEXT_PUBLIC_KV_REST_API_URL,

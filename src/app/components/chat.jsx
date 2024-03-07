@@ -16,7 +16,7 @@ export default function Chat() {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isHeightEqual, setIsHeightEqual] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
-  const chatMessagesRef = useRef<HTMLElement | null>(null);
+  const chatMessagesRef = useRef(null);
 
   const { user } = useUser();
 
@@ -30,7 +30,7 @@ export default function Chat() {
     };
 
     checkUserStatus();
-  }, [user, setIsLoggedIn]);
+  }, [user]);
 
   useEffect(() => {
     // MutationObserver run when DOM changes are made
@@ -42,7 +42,7 @@ export default function Chat() {
           chatMessagesRef.current.getElementsByClassName(
             "chat__messages__message"
           )
-        ) as HTMLDivElement[];
+        );
 
         // Calculate total height of messages
         const totalMessagesHeight = messages.reduce(
