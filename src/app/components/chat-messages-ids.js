@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, use } from "react";
 import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
 import { useAtom, useAtomValue } from "jotai";
 import { firstPromptAtom } from "@/app/store/atoms";
 import { userDataAtom } from "@/app/store/atoms";
 
+// import ChatInput from "@/app/components/chat-input";
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
 
 const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
@@ -21,21 +22,44 @@ const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
   const initialMessagesRef = useRef(null);
 
   let index = 1;
+  let chatId;
 
   useEffect(() => {
     // loop through userData.chats + find id matching page url
     //
     if (userData) {
-      const chatId = window.location.pathname.split("/").pop();
+      chatId = window.location.pathname.split("/").pop();
       const chat = userData.chats.find((chat) => chat.id === chatId);
       initialMessagesRef.current = chat ? chat.messages : [];
       console.log("initialMessagesRef.current", initialMessagesRef.current);
     }
   }, [userData]);
 
+  useEffect(() => {
+    // Signal refresh to api. Run on page refresh. Allows app to
+    // reset chatId and create a new object in the chats array
+    // fetch("/api/chat");
+    const queryParams = new URLSearchParams({ theId: "303" }).toString();
+
+    fetch(`/api/chat?${queryParams}`)
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((text) => {
+            throw new Error(`${response.status}: ${text}`);
+          });
+        }
+        return response.json();
+      })
+      .then((result) => {
+        console.log("The Success:", result);
+      })
+      .catch((error) => {
+        console.error("The Error:", error);
+      });
+  }, []);
+
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
-      endpoint: "/api/chat-saved",
       initialMessages: initialMessagesRef.current,
       onFinish: (messages) => {
         console.log("onFinish");
@@ -85,29 +109,25 @@ const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
     }
   }, [isHeightEqual]);
 
+  // when content of chat__messages changes scroll to bottom
+  //
+  useEffect(() => {
+    if (chatMessagesRef.current) {
+      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+    }
+  }, [messages, chatMessagesRef]);
+
   return (
     <div className="chat__panel__inner" ref={chatPanelRef}>
       <div ref={chatMessagesRef} className="chat__messages">
-        {/* {!messageExists && (
-          <div className="chat__messages__intro">
-            Thirdeyes expects a prompt in the following format:
-            <br />
-            <br />
-            <div className="italic">
-              Give me a bio for the artist, Erol Alkan, in the style of
-              &apos;hetfield_phils&apos;.
-            </div>
-          </div>
-        )} */}
-
-        {messages.map((message) => {
+        {messages.map((message, count) => {
           if (message.id === `search_placeholder-${index}`) {
             index++;
             return searches[index];
           } else {
             return (
               <div
-                key={message.id}
+                key={count}
                 className={`chat__messages__message ${
                   message.role === "user"
                     ? "chat__messages__message--user "

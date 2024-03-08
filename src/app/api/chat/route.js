@@ -30,12 +30,29 @@ const chatStart = today
 
 // reset chatId on page refresh. creates a new object in the chats array
 // 
-export async function GET(req, res) {
+// export async function GET(req, res) {
+//   chatId = nanoid().substring(0, 8);
+//   const { theId } = req.query;
+//   console.log("Refresh signal received", theId);
+//   return new Response('Refresh signal received', {
+//     status: 200,
+//   })
+// }
+
+export const config = { runtime: 'experimental-edge' };
+
+export async function GET(req) {
   chatId = nanoid().substring(0, 8);
-  console.log("Refresh signal received");
-  return new Response('Refresh signal received', {
+
+  // Edge runtime uses the Request and URL constructor directly rather than "req.query"
+  const url = new URL(req.url);
+  const theId = url.searchParams.get('theId');
+  console.log("Refresh chatId", theId);
+
+  return new Response(JSON.stringify({ message: 'GET request processed', theId, chatId }), {
     status: 200,
-  })
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
 
 export async function POST(req) {

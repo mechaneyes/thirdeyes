@@ -7,16 +7,10 @@ import { firstPromptAtom } from "@/app/store/atoms";
 import { userDataAtom } from "@/app/store/atoms";
 
 const ChatSaved = () => {
-  const { user, error, isLoading } = useUser();
+  const { user } = useUser();
   const [savedChats, setSavedChats] = useState([]);
   const fistPrompt = useAtomValue(firstPromptAtom);
   const setUserData = useSetAtom(userDataAtom);
-
-  useEffect(() => {
-    // Signal refresh to api. Run on page refresh. This allows the
-    // app to reset the chatId and create a new object in the chats array
-    fetch("/api/chat");
-  }, []);
 
   // ————————————————————————————————————o get users —>
   // get the user data from KV the associated chat titles
@@ -33,22 +27,16 @@ const ChatSaved = () => {
 
       userData.then((data) => {
         if (Array.isArray(data.chats)) {
-          const chatTitles = data.chats.map((chat) => chat.title);
           setSavedChats(data.chats);
+          setUserData(data);
 
           console.log("data.chats", data.chats);
-          setUserData(data);
         }
       });
     }
-    // console.log('fistPrompt', fistPrompt)
     // when first prompt is triggerd in chat-messages.js this useEffect
     // will fire and present that initial prompt in a refreshed savedChats
   }, [user, fistPrompt]);
-
-  // useEffect(() => {
-  //   console.log("userData", userData);
-  // }, [userData]);
 
   return (
     <div className="chat__sidebar chat__saved">
@@ -58,9 +46,11 @@ const ChatSaved = () => {
           .reverse()
           .map((chat, index) => (
             <li key={index}>
-              <Link href={chat.path}>
-                {chat.title}
-              </Link>
+              {chat.path === window.location.pathname ? (
+                chat.title
+              ) : (
+                <Link href={chat.path}>{chat.title}</Link>
+              )}
             </li>
           ))}
       </ul>

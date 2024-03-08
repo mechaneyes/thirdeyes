@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 import { Grid, Column } from "@carbon/react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
@@ -101,13 +102,9 @@ export default function Chat() {
           </div>
 
           <div className="chat__buttons">
-            <ButtonPrimary
-              onClick={() => {
-                window.location.reload();
-              }}
-              name="New Chat"
-              classes="btn--saved-chats"
-            />
+            <Link href="/chat">
+              <ButtonPrimary name="New Chat" classes="btn--saved-chats" />
+            </Link>
             {/* <ButtonChatOptions
               classes={`btn--chat-options ${
                 settingsVisible ? "btn--disabled" : ""

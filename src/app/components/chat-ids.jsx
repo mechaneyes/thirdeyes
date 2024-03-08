@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 import { Grid, Column } from "@carbon/react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
@@ -82,32 +83,14 @@ export default function ChatIds() {
             // ————————————————————————————————————o sidebar —>
         //  */}
         <Column max={6} xlg={6} lg={6} md={3} sm={4} className="chat__sidebar">
-          <div
-            className={`chat__sidebar__inner ${
-              imageLoaded &&
-              typeof window !== "undefined" &&
-              window.innerWidth < 672
-                ? "chat__sidebar__inner--portrait"
-                : ""
-            } ${
-              imageLoaded &&
-              typeof window !== "undefined" &&
-              window.innerWidth >= 672
-                ? "chat__sidebar__inner--landscape"
-                : ""
-            }`}
-          >
+          <div className="chat__sidebar__inner">
             <ChatSaved />
           </div>
 
           <div className="chat__buttons">
-            <ButtonPrimary
-              onClick={() => {
-                window.location.reload();
-              }}
-              name="New Chat"
-              classes="btn--saved-chats"
-            />
+            <Link href="/chat">
+              <ButtonPrimary name="New Chat" classes="btn--saved-chats" />
+            </Link>
             {/* <ButtonChatOptions
               classes={`btn--chat-options ${
                 settingsVisible ? "btn--disabled" : ""
