@@ -4,7 +4,8 @@ import OpenAI from "openai";
 import { getSession } from "@auth0/nextjs-auth0/edge";
 import { nanoid } from "nanoid";
 
-export const runtime = "edge";
+// Edge runtime uses the Request and URL constructor directly rather than "req.query"
+export const runtime = "experimental-edge"
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -38,9 +39,6 @@ const chatStart = today
 //     status: 200,
 //   })
 // }
-
-// Edge runtime uses the Request and URL constructor directly rather than "req.query"
-export const config = { runtime: "experimental-edge" };
 
 export async function GET(req) {
   const url = new URL(req.url);
