@@ -69,7 +69,7 @@ export async function POST(req) {
     async onCompletion(completion) {
       const title = json.messages[0].content.substring(0, 100);
       const id = json.id ?? nanoid();
-      const path = `/chat/${id}`;
+      const path = `/chat/${id.substring(0, 8)}`;
 
       const payload = {
         id: chatId,

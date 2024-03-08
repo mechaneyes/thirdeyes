@@ -55,7 +55,9 @@ const ChatSaved = () => {
           .reverse()
           .map((chat, index) => (
             <li key={index}>
-              <Link href={`/chat/${chat.id}`}>{chat.title}</Link>
+              <Link href={chat.path}>
+                {chat.title}
+              </Link>
             </li>
           ))}
       </ul>
