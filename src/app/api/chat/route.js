@@ -29,7 +29,7 @@ const chatStart = today
   .replace(" ", "T");
 
 // reset chatId on page refresh. creates a new object in the chats array
-// 
+//
 // export async function GET(req, res) {
 //   chatId = nanoid().substring(0, 8);
 //   const { theId } = req.query;
@@ -39,20 +39,32 @@ const chatStart = today
 //   })
 // }
 
-export const config = { runtime: 'experimental-edge' };
+// Edge runtime uses the Request and URL constructor directly rather than "req.query"
+export const config = { runtime: "experimental-edge" };
 
 export async function GET(req) {
-  chatId = nanoid().substring(0, 8);
-
-  // Edge runtime uses the Request and URL constructor directly rather than "req.query"
   const url = new URL(req.url);
-  const theId = url.searchParams.get('theId');
-  console.log("Refresh chatId", theId);
+  const passedId = url.searchParams.get("passedId");
+  const passedReset = url.searchParams.get("passedReset");
+  // console.log("passed else created chatId", passedId);
 
-  return new Response(JSON.stringify({ message: 'GET request processed', theId, chatId }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' },
-  });
+  // if no passedId is present create a new chatId
+  if (!passedId) {
+    chatId = nanoid().substring(0, 8);
+  } else {
+    chatId = passedId;
+  }
+  if (passedReset) {
+    chatId = nanoid().substring(0, 8);
+  }
+
+  return new Response(
+    JSON.stringify({ message: "GET request processed", passedId, chatId }),
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 }
 
 export async function POST(req) {
@@ -105,10 +117,10 @@ export async function POST(req) {
       let existingChat = userData.chats.find((c) => c.id === chatId);
 
       if (existingChat) {
-        // console.log("present 🟢", chatId);
+        // console.log("present 🟢", chatId, payload.title);
         existingChat.messages = payload.messages;
       } else {
-        // console.log("undefined 🍄", chatId);
+        // console.log("missing ❌", chatId, payload.title);
         userData.chats.push(payload);
       }
 

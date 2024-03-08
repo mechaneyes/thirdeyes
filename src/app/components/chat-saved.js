@@ -30,7 +30,7 @@ const ChatSaved = () => {
           setSavedChats(data.chats);
           setUserData(data);
 
-          console.log("data.chats", data.chats);
+          // console.log("data.chats", data.chats);
         }
       });
     }

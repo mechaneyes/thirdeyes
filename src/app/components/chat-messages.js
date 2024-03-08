@@ -20,9 +20,33 @@ const Messages = ({ chatMessagesRef, isHeightEqual }) => {
 
   let index = 1;
 
+  useEffect(() => {
+    // Signal refresh to api. Run on page refresh. Allows app to
+    // reset chatIdRef.current and create a new object in the chats array
+    const resetParam = true;
+    const queryParams = new URLSearchParams({
+      passedReset: true,
+    }).toString();
+
+    fetch(`/api/chat?${queryParams}`)
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((text) => {
+            throw new Error(`${response.status}: ${text}`);
+          });
+        }
+        return response.json();
+      })
+      .then((result) => {
+        // console.log("The Success:", result);
+      })
+      .catch((error) => {
+        // console.error("The Error:", error);
+      });
+  }, []);
+
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
-      // endpoint: '/api/chat',
       messages: [],
       onFinish: (messages) => {
         // adding placeholder to be filled by search module
@@ -34,7 +58,7 @@ const Messages = ({ chatMessagesRef, isHeightEqual }) => {
             id: `search_placeholder-${index}`,
           },
         ]);
-        !fistPrompt && setFistPrompt(true);
+        setFistPrompt(!fistPrompt);
       },
     });
 

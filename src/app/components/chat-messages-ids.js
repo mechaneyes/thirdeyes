@@ -7,7 +7,6 @@ import { useAtom, useAtomValue } from "jotai";
 import { firstPromptAtom } from "@/app/store/atoms";
 import { userDataAtom } from "@/app/store/atoms";
 
-// import ChatInput from "@/app/components/chat-input";
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
 
 const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
@@ -20,26 +19,25 @@ const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
   const chatPanelRef = useRef(null);
   const inputRef = useRef(null);
   const initialMessagesRef = useRef(null);
+  const chatIdRef = useRef(null);
 
   let index = 1;
-  let chatId;
 
   useEffect(() => {
     // loop through userData.chats + find id matching page url
     //
     if (userData) {
-      chatId = window.location.pathname.split("/").pop();
-      const chat = userData.chats.find((chat) => chat.id === chatId);
+      chatIdRef.current = window.location.pathname.split("/").pop();
+      const chat = userData.chats.find((chat) => chat.id === chatIdRef.current);
       initialMessagesRef.current = chat ? chat.messages : [];
-      console.log("initialMessagesRef.current", initialMessagesRef.current);
+      // console.log("initialMessagesRef.current", initialMessagesRef.current);
     }
   }, [userData]);
 
   useEffect(() => {
     // Signal refresh to api. Run on page refresh. Allows app to
-    // reset chatId and create a new object in the chats array
-    // fetch("/api/chat");
-    const queryParams = new URLSearchParams({ theId: "303" }).toString();
+    // reset chatIdRef.current and create a new object in the chats array
+    const queryParams = new URLSearchParams({ passedId: chatIdRef.current }).toString();
 
     fetch(`/api/chat?${queryParams}`)
       .then((response) => {
@@ -51,10 +49,10 @@ const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
         return response.json();
       })
       .then((result) => {
-        console.log("The Success:", result);
+        // console.log("The Success:", result);
       })
       .catch((error) => {
-        console.error("The Error:", error);
+        // console.error("The Error:", error);
       });
   }, []);
 
@@ -62,7 +60,6 @@ const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
     useChat({
       initialMessages: initialMessagesRef.current,
       onFinish: (messages) => {
-        console.log("onFinish");
         // adding placeholder to be filled by search module
         setMessages((messages) => [
           ...messages,
@@ -72,7 +69,7 @@ const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
             id: `search_placeholder-${index}`,
           },
         ]);
-        !fistPrompt && setFistPrompt(true);
+        setFistPrompt(!fistPrompt);
       },
     });
 

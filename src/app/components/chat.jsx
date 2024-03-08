@@ -102,18 +102,11 @@ export default function Chat() {
           </div>
 
           <div className="chat__buttons">
-            <Link href="/chat">
-              <ButtonPrimary name="New Chat" classes="btn--saved-chats" />
-            </Link>
-            {/* <ButtonChatOptions
-              classes={`btn--chat-options ${
-                settingsVisible ? "btn--disabled" : ""
-              }`}
-              onClick={() => {
-                setSettingsVisible(true);
-                setSavedChatVisible(false);
-              }}
-            /> */}
+            <ButtonPrimary
+              onClick={() => window.location.reload()}
+              name="New Chat"
+              classes="btn--saved-chats"
+            />
           </div>
         </Column>
 
