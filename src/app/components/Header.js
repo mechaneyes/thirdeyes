@@ -113,8 +113,8 @@ const Header = () => {
           <>
             {user && (
               <ButtonPrimary
-                link="/admin"
-                name="Admin"
+                // link="/admin"
+                name="Profile"
                 classes="btn--login-logout"
               />
             )}
