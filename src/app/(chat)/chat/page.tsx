@@ -1,8 +1,10 @@
-import { nanoid } from 'lib/utils'
-import Chat from '@/app/components/chat'
+"use client"
+
+import dynamic from "next/dynamic";
+// import Chat from '@/app/components/chat'
+const Chat = dynamic(() => import('@/app/components/chat'), { ssr: false });
+
 
 export default function IndexPage() {
-  const id = nanoid()
-
   return <Chat />
 }

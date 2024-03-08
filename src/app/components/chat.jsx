@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import Link from "next/link";
 import { Grid, Column } from "@carbon/react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
