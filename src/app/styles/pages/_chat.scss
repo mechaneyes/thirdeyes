@@ -28,6 +28,23 @@
       display: flex;
     }
 
+    a {
+      color: $highlight-color;
+
+      &:hover {
+        border-bottom: 1px solid $highlight-color;
+      }
+    }
+    
+    ul {
+      padding-left: 2rem;
+    }
+
+    li {
+      color: white;
+      list-style-type: circle;
+    }
+
     &__inner {
       display: none;
       position: relative;
