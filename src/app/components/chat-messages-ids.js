@@ -3,28 +3,42 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { firstPromptAtom } from "@/app/store/atoms";
+import { userDataAtom } from "@/app/store/atoms";
 
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
 
 const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
-  const [messageExists, setMessageExists] = useState(false);
   const [query, setQuery] = useState(null);
   const [searches, setSearches] = useState([]);
   const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
+  const userData = useAtomValue(userDataAtom);
 
   const anchorRef = useRef(null);
   const chatPanelRef = useRef(null);
   const inputRef = useRef(null);
+  const initialMessagesRef = useRef(null);
 
   let index = 1;
 
+  useEffect(() => {
+    // loop through userData.chats + find id matching page url
+    //
+    if (userData) {
+      const chatId = window.location.pathname.split("/").pop();
+      const chat = userData.chats.find((chat) => chat.id === chatId);
+      initialMessagesRef.current = chat ? chat.messages : [];
+      console.log("initialMessagesRef.current", initialMessagesRef.current);
+    }
+  }, [userData]);
+
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
-      endpoint: '/api/chat-saved',
-      messages: [],
+      endpoint: "/api/chat-saved",
+      initialMessages: initialMessagesRef.current,
       onFinish: (messages) => {
+        console.log("onFinish");
         // adding placeholder to be filled by search module
         setMessages((messages) => [
           ...messages,
@@ -41,7 +55,6 @@ const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
   const handleQuery = (event) => {
     event.preventDefault();
     setQuery(input);
-    setMessageExists(true);
   };
 
   useEffect(() => {
@@ -74,15 +87,8 @@ const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
 
   return (
     <div className="chat__panel__inner" ref={chatPanelRef}>
-      <div
-        ref={chatMessagesRef}
-        className={`${
-          messageExists
-            ? "chat__messages"
-            : "chat__messages chat__messages--hidden"
-        }`}
-      >
-        {!messageExists && (
+      <div ref={chatMessagesRef} className="chat__messages">
+        {/* {!messageExists && (
           <div className="chat__messages__intro">
             Thirdeyes expects a prompt in the following format:
             <br />
@@ -92,7 +98,7 @@ const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
               &apos;hetfield_phils&apos;.
             </div>
           </div>
-        )}
+        )} */}
 
         {messages.map((message) => {
           if (message.id === `search_placeholder-${index}`) {

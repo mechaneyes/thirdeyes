@@ -15,6 +15,7 @@ const GoogleSearch = ({ query, index }) => {
       );
       const data = await response.json();
       query !== null && setReturnedData(data);
+      // console.log('data+query', data, query);
     })();
   }, [query]);
 

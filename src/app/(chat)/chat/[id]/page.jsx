@@ -1,8 +1,8 @@
-import Chat from "@/app/components/chat";
+import ChatIds from "@/app/components/chat-ids";
 import MessagesIds from "@/app/components/chat-messages-ids";
 
 export const runtime = "edge";
 
 export default function ChatIdPage({params}) {
-  return <Chat messages={MessagesIds} />;
+  return <ChatIds messages={MessagesIds} />;
 }

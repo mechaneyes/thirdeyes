@@ -10,7 +10,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-let chatId = nanoid();
+let chatId = nanoid().substring(0, 8);
 
 let today = new Date();
 const chatStart = today
@@ -31,7 +31,7 @@ const chatStart = today
 // reset chatId on page refresh. creates a new object in the chats array
 // 
 export async function GET(req, res) {
-  chatId = nanoid();
+  chatId = nanoid().substring(0, 8);
   console.log("Refresh signal received");
   return new Response('Refresh signal received', {
     status: 200,
@@ -67,8 +67,7 @@ export async function POST(req) {
   const stream = OpenAIStream(response, {
     async onCompletion(completion) {
       const title = json.messages[0].content.substring(0, 100);
-      const id = json.id ?? nanoid();
-      const path = `/chat/${id.substring(0, 8)}`;
+      const path = `/chat/${chatId}`;
 
       const payload = {
         id: chatId,
