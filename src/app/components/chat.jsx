@@ -9,14 +9,26 @@ import { isLoggedInAtom } from "@/app/store/atoms";
 import Header from "./Header";
 import Sidebar from "./sidebar";
 import Messages from "./chat-messages";
+import MessagesIds from "./chat-messages-ids";
 import ChatLogin from "./chat-login";
 
 export default function Chat() {
   const [isHeightEqual, setIsHeightEqual] = useState(false);
+  const [isChat, setIsChat] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
   const chatMessagesRef = useRef(null);
 
   const { user } = useUser();
+
+  useEffect(() => {
+    const pathname = window.location.pathname.split("/").pop();
+
+    if (pathname === "chat") {
+      setIsChat(true);
+    } else {
+      setIsChat(false);
+    }
+  }, []);
 
   useEffect(() => {
     const checkUserStatus = async () => {
@@ -77,12 +89,17 @@ export default function Chat() {
       <Header />
       <Grid className="thirdeyes chat">
         <Sidebar />
-        
+
         <Column max={10} xlg={10} lg={10} md={5} sm={4} className="chat__panel">
           {!isLoggedIn ? (
             <ChatLogin />
-          ) : (
+          ) : isChat ? (
             <Messages
+              chatMessagesRef={chatMessagesRef}
+              isHeightEqual={isHeightEqual}
+            />
+          ) : (
+            <MessagesIds
               chatMessagesRef={chatMessagesRef}
               isHeightEqual={isHeightEqual}
             />

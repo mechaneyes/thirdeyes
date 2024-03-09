@@ -1,8 +1,9 @@
-import ChatIds from "@/app/components/chat-ids";
-import MessagesIds from "@/app/components/chat-messages-ids";
+"use client";
 
-export const runtime = "edge";
+import dynamic from "next/dynamic";
 
-export default function ChatIdPage({params}) {
-  return <ChatIds messages={MessagesIds} />;
+const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
+
+export default function IndexPage() {
+  return <Chat />;
 }
