@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Column } from "@carbon/react";
 
@@ -5,7 +7,10 @@ import ChatSaved from "./chat-saved";
 import { ButtonPrimary } from "./buttons/ButtonPrimary";
 
 export default function Sidebar() {
-  const pathname = window.location.pathname.split("/").pop();
+  let pathname = "";
+  if (typeof window !== "undefined") {
+    pathname = window.location.pathname.split("/").pop();
+  }
 
   return (
     <Column max={6} xlg={6} lg={6} md={3} sm={4} className="chat__sidebar">

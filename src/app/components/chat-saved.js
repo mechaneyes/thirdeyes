@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { createClient } from "@vercel/kv";
@@ -8,9 +8,20 @@ import { userDataAtom } from "@/app/store/atoms";
 
 const ChatSaved = () => {
   const { user } = useUser();
+  const [chatClicked, setChatClicked] = useState("");
   const [savedChats, setSavedChats] = useState([]);
   const fistPrompt = useAtomValue(firstPromptAtom);
   const setUserData = useSetAtom(userDataAtom);
+
+  const handleChatClick = (chat) => {
+    setTimeout(() => {
+      setChatClicked(window.location.pathname.split("/").pop());
+    }, 100);
+  };
+
+  useEffect(() => {
+    setChatClicked(window.location.pathname.split("/").pop());
+  }, []);
 
   // ————————————————————————————————————o get users —>
   // get the user data from KV the associated chat titles
@@ -45,8 +56,8 @@ const ChatSaved = () => {
           .slice()
           .reverse()
           .map((chat, index) => (
-            <li key={index}>
-              {chat.path === window.location.pathname ? (
+            <li key={index} onClick={handleChatClick}>
+              {chat.id === chatClicked ? (
                 chat.title
               ) : (
                 <Link href={chat.path}>{chat.title}</Link>

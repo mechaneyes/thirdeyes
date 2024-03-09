@@ -1,9 +1,10 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Grid } from "@carbon/react";
 
-import Header from "@/app/components/Header";
-import Sidebar from "@/app/components/sidebar";
+const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
+const Sidebar = dynamic(() => import("@/app/components/sidebar"), { ssr: false });
 
 export default function ChatLayout({ children }) {
   return (
