@@ -85,21 +85,19 @@ export default function Chat() {
 
   return (
     <>
-      <Column max={10} xlg={10} lg={10} md={5} sm={4} className="chat__panel">
-        {!isLoggedIn ? (
-          <ChatLogin />
-        ) : isChat ? (
-          <Messages
-            chatMessagesRef={chatMessagesRef}
-            isHeightEqual={isHeightEqual}
-          />
-        ) : (
-          <MessagesIds
-            chatMessagesRef={chatMessagesRef}
-            isHeightEqual={isHeightEqual}
-          />
-        )}
-      </Column>
+      {!isLoggedIn ? (
+        <ChatLogin />
+      ) : isChat ? (
+        <Messages
+          chatMessagesRef={chatMessagesRef}
+          isHeightEqual={isHeightEqual}
+        />
+      ) : (
+        <MessagesIds
+          chatMessagesRef={chatMessagesRef}
+          isHeightEqual={isHeightEqual}
+        />
+      )}
     </>
   );
 }

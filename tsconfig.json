@@ -35,7 +35,7 @@
     "src/app/(chat)/chat/[id]/page.jsx",
     "src/app/components/chat.jsx",
     "src/app/(chat)/layout.jsx"
-  ],
+, "src/app/editor/tiptap.js"  ],
   "exclude": ["node_modules"],
   "ts-node": {
     "compilerOptions": {
