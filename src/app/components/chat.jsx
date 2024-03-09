@@ -1,13 +1,11 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Grid, Column } from "@carbon/react";
+import { Column } from "@carbon/react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 import { useAtom } from "jotai";
 import { isLoggedInAtom } from "@/app/store/atoms";
-import Header from "./Header";
-import Sidebar from "./sidebar";
 import Messages from "./chat-messages";
 import MessagesIds from "./chat-messages-ids";
 import ChatLogin from "./chat-login";
@@ -86,26 +84,21 @@ export default function Chat() {
 
   return (
     <>
-      <Header />
-      <Grid className="thirdeyes chat">
-        <Sidebar />
-
-        <Column max={10} xlg={10} lg={10} md={5} sm={4} className="chat__panel">
-          {!isLoggedIn ? (
-            <ChatLogin />
-          ) : isChat ? (
-            <Messages
-              chatMessagesRef={chatMessagesRef}
-              isHeightEqual={isHeightEqual}
-            />
-          ) : (
-            <MessagesIds
-              chatMessagesRef={chatMessagesRef}
-              isHeightEqual={isHeightEqual}
-            />
-          )}
-        </Column>
-      </Grid>
+      <Column max={10} xlg={10} lg={10} md={5} sm={4} className="chat__panel">
+        {!isLoggedIn ? (
+          <ChatLogin />
+        ) : isChat ? (
+          <Messages
+            chatMessagesRef={chatMessagesRef}
+            isHeightEqual={isHeightEqual}
+          />
+        ) : (
+          <MessagesIds
+            chatMessagesRef={chatMessagesRef}
+            isHeightEqual={isHeightEqual}
+          />
+        )}
+      </Column>
     </>
   );
 }
