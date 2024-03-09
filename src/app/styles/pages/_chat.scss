@@ -43,6 +43,10 @@
     li {
       color: white;
       list-style-type: circle;
+
+      &::marker {
+        color: $highlight-color;
+      }
     }
 
     &__inner {
