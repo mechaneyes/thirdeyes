@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react"
 // import Provider from "@/app/_context/client-provider";
 // import { ApolloProvider } from "@apollo/client";
 // import apolloClient from "../lib/apollo";
@@ -21,6 +22,7 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <UserProvider>{children}</UserProvider>
+        <Analytics />
       </body>
     </html>
   );
