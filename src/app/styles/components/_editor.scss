@@ -9,7 +9,7 @@
   }
 
   .tiptap {
-    height: 100%;
+    height: calc(100vh - 9rem);
     padding: 2.25rem;
     border: 1px solid #2fbfff;
     border-radius: 3rem 0 3rem 0;
@@ -22,12 +22,13 @@
   }
 
   .chat__panel {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 30% 1fr;
     gap: 2rem;
 
     &__inner {
-      height: 70%;
+      height: 100%;
     }
   }
 
@@ -36,17 +37,20 @@
   }
 
   .chat__sidebar {
-    height: 30%;
+    height: 80%;
     margin: 0;
     padding-bottom: 0;
+    overflow-y: scroll;
+    @include scrollbars(0.25rem, #3f455a, #1d3d5c);
 
     &__inner {
       height: 100%;
       margin: 0;
-    }
 
-    .chat__buttons {
-      display: none;
+      .chat__buttons {
+        justify-content: flex-end;
+        padding-right: 1rem;
+      }
     }
   }
 }
