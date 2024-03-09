@@ -4,7 +4,7 @@
 
 ## What in the ... ?
 
-Thirdeyes is an exploration into fine-tuning LLMs. The goal is to fine tune a model to get it to speak with a specific editorial style/tone of voice.
+Thirdeyes is an exploration into the levergaging of fine-tuned LLMs for the service of writing editorial content. The goal is to fine tune a model to get it to speak with a specific editorial style/tone of voice.
 
 My client works with different platforms that each have their very specific styles of presenting their information. Thirdeyes should allow the client to select a platform, then the style of an individual writer working for the client. The output will be copy written in the style of a specific individual tailored for a specific platform.
 
@@ -12,15 +12,9 @@ My client works with different platforms that each have their very specific styl
 
 # Working w Large Language Models
 
-The app is currently wired up with Llama-2-13b-chat. Though I'm rapidly testing other models, so YMMV ... your model may vary. heh.
+The app is currently wired up with gpt-4-1106-preview. Though I'm rapidly testing other models, so YMMV ... your model may vary. heh.
 
-For LLama 2 I followed the Amazon's guide, [Customize models in Amazon Bedrock with your own data using fine-tuning and continued pre-training](https://aws.amazon.com/blogs/aws/customize-models-in-amazon-bedrock-with-your-own-data-using-fine-tuning-and-continued-pre-training/).
-
-The fine-tuning job was based on a dataset provided by a client. Concurrently I'm actively exploring fine-tuning for a public version of the app using the [18,393 Pitchfork Reviews](https://www.kaggle.com/datasets/nolanbconaway/pitchfork-data) dataset on Kaggle.
-
-I'm struggling with Amazon support to get the quota increased so I can properly test my fine-tuned model. And for that reason I'm switching up to OpenAI. I had intended on the finished app to run some flavor of GPT, but wanted to give AWS a go. If they don't want my business that's fine. The less money I give to Amazon the better.
-
-At the same time I'm getting a lot of experience working within AWS services. I like it lots. They seem to end up being the necessary evil from time to time.
+The fine-tuning job was based on a dataset provided by the client. Concurrently I'm actively exploring fine-tuning for a public version of the app using the [18,393 Pitchfork Reviews](https://www.kaggle.com/datasets/nolanbconaway/pitchfork-data) dataset on Kaggle.
 
 
 <br>
@@ -29,8 +23,19 @@ At the same time I'm getting a lot of experience working within AWS services. I 
 
 The app is built on top of the [Vercel AI SDK](https://sdk.vercel.ai/docs).
 
-ATM it leverages AWS Bedrock for access to LLMs. And I scaffolded out the app using the [AWS Bedrock v Vercel AI documentation](https://sdk.vercel.ai/docs/guides/providers/aws-bedrock). It's a quick single page document, but gave me enough to get started.
+I scaffolded out the app using the [AWS Bedrock v Vercel AI documentation](https://sdk.vercel.ai/docs/guides/providers/aws-bedrock). It's a quick single page document, but gave me enough to get started.
 
+## Vercel KV
+
+>Vercel KV is a durable Redis database that enables you to store and retrieve JSON data.
+
+### Saved Chats
+
+It must be pointed out that the example app I started with is now fairly old. The examples that Vercel provides have definitely been refined over time. 
+
+I mention this as I've just run through the process of implementing my own functionality to save chats by individual users. This wasn't trivial, and while some elements could use refactoring, I'm largely happy with the way it performs.
+
+Chats are saved using [Vercel KV](https://vercel.com/docs/storage/vercel-kv), the use of which has thankfully been pretty smooth. I'm not a DB guy, so I appreciated the ease of integration.
 
 
 <br>
@@ -120,6 +125,9 @@ https://github.com/carbon-design-system/carbon/tree/main/packages/layout
 <br>
 
 # Construction Soundtrack
+
+### Kompakt 100
+[Spotify](https://open.spotify.com/album/4o6zUqH2huzRaeiwI3evnV?si=CG1XBcscSVqtCBtBte-MWg)
 
 ### Lora - Robag's Fandara Qualv NB
 [Spotify](https://open.spotify.com/track/7MeqyBDAMU218wNmYSG1ei?si=1f6303ff55f643a2)
