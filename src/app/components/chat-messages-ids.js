@@ -8,6 +8,7 @@ import { firstPromptAtom } from "@/app/store/atoms";
 import { userDataAtom } from "@/app/store/atoms";
 
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
+import { signalRefresh } from "@/app/lib/api-actions";
 
 const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
   const [query, setQuery] = useState(null);
@@ -37,23 +38,14 @@ const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
   useEffect(() => {
     // Signal refresh to api. Run on page refresh. Allows app to
     // reset chatIdRef.current and create a new object in the chats array
-    const queryParams = new URLSearchParams({ passedId: chatIdRef.current }).toString();
+    // 
+    signalRefresh(chatIdRef.current);
 
-    fetch(`/api/chat?${queryParams}`)
-      .then((response) => {
-        if (!response.ok) {
-          return response.text().then((text) => {
-            throw new Error(`${response.status}: ${text}`);
-          });
-        }
-        return response.json();
-      })
-      .then((result) => {
-        // console.log("The Success:", result);
-      })
-      .catch((error) => {
-        // console.error("The Error:", error);
-      });
+    // focus on input when page loads
+    //
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   }, []);
 
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
@@ -91,14 +83,6 @@ const MessagesIds = ({ chatMessagesRef, isHeightEqual }) => {
       />,
     ]);
   }, [query]);
-
-  // focus on input when page loads
-  //
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
 
   useEffect(() => {
     if (isHeightEqual === true && anchorRef.current) {
