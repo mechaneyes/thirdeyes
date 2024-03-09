@@ -139,7 +139,7 @@
         align-items: center;
         text-align: center;
         gap: 0.5rem;
-        margin-bottom: 95%;
+        margin-bottom: 66%;
 
         * {
           z-index: 1;
@@ -147,10 +147,26 @@
       }
 
       .login-image {
-        position: absolute;
-        bottom: -10rem;
-        right: -3rem;
+        inset: 43vh -34vw !important;
+        width: 125vw !important;
+        height: 125vw !important;
         z-index: 0;
+
+        @include bp("small") {
+          inset: 29vh -18vw !important;
+          width: 105vw !important;
+          height: 105vw !important;
+        }
+
+        @include bp("medium") {
+          inset: 34vh -16vw !important;
+          width: 75vw !important;
+          height: 75vw !important;
+        }
+
+        @include bp("large") {
+          inset: 24vh -18vw !important;
+        }
       }
     }
   }

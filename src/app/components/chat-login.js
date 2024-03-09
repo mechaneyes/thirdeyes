@@ -19,8 +19,7 @@ const ChatLogin = () => {
         <Image
           src="/images/hero--whirli-hero.png"
           alt="login"
-          width={700}
-          height={700}
+          fill={true}
           className="login-image"
         />
       </div>
