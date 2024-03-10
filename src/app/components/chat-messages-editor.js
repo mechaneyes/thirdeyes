@@ -7,6 +7,7 @@ import { useAtom, useAtomValue } from "jotai";
 
 import {
   firstPromptAtom,
+  newChatAtom,
   selectedChatAtom,
   userDataAtom,
 } from "@/app/store/atoms";
@@ -18,6 +19,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [query, setQuery] = useState(null);
   const [searches, setSearches] = useState([]);
   const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
+  const newChat = useAtomValue(newChatAtom);
   const selectedChat = useAtomValue(selectedChatAtom);
   const userData = useAtomValue(userDataAtom);
 
@@ -29,21 +31,25 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   let index = 1;
 
   useEffect(() => {
-    // loop through userData.chats + match id with selectedChat (clicked on in sidebar).
-    // set initialMessages to that chat's messages
+    // loop through userData.chats + match id with selectedChat (clicked
+    // on in sidebar). set initialMessages to that chat's messages
     //
     if (userData) {
       const chat = userData.chats.find((chat) => chat.id === selectedChat);
       chat ? setInitialMessages(chat.messages) : [];
     }
-  }, [userData, selectedChat]);
+  }, [newChat, selectedChat, userData]);
 
   useEffect(() => {
-    // Signal refresh to api. Run on page refresh. Allows app to
-    // reset chatIdRef.current and create a new object in the chats array
+    setInitialMessages([]);
+
+    // Signal refresh to api. Allows app to reset chatIdRef.current
+    // and create a new object in the chats array
     //
     signalRefresh(chatIdRef.current);
+  }, [newChat]);
 
+  useEffect(() => {
     // focus on input when page loads
     //
     if (inputRef.current) {

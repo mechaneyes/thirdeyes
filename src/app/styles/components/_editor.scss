@@ -56,9 +56,10 @@
       padding: 0 0 1rem;
 
       .chat__buttons {
-        display: none;
-        justify-content: flex-end;
-        padding-right: 1rem;
+        // display: none;
+        position: absolute;
+        bottom: 1.75rem;
+        right: 1.75rem;
       }
     }
   }

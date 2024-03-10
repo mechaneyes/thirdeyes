@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import { useAtom } from "jotai";
 
+import { newChatAtom } from "@/app/store/atoms";
 import ChatSavedEditor from "./chat-saved-editor";
 import { ButtonPrimary } from "./buttons/ButtonPrimary";
 
 export default function SidebarEditor() {
+  const [newChat, setNewChat] = useAtom(newChatAtom);
+
   let pathname = "";
   if (typeof window !== "undefined") {
     pathname = window.location.pathname.split("/").pop();
@@ -24,7 +28,11 @@ export default function SidebarEditor() {
             />
           ) : (
             <Link href="/editor">
-              <ButtonPrimary name="New Chat" classes="btn--saved-chats" />
+              <ButtonPrimary
+                onClick={() => setNewChat(!newChat)}
+                name="New Chat"
+                classes="btn--saved-chats"
+              />
             </Link>
           )}
         </div>
