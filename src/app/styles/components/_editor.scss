@@ -10,7 +10,6 @@
 
   .tiptap {
     height: calc(100vh - 9rem);
-    padding: 2.25rem;
     border: 1px solid #2fbfff;
     border-radius: 3rem 0 3rem 0;
     background-color: #324c66;
@@ -21,9 +20,10 @@
     }
 
     &__inner {
-      height: 100%;
+      height: calc(100% - 4.5rem);
+      padding: 2.25rem;
       overflow-y: scroll;
-      @include scrollbars(0.25rem, #3f455a, #1d3d5c);
+      @include scrollbars(10px, #3f455a, #1d3d5c);
     }
   }
 
@@ -39,7 +39,7 @@
   }
 
   .chat__messages {
-    overflow-y: scroll;
+    // overflow-y: scroll;
     font-weight: 100 !important;
   }
 
