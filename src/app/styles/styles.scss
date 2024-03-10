@@ -13,8 +13,6 @@
 @import "components/modals";
 @import "components/search";
 
-$maxWidth: 1300px;
-
 html,
 body {
   height: 100%;
@@ -38,8 +36,4 @@ body {
   * {
     box-sizing: border-box;
   }
-}
-
-header {
-  max-width: $maxWidth;
 }
