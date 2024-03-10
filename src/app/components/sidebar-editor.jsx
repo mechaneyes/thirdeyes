@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import ChatSaved from "./chat-saved";
+import ChatSavedEditor from "./chat-saved-editor";
 import { ButtonPrimary } from "./buttons/ButtonPrimary";
 
 export default function SidebarEditor() {
@@ -14,7 +14,7 @@ export default function SidebarEditor() {
   return (
     <>
       <div className="chat__sidebar__inner">
-        <ChatSaved />
+        <ChatSavedEditor />
         <div className="chat__buttons">
           {pathname === "chat" ? (
             <ButtonPrimary

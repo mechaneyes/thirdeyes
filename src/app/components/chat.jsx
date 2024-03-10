@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Column } from "@carbon/react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 import { useAtom } from "jotai";
@@ -9,11 +8,13 @@ import { isLoggedInAtom } from "@/app/store/atoms";
 
 import Messages from "./chat-messages";
 import MessagesIds from "./chat-messages-ids";
+import MessagesEditor from "./chat-messages-editor";
 import ChatLogin from "./chat-login";
 
 export default function Chat() {
   const [isHeightEqual, setIsHeightEqual] = useState(false);
   const [isChat, setIsChat] = useState(false);
+  const [isEditor, setIsEditor] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
   const chatMessagesRef = useRef(null);
 
@@ -24,8 +25,18 @@ export default function Chat() {
 
     if (pathname === "chat") {
       setIsChat(true);
+      setIsEditor(false);
     } else {
       setIsChat(false);
+      setIsEditor(false);
+    }
+
+    if (pathname === "editor") {
+      setIsChat(false);
+      setIsEditor(true);
+    } else {
+      setIsChat(false);
+      setIsEditor(false);
     }
   }, []);
 
@@ -89,6 +100,11 @@ export default function Chat() {
         <ChatLogin />
       ) : isChat ? (
         <Messages
+          chatMessagesRef={chatMessagesRef}
+          isHeightEqual={isHeightEqual}
+        />
+      ) : isEditor ? (
+        <MessagesEditor
           chatMessagesRef={chatMessagesRef}
           isHeightEqual={isHeightEqual}
         />

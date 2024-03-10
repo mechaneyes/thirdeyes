@@ -24,7 +24,7 @@
   .chat__panel {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 30% 1fr;
+    grid-template-rows: 1fr 70%;
     gap: 2rem;
 
     &__inner {
@@ -33,6 +33,7 @@
   }
 
   .chat__messages {
+    overflow-y: scroll;
     font-weight: 100 !important;
   }
 
