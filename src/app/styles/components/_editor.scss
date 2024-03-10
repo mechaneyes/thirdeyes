@@ -44,15 +44,16 @@
   }
 
   .chat__sidebar {
-    height: 80%;
+    height: 100%;
     margin: 0;
-    padding-bottom: 0;
+    padding: 1rem;
     overflow-y: scroll;
     @include scrollbars(0.25rem, #3f455a, #1d3d5c);
 
     &__inner {
       height: 100%;
       margin: 0;
+      padding: 0 0 1rem;
 
       .chat__buttons {
         display: none;

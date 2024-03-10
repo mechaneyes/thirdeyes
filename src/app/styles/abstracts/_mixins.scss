@@ -6,12 +6,13 @@
 ) {
   // For Google Chrome
   &::-webkit-scrollbar {
-    width: $size;
-    height: $size;
+    width: 0.125rem;
+    height: 0.125rem;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: $foreground-color;
+    // background: $foreground-color;
+    background: $highlight-color;
   }
 
   &::-webkit-scrollbar-track {
@@ -19,12 +20,14 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: $foreground-color;
+    // background-color: $foreground-color;
+    background-color: $highlight-color;
   }
 
   // For Internet Explorer
   & {
-    scrollbar-face-color: $foreground-color;
+    // scrollbar-face-color: $foreground-color;
+    scrollbar-face-color: $highlight-color;
     scrollbar-track-color: $background-color;
   }
 }
