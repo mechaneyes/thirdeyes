@@ -13,11 +13,17 @@
     padding: 2.25rem;
     border: 1px solid #2fbfff;
     border-radius: 3rem 0 3rem 0;
-    background-color: #1d3d5c;
+    background-color: #324c66;
     box-shadow: 4px 20px 25px -5px rgba(0, 0, 0, 0.2);
 
     &:focus-visible {
-        outline: none;
+      outline: none;
+    }
+
+    &__inner {
+      height: 100%;
+      overflow-y: scroll;
+      @include scrollbars(0.25rem, #3f455a, #1d3d5c);
     }
   }
 
@@ -49,6 +55,7 @@
       margin: 0;
 
       .chat__buttons {
+        display: none;
         justify-content: flex-end;
         padding-right: 1rem;
       }
