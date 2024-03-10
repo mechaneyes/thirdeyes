@@ -23,7 +23,7 @@
       height: calc(100% - 4.5rem);
       padding: 2.25rem;
       overflow-y: scroll;
-      @include scrollbars(10px, #3f455a, #1d3d5c);
+      @include scrollbars(1px, $highlight-color, #324c66);
     }
   }
 
