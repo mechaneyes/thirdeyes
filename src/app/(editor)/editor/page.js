@@ -15,8 +15,6 @@ export default function Home() {
   return (
     <>
       {/* <GoogleLogin /> */}
-      <div className="editor__inner"></div>
-      <Tiptap />
       {!isAuthorized && (
         <>
           <ButtonChatOptions

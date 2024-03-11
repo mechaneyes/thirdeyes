@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Column, Grid } from "@carbon/react";
+import Tiptap from "@/app/components/tiptap"; 
 
 const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
 const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
@@ -9,7 +10,6 @@ const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
   ssr: false,
 });
 export default function EditorLayout({ children }) {
-
   return (
     <div>
       <main>
@@ -27,6 +27,8 @@ export default function EditorLayout({ children }) {
             sm={4}
             className="editor__panel"
           >
+            <div className="editor__inner"></div>
+            <Tiptap />
             {children}
           </Column>
         </Grid>
