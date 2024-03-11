@@ -1,21 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
-import { isAuthorizedAtom } from "@/app/store/atoms";
+import { authTokenAtom } from "@/app/store/atoms";
 import GoogleLogin from "@/app/components/google-login";
 import Tiptap from "@/app/components/tiptap";
 import { ButtonChatOptions } from "@/app/components/buttons/ButtonChatOptions";
 import ModalEditor from "@/app/components/ModalEditor";
 
-export default function Home() {
+export default function EditorHome() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useAtom(isAuthorizedAtom);
+  const [authToken, setAuthToken] = useAtom(authTokenAtom);
+
+  useEffect(() => {
+    console.log("Object.keys(authToken)", Object.keys(authToken), authToken);
+  });
 
   return (
     <>
-      {/* <GoogleLogin /> */}
-      {!isAuthorized && (
+      <GoogleLogin />
+      <Tiptap />
+      {Object.keys(authToken).length > 0 && (
         <>
           <ButtonChatOptions
             onClick={() => setIsModalOpen(!isModalOpen)}
@@ -27,7 +32,9 @@ export default function Home() {
             classes={`modal modal--editor ${
               isModalOpen ? "modal--visible" : "modal--hidden"
             }`}
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => {
+              setIsModalOpen(false);
+            }}
           />
         </>
       )}

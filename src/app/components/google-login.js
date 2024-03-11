@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { useAuth } from "@/app/lib/auth-context";
 import { useAtom } from "jotai";
-import { isAuthorizedAtom } from "@/app/store/atoms";
+import { authTokenAtom, isAuthorizedAtom } from "@/app/store/atoms";
 
 export default function GoogleLogin() {
   const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_DOCS_CLIENT_ID;
@@ -20,8 +21,10 @@ export default function GoogleLogin() {
   const tokenClientRef = useRef();
   const gisInitedRef = useRef(gisInited);
 
-  const [isAuthorized, setIsAuthorized] = useAtom(isAuthorizedAtom);
+  const [authToken, setAuthToken] = useAtom(authTokenAtom);
   const [isSignoutButtonVisible, setSignoutButtonVisible] = useState(false);
+
+  const { authInfo, setAuthInfo } = useAuth();
 
   /**
    * Callback after the API client is loaded. Loads the
@@ -41,7 +44,6 @@ export default function GoogleLogin() {
    */
   function maybeEnableButtons() {
     if (gapiInited && gisInited) {
-      setIsAuthorized(true);
     }
   }
 
@@ -54,8 +56,14 @@ export default function GoogleLogin() {
         throw resp;
       }
       setSignoutButtonVisible(true);
-      setIsAuthorized(true);
-      console.log("Refresh");
+
+      // Store the token in context + state instead of localStorage or sessionStorage
+      setAuthInfo({
+        accessToken: resp.access_token,
+      });
+      setAuthToken({
+        accessToken: resp.access_token,
+      });
       await printDocTitle();
     };
 
@@ -69,22 +77,10 @@ export default function GoogleLogin() {
     }
   }
 
-
-  
   // ————————————————————————————————————o moved —>
   // MOVED to /editor/page.js
-  // 
-  /**
-   *  Sign out the user upon button click.
-   */
-  // function handleSignoutClick() {
-  //   setIsAuthorized(false);
-  //   const token = gapi.client.getToken();
-  //   if (token !== null) {
-  //     google.accounts.oauth2.revoke(token.access_token);
-  //     gapi.client.setToken("");
-  //   }
-  // }
+  //
+  // function handleSignoutClick() {}
 
   /**
    * Prints the title of a sample doc:
@@ -128,7 +124,7 @@ export default function GoogleLogin() {
   }, []);
 
   return (
-    !isAuthorized && (
+    !Object.keys(authToken).length > 0 && (
       <div className="editor__panel__inner editor__panel__inner--login">
         <>
           <div className="login-message">

@@ -9,6 +9,7 @@ const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
 const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
   ssr: false,
 });
+
 export default function EditorLayout({ children }) {
   return (
     <div>
@@ -28,7 +29,6 @@ export default function EditorLayout({ children }) {
             className="editor__panel"
           >
             <div className="editor__inner"></div>
-            <Tiptap />
             {children}
           </Column>
         </Grid>

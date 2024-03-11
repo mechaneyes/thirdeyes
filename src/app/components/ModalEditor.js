@@ -1,21 +1,22 @@
 import Link from "next/link";
 import { Close } from "@carbon/icons-react";
 import { useAtom } from "jotai";
-import { isAuthorizedAtom } from "@/app/store/atoms";
+import { authTokenAtom } from "@/app/store/atoms";
 
 export default function ModalEditor({ classes, onClick }) {
-  const [isAuthorized, setIsAuthorized] = useAtom(isAuthorizedAtom);
+    const [authToken, setAuthToken] = useAtom(authTokenAtom);
 
   //  Sign out from google upon button click.
   //
   function handleSignoutClick() {
-    setIsAuthorized(false);
+    setAuthToken([]);
     const token = gapi.client.getToken();
     if (token !== null) {
       google.accounts.oauth2.revoke(token.access_token);
       gapi.client.setToken("");
     }
   }
+  
   return (
     <div className={`modal ${classes}`}>
       <div className="modal__inner">
