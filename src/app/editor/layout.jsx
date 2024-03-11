@@ -8,6 +8,7 @@ const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
 const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
   ssr: false,
 });
+import { ButtonChatOptions } from "@/app/components/buttons/ButtonChatOptions";
 
 export default function ChatLayout({ children }) {
   return (
@@ -28,6 +29,10 @@ export default function ChatLayout({ children }) {
             className="editor__panel"
           >
             {children}
+            <div className="editor__inner"></div>
+            <ButtonChatOptions
+              classes={`btn btn--options btn--options--editor ${false ? "btn--disabled" : ""}`}
+            />
           </Column>
         </Grid>
       </main>

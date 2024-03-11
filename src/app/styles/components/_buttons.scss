@@ -64,4 +64,15 @@
     border-color: #868da3;
     border-radius: 50%;
   }
+
+  &--options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: $borders;
+    border-color: #868da3;
+    border-radius: 50%;
+  }
 }

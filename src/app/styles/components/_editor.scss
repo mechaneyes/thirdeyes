@@ -1,29 +1,24 @@
 .editor {
   &__panel {
-    color: white;
-    font-weight: 300;
-
-    > div {
-      height: 100%;
-    }
-  }
-
-  .tiptap {
+    position: relative;
     height: calc(100vh - 9rem);
     border: 1px solid #2fbfff;
     border-radius: 3rem 0 3rem 0;
     background-color: #324c66;
-    box-shadow: 4px 20px 25px -5px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: 300;
+  }
 
+  &__inner {
+    height: calc(100% - 5.5rem);
+    padding: 2.25rem;
+    overflow-y: scroll;
+    @include scrollbars(1px, $highlight-color, #324c66);
+  }
+
+  .tiptap {
     &:focus-visible {
       outline: none;
-    }
-
-    &__inner {
-      height: calc(100% - 4.5rem);
-      padding: 2.25rem;
-      overflow-y: scroll;
-      @include scrollbars(1px, $highlight-color, #324c66);
     }
   }
 
@@ -62,5 +57,13 @@
         right: 1.75rem;
       }
     }
+  }
+}
+
+.btn {
+  &--options--editor {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
   }
 }
