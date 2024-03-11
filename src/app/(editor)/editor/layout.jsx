@@ -2,6 +2,8 @@
 
 import dynamic from "next/dynamic";
 import { Column, Grid } from "@carbon/react";
+import { useAtom } from "jotai";
+import { isAuthorizedAtom } from "@/app/store/atoms";
 
 const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
 const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
@@ -11,6 +13,8 @@ const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
 import { ButtonChatOptions } from "@/app/components/buttons/ButtonChatOptions";
 
 export default function EditorLayout({ children }) {
+  const [isAuthorized, setIsAuthorized] = useAtom(isAuthorizedAtom);
+
   return (
     <div>
       <main>
@@ -29,13 +33,21 @@ export default function EditorLayout({ children }) {
             className="editor__panel"
           >
             {children}
-            <div className="editor__inner"></div>
-            <ButtonChatOptions
-              classes={`btn btn--options btn--options--editor ${false ? "btn--disabled" : ""}`}
-            />
+            {isAuthorized && (
+              <>
+                <div className="editor__inner"></div>
+                <ButtonChatOptions
+                  classes={`btn btn--options btn--options--editor ${
+                    false ? "btn--disabled" : ""
+                  }`}
+                />
+              </>
+            )}
           </Column>
         </Grid>
       </main>
+      <script async defer src="https://apis.google.com/js/api.js"></script>
+      <script async defer src="https://accounts.google.com/gsi/client"></script>
     </div>
   );
 }

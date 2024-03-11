@@ -7,6 +7,43 @@
     background-color: #324c66;
     color: white;
     font-weight: 300;
+
+    > div {
+      height: 100%;
+    }
+
+    &__inner {
+      display: grid;
+      grid-template-rows: 1fr 7rem;
+      justify-content: center;
+      position: relative;
+      height: 100%;
+      background-color: transparent;
+
+      &--login {
+        // background-color: black;
+        grid-template-rows: 1fr;
+        position: relative;
+        overflow: hidden;
+      }
+    }
+
+    .login-message {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 40%;
+      text-align: center;
+    }
+
+    .login-image {
+      position: absolute;
+      bottom: -15rem;
+      left: -1rem;
+      width: 900px;
+      height: 900px;
+    }
   }
 
   &__inner {

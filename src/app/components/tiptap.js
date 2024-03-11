@@ -4,13 +4,17 @@ import { useEffect, useState } from 'react';
 import { EditorContent } from "@tiptap/react";
 import { Heading } from "@tiptap/extension-heading";
 import { Paragraph } from "@tiptap/extension-paragraph";
-
 import { Editor } from '@tiptap/core'
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
+import { useAtom } from "jotai";
+
+import { isAuthorizedAtom } from "@/app/store/atoms";
+import GoogleLogin from "@/app/components/google-login";
 
 const Tiptap = () => {
   const [element, setElement] = useState(null);
+  const [isAuthorized] = useAtom(isAuthorizedAtom);
 
   useEffect(() => {
     setElement(document.querySelector('.editor__inner'));
@@ -42,7 +46,7 @@ const Tiptap = () => {
 
   return (
     <>
-      <EditorContent />
+      {isAuthorized && <EditorContent />}
     </>
   );
 };

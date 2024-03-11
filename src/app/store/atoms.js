@@ -1,5 +1,6 @@
 import { atom } from 'jotai'
 
+export const isAuthorizedAtom = atom(false)
 export const firstPromptAtom = atom(false)
 export const isLoggedInAtom = atom(true)
 export const newChatAtom = atom(false)
