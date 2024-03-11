@@ -2,18 +2,13 @@
 
 import dynamic from "next/dynamic";
 import { Column, Grid } from "@carbon/react";
-import { useAtom } from "jotai";
-import { isAuthorizedAtom } from "@/app/store/atoms";
 
 const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
 const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
 const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
   ssr: false,
 });
-import { ButtonChatOptions } from "@/app/components/buttons/ButtonChatOptions";
-
 export default function EditorLayout({ children }) {
-  const [isAuthorized, setIsAuthorized] = useAtom(isAuthorizedAtom);
 
   return (
     <div>
@@ -33,16 +28,6 @@ export default function EditorLayout({ children }) {
             className="editor__panel"
           >
             {children}
-            {isAuthorized && (
-              <>
-                <div className="editor__inner"></div>
-                <ButtonChatOptions
-                  classes={`btn btn--options btn--options--editor ${
-                    false ? "btn--disabled" : ""
-                  }`}
-                />
-              </>
-            )}
           </Column>
         </Grid>
       </main>

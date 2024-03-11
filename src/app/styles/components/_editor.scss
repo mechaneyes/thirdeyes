@@ -2,11 +2,12 @@
   &__panel {
     position: relative;
     height: calc(100vh - 9rem);
+    color: white;
+    font-weight: 300;
     border: 1px solid #2fbfff;
     border-radius: 3rem 0 3rem 0;
     background-color: #324c66;
-    color: white;
-    font-weight: 300;
+    overflow: hidden;
 
     > div {
       height: 100%;
@@ -16,14 +17,14 @@
       display: grid;
       grid-template-rows: 1fr 7rem;
       justify-content: center;
-      position: relative;
       height: 100%;
       background-color: transparent;
 
       &--login {
-        // background-color: black;
         grid-template-rows: 1fr;
-        position: relative;
+        position: absolute;
+        width: 100%;
+        height: 100%;
         overflow: hidden;
       }
     }
@@ -44,11 +45,21 @@
       width: 900px;
       height: 900px;
     }
+
+    #signout_button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+
+      + div {
+        display: none;
+      }
+    }
   }
 
   &__inner {
     height: calc(100% - 5.5rem);
-    padding: 2.25rem;
+    padding: 2.25rem 2.25rem 3.5rem;
     overflow-y: scroll;
     @include scrollbars(1px, $highlight-color, #324c66);
   }
@@ -58,6 +69,10 @@
       outline: none;
     }
   }
+
+  // ————————————————————————————————————o————————————————————————————————————o chat panel -->
+  // ————————————————————————————————————o chat panel —>
+  //
 
   .chat__panel {
     display: grid;
@@ -73,8 +88,9 @@
   .chat__messages {
     // overflow-y: scroll;
     font-weight: 100 !important;
-  }
-
+  } // ————————————————————————————————————o————————————————————————————————————o sidebar -->
+  // ————————————————————————————————————o sidebar —>
+  //
   .chat__sidebar {
     height: 100%;
     margin: 0;

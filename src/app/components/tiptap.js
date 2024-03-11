@@ -17,8 +17,10 @@ const Tiptap = () => {
   const [isAuthorized] = useAtom(isAuthorizedAtom);
 
   useEffect(() => {
-    setElement(document.querySelector('.editor__inner'));
-  }, []);
+    if (typeof window !== 'undefined') {
+      setElement(document.querySelector('.editor__inner'));
+    }
+  }, [isAuthorized]);
 
   new Editor({
     element: element,

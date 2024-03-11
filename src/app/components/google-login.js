@@ -1,11 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { useAtom } from "jotai";
 import { isAuthorizedAtom } from "@/app/store/atoms";
 
 export default function GoogleLogin() {
-  // TODO(developer): Set to client ID and API key from the Developer Console
   const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_DOCS_CLIENT_ID;
   const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_DOCS_API_KEY;
 
@@ -24,10 +22,6 @@ export default function GoogleLogin() {
 
   const [isAuthorized, setIsAuthorized] = useAtom(isAuthorizedAtom);
   const [isSignoutButtonVisible, setSignoutButtonVisible] = useState(false);
-
-  useEffect(() => {
-    console.log("isAuthorized", isAuthorized);
-  });
 
   /**
    * Callback after the API client is loaded. Loads the
@@ -61,7 +55,7 @@ export default function GoogleLogin() {
       }
       setSignoutButtonVisible(true);
       setIsAuthorized(true);
-      console.log("Refresh")
+      console.log("Refresh");
       await printDocTitle();
     };
 
@@ -75,17 +69,22 @@ export default function GoogleLogin() {
     }
   }
 
+
+  
+  // ————————————————————————————————————o moved —>
+  // MOVED to /editor/page.js
+  // 
   /**
    *  Sign out the user upon button click.
    */
-  function handleSignoutClick() {
-    setIsAuthorized(false);
-    const token = gapi.client.getToken();
-    if (token !== null) {
-      google.accounts.oauth2.revoke(token.access_token);
-      gapi.client.setToken("");
-    }
-  }
+  // function handleSignoutClick() {
+  //   setIsAuthorized(false);
+  //   const token = gapi.client.getToken();
+  //   if (token !== null) {
+  //     google.accounts.oauth2.revoke(token.access_token);
+  //     gapi.client.setToken("");
+  //   }
+  // }
 
   /**
    * Prints the title of a sample doc:
@@ -98,9 +97,9 @@ export default function GoogleLogin() {
       });
       const doc = response.result;
       const output = `Document ${doc.title} successfully found.\n`;
-      console.log('output', output);
+      console.log("output", output);
     } catch (err) {
-      console.log('err.message', err.message);
+      console.log("err.message", err.message);
       return;
     }
   }
@@ -129,13 +128,9 @@ export default function GoogleLogin() {
   }, []);
 
   return (
-    <div>
-      {isAuthorized ? (
-        <button id="signout_button" onClick={handleSignoutClick}>
-          Sign Out
-        </button>
-      ) : (
-        <div className="editor__panel__inner editor__panel__inner--login">
+    !isAuthorized && (
+      <div className="editor__panel__inner editor__panel__inner--login">
+        <>
           <div className="login-message">
             <h3>Authorize to Start Writing</h3>
             <button
@@ -155,8 +150,8 @@ export default function GoogleLogin() {
             height={800}
             className="login-image"
           />
-        </div>
-      )}
-    </div>
+        </>
+      </div>
+    )
   );
 }
