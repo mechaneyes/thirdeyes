@@ -52,16 +52,46 @@
       right: 1rem;
 
       + div {
-        display: none;
+        // display: none;
       }
     }
   }
 
   &__inner {
+    position: relative;
     height: calc(100% - 5.5rem);
     padding: 2.25rem 2.25rem 3.5rem;
     overflow-y: scroll;
     @include scrollbars(1px, $highlight-color, #324c66);
+
+    // Selecting this element as being previous sibling to the modal
+    // https://tobiasahlin.com/blog/previous-sibling-css-has/
+    // 
+    &:has(~ .modal--visible) {
+      display: none;
+    }
+  }
+
+  .modal {
+    &--editor {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(100% - 4rem);
+      height: calc(100% - 4rem);
+      margin: 2rem;
+      border: 1px solid #2FBFFF;
+      border-radius: 3rem 0 3rem 0;
+    }
+
+    &__inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
   }
 
   .tiptap {
@@ -118,5 +148,10 @@
     position: absolute;
     bottom: 2rem;
     right: 2rem;
+
+    // Selecting this element as being previous sibling to the modal
+    &:has(~ .modal--visible) {
+      display: none;
+    }
   }
 }

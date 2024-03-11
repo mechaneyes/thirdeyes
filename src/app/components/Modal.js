@@ -12,17 +12,7 @@ export default function Modal({ classes, onClick }) {
           <ul>
             <li>
               <Link onClick={onClick} href="/">
-                / Home
-              </Link>
-            </li>
-            <li>
-              <Link onClick={onClick} href="/chat">
-                / Chat
-              </Link>
-            </li>
-            <li>
-              <Link onClick={onClick} href="/profile">
-                / Profile
+                Logout
               </Link>
             </li>
             <li>

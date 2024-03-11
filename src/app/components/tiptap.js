@@ -10,7 +10,6 @@ import Text from '@tiptap/extension-text'
 import { useAtom } from "jotai";
 
 import { isAuthorizedAtom } from "@/app/store/atoms";
-import GoogleLogin from "@/app/components/google-login";
 
 const Tiptap = () => {
   const [element, setElement] = useState(null);
@@ -45,6 +44,8 @@ const Tiptap = () => {
     editable: true,
     injectCSS: false,
   })
+
+  return
 
   return (
     <>

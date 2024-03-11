@@ -1,42 +1,38 @@
 "use client";
 
+import { useState } from "react";
 import { useAtom } from "jotai";
 import { isAuthorizedAtom } from "@/app/store/atoms";
 import GoogleLogin from "@/app/components/google-login";
 import Tiptap from "@/app/components/tiptap";
 import { ButtonChatOptions } from "@/app/components/buttons/ButtonChatOptions";
+import ModalEditor from "@/app/components/ModalEditor";
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAuthorized, setIsAuthorized] = useAtom(isAuthorizedAtom);
 
-  //  Sign out from google upon button click.
-  //
-  function handleSignoutClick() {
-    setIsAuthorized(false);
-    const token = gapi.client.getToken();
-    if (token !== null) {
-      google.accounts.oauth2.revoke(token.access_token);
-      gapi.client.setToken("");
-    }
-  }
-  
   return (
     <>
-      {isAuthorized && (
+      {/* <GoogleLogin /> */}
+      <div className="editor__inner"></div>
+      <Tiptap />
+      {!isAuthorized && (
         <>
-          <div className="editor__inner"></div>
           <ButtonChatOptions
+            onClick={() => setIsModalOpen(!isModalOpen)}
             classes={`btn btn--options btn--options--editor ${
               false ? "btn--disabled" : ""
             }`}
           />
-          <button id="signout_button" onClick={handleSignoutClick}>
-            Sign Out
-          </button>
+          <ModalEditor
+            classes={`modal modal--editor ${
+              isModalOpen ? "modal--visible" : "modal--hidden"
+            }`}
+            onClick={() => setIsModalOpen(false)}
+          />
         </>
       )}
-      <GoogleLogin />
-      <Tiptap />
     </>
   );
 }
