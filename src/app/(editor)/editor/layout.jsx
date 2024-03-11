@@ -10,7 +10,7 @@ const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
 });
 import { ButtonChatOptions } from "@/app/components/buttons/ButtonChatOptions";
 
-export default function ChatLayout({ children }) {
+export default function EditorLayout({ children }) {
   return (
     <div>
       <main>
