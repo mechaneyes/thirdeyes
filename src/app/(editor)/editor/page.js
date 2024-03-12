@@ -23,11 +23,13 @@ export default function EditorHome() {
 
   return (
     <>
-      {/* <GoogleLogin /> */}
-      <div className="editor__inner" ref={editorRef}></div>
-      {tipTapComponent}
-      {!Object.keys(authToken).length > 0 && (
+      <GoogleLogin />
+
+      {Object.keys(authToken).length > 0 && (
         <>
+          <div className="editor__inner" ref={editorRef}></div>
+          {tipTapComponent}
+
           <ButtonChatOptions
             onClick={() => setIsModalOpen(!isModalOpen)}
             classes={`btn btn--options btn--options--editor ${
