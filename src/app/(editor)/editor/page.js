@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { authTokenAtom } from "@/app/store/atoms";
 import GoogleLogin from "@/app/components/google-login";
@@ -14,20 +14,20 @@ export default function EditorHome() {
   const [tipTapComponent, setTipTapComponent] = useState(null);
   const [authToken, setAuthToken] = useAtom(authTokenAtom);
 
-  useEffect(() => {
-    setEditorElement(document.querySelector(".editor__inner"));
-  });
+  const editorRef = useRef();
 
   useEffect(() => {
-    setTipTapComponent(<Tiptap editorElement={editorElement} />);
-  }, [editorElement]);
+    if (editorRef.current) {
+      setTipTapComponent(<Tiptap editorRef={editorRef} />);
+    }
+  }, []);
 
   return (
     <>
-      <div className="editor__inner"></div>
-      <GoogleLogin />
+      <div className="editor__inner" ref={editorRef}></div>
+      {/* <GoogleLogin /> */}
       {tipTapComponent}
-      {Object.keys(authToken).length > 0 && (
+      {!Object.keys(authToken).length > 0 && (
         <>
           <ButtonChatOptions
             onClick={() => setIsModalOpen(!isModalOpen)}

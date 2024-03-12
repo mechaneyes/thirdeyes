@@ -8,11 +8,11 @@ import { Editor } from "@tiptap/core";
 import Document from "@tiptap/extension-document";
 import Text from "@tiptap/extension-text";
 
-import {guttlerClipped} from "@/app/store/tiptap-content";
+import { guttlerClipped } from "@/app/store/tiptap-content";
 
-const Tiptap = (editorElement) => {
+const Tiptap = ({ editorRef }) => {
   new Editor({
-    element: editorElement,
+    element: editorRef,
     extensions: [
       Document,
       Heading.configure({
@@ -27,7 +27,7 @@ const Tiptap = (editorElement) => {
       }),
       Text,
     ],
-    content: guttlerClipped,
+    content: "guttlerClipped",
     autofocus: true,
     editable: true,
     injectCSS: false,
