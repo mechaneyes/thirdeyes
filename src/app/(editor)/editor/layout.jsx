@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Column, Grid } from "@carbon/react";
-import Tiptap from "@/app/components/tiptap";
 
 const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
 const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });

@@ -10,7 +10,6 @@ import ModalEditor from "@/app/components/ModalEditor";
 
 export default function EditorHome() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editorElement, setEditorElement] = useState(null);
   const [tipTapComponent, setTipTapComponent] = useState(null);
   const [authToken, setAuthToken] = useAtom(authTokenAtom);
 
@@ -18,14 +17,14 @@ export default function EditorHome() {
 
   useEffect(() => {
     if (editorRef.current) {
-      setTipTapComponent(<Tiptap editorRef={editorRef} />);
+      setTipTapComponent(<Tiptap selector=".editor__inner" />);
     }
   }, []);
 
   return (
     <>
-      <div className="editor__inner" ref={editorRef}></div>
       {/* <GoogleLogin /> */}
+      <div className="editor__inner" ref={editorRef}></div>
       {tipTapComponent}
       {!Object.keys(authToken).length > 0 && (
         <>

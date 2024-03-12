@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from 'react';
 import { EditorContent } from "@tiptap/react";
 import { Heading } from "@tiptap/extension-heading";
 import { Paragraph } from "@tiptap/extension-paragraph";
@@ -10,32 +10,40 @@ import Text from "@tiptap/extension-text";
 
 import { guttlerClipped } from "@/app/store/tiptap-content";
 
-const Tiptap = ({ editorRef }) => {
-  new Editor({
-    element: editorRef,
-    extensions: [
-      Document,
-      Heading.configure({
-        HTMLAttributes: {
-          class: "tiptap__heading",
-        },
-      }),
-      Paragraph.configure({
-        HTMLAttributes: {
-          class: "tiptap__paragraph",
-        },
-      }),
-      Text,
-    ],
-    content: "guttlerClipped",
-    autofocus: true,
-    editable: true,
-    injectCSS: false,
-  });
+const Tiptap = ({ selector }) => {
+  const editorRef = useRef();
 
-  return;
+  useEffect(() => {
+    if (selector) {
+      editorRef.current = document.querySelector(selector);
 
-  return <>{isAuthorized && <EditorContent />}</>;
+      new Editor({
+        element: editorRef.current,
+        extensions: [
+          Document,
+          Heading.configure({
+            HTMLAttributes: {
+              class: "tiptap__heading",
+            },
+          }),
+          Paragraph.configure({
+            HTMLAttributes: {
+              class: "tiptap__paragraph",
+            },
+          }),
+          Text,
+        ],
+        content: guttlerClipped,
+        autofocus: true,
+        editable: true,
+        injectCSS: false,
+      });
+
+      return;
+    }
+  }, [selector]);
+
+  // return <>{isAuthorized && <EditorContent />}</>;
 };
 
 export default Tiptap;
