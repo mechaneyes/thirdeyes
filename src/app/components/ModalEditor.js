@@ -15,6 +15,7 @@ export default function ModalEditor({ classes, onClick }) {
       google.accounts.oauth2.revoke(token.access_token);
       gapi.client.setToken("");
     }
+    onClick();
   }
   
   return (

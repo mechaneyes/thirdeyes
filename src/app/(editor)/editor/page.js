@@ -16,20 +16,20 @@ export default function EditorHome() {
   const editorRef = useRef();
 
   useEffect(() => {
-    if (editorRef.current) {
+    if (Object.keys(authToken).length > 0) {
       setTipTapComponent(<Tiptap selector=".editor__inner" />);
     }
-  }, []);
+  }, [authToken]);
 
   return (
     <>
       <GoogleLogin />
 
+      <div className="editor__inner" ref={editorRef}></div>
+      {tipTapComponent}
+
       {Object.keys(authToken).length > 0 && (
         <>
-          <div className="editor__inner" ref={editorRef}></div>
-          {tipTapComponent}
-
           <ButtonChatOptions
             onClick={() => setIsModalOpen(!isModalOpen)}
             classes={`btn btn--options btn--options--editor ${
