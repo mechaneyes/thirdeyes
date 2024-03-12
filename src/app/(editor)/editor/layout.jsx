@@ -1,8 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Column, Grid } from "@carbon/react";
-import Tiptap from "@/app/components/tiptap"; 
+import Tiptap from "@/app/components/tiptap";
 
 const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
 const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
@@ -12,7 +13,7 @@ const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
 
 export default function EditorLayout({ children }) {
   return (
-    <div>
+    <>
       <main>
         <Header />
         <Grid className="thirdeyes chat editor">
@@ -28,13 +29,12 @@ export default function EditorLayout({ children }) {
             sm={4}
             className="editor__panel"
           >
-            <div className="editor__inner"></div>
             {children}
           </Column>
         </Grid>
       </main>
       <script async defer src="https://apis.google.com/js/api.js"></script>
       <script async defer src="https://accounts.google.com/gsi/client"></script>
-    </div>
+    </>
   );
 }

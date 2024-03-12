@@ -18,7 +18,7 @@ export default function ModalEditor({ classes, onClick }) {
   }
   
   return (
-    <div className={`modal ${classes}`}>
+    <div className={`modal modal--editor ${classes}`}>
       <div className="modal__inner">
         <button className="modal__close">
           <Close onClick={onClick} size="32" className="modal__svg" />

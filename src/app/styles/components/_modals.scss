@@ -69,4 +69,10 @@ $modal-opacity-speed: 0.2s;
   svg.modal__svg {
     fill: #2fbfff;
   }
+
+  &--editor {
+    li {
+      cursor: pointer;
+    }
+  }
 }

@@ -10,16 +10,23 @@ import ModalEditor from "@/app/components/ModalEditor";
 
 export default function EditorHome() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editorElement, setEditorElement] = useState(null);
+  const [tipTapComponent, setTipTapComponent] = useState(null);
   const [authToken, setAuthToken] = useAtom(authTokenAtom);
 
   useEffect(() => {
-    console.log("Object.keys(authToken)", Object.keys(authToken), authToken);
+    setEditorElement(document.querySelector(".editor__inner"));
   });
+
+  useEffect(() => {
+    setTipTapComponent(<Tiptap editorElement={editorElement} />);
+  }, [editorElement]);
 
   return (
     <>
+      <div className="editor__inner"></div>
       <GoogleLogin />
-      <Tiptap />
+      {tipTapComponent}
       {Object.keys(authToken).length > 0 && (
         <>
           <ButtonChatOptions
