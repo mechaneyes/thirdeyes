@@ -31,12 +31,8 @@ export default function ModalEditor({ classes, onClick }) {
                 New Document
               </Link>
             </li>
-            <li>
-              <Link href="/">Saved Documents</Link>
-            </li>
-            <li>
-              <Link href="/">Settings</Link>
-            </li>
+            <li>Saved Documents</li>
+            <li>Settings</li>
             <li onClick={handleSignoutClick}>Sign Out</li>
           </ul>
         </div>

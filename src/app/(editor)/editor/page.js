@@ -8,6 +8,8 @@ import Tiptap from "@/app/components/tiptap";
 import { ButtonChatOptions } from "@/app/components/buttons/ButtonChatOptions";
 import ModalEditor from "@/app/components/ModalEditor";
 
+import { guttler, guttlerClipped } from "@/app/store/tiptap-content";
+
 export default function EditorHome() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tipTapComponent, setTipTapComponent] = useState(null);
@@ -17,7 +19,7 @@ export default function EditorHome() {
 
   useEffect(() => {
     if (Object.keys(authToken).length > 0) {
-      setTipTapComponent(<Tiptap selector=".editor__inner" />);
+      setTipTapComponent(<Tiptap content={guttler} selector=".editor__inner" />);
     }
   }, [authToken]);
 

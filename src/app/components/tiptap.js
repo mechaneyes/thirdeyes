@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 import { EditorContent } from "@tiptap/react";
 import { Heading } from "@tiptap/extension-heading";
 import { Paragraph } from "@tiptap/extension-paragraph";
@@ -8,17 +8,19 @@ import { Editor } from "@tiptap/core";
 import Document from "@tiptap/extension-document";
 import Text from "@tiptap/extension-text";
 
-import { guttlerClipped } from "@/app/store/tiptap-content";
-
-const Tiptap = ({ selector }) => {
-  const editorRef = useRef();
+const Tiptap = ({ content, selector }) => {
+  const elementRef = useRef();
 
   useEffect(() => {
-    if (selector) {
-      editorRef.current = document.querySelector(selector);
+    let editor;
 
-      new Editor({
-        element: editorRef.current,
+    console.log("Running useEffect", { selector, content });
+
+    if (selector) {
+      elementRef.current = document.querySelector(selector);
+
+      editor = new Editor({
+        element: elementRef.current,
         extensions: [
           Document,
           Heading.configure({
@@ -33,15 +35,19 @@ const Tiptap = ({ selector }) => {
           }),
           Text,
         ],
-        content: guttlerClipped,
+        content,
         autofocus: true,
         editable: true,
         injectCSS: false,
       });
 
-      return;
+      return () => {
+        if (editor) {
+          editor.destroy();
+        }
+      };
     }
-  }, [selector]);
+  }, [selector, content]);
 
   // return <>{isAuthorized && <EditorContent />}</>;
 };
