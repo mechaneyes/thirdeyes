@@ -8,7 +8,7 @@ const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
 const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
   ssr: false,
 });
-// import SidebarSpotify from "@/app/components/sidebar-spotify";
+import SidebarSpotify from "@/app/components/sidebar-spotify";
 
 export default function EditorLayout({ children }) {
   return (
@@ -17,8 +17,8 @@ export default function EditorLayout({ children }) {
         <Header />
         <Grid className="thirdeyes chat editor">
           <Column max={9} xlg={9} lg={9} md={9} sm={4} className="chat__panel">
-            <SidebarEditor />
-            {/* <SidebarSpotify /> */}
+            {/* <SidebarEditor /> */}
+            <SidebarSpotify />
             <Chat />
           </Column>
           <Column

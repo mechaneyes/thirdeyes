@@ -8,16 +8,17 @@ import { useAtom, useAtomValue } from "jotai";
 import {
   firstPromptAtom,
   newChatAtom,
+  queryAtom,
   selectedChatAtom,
   userDataAtom,
 } from "@/app/store/atoms";
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
 import { signalRefresh } from "@/app/lib/api-actions";
-import { spotifyTopTracks } from "@/app/lib/artist-spotify-top-tracks";
+// import { spotifyTopTracks } from "@/app/lib/artist-spotify-top-tracks";
 
 const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [initialMessages, setInitialMessages] = useState([]);
-  const [query, setQuery] = useState(null);
+  const [query, setQuery] = useAtom(queryAtom);
   const [searches, setSearches] = useState([]);
   const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
   const newChat = useAtomValue(newChatAtom);
@@ -79,13 +80,13 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     event.preventDefault();
     setQuery(input);
 
-    spotifyTopTracks(input)
-      .then((match) => {
-        console.log("match", match);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    // spotifyTopTracks(input)
+    //   .then((match) => {
+    //     console.log("match", match);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   };
 
   useEffect(() => {

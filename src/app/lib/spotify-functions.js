@@ -5,8 +5,8 @@ const querystring = require("querystring");
 const CLIENT_ID = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
 
-// Function to obtain an access token
-export async function getAccessToken(clientId, clientSecret) {
+// obtain an access token
+async function getAccessToken(clientId, clientSecret) {
   const url = "https://accounts.spotify.com/api/token";
   const auth = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
   const response = await axios.post(
@@ -51,33 +51,20 @@ export async function getArtistTopTracks(
   return response.data.tracks.slice(0, 5); // Return top 5 tracks
 }
 
-export async function runSpotify() {
+export async function runSpotify(artistName) {
   const accessToken = await getAccessToken(CLIENT_ID, CLIENT_SECRET);
-  console.log("Authenticated with Spotify\n");
 
-  let artistName = "";
-  while (artistName !== "quit") {
-    artistName = prompt(
-      "Enter an artist's name to get top tracks, or 'quit' to exit: "
-    );
-    if (artistName.toLowerCase() === "quit") {
-      break;
-    }
-    try {
-      const artistInfo = await getArtistInfo(accessToken, artistName);
-      const artistId = artistInfo.id;
-      console.log(`\nArtist Name: ${artistInfo.name}`);
+  try {
+    const artistInfo = await getArtistInfo(accessToken, artistName);
+    const artistId = artistInfo.id;
+    console.log(`\nArtist Name: ${artistInfo.name}`);
 
-      // Get the artist's top 5 tracks
-      const topTracks = await getArtistTopTracks(accessToken, artistId);
-      console.log("\nTop 5 Tracks:");
-      for (const track of topTracks) {
-        console.log(`Track: ${track.name}`);
-        console.log(`Album: ${track.album.name}`);
-        console.log(`Spotify Link: ${track.external_urls.spotify}\n`);
-      }
-    } catch (e) {
-      console.log(`An error occurred: ${e}\n`);
-    }
+    // Get the artist's top 5 tracks
+    const topTracks = await getArtistTopTracks(accessToken, artistId);
+    // console.log('topTracks', topTracks)
+
+    return topTracks;
+  } catch (e) {
+    console.log(`An error occurred: ${e}\n`);
   }
 }

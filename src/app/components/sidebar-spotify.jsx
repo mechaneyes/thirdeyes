@@ -1,70 +1,49 @@
 "use client";
 
-import { useState } from "react";
-import {
-  getAccessToken,
-  getArtistInfo,
-  getArtistTopTracks,
-} from "./modules/spotify.js";
+import { useState, useEffect } from "react";
+import { useAtom, useAtomValue } from "jotai";
 
-import artists from "@/app/store/artists-electronic-filtered.json";
+import { runSpotify } from "@/app/lib/spotify-functions";
+import { queryAtom } from "@/app/store/atoms";
 
 export default function SpotifyComponent() {
   const [artistName, setArtistName] = useState("");
   const [artistInfo, setArtistInfo] = useState(null);
   const [topTracks, setTopTracks] = useState([]);
+  const query = useAtomValue(queryAtom);
 
-  const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
-  const clientSecret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
-
-  // check if submitted input value is in the artists.json file
+  // ————————————————————————————————————o ID the artists —>
   //
-  const checkArtist = (artistName) => {
-    const artist = artists.find(
-      (artist) => artist.name.toLowerCase() === artistName.toLowerCase()
+  const identifyArtists = async (query) => {
+    const response = await fetch(
+      // `https://thirdeyes-backend.vercel.app/google?form-input=${query}`
+      `http://127.0.0.1:5328/identify-artists?form-input=${query}`
     );
-    return artist;
+    const data = await response.json();
+
+    return data;
   };
 
-  const runSpotify = async () => {
-    const accessToken = await getAccessToken(clientId, clientSecret);
-    console.log("Authenticated with Spotify\n");
-
-    const artist = checkArtist(artistName);
-    console.log('found artist', artist);
-
-    if (artistName.toLowerCase() === "quit") {
-      setArtistName("");
-      setArtistInfo(null);
-      setTopTracks([]);
-      return;
+  // ————————————————————————————————————o get deets from spotify —>
+  //
+  useEffect(() => {
+    if (query !== null) {
+      identifyArtists(query).then((data) => {
+        runSpotify(data.artists[0])
+          .then((topTracks) => {
+            console.log("topTracks", topTracks);
+          })
+          .catch((error) => {
+            // handle error
+          });
+      });
+    } else {
+      console.log("that shit's null");
     }
-
-    try {
-      const artist = await getArtistInfo(accessToken, artistName);
-      const artistId = artist.id;
-      console.log(`\nArtist Name: ${artist.name}`);
-      setArtistInfo(artist);
-
-      // Get the artist's top 5 tracks
-      const tracks = await getArtistTopTracks(accessToken, artistId);
-      console.log("\nTop 5 Tracks:");
-      setTopTracks(tracks);
-    } catch (e) {
-      console.log(`An error occurred: ${e}\n`);
-    }
-  };
+  }, [query]);
 
   return (
     <div className="chat__sidebar__inner chat__sidebar__inner--spotify">
-      <input
-        type="text"
-        value={artistName}
-        onChange={(e) => setArtistName(e.target.value)}
-        placeholder="Enter an artist's name"
-      />
-      <button onClick={runSpotify}>Get Top Tracks</button>
-
       {artistInfo && (
         <div>
           <h2>Artist Name: {artistInfo.name}</h2>
