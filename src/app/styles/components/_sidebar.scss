@@ -1,7 +1,45 @@
-.sidebar {
-  &__module {
-    &--spotify {
-      background-color: $spotify;
+.chat__sidebar__inner {
+  &--spotify {
+    padding: 0.5rem 0 !important;
+    background: #243c5c;
+  }
+
+  .spotify {
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.25rem;
+    }
+
+    li {
+      height: 100%;
+      padding: 0.5rem;
+      color: white;
+      word-break: break-all;
+    }
+
+    p {
+      padding-bottom: 0rem;
+      font-size: 1rem;
+      font-weight: 300;
+
+      &.spotify__album {
+        font-size: 0.9rem;
+        font-weight: 300;
+      }
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      padding-left: 1.5rem;
+    }
+
+    &__track {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      grid-template-rows: 1fr;
+      gap: 0.5rem;
     }
   }
 }

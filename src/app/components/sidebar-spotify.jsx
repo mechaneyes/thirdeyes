@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { useAtom, useAtomValue } from "jotai";
 
 import { runSpotify } from "@/app/lib/spotify-functions";
@@ -42,8 +43,8 @@ export default function SpotifyComponent() {
   }, [query]);
 
   return (
-    <div className="sidebar__module sidebar__module--spotify spotify">
-      <ul className="spotify__list">
+    <div className="chat__sidebar__inner chat__sidebar__inner--spotify">
+      <ul className="spotify spotify__list">
         {spotifyData &&
           spotifyData.map((item) => {
             return (
@@ -53,9 +54,16 @@ export default function SpotifyComponent() {
                 className="spotify__link"
               >
                 <li className="spotify__track">
-                  <p className="spotify__title">{item.name}</p>
-                  <p className="spotify__album">{item.album.name}</p>
-                  <p className="spotify__url">{item.external_urls.spotify}</p>
+                  <Image
+                    src={item.album.images[2].url}
+                    width={64}
+                    height={64}
+                    alt={`Album artwork from ${item.album.name}`}
+                  />
+                  <div className="spotify__copy">
+                    <p className="spotify__title">{item.name}</p>
+                    <p className="spotify__album">{item.album.name}</p>
+                  </div>
                 </li>
               </a>
             );
