@@ -7,9 +7,7 @@ import { runSpotify } from "@/app/lib/spotify-functions";
 import { queryAtom } from "@/app/store/atoms";
 
 export default function SpotifyComponent() {
-  const [artistName, setArtistName] = useState("");
-  const [artistInfo, setArtistInfo] = useState(null);
-  const [topTracks, setTopTracks] = useState([]);
+  const [spotifyData, setSpotifyData] = useState([]);
   const query = useAtomValue(queryAtom);
 
   // ————————————————————————————————————o ID the artists —>
@@ -31,10 +29,11 @@ export default function SpotifyComponent() {
       identifyArtists(query).then((data) => {
         runSpotify(data.artists[0])
           .then((topTracks) => {
-            console.log("topTracks", topTracks);
+            console.log("topTracks", topTracks, topTracks[0]);
+            setSpotifyData(topTracks);
           })
           .catch((error) => {
-            // handle error
+            console.error("runSpotify error:", error);
           });
       });
     } else {
@@ -43,24 +42,25 @@ export default function SpotifyComponent() {
   }, [query]);
 
   return (
-    <div className="chat__sidebar__inner chat__sidebar__inner--spotify">
-      {artistInfo && (
-        <div>
-          <h2>Artist Name: {artistInfo.name}</h2>
-          <h3>Top 5 Tracks:</h3>
-          <ul>
-            {topTracks.map((track) => (
-              <li key={track.id}>
-                <p>Track: {track.name}</p>
-                <p>Album: {track.album.name}</p>
-                <p>
-                  Spotify Link: <a href={track.external_urls.spotify}>Listen</a>
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+    <div className="sidebar__module sidebar__module--spotify spotify">
+      <ul className="spotify__list">
+        {spotifyData &&
+          spotifyData.map((item) => {
+            return (
+              <a
+                key={item.id}
+                href={item.external_urls.spotify}
+                className="spotify__link"
+              >
+                <li className="spotify__track">
+                  <p className="spotify__title">{item.name}</p>
+                  <p className="spotify__album">{item.album.name}</p>
+                  <p className="spotify__url">{item.external_urls.spotify}</p>
+                </li>
+              </a>
+            );
+          })}
+      </ul>
     </div>
   );
 }
