@@ -27,6 +27,10 @@
       position: relative;
       padding: 2.5rem 1rem 1rem;
       // overflow: scroll;
+
+      &--spotify {
+        overflow-y: scroll;
+      }
     }
 
     &__settings {

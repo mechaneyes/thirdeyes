@@ -13,6 +13,7 @@ import {
 } from "@/app/store/atoms";
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
 import { signalRefresh } from "@/app/lib/api-actions";
+import { artistMatch } from "@/app/lib/artist-match";
 
 const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [initialMessages, setInitialMessages] = useState([]);
@@ -77,6 +78,14 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const handleQuery = (event) => {
     event.preventDefault();
     setQuery(input);
+
+    artistMatch(input)
+      .then((match) => {
+        console.log("match", match);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {

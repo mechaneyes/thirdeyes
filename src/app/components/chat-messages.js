@@ -7,6 +7,7 @@ import { useAtom } from "jotai";
 import { firstPromptAtom } from "@/app/store/atoms";
 
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
+import { artistMatch } from "@/app/lib/artist-match";
 
 const Messages = ({ chatMessagesRef, isHeightEqual }) => {
   const [messageExists, setMessageExists] = useState(false);
