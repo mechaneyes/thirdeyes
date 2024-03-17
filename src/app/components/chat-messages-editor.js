@@ -13,7 +13,7 @@ import {
 } from "@/app/store/atoms";
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
 import { signalRefresh } from "@/app/lib/api-actions";
-import { artistMatch } from "@/app/lib/artist-match";
+import { spotifyTopTracks } from "@/app/lib/artist-spotify-top-tracks";
 
 const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [initialMessages, setInitialMessages] = useState([]);
@@ -79,7 +79,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     event.preventDefault();
     setQuery(input);
 
-    artistMatch(input)
+    spotifyTopTracks(input)
       .then((match) => {
         console.log("match", match);
       })
