@@ -1,15 +1,75 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Script from "next/script";
 import Image from "next/image";
 import { useAtom, useAtomValue } from "jotai";
 
 import { runSpotify } from "@/app/lib/spotify-functions";
+import SpotifyLogin from "@/app/components/spotify-login";
+import SpotifyWebPlayback from "@/app/components/spotify-webplayback";
 import { queryAtom } from "@/app/store/atoms";
 
 export default function SpotifyComponent() {
   const [spotifyData, setSpotifyData] = useState([]);
+  const [token, setToken] = useState("");
   const query = useAtomValue(queryAtom);
+
+  // ————————————————————————————————————o spotify player —>
+  //
+  // if (typeof window !== "undefined") {
+  //   window.onSpotifyWebPlaybackSDKReady = () => {
+  //     const token = process.env.NEXT_PUBLIC_SPOTIFY_TOKEN;
+  //     const player = new Spotify.Player({
+  //       name: "Web Playback SDK Quick Start Player",
+  //       getOAuthToken: (cb) => {
+  //         cb(token);
+  //       },
+  //       volume: 0.5,
+  //     });
+
+  //     // Ready
+  //     player.addListener("ready", ({ device_id }) => {
+  //       console.log("Ready with Device ID", device_id);
+  //     });
+
+  //     // Not Ready
+  //     player.addListener("not_ready", ({ device_id }) => {
+  //       console.log("Device ID has gone offline", device_id);
+  //     });
+
+  //     player.addListener("initialization_error", ({ message }) => {
+  //       console.error(message);
+  //     });
+
+  //     player.addListener("authentication_error", ({ message }) => {
+  //       console.error(message);
+  //     });
+
+  //     player.addListener("account_error", ({ message }) => {
+  //       console.error(message);
+  //     });
+
+  //     player.connect();
+
+  //     document.getElementById("togglePlay").onclick = function () {
+  //       player.togglePlay();
+  //     };
+  //   };
+  // }
+
+  useEffect(() => {
+    async function getToken() {
+      const response = await fetch("http://localhost:3000/api/spotify/token");
+      const json = await response.json();
+
+      console.log("json", json.access_token);
+
+      setToken(json.access_token.value);
+    }
+
+    getToken();
+  }, []);
 
   // ————————————————————————————————————o ID the artists —>
   //
@@ -37,13 +97,14 @@ export default function SpotifyComponent() {
             console.error("runSpotify error:", error);
           });
       });
-    } else {
-      console.log("that shit's null");
     }
   }, [query]);
 
   return (
     <div className="chat__sidebar__inner chat__sidebar__inner--spotify">
+      <SpotifyLogin />
+      {token && <SpotifyWebPlayback token={token} />}
+
       <ul className="spotify spotify__list">
         {spotifyData &&
           spotifyData.map((item) => {
@@ -69,6 +130,10 @@ export default function SpotifyComponent() {
             );
           })}
       </ul>
+      <Script
+        src="https://sdk.scdn.co/spotify-player.js"
+        strategy="lazyOnload"
+      />
     </div>
   );
 }
