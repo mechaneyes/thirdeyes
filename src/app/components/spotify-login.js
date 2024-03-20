@@ -9,7 +9,7 @@ export default function SpotifyLogin() {
             type="button"
             className="btn btn--outline-primary btn--login-logout"
           >
-            Spotify
+            Spotify Login
           </button>
         </Link>
       </header>

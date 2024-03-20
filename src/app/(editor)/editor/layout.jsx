@@ -8,7 +8,7 @@ const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
 const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
   ssr: false,
 });
-import SidebarSpotify from "@/app/components/sidebar-spotify";
+import SidebarSpotify from "@/app/components/spotify-module";
 
 export default function EditorLayout({ children }) {
   return (

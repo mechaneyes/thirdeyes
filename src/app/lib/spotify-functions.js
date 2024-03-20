@@ -68,3 +68,16 @@ export async function runSpotify(artistName) {
     console.log(`An error occurred: ${e}\n`);
   }
 }
+
+export function playTrack(player, trackUri) {
+  player
+    .play({
+      spotify_uri: trackUri,
+    })
+    .then(() => {
+      console.log("Playback started!");
+    })
+    .catch((error) => {
+      console.error("Error starting playback:", error);
+    });
+}
