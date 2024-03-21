@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Script from "next/script";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
+import { playerAtom } from "@/app/store/atoms";
 
 import { runSpotify } from "@/app/lib/spotify-functions";
 import SpotifyLogin from "@/app/components/spotify-login";
@@ -14,6 +14,8 @@ export default function SpotifyModule() {
   const [spotifyData, setSpotifyData] = useState([]);
   const [token, setToken] = useState("");
   const query = useAtomValue(queryAtom);
+  const player = useAtomValue(playerAtom);
+  const playerPaused = useRef(true);
 
   // ————————————————————————————————————o spotify token —>
   //
@@ -22,7 +24,7 @@ export default function SpotifyModule() {
       const response = await fetch("http://localhost:3000/api/spotify/token");
       const json = await response.json();
 
-      console.log("json", json.access_token);
+      // console.log("json", json.access_token);
 
       setToken(json.access_token.value);
     }
@@ -59,6 +61,24 @@ export default function SpotifyModule() {
       });
     }
   }, [query]);
+
+  useEffect(() => {
+    const playPause = () => {
+      if (playerPaused.current) {
+        window.$player.resume();
+        playerPaused.current = false;
+      } else {
+        window.$player.pause();
+        playerPaused.current = true;
+      }
+    };
+
+    window.addEventListener("click", playPause);
+
+    return () => {
+      window.removeEventListener("click", playPause);
+    };
+  }, [player]);
 
   return (
     <div className="chat__sidebar__inner chat__sidebar__inner--spotify">

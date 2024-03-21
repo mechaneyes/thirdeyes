@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { atom, useAtom } from 'jotai';
+import {playerAtom, playerPausedAtom} from "@/app/store/atoms";
 import { PlayOutline, PauseOutline } from "@carbon/icons-react";
 
 export default function SpotifyWebPlayback(props) {
+  const [playerPaused, setPlayerPaused] = useAtom(playerPausedAtom);
   const [isPaused, setIsPaused] = useState(false);
   const [is_active, setActive] = useState(false);
   const [current_track, setTrack] = useState(undefined);
+  const [player, setPlayer] = useAtom(playerAtom);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -20,10 +24,13 @@ export default function SpotifyWebPlayback(props) {
         getOAuthToken: (cb) => {
           cb(props.token);
         },
+        volume: 0.2,
       });
 
+      setPlayer(window.$player);
+
       window.$player.addListener("ready", ({ device_id }) => {
-        console.log("Ready with Device ID", device_id);
+        // console.log("Ready with Device ID", device_id);
       });
 
       window.$player.addListener("not_ready", ({ device_id }) => {
