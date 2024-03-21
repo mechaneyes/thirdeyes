@@ -63,33 +63,35 @@ export default function SpotifyModule() {
   return (
     <div className="chat__sidebar__inner chat__sidebar__inner--spotify">
       <div className="module module--spotify">
-        <ul className="spotify spotify__list">
+        <div className="spotify-player">
+          {!token ? <SpotifyLogin /> : <p>Logged in</p>}
+          {token && <SpotifyWebPlayback token={token} />}
+        </div>
+        <ul className="spotify-playlist">
           {spotifyData &&
             spotifyData.map((item) => {
               return (
                 <a
                   key={item.id}
                   href={item.external_urls.spotify}
-                  className="spotify__link"
+                  className="spotify-playlist__link"
                 >
-                  <li className="spotify__track">
+                  <li className="spotify-playlist__track">
                     <Image
                       src={item.album.images[2].url}
                       width={64}
                       height={64}
                       alt={`Album artwork from ${item.album.name}`}
                     />
-                    <div className="spotify__copy">
-                      <p className="spotify__title">{item.name}</p>
-                      <p className="spotify__album">{item.album.name}</p>
+                    <div className="spotify-playlist__copy">
+                      <p className="spotify-playlist__title">{item.name}</p>
+                      <p className="spotify-playlist__album">{item.album.name}</p>
                     </div>
                   </li>
                 </a>
               );
             })}
         </ul>
-        {!token ? <SpotifyLogin /> : <p>Logged in</p>}
-        {token && <SpotifyWebPlayback token={token} />}
       </div>
     </div>
   );
