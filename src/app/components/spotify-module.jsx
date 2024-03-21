@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useAtomValue } from "jotai";
 
-import { getToken, runSpotify, playTrack } from "@/app/lib/spotify-functions";
+import { runSpotify, playTrack } from "@/app/lib/spotify-functions";
 import SpotifyLogin from "@/app/components/spotify-login";
 import SpotifyWebPlayback from "@/app/components/spotify-webplayback";
 import { queryAtom } from "@/app/store/atoms";
@@ -17,7 +17,14 @@ export default function SpotifyModule() {
   // ————————————————————————————————————o spotify token —>
   //
   useEffect(() => {
-    setToken(getToken())
+    async function getToken() {
+      const response = await fetch("http://localhost:3000/api/spotify/token");
+      const json = await response.json();
+      setToken(json.access_token.value);
+    }
+
+    getToken();
+    // setToken('')
   }, []);
 
   // ————————————————————————————————————o ID the artists —>

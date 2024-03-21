@@ -41,6 +41,8 @@ export async function GET(req, res) {
   const data = await response.json();
   const accessToken = data.access_token;
 
+  console.log('accessToken', accessToken)
+
   // Set the access_token cookie
   cookies().set("access_token", accessToken, {
     httpOnly: true, // Security enhancement

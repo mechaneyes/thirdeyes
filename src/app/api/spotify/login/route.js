@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 export async function GET(req, res) {
   const auth_query_parameters = new URLSearchParams({
     response_type: "code",
-    client_id: process.env.SPOTIFY_CLIENT_ID,
+    client_id: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID,
     scope: "streaming user-read-email user-read-private",
     redirect_uri: "http://localhost:3000/api/spotify/callback",
     state: generateRandomString(16),

@@ -18,6 +18,7 @@ export async function getAccessToken(clientId, clientSecret) {
       },
     }
   );
+  console.log("response", response.data.access_token);
   return response.data.access_token;
 }
 
