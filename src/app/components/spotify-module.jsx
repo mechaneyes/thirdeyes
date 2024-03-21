@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useAtomValue } from "jotai";
-import { playerAtom } from "@/app/store/atoms";
 
 import { runSpotify } from "@/app/lib/spotify-functions";
 import SpotifyLogin from "@/app/components/spotify-login";
@@ -14,8 +13,6 @@ export default function SpotifyModule() {
   const [spotifyData, setSpotifyData] = useState([]);
   const [token, setToken] = useState("");
   const query = useAtomValue(queryAtom);
-  const player = useAtomValue(playerAtom);
-  const playerPaused = useRef(true);
 
   // ————————————————————————————————————o spotify token —>
   //
@@ -23,9 +20,6 @@ export default function SpotifyModule() {
     async function getToken() {
       const response = await fetch("http://localhost:3000/api/spotify/token");
       const json = await response.json();
-
-      // console.log("json", json.access_token);
-
       setToken(json.access_token.value);
     }
 
@@ -62,43 +56,38 @@ export default function SpotifyModule() {
     }
   }, [query]);
 
-  // useEffect(() => {
-  //   const playPause = () => {
-  //     if (playerPaused.current) {
-  //       // window.$player.resume();
-  //       window.$player.play({
-  //         context_uri: "spotify:track:4LIM4qmpHABufePRrLWbiM",
-  //         offset: offset || 0,
-  //       });
-  //       window.$player.play("spotify:track:4LIM4qmpHABufePRrLWbiM")
-  //       playerPaused.current = false;
-  //     } else {
-  //       // window.$player.pause();
-  //       playerPaused.current = true;
-  //     }
-  //   };
-
-  //   window.addEventListener("click", playPause);
-
-  //   return () => {
-  //     window.removeEventListener("click", playPause);
-  //   };
-  // }, [player]);
+  // ————————————————————————————————————o play selected track —>
+  //
+  const playTrack = async (trackId) => {
+    fetch("https://api.spotify.com/v1/me/player/play", {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        uris: [`spotify:track:${trackId}`],
+        position_ms: 0,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error("Error:", error));
+  };
 
   return (
     <div className="chat__sidebar__inner chat__sidebar__inner--spotify">
       <div className="module module--spotify">
         <div className="spotify-player">
-          <div className="spotify-login">{!token && <SpotifyLogin />}</div>
-          {token && <SpotifyWebPlayback token={token} />}
+          {token ? <SpotifyWebPlayback token={token} /> : <SpotifyLogin />}
         </div>
         <ul className="spotify-playlist">
           {spotifyData &&
             spotifyData.map((item) => {
               return (
-                <a
+                <div
                   key={item.id}
-                  href={item.external_urls.spotify}
+                  onClick={() => playTrack(item.id)}
                   className="spotify-playlist__link"
                 >
                   <li className="spotify-playlist__track">
@@ -115,7 +104,7 @@ export default function SpotifyModule() {
                       </p>
                     </div>
                   </li>
-                </a>
+                </div>
               );
             })}
         </ul>
