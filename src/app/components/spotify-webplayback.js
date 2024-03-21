@@ -4,7 +4,6 @@ import { PlayOutline, PauseOutline } from "@carbon/icons-react";
 
 export default function SpotifyWebPlayback(props) {
   const [isPaused, setIsPaused] = useState(false);
-  const [is_active, setActive] = useState(false);
   const [current_track, setTrack] = useState(undefined);
 
   useEffect(() => {
@@ -37,10 +36,6 @@ export default function SpotifyWebPlayback(props) {
 
         setTrack(state.track_window.current_track);
         setIsPaused(state.paused);
-
-        window.$player.getCurrentState().then((state) => {
-          !state ? setActive(false) : setActive(true);
-        });
       });
 
       window.$player.connect();

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useAtomValue } from "jotai";
 
-import { runSpotify } from "@/app/lib/spotify-functions";
+import { getToken, runSpotify, playTrack } from "@/app/lib/spotify-functions";
 import SpotifyLogin from "@/app/components/spotify-login";
 import SpotifyWebPlayback from "@/app/components/spotify-webplayback";
 import { queryAtom } from "@/app/store/atoms";
@@ -17,13 +17,7 @@ export default function SpotifyModule() {
   // ————————————————————————————————————o spotify token —>
   //
   useEffect(() => {
-    async function getToken() {
-      const response = await fetch("http://localhost:3000/api/spotify/token");
-      const json = await response.json();
-      setToken(json.access_token.value);
-    }
-
-    getToken();
+    setToken(getToken())
   }, []);
 
   // ————————————————————————————————————o ID the artists —>
@@ -55,25 +49,6 @@ export default function SpotifyModule() {
       });
     }
   }, [query]);
-
-  // ————————————————————————————————————o play selected track —>
-  //
-  const playTrack = async (trackId) => {
-    fetch("https://api.spotify.com/v1/me/player/play", {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        uris: [`spotify:track:${trackId}`],
-        position_ms: 0,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error("Error:", error));
-  };
 
   return (
     <div className="chat__sidebar__inner chat__sidebar__inner--spotify">

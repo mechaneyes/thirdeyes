@@ -47,7 +47,7 @@ export async function getArtistTopTracks(
       country: countryCode,
     },
   });
-  return response.data.tracks.slice(0, 5); // Return top 5 tracks
+  return response.data.tracks.slice(0, 7);
 }
 
 export async function runSpotify(artistName) {
@@ -68,15 +68,31 @@ export async function runSpotify(artistName) {
   }
 }
 
-export function playTrack(player, trackUri) {
-  player
-    .play({
-      spotify_uri: trackUri,
-    })
-    .then(() => {
-      console.log("Playback started!");
-    })
-    .catch((error) => {
-      console.error("Error starting playback:", error);
-    });
+// ————————————————————————————————————o token for web and webplayback apis —>
+//
+export async function getToken() {
+  const response = await fetch("http://localhost:3000/api/spotify/token");
+  const json = await response.json();
+  return json.access_token.value;
 }
+
+// ————————————————————————————————————o play selected track from list —>
+//
+export const playTrack = async (trackId) => {
+  const token = await getToken();
+
+  fetch("https://api.spotify.com/v1/me/player/play", {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      uris: [`spotify:track:${trackId}`],
+      position_ms: 0,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error("Error:", error));
+};
