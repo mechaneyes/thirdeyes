@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
-
-// import { playTrack } from "@/app/lib/spotify-functions";
+import { PlayOutline, PauseOutline } from "@carbon/icons-react";
 
 export default function SpotifyWebPlayback(props) {
-  const [isPlaying, setPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [is_active, setActive] = useState(false);
   const [current_track, setTrack] = useState(undefined);
@@ -24,12 +21,6 @@ export default function SpotifyWebPlayback(props) {
           cb(props.token);
         },
       });
-
-      document.getElementById("togglePlay").onclick = function () {
-        window.$player.togglePlay();
-      };
-
-      console.log("window.$player", window.$player);
 
       window.$player.addListener("ready", ({ device_id }) => {
         console.log("Ready with Device ID", device_id);
@@ -55,73 +46,49 @@ export default function SpotifyWebPlayback(props) {
       window.$player.connect();
     };
   }, []);
-  
-    useEffect(() => {
-      console.log('isPaused', isPaused)
-    })
-
-  const nowPlayingCoverStyle = {
-    width: "64px",
-    height: "64px",
-    borderRadius: "50%",
-  };
 
   return (
     <>
-      <div className="container">
-        {current_track !== undefined ? (
-          <div className="main-wrapper">
-            <Image
-              src={current_track.album.images[0].url}
-              className="now-playing__cover"
-              alt=""
-              width={64}
-              height={64}
-              style={nowPlayingCoverStyle}
-            />
+      <div className="spotify-player__inner">
+        {current_track && (
+          <div className="spotify__now-playing">
+            <div
+              className="spotify__now-playing__image-controls"
+              onClick={() => {
+                if (isPaused) {
+                  window.$player.resume();
+                } else {
+                  window.$player.pause();
+                }
+              }}
+            >
+              <Image
+                src={current_track.album.images[1].url}
+                className="spotify__now-playing__cover"
+                alt="Now Playing Cover Image"
+                width={300}
+                height={300}
+              />
+              <div className="spotify__now-playing__controls">
+                {isPaused ? (
+                  <PlayOutline size="36" className="play-pause" />
+                ) : (
+                  <PauseOutline size="36" className="play-pause" />
+                )}
+              </div>
+            </div>
 
-            <div className="now-playing__side">
-              <div className="now-playing__name">{current_track.name}</div>
+            <div className="spotify__now-playing__deets">
+              <div className="spotify__now-playing__name">
+                {current_track.name}
+              </div>
 
-              <div className="now-playing__artist">
+              <div className="spotify__now-playing__artist">
                 {current_track.artists[0].name}
               </div>
             </div>
-            {/* <button
-              className="btn-spotify"
-              onClick={() => {
-                player.previousTrack();
-              }}
-            >
-              &lt;&lt;
-            </button>
-
-            <button
-              className="btn-spotify"
-              onClick={() => {
-                player.nextTrack();
-              }}
-            >
-              &gt;&gt;
-            </button> */}
           </div>
-        ) : (
-          // <Link href="/api/spotify/login">
-          //   <button
-          //     type="button"
-          //     className="btn btn--outline-primary btn--login-logout"
-          //   >
-          //     Spotify
-          //   </button>
-          // </Link>
-          <></>
         )}
-        <button
-          id="togglePlay"
-          className="btn-spotify"
-        >
-          {isPaused ? "play" : "pause"}
-        </button>
       </div>
     </>
   );

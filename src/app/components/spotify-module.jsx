@@ -64,7 +64,7 @@ export default function SpotifyModule() {
     <div className="chat__sidebar__inner chat__sidebar__inner--spotify">
       <div className="module module--spotify">
         <div className="spotify-player">
-          {!token ? <SpotifyLogin /> : <p>Logged in</p>}
+          <div className="spotify-login">{!token && <SpotifyLogin />}</div>
           {token && <SpotifyWebPlayback token={token} />}
         </div>
         <ul className="spotify-playlist">
@@ -85,7 +85,9 @@ export default function SpotifyModule() {
                     />
                     <div className="spotify-playlist__copy">
                       <p className="spotify-playlist__title">{item.name}</p>
-                      <p className="spotify-playlist__album">{item.album.name}</p>
+                      <p className="spotify-playlist__album">
+                        {item.album.name}
+                      </p>
                     </div>
                   </li>
                 </a>
