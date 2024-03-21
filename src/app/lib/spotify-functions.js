@@ -1,12 +1,11 @@
 const axios = require("axios");
 const querystring = require("querystring");
 
-// Replace these with your Spotify API credentials
 const CLIENT_ID = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
 
 // obtain an access token
-async function getAccessToken(clientId, clientSecret) {
+export async function getAccessToken(clientId, clientSecret) {
   const url = "https://accounts.spotify.com/api/token";
   const auth = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
   const response = await axios.post(

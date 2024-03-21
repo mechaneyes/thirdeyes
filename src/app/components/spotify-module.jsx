@@ -62,23 +62,28 @@ export default function SpotifyModule() {
     }
   }, [query]);
 
-  useEffect(() => {
-    const playPause = () => {
-      if (playerPaused.current) {
-        window.$player.resume();
-        playerPaused.current = false;
-      } else {
-        window.$player.pause();
-        playerPaused.current = true;
-      }
-    };
+  // useEffect(() => {
+  //   const playPause = () => {
+  //     if (playerPaused.current) {
+  //       // window.$player.resume();
+  //       window.$player.play({
+  //         context_uri: "spotify:track:4LIM4qmpHABufePRrLWbiM",
+  //         offset: offset || 0,
+  //       });
+  //       window.$player.play("spotify:track:4LIM4qmpHABufePRrLWbiM")
+  //       playerPaused.current = false;
+  //     } else {
+  //       // window.$player.pause();
+  //       playerPaused.current = true;
+  //     }
+  //   };
 
-    window.addEventListener("click", playPause);
+  //   window.addEventListener("click", playPause);
 
-    return () => {
-      window.removeEventListener("click", playPause);
-    };
-  }, [player]);
+  //   return () => {
+  //     window.removeEventListener("click", playPause);
+  //   };
+  // }, [player]);
 
   return (
     <div className="chat__sidebar__inner chat__sidebar__inner--spotify">
