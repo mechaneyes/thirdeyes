@@ -62,8 +62,6 @@ export default function SpotifyModule() {
 
   return (
     <div className="chat__sidebar__inner chat__sidebar__inner--spotify">
-      <SpotifyLogin />
-
       <div className="module module--spotify">
         <ul className="spotify spotify__list">
           {spotifyData &&
@@ -90,6 +88,7 @@ export default function SpotifyModule() {
               );
             })}
         </ul>
+        {!token ? <SpotifyLogin /> : <p>Logged in</p>}
         {token && <SpotifyWebPlayback token={token} />}
       </div>
     </div>

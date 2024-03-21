@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { playTrack } from "@/app/lib/spotify-functions";
+// import { playTrack } from "@/app/lib/spotify-functions";
 
 export default function SpotifyWebPlayback(props) {
-  const [player, setPlayer] = useState(undefined);
-  const [is_paused, setPaused] = useState(false);
+  const [isPlaying, setPlaying] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [is_active, setActive] = useState(false);
   const [current_track, setTrack] = useState(undefined);
 
@@ -18,44 +18,47 @@ export default function SpotifyWebPlayback(props) {
     document.body.appendChild(script);
 
     window.onSpotifyWebPlaybackSDKReady = () => {
-      const player = new window.Spotify.Player({
+      window.$player = new window.Spotify.Player({
         name: "Thirdeyes",
         getOAuthToken: (cb) => {
           cb(props.token);
         },
-        // volume: 0.5,
       });
 
-      setPlayer(player);
+      document.getElementById("togglePlay").onclick = function () {
+        window.$player.togglePlay();
+      };
 
-      player.addListener("ready", ({ device_id }) => {
+      console.log("window.$player", window.$player);
+
+      window.$player.addListener("ready", ({ device_id }) => {
         console.log("Ready with Device ID", device_id);
       });
 
-      player.addListener("not_ready", ({ device_id }) => {
+      window.$player.addListener("not_ready", ({ device_id }) => {
         console.log("Device ID has gone offline", device_id);
       });
 
-      player.addListener("player_state_changed", (state) => {
+      window.$player.addListener("player_state_changed", (state) => {
         if (!state) {
           return;
         }
 
         setTrack(state.track_window.current_track);
-        setPaused(state.paused);
+        setIsPaused(state.paused);
 
-        player.getCurrentState().then((state) => {
+        window.$player.getCurrentState().then((state) => {
           !state ? setActive(false) : setActive(true);
         });
       });
 
-      player.connect();
+      window.$player.connect();
     };
   }, []);
-
-  // document.getElementById("togglePlay").onclick = function () {
-  //   player.togglePlay();
-  // };
+  
+    useEffect(() => {
+      console.log('isPaused', isPaused)
+    })
 
   const nowPlayingCoverStyle = {
     width: "64px",
@@ -113,10 +116,12 @@ export default function SpotifyWebPlayback(props) {
           // </Link>
           <></>
         )}
-
-        {/* <button id="togglePlay" className="btn-spotify">
-          {is_paused ? "PLAY" : "PAUSE"}
-        </button> */}
+        <button
+          id="togglePlay"
+          className="btn-spotify"
+        >
+          {isPaused ? "play" : "pause"}
+        </button>
       </div>
     </>
   );
