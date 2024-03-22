@@ -29,7 +29,7 @@ export function getDocContent(docId) {
       // Process and display the content as you like
     })
     .catch(function (e) {
-      console.error(e);
+      console.error('getDocContent', e);
     });
 }
 

@@ -18,7 +18,6 @@ export async function getAccessToken(clientId, clientSecret) {
       },
     }
   );
-  console.log("response", response.data.access_token);
   return response.data.access_token;
 }
 
@@ -57,7 +56,6 @@ export async function runSpotify(artistName) {
   try {
     const artistInfo = await getArtistInfo(accessToken, artistName);
     const artistId = artistInfo.id;
-    console.log(`\nArtist Name: ${artistInfo.name}`);
 
     // Get the artist's top 5 tracks
     const topTracks = await getArtistTopTracks(accessToken, artistId);

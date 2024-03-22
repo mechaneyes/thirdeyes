@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, use } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
 import { useAtom, useAtomValue } from "jotai";
@@ -14,10 +14,10 @@ import {
 } from "@/app/store/atoms";
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
 import { signalRefresh } from "@/app/lib/api-actions";
-// import { spotifyTopTracks } from "@/app/lib/artist-spotify-top-tracks";
 
 const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [initialMessages, setInitialMessages] = useState([]);
+  const [injectSearch, setInjectSearch] = useState(false);
   const [query, setQuery] = useAtom(queryAtom);
   const [searches, setSearches] = useState([]);
   const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
@@ -32,10 +32,11 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   let index = 1;
 
+  // initialMessages ... loop through userData.chats + match 
+  // id with selectedChat (clicked on in sidebar). set initialMessages 
+  // to that chat's messages
+  //
   useEffect(() => {
-    // loop through userData.chats + match id with selectedChat (clicked
-    // on in sidebar). set initialMessages to that chat's messages
-    //
     if (userData) {
       const chat = userData.chats.find((chat) => chat.id === selectedChat);
       chat ? setInitialMessages(chat.messages) : [];
@@ -73,22 +74,18 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
           },
         ]);
         setFistPrompt(!fistPrompt);
+        setInjectSearch(!injectSearch);
       },
     });
 
   const handleQuery = (event) => {
     event.preventDefault();
     setQuery(input);
-
-    // spotifyTopTracks(input)
-    //   .then((match) => {
-    //     console.log("match", match);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
   };
 
+  // injectSearch is used to trigger the creation of a new GoogleSearch
+  // component. It's triggered by the onFinish function in useChat
+  //
   useEffect(() => {
     setSearches((prevSearches) => [
       ...prevSearches,
@@ -101,7 +98,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
         index={prevSearches.length + 2}
       />,
     ]);
-  }, [query]);
+  }, [injectSearch]);
 
   useEffect(() => {
     if (isHeightEqual === true && anchorRef.current) {

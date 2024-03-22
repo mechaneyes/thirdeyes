@@ -20,7 +20,7 @@ export default function SpotifyModule() {
     async function getToken() {
       const response = await fetch("http://localhost:3000/api/spotify/token");
       const json = await response.json();
-      setToken(json.access_token.value);
+      json.access_token && setToken(json.access_token.value);
     }
 
     getToken();
@@ -44,10 +44,9 @@ export default function SpotifyModule() {
   useEffect(() => {
     if (query !== null) {
       identifyArtists(query).then((data) => {
-        console.log("data", data.artists, data.artists[0]);
         runSpotify(data.artists[0])
           .then((topTracks) => {
-            console.log("topTracks", topTracks, topTracks[0]);
+            // console.log("topTracks", topTracks, topTracks[0]);
             setSpotifyData(topTracks);
           })
           .catch((error) => {

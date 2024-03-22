@@ -22,7 +22,7 @@ export default function SpotifyWebPlayback(props) {
       });
 
       window.$player.addListener("ready", ({ device_id }) => {
-        console.log("Ready with Device ID", device_id);
+        // console.log("Ready with Device ID", device_id);
       });
 
       window.$player.addListener("not_ready", ({ device_id }) => {
@@ -68,9 +68,21 @@ export default function SpotifyWebPlayback(props) {
               />
               <div className="spotify__now-playing__controls">
                 {isPaused ? (
-                  <PlayOutline size="36" className="play-pause" />
+                  <div className="play-pause__wrapper">
+                    <PlayOutline size="48" className="play-pause" />
+                    <PlayOutline
+                      size="48"
+                      className="play-pause play-pause__blur"
+                    />
+                  </div>
                 ) : (
-                  <PauseOutline size="36" className="play-pause" />
+                  <div className="play-pause__wrapper">
+                    <PauseOutline size="48" className="play-pause" />
+                    <PauseOutline
+                      size="48"
+                      className="play-pause play-pause__blur"
+                    />
+                  </div>
                 )}
               </div>
             </div>

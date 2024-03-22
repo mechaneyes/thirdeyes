@@ -10,8 +10,8 @@ const GoogleSearch = ({ query, index }) => {
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        // `https://thirdeyes-backend.vercel.app/google?form-input=${query}`
-        `http://127.0.0.1:5328/google?form-input=${query}`
+        `https://thirdeyes-backend.vercel.app/google?form-input=${query}`
+        // `http://127.0.0.1:5328/google?form-input=${query}`
       );
       const data = await response.json();
       query !== null && setReturnedData(data);
