@@ -145,6 +145,7 @@ export default function GoogleLogin() {
             width={800}
             height={800}
             className="login-image"
+            priority={true}
           />
         </>
       </div>

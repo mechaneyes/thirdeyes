@@ -21,6 +21,7 @@ const ChatLogin = () => {
           alt="login"
           fill={true}
           className="login-image"
+          priority={true}
         />
       </div>
     </div>

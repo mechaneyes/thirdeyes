@@ -115,7 +115,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
         <div className="chat__messages__intro">
           <br />
           <div className="italic">
-            The sky above the port was the color of television,<br />
+            The sky above the port was the color of television,
+            <br />
             tuned to a dead channel.
           </div>
         </div>
@@ -171,7 +172,10 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
         style={{ objectFit: "cover" }}
         width={800}
         height={800}
-        className={!messageExists ? "login-image" : "login-image login-image--fade-out"}
+        className={
+          !messageExists ? "login-image" : "login-image login-image--fade-out"
+        }
+        priority={true}
       />
     </div>
   );

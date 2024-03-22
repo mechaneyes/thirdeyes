@@ -88,6 +88,10 @@
     overflow-y: scroll;
     @include scrollbars(10px, #3f455a, #1d3d5c);
 
+    * {
+      cursor: pointer;
+    }
+
     img {
       width: 2.5rem;
       height: 2.5rem;
@@ -98,6 +102,10 @@
       padding: 0.5rem;
       color: white;
       word-break: break-all;
+
+      &:hover {
+        color: $highlight-color;
+      }
     }
 
     p {
