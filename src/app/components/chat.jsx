@@ -31,7 +31,7 @@ export default function Chat() {
       setIsEditor(false);
     }
 
-    if (pathname === "editor") {
+    if (pathname === "editor" || pathname === "editor-sidebar") {
       setIsChat(false);
       setIsEditor(true);
     } else {
