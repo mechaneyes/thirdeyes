@@ -31,13 +31,13 @@
     a {
       color: $highlight-color;
     }
-    
+
     ul {
       padding-left: 2rem;
 
       a {
         color: $highlight-color;
-  
+
         &:hover {
           border-bottom: 1px solid $highlight-color;
         }
@@ -150,7 +150,14 @@
         inset: 43vh -34vw !important;
         width: 125vw !important;
         height: 125vw !important;
+        opacity: 1;
         z-index: 0;
+        transition: opacity 0.4s;
+
+        &--fade-out {
+          opacity: 0;
+          transition: opacity 0.4s;
+        }
 
         @include bp("small") {
           inset: 29vh -18vw !important;
@@ -165,7 +172,8 @@
         }
 
         @include bp("large") {
-          inset: 24vh -18vw !important;
+          position: absolute;
+          inset: 14vh -18vw !important;
         }
       }
     }
@@ -178,8 +186,10 @@
     padding: 2.25rem;
     @include font-main;
     font-size: 1.25rem;
+    overflow-x: hidden;
     overflow-y: scroll;
     @include scrollbars(10px, #3f455a, #1d3d5c);
+    z-index: 1;
 
     &--hidden {
       display: flex;
@@ -225,6 +235,7 @@
     align-self: end;
     width: 100%;
     padding: 2rem;
+    z-index: 1;
 
     &__form {
       position: relative;
@@ -240,6 +251,7 @@
       border: $borders;
       border-radius: 1rem 0;
       background-color: rgba(55, 59, 68, 0.4);
+      background-color: #273c52;
       outline-color: #9697f1;
       outline: none;
       caret-color: white;

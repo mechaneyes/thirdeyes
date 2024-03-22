@@ -70,7 +70,7 @@
 
     // Selecting this element as being previous sibling to the modal
     // https://tobiasahlin.com/blog/previous-sibling-css-has/
-    // 
+    //
     &:has(~ .modal--visible) {
       display: none;
     }
@@ -84,7 +84,7 @@
       width: calc(100% - 4rem);
       height: calc(100% - 4rem);
       margin: 2rem;
-      border: 1px solid #2FBFFF;
+      border: 1px solid #2fbfff;
       border-radius: 3rem 0 3rem 0;
     }
 
@@ -115,7 +115,9 @@
     gap: 2rem;
 
     &__inner {
+      position: relative;
       height: 100%;
+      overflow: hidden;
     }
   }
 
