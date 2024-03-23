@@ -113,11 +113,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     <div className="chat__panel__inner" ref={chatPanelRef}>
       <div ref={chatMessagesRef} className="chat__messages">
         <div className="chat__messages__intro">
-          <br />
           <div className="italic">
-            The sky above the port was the color of television,
-            <br />
-            tuned to a dead channel.
+            The sky above the port was the color of television, tuned to a dead channel.
           </div>
         </div>
 

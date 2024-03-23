@@ -207,9 +207,16 @@
     }
 
     &__intro {
+      display: flex;
+      justify-content: center;
       width: 100%;
       margin-top: auto;
+      padding-top: 1.5rem;
       text-align: center;
+
+      .italic {
+        max-width: 445px;
+      }
     }
 
     &__message {

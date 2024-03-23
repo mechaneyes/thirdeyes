@@ -83,7 +83,8 @@ export async function POST(req) {
   }
 
   const response = await openai.chat.completions.create({
-    model: "gpt-4-1106-preview",
+    model: "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240323-v1:962T1JmV",
+    // model: "gpt-4-1106-preview",
     // model: "ft:gpt-3.5-turbo-1106:mechaneyes:het-ps-1224-01:8ZRROlSO",
     // model: "gpt-3.5-turbo",
     messages,

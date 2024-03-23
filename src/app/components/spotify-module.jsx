@@ -66,26 +66,22 @@ export default function SpotifyModule() {
           {spotifyData &&
             spotifyData.map((item) => {
               return (
-                <div
+                <li
                   key={item.id}
                   onClick={() => playTrack(item.id)}
-                  className="spotify-playlist__link"
+                  className="spotify-playlist__track"
                 >
-                  <li className="spotify-playlist__track">
-                    <Image
-                      src={item.album.images[2].url}
-                      width={64}
-                      height={64}
-                      alt={`Album artwork from ${item.album.name}`}
-                    />
-                    <div className="spotify-playlist__copy">
-                      <p className="spotify-playlist__title">{item.name}</p>
-                      <p className="spotify-playlist__album">
-                        {item.album.name}
-                      </p>
-                    </div>
-                  </li>
-                </div>
+                  <Image
+                    src={item.album.images[2].url}
+                    width={64}
+                    height={64}
+                    alt={`Album artwork from ${item.album.name}`}
+                  />
+                  <div className="spotify-playlist__copy">
+                    <p className="spotify-playlist__title">{item.name}</p>
+                    <p className="spotify-playlist__album">{item.album.name}</p>
+                  </div>
+                </li>
               );
             })}
         </ul>

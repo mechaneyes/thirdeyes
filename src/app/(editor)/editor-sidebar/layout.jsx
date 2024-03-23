@@ -17,16 +17,16 @@ export default function EditorLayout({ children }) {
         <Header />
         <Grid className="thirdeyes chat editor">
           <Column
-            max={3}
-            xlg={3}
-            lg={3}
-            md={3}
+            max={4}
+            xlg={4}
+            lg={4}
+            md={4}
             sm={4}
             className="editor__panel"
           >
             {children}
           </Column>
-          <Column max={7} xlg={7} lg={7} md={7} sm={4} className="chat__panel">
+          <Column max={6} xlg={6} lg={6} md={6} sm={4} className="chat__panel">
             {/* <SidebarEditor /> */}
             <SidebarSpotify />
             <Chat />

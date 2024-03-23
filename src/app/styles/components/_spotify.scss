@@ -5,6 +5,7 @@
     &--spotify {
       display: grid;
       grid-template-columns: 33.333% 1fr;
+      gap: 1rem;
     }
   }
 
@@ -18,6 +19,16 @@
   }
 
   .spotify-player {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    header {
+      min-height: auto;
+      padding: 1.5rem 1.5rem 3.5rem;
+    }
+
     &__inner {
       display: flex;
       flex-direction: column;
@@ -98,16 +109,6 @@
       border-radius: 0.25rem;
     }
 
-    li {
-      padding: 0.5rem;
-      color: white;
-      word-break: break-all;
-
-      &:hover {
-        color: $highlight-color;
-      }
-    }
-
     p {
       padding-bottom: 0rem;
       font-size: 1rem;
@@ -130,6 +131,13 @@
       grid-template-columns: 2.5rem 1fr;
       grid-template-rows: 1fr;
       gap: 0.5rem;
+      padding: 0.5rem 0.5rem 0.4rem 0;
+      color: white;
+      word-break: break-all;
+
+      &:hover {
+        color: $highlight-color;
+      }
     }
   }
 }
