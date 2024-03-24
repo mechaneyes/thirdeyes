@@ -32,7 +32,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const inputRef = useRef(null);
   const chatIdRef = useRef(null);
 
-  let index = 1;
+  let index = 0;
 
   // initialMessages ... loop through userData.chats + match
   // id with selectedChat (clicked on in sidebar). set initialMessages
@@ -114,7 +114,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       <div ref={chatMessagesRef} className="chat__messages">
         <div className="chat__messages__intro">
           <div className="italic">
-            The sky above the port was the color of television, tuned to a dead channel.
+            The sky above the port was the color of television, tuned to a dead
+            channel.
           </div>
         </div>
 
@@ -131,9 +132,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                     ? "chat__messages__message--user "
                     : "chat__messages__message--ai"
                 }`}
-              >
-                {message.content}
-              </div>
+                dangerouslySetInnerHTML={{ __html: message.content }}
+              ></div>
             );
           }
         })}
