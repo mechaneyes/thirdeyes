@@ -9,6 +9,7 @@ const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
   ssr: false,
 });
 import SidebarSpotify from "@/app/components/spotify-module";
+import GeniusTopTracks from "@/app/components/genius-top-tracks";
 
 export default function EditorLayout({ children }) {
   return (
@@ -24,11 +25,11 @@ export default function EditorLayout({ children }) {
             sm={4}
             className="editor__panel"
           >
-            {children}
+            <GeniusTopTracks />
           </Column>
           <Column max={6} xlg={6} lg={6} md={6} sm={4} className="chat__panel">
-            {/* <SidebarEditor /> */}
             <SidebarSpotify />
+            {/* <GeniusTopTracks /> */}
             <Chat />
           </Column>
           <Column

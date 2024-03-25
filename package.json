@@ -39,6 +39,7 @@
     "class-variance-authority": "^0.7.0",
     "framer-motion": "^11.0.6",
     "gapi-client": "^0.0.3",
+    "genius-lyrics-api": "^3.2.1",
     "googleapis": "^133.0.0",
     "graphql": "^16.8.1",
     "graphql-yoga": "^5.0.2",
