@@ -122,6 +122,11 @@ const Header = () => {
                   name="Editor"
                   classes="btn--login-logout"
                 />
+                <ButtonPrimary
+                  link="/editor-sidebar"
+                  name="EditorV2"
+                  classes="btn--login-logout"
+                />
               </>
             )}
             <ButtonPrimary

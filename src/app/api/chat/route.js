@@ -5,7 +5,7 @@ import { getSession } from "@auth0/nextjs-auth0/edge";
 import { nanoid } from "nanoid";
 
 // Edge runtime uses the Request and URL constructor directly rather than "req.query"
-export const runtime = "edge"
+export const runtime = "edge";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -83,7 +83,8 @@ export async function POST(req) {
   }
 
   const response = await openai.chat.completions.create({
-    model: "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v1:96HPQb1E",
+    model: "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm",
+    // model: "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v1:96HPQb1E",
     // model: "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240323-v1:962T1JmV",
     // model: "gpt-4-1106-preview",
     // model: "gpt-3.5-turbo",
