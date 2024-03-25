@@ -2,15 +2,15 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 
 import { runSpotify, playTrack } from "@/app/lib/spotify-functions";
 import SpotifyLogin from "@/app/components/spotify-login";
 import SpotifyWebPlayback from "@/app/components/spotify-webplayback";
-import { queryAtom } from "@/app/store/atoms";
+import { queryAtom, spotifyDataAtom } from "@/app/store/atoms";
 
 export default function SpotifyModule() {
-  const [spotifyData, setSpotifyData] = useState([]);
+  const [spotifyData, setSpotifyData] = useAtom(spotifyDataAtom);
   const [token, setToken] = useState("");
   const query = useAtomValue(queryAtom);
 
