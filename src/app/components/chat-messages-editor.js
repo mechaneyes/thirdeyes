@@ -34,24 +34,6 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   let index = 0;
 
-  // Analysis and action function
-  async function analyzeAndAct(messageFromChat) {
-    const response = await fetch("/api/spotify/openai", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ content: messages.content }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("data", data);
-  }
-
   // initialMessages ... loop through userData.chats + match
   // id with selectedChat (clicked on in sidebar). set initialMessages
   // to that chat's messages

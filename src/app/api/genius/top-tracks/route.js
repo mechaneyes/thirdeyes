@@ -3,6 +3,7 @@ import { getLyrics } from "genius-lyrics-api";
 
 export async function POST(req) {
   const res = await req.json();
+  // console.log("res", res);
 
   const options = {
     apiKey: process.env.NEXT_PUBLIC_CLIENT_GENIUS_ACCESS_TOKEN,

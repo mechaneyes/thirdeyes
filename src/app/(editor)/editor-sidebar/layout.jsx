@@ -16,14 +16,14 @@ export default function EditorLayout({ children }) {
     <>
       <main>
         <Header />
-        <Grid className="thirdeyes chat editor">
+        <Grid className="thirdeyes chat editor editor--sidebar">
           <Column
             max={4}
             xlg={4}
             lg={4}
             md={4}
             sm={4}
-            className="editor__panel"
+            className="editor__panel sidebar"
           >
             <GeniusTopTracks />
           </Column>

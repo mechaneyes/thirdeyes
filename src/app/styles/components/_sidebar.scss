@@ -1,0 +1,15 @@
+.sidebar {
+  h3 {
+    text-align: center;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  &__inner {
+    padding: 1.25rem;
+    overflow-y: scroll;
+    @include scrollbars(1px, $highlight-color, #324c66);
+  }
+}

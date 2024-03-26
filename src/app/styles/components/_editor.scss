@@ -76,6 +76,26 @@
       display: none;
     }
   }
+  
+  &__sidebar {
+    position: relative;
+    height: calc(100vh - 9rem);
+    color: white;
+    font-weight: 300;
+    border: 1px solid #2fbfff;
+    border-radius: 3rem 0 3rem 0;
+    background-color: #324c66;
+    box-shadow: 4px 20px 25px -5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+
+    > div {
+      height: 100%;
+    }
+
+    &__inner {
+      overflow-y: scroll;
+    }
+  }
 
   .modal {
     &--editor {
