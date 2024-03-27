@@ -8,12 +8,11 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 export const runtime = "edge";
 
 export async function POST(req) {
-  // get `prompt` from the body of the request
   const { prompt } = await req.json();
 
   const response = await openai.chat.completions.create({
     // model: "gpt-4-0125-preview",
-    model: "gpt-3.5-turbo-0125",
+    model: "gpt-4",
     stream: true,
     messages: [
       {
@@ -25,26 +24,8 @@ export async function POST(req) {
     ],
   });
 
-  // console.log("response", response);
-
   // Convert the response into a friendly text-stream
   const stream = OpenAIStream(response);
   // Respond with the stream
   return new StreamingTextResponse(stream);
-
-  if (response) {
-    // console.log("response", response.choices[0].message.content);
-    // return new NextResponse(
-    //   JSON.stringify({ response: response.choices[0].message.content }),
-    //   {
-    //     status: 200,
-    //     headers: { "Content-Type": "application/json" },
-    //   }
-    // );
-  } else {
-    return new NextResponse(JSON.stringify({ message: "Lyrics not found" }), {
-      status: 404,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
 }

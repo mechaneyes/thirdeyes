@@ -34,7 +34,7 @@ export default function GeniusTopTracks() {
     collectedLyrics.push(data.returnedLyrics);
     // console.log("collectedLyrics", collectedLyrics, collectedLyrics.length);
 
-    if (collectedLyrics.length === 3) {
+    if (collectedLyrics.length === 5) {
       fetchSentiment(collectedLyrics);
     }
   }
@@ -66,7 +66,7 @@ export default function GeniusTopTracks() {
 
   return (
     <div className="sidebar__inner">
-      <h3>Lyrics Analysis<br/>via Genius</h3>
+      <h3>Lyrics Analysis<br/>via GPT & Genius</h3>
       <div dangerouslySetInnerHTML={{ __html: lyrics }} />
     </div>
   );
