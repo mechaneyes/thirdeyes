@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useAtom, useAtomValue } from "jotai";
-import { useCompletion } from "ai/react";
+import { useChat, useCompletion } from "ai/react";
 
 import { spotifyDataAtom } from "@/app/store/atoms";
 
@@ -9,6 +9,7 @@ export default function GeniusTopTracks() {
   const spotifyData = useAtomValue(spotifyDataAtom);
 
   let collectedLyrics = [];
+  let collectedLyricsString = "";
 
   // fetch lyrics from genius-lyrics-api. take fetched lyrics
   // and push to collectedLyrics array
@@ -32,10 +33,13 @@ export default function GeniusTopTracks() {
     const data = await response.json();
 
     collectedLyrics.push(data.returnedLyrics);
+    collectedLyricsString = collectedLyrics.join("\n");
     // console.log("collectedLyrics", collectedLyrics, collectedLyrics.length);
+    // console.log("collectedLyricsString", collectedLyricsString);
 
     if (collectedLyrics.length === 5) {
       fetchSentiment(collectedLyrics);
+      // setInput(collectedLyricsString);
     }
   }
 
@@ -48,10 +52,21 @@ export default function GeniusTopTracks() {
       const completion = await complete(lyrics);
       if (!completion) throw new Error("Failed to check typos");
       setLyrics(completion);
-      console.log('completion', completion)
+      console.log("completion", completion);
     },
     [complete]
   );
+
+  // const useChatOptions = {
+  //   api: "/api/genius/sentiment",
+  // };
+
+  // const { messages, input, setInput, handleInputChange, handleSubmit } =
+  //   useChat(useChatOptions);
+
+  // useEffect(() => {
+  //   console.log("messages", messages);
+  // }, [messages]);
 
   // when populated, loop through spotifyData, fetch artist and
   // track name then send to fetchLyrics()
@@ -66,8 +81,18 @@ export default function GeniusTopTracks() {
 
   return (
     <div className="sidebar__inner">
-      <h3>Lyrics Analysis<br/>via GPT & Genius</h3>
+      <h3>
+        Lyrics Analysis
+        <br />
+        via GPT & Genius
+      </h3>
       <div dangerouslySetInnerHTML={{ __html: lyrics }} />
+      {/* {messages.map((m) => (
+        <div key={m.id}>
+          {m.role === "user" ? "User: " : "AI: "}
+          {m.content}
+        </div>
+      ))} */}
     </div>
   );
 }

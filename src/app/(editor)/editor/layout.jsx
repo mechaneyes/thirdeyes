@@ -5,6 +5,9 @@ import { Column, Grid } from "@carbon/react";
 
 const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
 const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
+const ChatDouble = dynamic(() => import("@/app/components/chat-double"), {
+  ssr: false,
+});
 const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
   ssr: false,
 });
@@ -16,20 +19,27 @@ export default function EditorLayout({ children }) {
       <main>
         <Header />
         <Grid className="thirdeyes chat editor">
-          <Column max={9} xlg={9} lg={9} md={9} sm={4} className="chat__panel">
-            {/* <SidebarEditor /> */}
-            <SpotifyModule />
-            <Chat />
-          </Column>
           <Column
-            max={7}
-            xlg={7}
-            lg={7}
-            md={7}
+            max={8}
+            xlg={8}
+            lg={8}
+            md={8}
             sm={4}
             className="editor__panel"
           >
-            {children}
+            {/* <SidebarEditor /> */}
+            {/* <SpotifyModule /> */}
+            <Chat />
+          </Column>
+          <Column
+            max={8}
+            xlg={8}
+            lg={8}
+            md={8}
+            sm={4}
+            className="editor__panel"
+          >
+            <ChatDouble />
           </Column>
         </Grid>
       </main>

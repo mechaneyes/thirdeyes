@@ -64,6 +64,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
+      api: "/api/chat_double",
       initialMessages: initialMessages,
       onFinish: async (messages) => {
         // Analyze the last assistant response
@@ -119,7 +120,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
           <div className="italic">
             {/* The sky above the port was the color of television, tuned to a dead
             channel. */}
-            gpt-3.5-turbo-0125:het001-240324v2
+            gpt-3.5-turbo-0125
           </div>
         </div>
 

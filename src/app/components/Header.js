@@ -112,19 +112,19 @@ const Header = () => {
           <>
             {user && (
               <>
-                <ButtonPrimary
+                {/* <ButtonPrimary
                   link="/chat"
                   name="Chat"
                   classes="btn--login-logout"
-                />
+                /> */}
                 <ButtonPrimary
                   link="/editor"
-                  name="Editor"
+                  name="A/B"
                   classes="btn--login-logout"
                 />
                 <ButtonPrimary
                   link="/editor-sidebar"
-                  name="EditorV2"
+                  name="Editor"
                   classes="btn--login-logout"
                 />
               </>
