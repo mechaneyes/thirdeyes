@@ -8,8 +8,36 @@
   }
 
   &__inner {
-    padding: 1.25rem;
+    padding: 7rem 1.25rem 1.25rem;
     overflow-y: scroll;
+    transition: padding 0.5s ease-in-out;
     @include scrollbars(1px, $highlight-color, #324c66);
+
+    &.animate {
+      padding: 1.25rem;
+    }
+  }
+
+  .loading-msg {
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    animation: pulse 2s infinite;
+
+    &.loaded {
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 }

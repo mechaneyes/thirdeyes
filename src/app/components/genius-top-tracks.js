@@ -5,6 +5,7 @@ import { useChat, useCompletion } from "ai/react";
 import { spotifyDataAtom } from "@/app/store/atoms";
 
 export default function GeniusTopTracks() {
+  const [isLoading, setIsLoading] = useState(false);
   const [lyrics, setLyrics] = useState("");
   const spotifyData = useAtomValue(spotifyDataAtom);
 
@@ -15,6 +16,7 @@ export default function GeniusTopTracks() {
   // and push to collectedLyrics array
   //
   async function fetchLyrics(title, artist) {
+    setIsLoading(true);
     const response = await fetch("/api/genius/top-tracks", {
       method: "POST",
       headers: {
@@ -27,7 +29,7 @@ export default function GeniusTopTracks() {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      // throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
@@ -52,7 +54,7 @@ export default function GeniusTopTracks() {
       const completion = await complete(lyrics);
       if (!completion) throw new Error("Failed to check typos");
       setLyrics(completion);
-      console.log("completion", completion);
+      setIsLoading(false);
     },
     [complete]
   );
@@ -80,13 +82,20 @@ export default function GeniusTopTracks() {
   }, [spotifyData]);
 
   return (
-    <div className="sidebar__inner">
+    <div className={`sidebar__inner ${lyrics ? "animate" : ""}`}>
       <h3>
         Lyrics Analysis
         <br />
         via GPT & Genius
       </h3>
-      <div dangerouslySetInnerHTML={{ __html: lyrics }} />
+
+      <div className="module module--genius">
+        <div className={`loading-msg ${isLoading ? "loaded" : ""}`}>
+          {isLoading && "Processing..."}
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: lyrics }} />
+      </div>
+
       {/* {messages.map((m) => (
         <div key={m.id}>
           {m.role === "user" ? "User: " : "AI: "}
