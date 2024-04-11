@@ -60,7 +60,7 @@ export default function SpotifyModule() {
     <div className="chat__sidebar__inner chat__sidebar__inner--spotify">
       <div className="module module--spotify">
         <div className="spotify-player">
-          {token ? <SpotifyWebPlayback token={token} /> : <SpotifyLogin />}
+          {/* {token ? <SpotifyWebPlayback token={token} /> : <SpotifyLogin />} */}
         </div>
         <ul className="spotify-playlist">
           {spotifyData &&
