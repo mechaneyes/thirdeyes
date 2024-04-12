@@ -21,19 +21,22 @@ export default function Home() {
           <h1>Future Echoes</h1>
           <h3>An account of people who are lost in music</h3>
           <p>
-            Thirdeyes produces first drafts of artist bios emulating the editorial style of
-            &quot;hetfield&quot;.
+            Thirdeyes produces first drafts of artist bios emulating the
+            editorial style of &quot;hetfield&quot;.
           </p>
           <div className="home__ctas">
             {user ? (
               <>
                 {user && (
                   <>
-                    {/* <ButtonPrimary
-                  link="/chat"
-                  name="Chat"
-                  classes="btn--login-logout"
-                /> */}
+                    <ButtonPrimary
+                      link="/chat"
+                      name="Chat"
+                      classes="btn--login-logout"
+                      onClick={() => {
+                        console.log("Button clicked");
+                      }}
+                    />
                     <ButtonPrimary
                       link="/editor"
                       name="A/B"
@@ -52,14 +55,14 @@ export default function Home() {
                     />
                   </>
                 )}
-                <ButtonPrimary
+                {/* <ButtonPrimary
                   link="/api/auth/logout"
                   name="Logout"
                   classes="btn--login-logout"
                   onClick={() => {
                     console.log("Button clicked");
                   }}
-                />
+                /> */}
               </>
             ) : (
               <Link href="/api/auth/login">

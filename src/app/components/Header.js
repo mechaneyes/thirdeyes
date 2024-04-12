@@ -112,11 +112,14 @@ const Header = () => {
           <>
             {user && (
               <>
-                {/* <ButtonPrimary
+                <ButtonPrimary
                   link="/chat"
                   name="Chat"
                   classes="btn--login-logout"
-                /> */}
+                  onClick={() => {
+                    console.log("Button clicked");
+                  }}
+                />
                 <ButtonPrimary
                   link="/editor"
                   name="A/B"
