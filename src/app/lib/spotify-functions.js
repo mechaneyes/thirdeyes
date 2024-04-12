@@ -70,7 +70,9 @@ export async function runSpotify(artistName) {
 // ————————————————————————————————————o token for web and webplayback apis —>
 //
 export async function getToken() {
-  const response = await fetch("http://localhost:3000/api/spotify/token");
+  // const response = await fetch("http://localhost:3000/api/spotify/token");
+  // const response = await fetch("https://thirdeyes-dev.vercel.app/api/spotify/token");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_PREFIX}/api/spotify/token`);
   const json = await response.json();
   return json.access_token.value;
 }
