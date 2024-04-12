@@ -17,7 +17,7 @@ export default function GeniusTopTracks() {
   //
   async function fetchLyrics(title, artist) {
     setIsLoading(true);
-    const response = await fetch("/api/genius/top-tracks", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_PREFIX}/api/genius/top-tracks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export default function GeniusTopTracks() {
   }
 
   const { complete } = useCompletion({
-    api: "/api/genius/sentiment",
+    api: `${process.env.NEXT_PUBLIC_API_URL_PREFIX}/api/genius/sentiment`
   });
 
   const fetchSentiment = useCallback(
