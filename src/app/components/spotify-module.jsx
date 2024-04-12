@@ -20,21 +20,22 @@ export default function SpotifyModule() {
     async function getToken() {
       // const response = await fetch("http://localhost:3000/api/spotify/token");
       // const response = await fetch("https://thirdeyes-dev.vercel.app/api/spotify/token");
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_PREFIX}/api/spotify/token`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL_PREFIX}/api/spotify/token`
+      );
       const json = await response.json();
       json.access_token && setToken(json.access_token.value);
     }
 
     getToken();
-    // setToken('')
   }, []);
 
   // ————————————————————————————————————o ID the artists —>
   //
   const identifyArtists = async (query) => {
     const response = await fetch(
-      `https://thirdeyes-backend.vercel.app/identify-artists?form-input=${query}`
       // `http://127.0.0.1:5328/identify-artists?form-input=${query}`
+      `https://thirdeyes-backend.vercel.app/identify-artists?form-input=${query}`
     );
     const data = await response.json();
 
@@ -48,7 +49,6 @@ export default function SpotifyModule() {
       identifyArtists(query).then((data) => {
         runSpotify(data.artists[0])
           .then((topTracks) => {
-            // console.log("topTracks", topTracks, topTracks[0]);
             setSpotifyData(topTracks);
           })
           .catch((error) => {

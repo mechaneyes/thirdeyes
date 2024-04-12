@@ -2,7 +2,7 @@ const axios = require("axios");
 const querystring = require("querystring");
 
 const CLIENT_ID = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
+const CLIENT_SECRET = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_TERCES;
 
 // obtain an access token
 export async function getAccessToken(clientId, clientSecret) {
@@ -59,8 +59,6 @@ export async function runSpotify(artistName) {
 
     // Get the artist's top 5 tracks
     const topTracks = await getArtistTopTracks(accessToken, artistId);
-    // console.log('topTracks', topTracks)
-
     return topTracks;
   } catch (e) {
     console.log(`An error occurred: ${e}\n`);
@@ -72,7 +70,9 @@ export async function runSpotify(artistName) {
 export async function getToken() {
   // const response = await fetch("http://localhost:3000/api/spotify/token");
   // const response = await fetch("https://thirdeyes-dev.vercel.app/api/spotify/token");
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_PREFIX}/api/spotify/token`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL_PREFIX}/api/spotify/token`
+  );
   const json = await response.json();
   return json.access_token.value;
 }
