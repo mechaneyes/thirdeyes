@@ -65,7 +65,9 @@ export default function SpotifyModule() {
           {/* {token ? <SpotifyWebPlayback token={token} /> : <SpotifyLogin />} */}
         </div>
         <ul className="spotify-playlist">
-          {spotifyData &&
+          {spotifyData.length === 0 ? (
+            <h3>Spotify Module</h3>
+          ) : (
             spotifyData.map((item) => {
               return (
                 <li
@@ -85,7 +87,8 @@ export default function SpotifyModule() {
                   </div>
                 </li>
               );
-            })}
+            })
+          )}
         </ul>
       </div>
     </div>

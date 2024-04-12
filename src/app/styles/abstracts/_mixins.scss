@@ -26,11 +26,8 @@
 
   // For Internet Explorer
   & {
-    // scrollbar-face-color: $foreground-color;
     scrollbar-face-color: $highlight-color;
     scrollbar-track-color: $background-color;
-    scrollbar-color: $highlight-color $background-color;
-    scrollbar-width: 0.125rem;
   }
 }
 
