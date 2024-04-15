@@ -15,7 +15,7 @@ import {
   userDataAtom,
 } from "@/app/store/atoms";
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
-import { signalRefresh } from "@/app/lib/api-actions";
+import { signalRefresh, selectModel } from "@/app/lib/api-actions";
 
 const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [initialMessages, setInitialMessages] = useState([]);
@@ -90,6 +90,11 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     setMessageExists(true);
   };
 
+  const handleSelectModel = (e) => {
+    const form = e.target;
+    console.log("form.value", form.value);
+  }
+
   // injectSearch is used to trigger the creation of a new GoogleSearch
   // component. It's triggered by the onFinish function in useChat
   //
@@ -116,12 +121,17 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   return (
     <div className="chat__panel__inner" ref={chatPanelRef}>
       <div ref={chatMessagesRef} className="chat__messages">
-        <div className="chat__messages__intro">
+        <div className="chat__messages__selector">
           {/* <div className="italic">
             The sky above the port was the color of television, tuned to a dead
             channel. gpt-3.5-turbo-0125:het001-240324v2
           </div> */}
-          <Select id="select-model" labelText="Select a Model">
+          <Select
+            id="select-model"
+            labelText="Select a Model"
+            onChange={handleSelectModel}
+          >
+            <SelectItem value="" text="" />
             <SelectItem
               value="gpt-3.5-turbo-0125:het001-240324v2"
               text="gpt-3.5-turbo-0125:het001-240324v2"
