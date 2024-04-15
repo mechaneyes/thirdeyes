@@ -15,7 +15,7 @@ export default function Home() {
   const { user } = useUser();
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <Grid className="thirdeyes home">
         <Column lg={6} md={3} sm={4} className="home__main home__main--left">
           <h1>Future Echoes</h1>
@@ -29,14 +29,14 @@ export default function Home() {
               <>
                 {user && (
                   <>
-                    <ButtonPrimary
+                    {/* <ButtonPrimary
                       link="/chat"
                       name="Chat"
                       classes="btn--login-logout"
                       onClick={() => {
                         console.log("Button clicked");
                       }}
-                    />
+                    /> */}
                     <ButtonPrimary
                       link="/editor"
                       name="A/B"

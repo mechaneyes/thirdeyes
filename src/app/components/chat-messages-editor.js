@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useChat } from "ai/react";
+import { Select, SelectItem } from "carbon-components-react";
 import { Upload } from "@carbon/icons-react";
 import { useAtom, useAtomValue } from "jotai";
 
@@ -116,11 +117,18 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     <div className="chat__panel__inner" ref={chatPanelRef}>
       <div ref={chatMessagesRef} className="chat__messages">
         <div className="chat__messages__intro">
-          <div className="italic">
-            {/* The sky above the port was the color of television, tuned to a dead
-            channel. */}
-            gpt-3.5-turbo-0125:het001-240324v2
-          </div>
+          {/* <div className="italic">
+            The sky above the port was the color of television, tuned to a dead
+            channel. gpt-3.5-turbo-0125:het001-240324v2
+          </div> */}
+          <Select id="select-model" labelText="Select a Model">
+            <SelectItem
+              value="gpt-3.5-turbo-0125:het001-240324v2"
+              text="gpt-3.5-turbo-0125:het001-240324v2"
+            />
+            <SelectItem value="gpt-3.5-turbo-0125" text="gpt-3.5-turbo-0125" />
+            <SelectItem value="gpt-4-turbo" text="gpt-4-turbo" />
+          </Select>
         </div>
 
         {messages.map((message, count) => {
