@@ -14,6 +14,10 @@
       height: 100%;
     }
 
+    &--howto {
+      background-color: #243c5c;
+    }
+
     &__inner {
       display: grid;
       grid-template-rows: 1fr 7rem;

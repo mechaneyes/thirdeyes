@@ -122,12 +122,12 @@ const Header = () => {
                 /> */}
                 <ButtonPrimary
                   link="/editor"
-                  name="A/B"
+                  name="Chat"
                   classes="btn--login-logout"
                 />
                 <ButtonPrimary
-                  link="/editor-sidebar"
-                  name="Editor"
+                  link="/howto"
+                  name="How To"
                   classes="btn--login-logout"
                 />
               </>
