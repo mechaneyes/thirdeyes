@@ -197,6 +197,12 @@
       justify-content: flex-end;
     }
 
+    &--model-select {
+      .chat__messages__message:nth-child(2) {
+        padding-top: 7rem;
+      }
+    }
+
     * {
       overflow-anchor: none;
     }

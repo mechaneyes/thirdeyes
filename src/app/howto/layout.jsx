@@ -6,13 +6,6 @@ import { Column, Grid } from "@carbon/react";
 
 const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
 const HowTo = dynamic(() => import("@/app/components/howto"), { ssr: false });
-const ChatDouble = dynamic(() => import("@/app/components/chat-double"), {
-  ssr: false,
-});
-const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
-  ssr: false,
-});
-import SpotifyModule from "@/app/components/spotify-module";
 
 export default function EditorLayout({ children }) {
   return (

@@ -65,6 +65,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
+      api: "/api/chat-model-select",
       initialMessages: initialMessages,
       onFinish: async (messages) => {
         // Analyze the last assistant response
@@ -121,7 +122,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   return (
     <div className="chat__panel__inner" ref={chatPanelRef}>
-      <div ref={chatMessagesRef} className="chat__messages">
+      <div ref={chatMessagesRef} className="chat__messages chat__messages--model-select">
         <div className="chat__messages__selector">
           {/* <div className="italic">
             The sky above the port was the color of television, tuned to a dead
