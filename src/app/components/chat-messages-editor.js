@@ -93,7 +93,6 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   const handleSelectModel = (e) => {
     const form = e.target;
-    console.log("form.value");
     selectModel(form.value);
   }
 
@@ -135,7 +134,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
           >
             <SelectItem value="" text="" />
             <SelectItem
-              value="gpt-3.5-turbo-0125:het001-240324v2"
+              value="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
               text="gpt-3.5-turbo-0125:het001-240324v2"
             />
             <SelectItem value="gpt-3.5-turbo-0125" text="gpt-3.5-turbo-0125" />

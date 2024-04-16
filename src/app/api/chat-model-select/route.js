@@ -31,35 +31,14 @@ const chatStart = today
 
 let model = "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
 
-// reset chatId on page refresh. creates a new object in the chats array
-//
-// export async function GET(req, res) {
-//   chatId = nanoid().substring(0, 8);
-//   const { theId } = req.query;
-//   console.log("Refresh signal received", theId);
-//   return new Response('Refresh signal received', {
-//     status: 200,
-//   })
-// }
-
 export async function GET(req) {
   const url = new URL(req.url);
-  const passedId = url.searchParams.get("passedId");
-  const passedReset = url.searchParams.get("passedReset");
-  // console.log("passed else created chatId", passedId);
+  model = url.searchParams.get("model");
 
-  // if no passedId is present create a new chatId
-  if (!passedId) {
-    chatId = nanoid().substring(0, 8);
-  } else {
-    chatId = passedId;
-  }
-  if (passedReset) {
-    chatId = nanoid().substring(0, 8);
-  }
+  console.log("🟣 searchParams model", model)
 
   return new Response(
-    JSON.stringify({ message: "GET request processed", passedId, chatId }),
+    JSON.stringify({ message: "GET request processed", model }),
     {
       status: 200,
       headers: { "Content-Type": "application/json" },
