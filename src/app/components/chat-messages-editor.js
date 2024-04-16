@@ -92,7 +92,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   const handleSelectModel = (e) => {
     const form = e.target;
-    console.log("form.value", form.value);
+    console.log("form.value");
+    selectModel(form.value);
   }
 
   // injectSearch is used to trigger the creation of a new GoogleSearch

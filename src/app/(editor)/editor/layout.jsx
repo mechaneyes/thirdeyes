@@ -23,8 +23,8 @@ export default function EditorLayout({ children }) {
             max={8}
             xlg={8}
             lg={8}
-            md={8}
-            sm={8}
+            md={4}
+            sm={2}
             className="editor__panel"
           >
             {/* <SidebarEditor /> */}
@@ -35,8 +35,8 @@ export default function EditorLayout({ children }) {
             max={8}
             xlg={8}
             lg={8}
-            md={8}
-            sm={8}
+            md={4}
+            sm={2}
             className="editor__panel"
           >
             <ChatDouble />

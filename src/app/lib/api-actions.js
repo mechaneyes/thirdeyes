@@ -32,16 +32,17 @@ export async function signalRefresh(chatId) {
 }
 
 export async function selectModel(selectedModel) {
+  console.log('selectedModel', selectedModel)
   // Signal refresh to api. Run on page refresh. Allows app to
   // reset chatIdRef.current and create a new object in the chats array
-  const queryParams = new URLSearchParams({
-    model: selectedModel,
-  }).toString();
+  // const queryParams = new URLSearchParams({
+  //   model: selectedModel,
+  // }).toString();
 
-  const response = await fetch(`/api/chat?${queryParams}`);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  const data = await response.json();
+  // const response = await fetch(`/api/chat?${queryParams}`);
+  // if (!response.ok) {
+  //   throw new Error(`HTTP error! status: ${response.status}`);
+  // }
+  // const data = await response.json();
   return "data";
 }
