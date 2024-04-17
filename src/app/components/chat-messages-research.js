@@ -64,23 +64,10 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
-      api: "/api/chat_double",
+      api: "/api/chat-research",
       initialMessages: initialMessages,
       onFinish: async (messages) => {
-        // Analyze the last assistant response
-        // await analyzeAndAct(messages.content);
-
-        // add placeholder to be filled by search module
-        setMessages((messages) => [
-          ...messages,
-          {
-            role: "assistant",
-            content: "search_placeholder",
-            id: `search_placeholder-${index}`,
-          },
-        ]);
         setFistPrompt(!fistPrompt);
-        setInjectSearch(!injectSearch);
       },
     });
 
@@ -89,23 +76,6 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     setQuery(input);
     setMessageExists(true);
   };
-
-  // injectSearch is used to trigger the creation of a new GoogleSearch
-  // component. It's triggered by the onFinish function in useChat
-  //
-  useEffect(() => {
-    setSearches((prevSearches) => [
-      ...prevSearches,
-      <GoogleSearch
-        key={new Date().getTime()}
-        query={query}
-        // prevSearches.length + 2 === index in search array. It's
-        // handled this way to stay in line with the index of the place
-        // holder. Hacky due to problematic incrementing component-wide
-        index={prevSearches.length + 2}
-      />,
-    ]);
-  }, [injectSearch]);
 
   useEffect(() => {
     if (isHeightEqual === true && anchorRef.current) {
@@ -117,10 +87,11 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     <div className="chat__panel__inner" ref={chatPanelRef}>
       <div ref={chatMessagesRef} className="chat__messages">
         <div className="chat__messages__intro">
-          <div className="italic">
-            {/* The sky above the port was the color of television, tuned to a dead
-            channel. */}
-            gpt-3.5-turbo-0125
+          <div className="research">
+            Use this interface for research purposes.
+            <br /><br />
+            The AI will provide you with information and answer questions to the
+            best of its ability.
           </div>
         </div>
 

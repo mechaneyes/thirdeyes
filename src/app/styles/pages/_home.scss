@@ -62,6 +62,10 @@
       padding-bottom: 25vh;
     }
 
+    @include bp("large") {
+      padding-bottom: 10vh;
+    }
+
     &--left {
       order: 2;
 

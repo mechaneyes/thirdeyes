@@ -6,13 +6,10 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { useAtom } from "jotai";
 import { isLoggedInAtom } from "@/app/store/atoms";
 
-import Messages from "./chat-messages";
-import MessagesIds from "./chat-messages-ids";
-import MessagesEditor from "./chat-messages-editor";
-import MessagesDouble from "./chat-messages-double";
+import MessagesResearch from "./chat-messages-research";
 import ChatLogin from "./chat-login";
 
-export default function Chat() {
+export default function ChatResearch() {
   const [isHeightEqual, setIsHeightEqual] = useState(false);
   const [isChat, setIsChat] = useState(false);
   const [isEditor, setIsEditor] = useState(false);
@@ -20,26 +17,6 @@ export default function Chat() {
   const chatMessagesRef = useRef(null);
 
   const { user } = useUser();
-
-  useEffect(() => {
-    const pathname = window.location.pathname.split("/").pop();
-
-    if (pathname === "chat") {
-      setIsChat(true);
-      setIsEditor(false);
-    } else {
-      setIsChat(false);
-      setIsEditor(false);
-    }
-
-    if (pathname === "editor" || pathname === "editor-sidebar") {
-      setIsChat(false);
-      setIsEditor(true);
-    } else {
-      setIsChat(false);
-      setIsEditor(false);
-    }
-  }, []);
 
   useEffect(() => {
     const checkUserStatus = async () => {
@@ -99,18 +76,8 @@ export default function Chat() {
     <>
       {!isLoggedIn ? (
         <ChatLogin />
-      ) : isChat ? (
-        <MessagesDouble
-          chatMessagesRef={chatMessagesRef}
-          isHeightEqual={isHeightEqual}
-        />
-      ) : isEditor ? (
-        <MessagesDouble
-          chatMessagesRef={chatMessagesRef}
-          isHeightEqual={isHeightEqual}
-        />
       ) : (
-        <MessagesDouble
+        <MessagesResearch
           chatMessagesRef={chatMessagesRef}
           isHeightEqual={isHeightEqual}
         />

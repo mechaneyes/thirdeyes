@@ -14,6 +14,21 @@
       height: 100%;
     }
 
+    &--mvp {
+      padding-top: 1rem;
+      border: 0;
+      border-radius: 0;
+      background-color: transparent;
+
+      h3 {
+        text-align: center;
+      }
+
+      .chat__panel__inner {
+        height: calc(100% - 3rem) !important;
+      }
+    }
+
     &--howto {
       background-color: #243c5c;
     }

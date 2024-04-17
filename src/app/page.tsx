@@ -39,15 +39,15 @@ export default function Home() {
                     /> */}
                     <ButtonPrimary
                       link="/editor"
-                      name="A/B"
+                      name="Chat"
                       classes="btn--login-logout"
                       onClick={() => {
                         console.log("Button clicked");
                       }}
                     />
                     <ButtonPrimary
-                      link="/editor-sidebar"
-                      name="Editor"
+                      link="/howto"
+                      name="How To"
                       classes="btn--login-logout"
                       onClick={() => {
                         console.log("Button clicked");

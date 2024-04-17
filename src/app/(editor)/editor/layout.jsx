@@ -5,7 +5,7 @@ import { Column, Grid } from "@carbon/react";
 
 const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
 const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
-const ChatDouble = dynamic(() => import("@/app/components/chat-double"), {
+const ChatDouble = dynamic(() => import("@/app/components/chat-research"), {
   ssr: false,
 });
 const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
@@ -25,10 +25,11 @@ export default function EditorLayout({ children }) {
             lg={8}
             md={4}
             sm={2}
-            className="editor__panel"
+            className="editor__panel editor__panel--mvp"
           >
             {/* <SidebarEditor /> */}
             {/* <SpotifyModule /> */}
+            <h3>Evaluation Models</h3>
             <Chat />
           </Column>
           <Column
@@ -37,8 +38,9 @@ export default function EditorLayout({ children }) {
             lg={8}
             md={4}
             sm={2}
-            className="editor__panel"
+            className="editor__panel editor__panel--mvp"
           >
+            <h3>Research Model</h3>
             <ChatDouble />
           </Column>
         </Grid>
@@ -48,3 +50,4 @@ export default function EditorLayout({ children }) {
     </>
   );
 }
+2850
