@@ -68,20 +68,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       api: "/api/chat-model-select",
       initialMessages: initialMessages,
       onFinish: async (messages) => {
-        // Analyze the last assistant response
-        // await analyzeAndAct(messages.content);
-
-        // add placeholder to be filled by search module
-        setMessages((messages) => [
-          ...messages,
-          {
-            role: "assistant",
-            content: "search_placeholder",
-            id: `search_placeholder-${index}`,
-          },
-        ]);
         setFistPrompt(!fistPrompt);
-        setInjectSearch(!injectSearch);
       },
     });
 
