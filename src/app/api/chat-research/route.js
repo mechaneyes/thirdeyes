@@ -1,6 +1,7 @@
 import { createClient } from "@vercel/kv";
-import { OpenAIStream, StreamingTextResponse } from "ai";
 import OpenAI from "openai";
+import Anthropic from '@anthropic-ai/sdk';
+import { AnthropicStream, OpenAIStream, StreamingTextResponse } from "ai";
 import { getSession } from "@auth0/nextjs-auth0/edge";
 import { nanoid } from "nanoid";
 
@@ -9,6 +10,10 @@ export const runtime = "edge";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
+});
+
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY
 });
 
 let chatId = nanoid().substring(0, 8);
@@ -68,7 +73,6 @@ export async function GET(req) {
 export async function POST(req) {
   const json = await req.json();
   const { messages, previewToken } = json;
-  console.log('json', json);
 
   const kv = createClient({
     url: process.env.NEXT_PUBLIC_KV_REST_API_URL,
@@ -83,53 +87,55 @@ export async function POST(req) {
     openai.apiKey = previewToken;
   }
 
-  const response = await openai.chat.completions.create({
-    // model: "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm",
-    // model: "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v1:96HPQb1E",
-    // model: "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240323-v1:962T1JmV",
-    model: "gpt-4-turbo",
-    // model: "gpt-3.5-turbo-0125",
+  // const response = await openai.chat.completions.create({
+  //   model: "gpt-4-turbo",
+  //   messages,
+  //   temperature: 0.8,
+  //   stream: true,
+  // });
+
+  const response = await anthropic.messages.create({
     messages,
-    temperature: 0.8,
+    model: 'claude-3-opus-20240229',
     stream: true,
+    max_tokens: 1024,
   });
 
-  const stream = OpenAIStream(response, {
-    async onCompletion(completion) {
-      const title = json.messages[0].content.substring(0, 100);
-      const path = `/chat/${chatId}`;
+  // const stream = OpenAIStream(response, {
+  //   async onCompletion(completion) {
+  //     const title = json.messages[0].content.substring(0, 100);
+  //     const path = `/chat/${chatId}`;
 
-      const payload = {
-        id: chatId,
-        start: chatStart,
-        path: path,
-        title: title,
-        messages: [
-          ...messages,
-          {
-            content: completion,
-            role: "assistant",
-          },
-        ],
-      };
+  //     const payload = {
+  //       id: chatId,
+  //       start: chatStart,
+  //       path: path,
+  //       title: title,
+  //       messages: [
+  //         ...messages,
+  //         {
+  //           content: completion,
+  //           role: "assistant",
+  //         },
+  //       ],
+  //     };
 
-      // if this `chatId` is not in the user's chats, add chat.
-      // if it's already there, update the messages. save to db
-      let existingChat = userData.chats.find((c) => c.id === chatId);
+  //     // if this `chatId` is not in the user's chats, add chat.
+  //     // if it's already there, update the messages. save to db
+  //     let existingChat = userData.chats.find((c) => c.id === chatId);
 
-      if (existingChat) {
-        // console.log("present 🟢", chatId, payload.title);
-        existingChat.messages = payload.messages;
-      } else {
-        // console.log("missing ❌", chatId, payload.title);
-        userData.chats.push(payload);
-      }
+  //     if (existingChat) {
+  //       existingChat.messages = payload.messages;
+  //     } else {
+  //       userData.chats.push(payload);
+  //     }
 
-      // userData.chats = []
-      // console.log("userData.chats 🔵🔵", userData.chats);
-      await kv.set(key, JSON.stringify(userData));
-    },
-  });
+  //     // userData.chats = []
+  //     await kv.set(key, JSON.stringify(userData));
+  //   },
+  // });
+
+  const stream = AnthropicStream(response);
 
   return new StreamingTextResponse(stream);
 }

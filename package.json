@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.20.6",
     "@apollo/client": "^3.8.8",
     "@apollo/experimental-nextjs-app-support": "^0.5.2",
     "@auth/core": "^0.18.6",
