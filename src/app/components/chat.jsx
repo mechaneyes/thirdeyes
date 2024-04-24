@@ -8,7 +8,7 @@ import { isLoggedInAtom } from "@/app/store/atoms";
 
 import Messages from "./chat-messages";
 import MessagesIds from "./chat-messages-ids";
-import MessagesEditor from "./chat-messages-editor";
+import MessagesEvaluation from "./messages-evaluation";
 import ChatLogin from "./chat-login";
 
 export default function Chat() {
@@ -104,7 +104,7 @@ export default function Chat() {
           isHeightEqual={isHeightEqual}
         />
       ) : isEditor ? (
-        <MessagesEditor
+        <MessagesEvaluation
           chatMessagesRef={chatMessagesRef}
           isHeightEqual={isHeightEqual}
         />

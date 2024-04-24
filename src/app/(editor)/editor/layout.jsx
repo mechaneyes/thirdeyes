@@ -4,8 +4,8 @@ import dynamic from "next/dynamic";
 import { Column, Grid } from "@carbon/react";
 
 const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
-const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
-const ChatDouble = dynamic(() => import("@/app/components/chat-research"), {
+const ChatEvaluation = dynamic(() => import("@/app/components/chat"), { ssr: false });
+const ChatResearch = dynamic(() => import("@/app/components/chat-research"), {
   ssr: false,
 });
 const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
@@ -30,7 +30,7 @@ export default function EditorLayout({ children }) {
             {/* <SidebarEditor /> */}
             {/* <SpotifyModule /> */}
             <h3>Evaluation Models</h3>
-            <Chat />
+            <ChatEvaluation />
           </Column>
           <Column
             max={8}
@@ -41,7 +41,7 @@ export default function EditorLayout({ children }) {
             className="editor__panel editor__panel--mvp"
           >
             <h3>Research Model</h3>
-            <ChatDouble />
+            <ChatResearch />
           </Column>
         </Grid>
       </main>
