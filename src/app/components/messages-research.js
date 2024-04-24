@@ -88,10 +88,11 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       <div ref={chatMessagesRef} className="chat__messages">
         <div className="chat__messages__intro">
           <div className="research">
-            Use this interface for research purposes.
-            <br /><br />
-            The AI will provide you with information and answer questions to the
-            best of its ability.
+            <p>Use this interface for research purposes.</p>
+            <p>
+              The AI will provide you with information and answer questions to
+              the best of its ability.
+            </p>
           </div>
         </div>
 

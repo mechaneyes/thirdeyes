@@ -1,0 +1,67 @@
+.chat__messages__selector {
+  // position: absolute;
+  background-color: #243c5cc9;
+
+  .cds--accordion {
+    &__heading {
+      &:hover {
+        background-color: #2a4a6f;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    &__title {
+      font-size: 1rem;
+      color: white;
+    }
+
+    &__arrow {
+      fill: white;
+    }
+
+    &__content > p {
+      font-size: 1rem;
+      font-weight: 300;
+    }
+  }
+
+  .cds--select-input {
+    color: white;
+    background-color: #243c5c;
+    background-color: #255266;
+  }
+
+  .cds--select__arrow {
+    fill: white;
+  }
+
+  .cds--radio-button {
+    &__appearance {
+      border-color: white;
+    }
+
+    &__label-text {
+      font-size: 1rem;
+      font-weight: 300;
+    }
+  }
+
+  .cds--radio-button:checked
+    + .cds--radio-button__label
+    .cds--radio-button__appearance {
+    border-color: white;
+
+    &::before {
+      background-color: white;
+    }
+  }
+
+  .cds--radio-button:focus
+    + .cds--radio-button__label
+    .cds--radio-button__appearance {
+    outline-color: transparent;
+  }
+}

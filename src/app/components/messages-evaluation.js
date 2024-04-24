@@ -3,7 +3,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useChat } from "ai/react";
-import { Select, SelectItem } from "carbon-components-react";
+import {
+  Accordion,
+  AccordionItem,
+  RadioButton,
+  RadioButtonGroup,
+} from "carbon-components-react";
 import { Upload } from "@carbon/icons-react";
 import { useAtom, useAtomValue } from "jotai";
 
@@ -81,7 +86,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const handleSelectModel = (e) => {
     const form = e.target;
     selectModel(form.value);
-  }
+  };
 
   // injectSearch is used to trigger the creation of a new GoogleSearch
   // component. It's triggered by the onFinish function in useChat
@@ -108,25 +113,53 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   return (
     <div className="chat__panel__inner" ref={chatPanelRef}>
-      <div ref={chatMessagesRef} className="chat__messages chat__messages--model-select">
+      <div
+        ref={chatMessagesRef}
+        className="chat__messages chat__messages--model-select"
+      >
         <div className="chat__messages__selector">
-          {/* <div className="italic">
-            The sky above the port was the color of television, tuned to a dead
-            channel. gpt-3.5-turbo-0125:het001-240324v2
-          </div> */}
-          <Select
-            id="select-model"
-            labelText="Select a Model"
-            onChange={handleSelectModel}
-          >
-            <SelectItem value="" text="" />
-            <SelectItem
-              value="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
-              text="hetfield - 2024.03.24v2"
-            />
-            <SelectItem value="gpt-3.5-turbo-0125" text="gpt-3.5-turbo" />
-            <SelectItem value="gpt-4-turbo" text="gpt-4-turbo" />
-          </Select>
+          <Accordion>
+            <AccordionItem title="Select a Client">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </AccordionItem>
+            <AccordionItem title="Select a Writer">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </AccordionItem>
+            <AccordionItem title="Select a Model" open>
+              <RadioButtonGroup
+                // legendText="Group label"
+                name="radio-button-group"
+                defaultSelected="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
+                orientation="vertical"
+              >
+                <RadioButton
+                  labelText="Hetfield Fine-Tuned"
+                  value="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
+                  id="radio-1"
+                />
+                <RadioButton
+                  labelText="GPT-3.5 Turbo"
+                  value="gpt-3.5-turbo-0125"
+                  id="radio-2"
+                />
+                <RadioButton
+                  labelText="GPT-4 Turbo"
+                  value="gpt-4-turbo"
+                  id="radio-3"
+                />
+              </RadioButtonGroup>
+            </AccordionItem>
+          </Accordion>
         </div>
 
         {messages.map((message, count) => {
