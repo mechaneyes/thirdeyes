@@ -115,49 +115,91 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     <div className="chat__panel__inner" ref={chatPanelRef}>
       <div
         ref={chatMessagesRef}
-        className="chat__messages chat__messages--model-select"
+        className="chat__messages chat__messages--model-select chat__messages--persona-select"
       >
-        <div className="chat__messages__selector">
+        <div className="chat__messages__selector persona__selector">
           <Accordion>
-            <AccordionItem title="Select a Client">
+            <AccordionItem title="Build Persona">
+              <p className="persona__item">
+                Select a persona to build a conversation with.
+              </p>{" "}
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                As of today, fine tuning is based on Philip Sherburne&apos;s
+                writing style applied to Hetfield. Other examples here are for
+                demonstration purposes.
               </p>
-            </AccordionItem>
-            <AccordionItem title="Select a Writer">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </AccordionItem>
-            <AccordionItem title="Select a Model" open>
-              <RadioButtonGroup
-                // legendText="Group label"
-                name="radio-button-group"
-                defaultSelected="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
-                orientation="vertical"
-              >
-                <RadioButton
-                  labelText="Hetfield Fine-Tuned"
-                  value="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
-                  id="radio-1"
-                />
-                <RadioButton
-                  labelText="GPT-3.5 Turbo"
-                  value="gpt-3.5-turbo-0125"
-                  id="radio-2"
-                />
-                <RadioButton
-                  labelText="GPT-4 Turbo"
-                  value="gpt-4-turbo"
-                  id="radio-3"
-                />
-              </RadioButtonGroup>
+              <p>However, you have the ability to customize the models.</p>
+              <div className="persona__item">
+                <h5>Select a Client</h5>
+                <RadioButtonGroup
+                  // legendText="Group label"
+                  name="radio-button-client"
+                  defaultSelected="hetfield"
+                >
+                  <RadioButton
+                    labelText="Ulrich"
+                    value="ulrich"
+                    id="radio-ulrich"
+                  />
+                  <RadioButton
+                    labelText="Hetfield"
+                    value="hetfield"
+                    id="radio-hetfield"
+                  />
+                  <RadioButton
+                    labelText="Hammett"
+                    value="hammett"
+                    id="radio-hammett"
+                  />
+                  <RadioButton
+                    labelText="Burton"
+                    value="burton"
+                    id="radio-burton"
+                  />
+                </RadioButtonGroup>
+              </div>
+              <div className="persona__item">
+                <h5>Select a Writer</h5>
+                <RadioButtonGroup
+                  name="radio-button-writer"
+                  defaultSelected="psherburne"
+                >
+                  <RadioButton
+                    labelText="Philip Sherburne"
+                    value="psherburne"
+                    id="radio-psherburne"
+                  />
+                  <RadioButton
+                    labelText="Mosi Reeves"
+                    value="mreeves"
+                    id="radio-mreeves"
+                  />
+                </RadioButtonGroup>
+              </div>
+              <div className="persona__item">
+                <h5>Select a Model</h5>
+                <RadioButtonGroup
+                  name="radio-button-model"
+                  defaultSelected="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
+                  // orientation="vertical"
+                >
+                  <RadioButton
+                    labelText="Hetfield Fine-Tuned"
+                    value="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
+                    id="radio-het001-240324v2"
+                  />
+                  <RadioButton
+                    labelText="GPT-3.5 Turbo"
+                    value="gpt-3.5-turbo-0125"
+                    id="radio-gpt-3.5-turbo"
+                  />
+                  <RadioButton
+                    labelText="GPT-4 Turbo"
+                    value="gpt-4-turbo"
+                    id="radio-gpt-4-turbo"
+                  />
+                </RadioButtonGroup>
+              </div>
             </AccordionItem>
           </Accordion>
         </div>

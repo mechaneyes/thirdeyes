@@ -1,6 +1,22 @@
-.chat__messages__selector {
+.persona {
+  &__item {
+    padding-bottom: 1.5rem;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+}
+
+.persona__selector {
   // position: absolute;
+  position: sticky;
+  top: 0;
   background-color: #243c5cc9;
+
+  h5 {
+    padding-bottom: 0.5rem;
+  }
 
   .cds--accordion {
     &__heading {
@@ -16,15 +32,18 @@
     &__title {
       font-size: 1rem;
       color: white;
+      font-weight: 500;
     }
 
     &__arrow {
       fill: white;
     }
 
-    &__content > p {
-      font-size: 1rem;
-      font-weight: 300;
+    &__content {
+      & > p {
+        font-size: 1rem;
+        font-weight: 300;
+      }
     }
   }
 
