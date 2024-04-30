@@ -41,6 +41,15 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   let index = 0;
 
+  const { messages, input, handleInputChange, handleSubmit, setMessages } =
+    useChat({
+      api: "/api/chat-model-select",
+      initialMessages: initialMessages,
+      onFinish: async (messages) => {
+        setFistPrompt(!fistPrompt);
+      },
+    });
+
   const handleQuery = (event) => {
     event.preventDefault();
     setQuery(input);
@@ -53,16 +62,10 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     selectModel(radioButtonValue);
   };
 
-  // initialMessages ... loop through userData.chats + match
-  // id with selectedChat (clicked on in sidebar). set initialMessages
-  // to that chat's messages
-  //
-  useEffect(() => {
-    if (userData) {
-      const chat = userData.chats.find((chat) => chat.id === selectedChat);
-      chat ? setInitialMessages(chat.messages) : [];
-    }
-  }, [newChat, selectedChat, userData]);
+  const handleAccordionToggle = (index, isOpen) => {
+    // Assuming you want to close the AccordionItem, set the state to false
+    setIsAccordionItemOpen(!isOpen);
+  };
 
   useEffect(() => {
     setInitialMessages([]);
@@ -81,14 +84,16 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     }
   }, []);
 
-  const { messages, input, handleInputChange, handleSubmit, setMessages } =
-    useChat({
-      api: "/api/chat-model-select",
-      initialMessages: initialMessages,
-      onFinish: async (messages) => {
-        setFistPrompt(!fistPrompt);
-      },
-    });
+  // initialMessages ... loop through userData.chats + match
+  // id with selectedChat (clicked on in sidebar). set initialMessages
+  // to that chat's messages
+  //
+  useEffect(() => {
+    if (userData) {
+      const chat = userData.chats.find((chat) => chat.id === selectedChat);
+      chat ? setInitialMessages(chat.messages) : [];
+    }
+  }, [newChat, selectedChat, userData]);
 
   // injectSearch is used to trigger the creation of a new GoogleSearch
   // component. It's triggered by the onFinish function in useChat
@@ -113,6 +118,10 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     }
   }, [isHeightEqual]);
 
+  useEffect(() => {
+    console.log("isAccordionItemOpen", isAccordionItemOpen);
+  }, [isAccordionItemOpen]);
+
   return (
     <div className="chat__panel__inner" ref={chatPanelRef}>
       <div
@@ -121,7 +130,13 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       >
         <div className="chat__messages__selector persona__selector">
           <Accordion>
-            <AccordionItem title="Build Persona"  open={isAccordionItemOpen}>
+            <AccordionItem
+              title="Build Persona"
+              open={isAccordionItemOpen}
+              onHeadingClick={() =>
+                handleAccordionToggle(0, isAccordionItemOpen)
+              }
+            >
               <p className="persona__item">
                 Select a persona to build a conversation with.
               </p>{" "}
