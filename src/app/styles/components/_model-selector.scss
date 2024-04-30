@@ -66,6 +66,13 @@
       font-size: 1rem;
       font-weight: 300;
     }
+
+    &--disabled {
+      * {
+        color: #8e8e8e;
+        border-color: #8e8e8e !important;
+      }
+    }
   }
 
   .cds--radio-button:checked

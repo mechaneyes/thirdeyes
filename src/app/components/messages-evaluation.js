@@ -25,6 +25,7 @@ import { signalRefresh, selectModel } from "@/app/lib/api-actions";
 const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [initialMessages, setInitialMessages] = useState([]);
   const [injectSearch, setInjectSearch] = useState(false);
+  const [isAccordionItemOpen, setIsAccordionItemOpen] = useState(true);
   const [messageExists, setMessageExists] = useState(false);
   const [query, setQuery] = useAtom(queryAtom);
   const [searches, setSearches] = useState([]);
@@ -39,6 +40,18 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const chatIdRef = useRef(null);
 
   let index = 0;
+
+  const handleQuery = (event) => {
+    event.preventDefault();
+    setQuery(input);
+    setMessageExists(true);
+  };
+
+  const handleSelectModel = (e) => {
+    const form = e.target;
+    const radioButtonValue = form.value;
+    selectModel(radioButtonValue);
+  };
 
   // initialMessages ... loop through userData.chats + match
   // id with selectedChat (clicked on in sidebar). set initialMessages
@@ -77,17 +90,6 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       },
     });
 
-  const handleQuery = (event) => {
-    event.preventDefault();
-    setQuery(input);
-    setMessageExists(true);
-  };
-
-  const handleSelectModel = (e) => {
-    const form = e.target;
-    selectModel(form.value);
-  };
-
   // injectSearch is used to trigger the creation of a new GoogleSearch
   // component. It's triggered by the onFinish function in useChat
   //
@@ -119,7 +121,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       >
         <div className="chat__messages__selector persona__selector">
           <Accordion>
-            <AccordionItem title="Build Persona">
+            <AccordionItem title="Build Persona"  open={isAccordionItemOpen}>
               <p className="persona__item">
                 Select a persona to build a conversation with.
               </p>{" "}
@@ -135,11 +137,14 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                   // legendText="Group label"
                   name="radio-button-client"
                   defaultSelected="hetfield"
+                  // orientation="vertical"
                 >
                   <RadioButton
                     labelText="Ulrich"
                     value="ulrich"
                     id="radio-ulrich"
+                    disabled
+                    className="cds--radio-button--disabled"
                   />
                   <RadioButton
                     labelText="Hetfield"
@@ -150,11 +155,15 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                     labelText="Hammett"
                     value="hammett"
                     id="radio-hammett"
+                    disabled
+                    className="cds--radio-button--disabled"
                   />
                   <RadioButton
                     labelText="Burton"
                     value="burton"
                     id="radio-burton"
+                    disabled
+                    className="cds--radio-button--disabled"
                   />
                 </RadioButtonGroup>
               </div>
@@ -173,6 +182,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                     labelText="Mosi Reeves"
                     value="mreeves"
                     id="radio-mreeves"
+                    disabled
+                    className="cds--radio-button--disabled"
                   />
                 </RadioButtonGroup>
               </div>
@@ -181,7 +192,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                 <RadioButtonGroup
                   name="radio-button-model"
                   defaultSelected="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
-                  // orientation="vertical"
+                  onChange={(e) => selectModel(e)}
                 >
                   <RadioButton
                     labelText="Hetfield Fine-Tuned"
@@ -232,6 +243,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
           onSubmit={(event) => {
             handleSubmit(event);
             handleQuery(event);
+            setIsAccordionItemOpen(false);
           }}
         >
           <label>
