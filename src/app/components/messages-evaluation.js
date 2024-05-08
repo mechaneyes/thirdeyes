@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useChat } from "ai/react";
+import Anthropic from "@anthropic-ai/sdk";
 import {
   Accordion,
   AccordionItem,
@@ -21,8 +22,10 @@ import {
 } from "@/app/store/atoms";
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
 import { signalRefresh, selectModel } from "@/app/lib/api-actions";
+import { performReasoning } from "@/app/lib/chat-actions";
 
 const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
+  const [firstDraft, setFirstDraft] = useState("");
   const [initialMessages, setInitialMessages] = useState([]);
   const [injectSearch, setInjectSearch] = useState(false);
   const [isAccordionItemOpen, setIsAccordionItemOpen] = useState(true);
@@ -39,7 +42,16 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const inputRef = useRef(null);
   const chatIdRef = useRef(null);
 
+  const anthropic = new Anthropic({
+    apiKey: process.env.ANTHROPIC_API_KEY,
+  });
+
   let index = 0;
+
+  // const { setInput, append } = useChat({
+  //   api: "/api/chat-research",
+  //   messages: firstDraft,
+  // });
 
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
@@ -47,6 +59,20 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       initialMessages: initialMessages,
       onFinish: async (messages) => {
         setFistPrompt(!fistPrompt);
+        // console.log("messages", messages);
+        let secondPrompt = "check the following for spelling errors and correct them: " + messages.content;
+
+        setFirstDraft(secondPrompt);
+
+        performReasoning(secondPrompt)
+
+        // const { messages } = useChat({
+        //   api: "/api/chat-research",
+        //   initialMessages: firstDraft,
+        //   onFinish: async (fromClaude) => {
+        //     console.log("fromClaude", fromClaude);
+        //   },
+        // });
       },
     });
 
@@ -117,10 +143,6 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       anchorRef.current.scrollIntoView({ block: "end" });
     }
   }, [isHeightEqual]);
-
-  useEffect(() => {
-    console.log("isAccordionItemOpen", isAccordionItemOpen);
-  }, [isAccordionItemOpen]);
 
   return (
     <div className="chat__panel__inner" ref={chatPanelRef}>

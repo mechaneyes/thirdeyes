@@ -3,6 +3,23 @@
 
 import { createClient } from "@vercel/kv";
 import { getSession } from "@auth0/nextjs-auth0";
+import { generateText } from 'ai';
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+export async function performReasoning(question) {
+  const { text, finishReason, usage } = await generateText({
+    model: openai('gpt-3.5-turbo'),
+    prompt: question,
+  });
+
+  console.log('question', question);
+
+  return { text };
+}
 
 // ————————————————————————————————————o get user —>
 //
