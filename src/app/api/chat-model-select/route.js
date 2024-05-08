@@ -35,7 +35,7 @@ export async function GET(req) {
   const url = new URL(req.url);
   model = url.searchParams.get("model");
 
-  console.log("🟣 searchParams model", model)
+  // console.log("🟣 searchParams model", model)
 
   return new Response(
     JSON.stringify({ message: "GET request processed", model }),
@@ -95,19 +95,19 @@ export async function POST(req) {
 
       // if this `chatId` is not in the user's chats, add chat.
       // if it's already there, update the messages. save to db
-      let existingChat = userData.chats.find((c) => c.id === chatId);
+      // let existingChat = userData.chats.find((c) => c.id === chatId);
 
-      if (existingChat) {
-        // console.log("present 🟢", chatId, payload.title);
-        existingChat.messages = payload.messages;
-      } else {
-        // console.log("missing ❌", chatId, payload.title);
-        userData.chats.push(payload);
-      }
+      // if (existingChat) {
+      //   // console.log("present 🟢", chatId, payload.title);
+      //   existingChat.messages = payload.messages;
+      // } else {
+      //   // console.log("missing ❌", chatId, payload.title);
+      //   userData.chats.push(payload);
+      // }
 
-      // userData.chats = []
-      // console.log("userData.chats 🔵🔵", userData.chats);
-      await kv.set(key, JSON.stringify(userData));
+      // // userData.chats = []
+      // // console.log("userData.chats 🔵🔵", userData.chats);
+      // await kv.set(key, JSON.stringify(userData));
     },
   });
 

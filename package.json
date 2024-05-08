@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^0.0.10",
     "@anthropic-ai/sdk": "^0.20.6",
     "@apollo/client": "^3.8.8",
     "@apollo/experimental-nextjs-app-support": "^0.5.2",
@@ -60,7 +61,8 @@
     "tsx": "^4.6.2",
     "uuid": "^9.0.1",
     "vercel": "^32.7.2",
-    "yarn": "^1.22.21"
+    "yarn": "^1.22.21",
+    "zod": "^3.23.7"
   },
   "devDependencies": {
     "@types/node": "^20.10.4",

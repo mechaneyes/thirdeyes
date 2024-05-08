@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useChat } from "ai/react";
-import Anthropic from "@anthropic-ai/sdk";
 import {
   Accordion,
   AccordionItem,
@@ -42,10 +41,6 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const inputRef = useRef(null);
   const chatIdRef = useRef(null);
 
-  const anthropic = new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY,
-  });
-
   let index = 0;
 
   // const { setInput, append } = useChat({
@@ -60,19 +55,14 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       onFinish: async (messages) => {
         setFistPrompt(!fistPrompt);
         // console.log("messages", messages);
-        let secondPrompt = "check the following for spelling errors and correct them: " + messages.content;
+        let reasoningPrompt = `Check the following and change any capital letters to lowercase: """ ${messages.content} """`;
 
-        setFirstDraft(secondPrompt);
+        setFirstDraft(reasoningPrompt);
 
-        performReasoning(secondPrompt)
-
-        // const { messages } = useChat({
-        //   api: "/api/chat-research",
-        //   initialMessages: firstDraft,
-        //   onFinish: async (fromClaude) => {
-        //     console.log("fromClaude", fromClaude);
-        //   },
-        // });
+        const reasoned = performReasoning(reasoningPrompt)
+        reasoned.then(resolvedValue => {
+          console.log("reasoned", resolvedValue);
+        });
       },
     });
 

@@ -16,7 +16,7 @@ export async function POST(req) {
   const json = await req.json();
   const { messages } = json;
 
-  console.log('json', json)
+  // console.log('json', json)
 
   const response = await anthropic.messages.create({
     messages,

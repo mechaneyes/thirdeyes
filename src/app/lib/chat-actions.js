@@ -4,19 +4,17 @@
 import { createClient } from "@vercel/kv";
 import { getSession } from "@auth0/nextjs-auth0";
 import { generateText } from 'ai';
-import OpenAI from "openai";
+import { openai } from '@ai-sdk/openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// const openai = new OpenAI({
+//   apiKey: process.env.OPENAI_API_KEY,
+// });
 
-export async function performReasoning(question) {
+export async function performReasoning(prompt) {
   const { text, finishReason, usage } = await generateText({
-    model: openai('gpt-3.5-turbo'),
-    prompt: question,
+    model: openai('gpt-4-turbo'),
+    prompt,
   });
-
-  console.log('question', question);
 
   return { text };
 }
