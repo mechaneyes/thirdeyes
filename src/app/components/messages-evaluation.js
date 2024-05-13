@@ -27,7 +27,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [firstDraft, setFirstDraft] = useState("");
   const [initialMessages, setInitialMessages] = useState([]);
   const [injectSearch, setInjectSearch] = useState(false);
-  const [isAccordionItemOpen, setIsAccordionItemOpen] = useState(true);
+  const [isAccordionItemOpen, setIsAccordionItemOpen] = useState(false);
   const [messageExists, setMessageExists] = useState(false);
   const [query, setQuery] = useAtom(queryAtom);
   const [searches, setSearches] = useState([]);
@@ -61,7 +61,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
         const reasoned = performReasoning(reasoningPrompt)
         reasoned.then(resolvedValue => {
-          console.log("reasoned", resolvedValue);
+          console.log("reasoned", resolvedValue.text);
         });
       },
     });

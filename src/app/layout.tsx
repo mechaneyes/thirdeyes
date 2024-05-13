@@ -7,7 +7,10 @@ import "./styles/styles.scss";
 
 export const metadata: Metadata = {
   title: "Thirdeyes",
-  description: "Adventures in fine-tuning my third eye",
+  description: "Third Bridge Creative v Mechaneyes",
+  openGraph: {
+    images: ["/images/og-image.png"],
+  },
 };
 
 export default async function RootLayout({
