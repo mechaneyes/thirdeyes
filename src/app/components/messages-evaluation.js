@@ -55,12 +55,12 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       onFinish: async (messages) => {
         setFistPrompt(!fistPrompt);
         // console.log("messages", messages);
-        let reasoningPrompt = `Check the following and change any capital letters to lowercase: """ ${messages.content} """`;
+        let reasoningPrompt = `Following is text wrapped between opening and closing """. Take that text, change any capital letters to lowercase and wrap any distinct paragraphs in HTML <p> tags. This is the text to manipulate: """ ${messages.content} """`;
 
         setFirstDraft(reasoningPrompt);
 
-        const reasoned = performReasoning(reasoningPrompt)
-        reasoned.then(resolvedValue => {
+        const reasoned = performReasoning(reasoningPrompt);
+        reasoned.then((resolvedValue) => {
           console.log("reasoned", resolvedValue.text);
         });
       },
@@ -151,15 +151,14 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
             >
               <p className="persona__item">
                 Select a persona to build a conversation with.
-              </p>{" "}
-              <p>
-                As of today, fine tuning is based on Philip Sherburne&apos;s
-                writing style applied to Hetfield. Other examples here are for
-                demonstration purposes.
               </p>
-              <p>However, you have the ability to customize the models.</p>
+              <p>
+                Fine tuning is based on bios written in the style of Hetfield.
+                Other examples here are for demonstration purposes.
+              </p>
+              <p>However, you have the ability to choose between models.</p>
               <div className="persona__item">
-                <h5>Select a Client</h5>
+                <h5>Select Client</h5>
                 <RadioButtonGroup
                   // legendText="Group label"
                   name="radio-button-client"
@@ -195,15 +194,14 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                 </RadioButtonGroup>
               </div>
               <div className="persona__item">
-                <h5>Select a Writer</h5>
-                <RadioButtonGroup
-                  name="radio-button-writer"
-                  defaultSelected="psherburne"
-                >
+                <h5>Select Writer</h5>
+                <RadioButtonGroup name="radio-button-writer">
                   <RadioButton
                     labelText="Philip Sherburne"
                     value="psherburne"
                     id="radio-psherburne"
+                    disabled
+                    className="cds--radio-button--disabled"
                   />
                   <RadioButton
                     labelText="Mosi Reeves"
@@ -215,7 +213,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                 </RadioButtonGroup>
               </div>
               <div className="persona__item">
-                <h5>Select a Model</h5>
+                <h5>Select Model</h5>
                 <RadioButtonGroup
                   name="radio-button-model"
                   defaultSelected="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
@@ -232,8 +230,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                     id="radio-gpt-3.5-turbo"
                   />
                   <RadioButton
-                    labelText="GPT-4 Turbo"
-                    value="gpt-4-turbo"
+                    labelText="GPT-4o"
+                    value="gpt-4o"
                     id="radio-gpt-4-turbo"
                   />
                 </RadioButtonGroup>
