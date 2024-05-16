@@ -6,13 +6,9 @@ import { getSession } from "@auth0/nextjs-auth0";
 import { generateText } from 'ai';
 import { openai } from '@ai-sdk/openai';
 
-// const openai = new OpenAI({
-//   apiKey: process.env.OPENAI_API_KEY,
-// });
-
 export async function performReasoning(prompt) {
   const { text, finishReason, usage } = await generateText({
-    model: openai('gpt-4-turbo'),
+    model: openai('gpt-4o'),
     prompt,
   });
 

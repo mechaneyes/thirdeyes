@@ -161,10 +161,19 @@
     }
   }
 
-  .chat__messages {
-    // overflow-y: scroll;
-    font-weight: 100 !important;
-  } // ————————————————————————————————————o————————————————————————————————————o sidebar -->
+  .chat__messages,
+  .chat__messages p {
+    font-size: 1.125rem;
+    font-weight: 100;
+    color: white;
+    line-height: 1.5rem;
+  } 
+  
+  .reasoning-intro p {
+    font-weight: 300;
+  }
+  
+  // ————————————————————————————————————o————————————————————————————————————o sidebar -->
   // ————————————————————————————————————o sidebar —>
   //
   .chat__sidebar {

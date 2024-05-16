@@ -5,11 +5,14 @@ import Image from "next/image";
 import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
 import { useAtom, useAtomValue } from "jotai";
+import { RingLoader } from "react-spinners";
 
 import {
   firstPromptAtom,
   newChatAtom,
   queryAtom,
+  reasonedFirstAtom,
+  reasoningAtom,
   selectedChatAtom,
   userDataAtom,
 } from "@/app/store/atoms";
@@ -24,6 +27,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [searches, setSearches] = useState([]);
   const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
   const newChat = useAtomValue(newChatAtom);
+  const reasonedFirst = useAtomValue(reasonedFirstAtom);
+  const reasoning = useAtomValue(reasoningAtom);
   const selectedChat = useAtomValue(selectedChatAtom);
   const userData = useAtomValue(userDataAtom);
 
@@ -83,18 +88,38 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     }
   }, [isHeightEqual]);
 
+  useEffect(() => {
+    reasonedFirst !== null && setMessageExists(true);
+  }, [reasonedFirst]);
+
   return (
     <div className="chat__panel__inner" ref={chatPanelRef}>
       <div ref={chatMessagesRef} className="chat__messages">
-        <div className="chat__messages__intro">
-          <div className="research">
-            <p>Use this interface for research purposes.</p>
-            <p>
-              The AI will provide you with information and answer questions to
-              the best of its ability.
-            </p>
+        {reasonedFirst !== null ? (
+          <>
+            <div className="reasoning-intro">
+              <p>
+                GPT-4o has performed a reasoning step in order to bring the
+                fine-tuned model&apos;s output into alignment with the Hetfield style
+                guide. This is the result:</p>
+            </div>
+            <div dangerouslySetInnerHTML={{ __html: reasonedFirst }} />
+          </>
+        ) : reasoning && reasonedFirst === null ? (
+          <div className="reasoning-progress">
+            <RingLoader color="#75beff" />
           </div>
-        </div>
+        ) : (
+          <div className="chat__messages__intro">
+            <div className="research">
+              <p>Use this interface for research purposes.</p>
+              <p>
+                The AI will provide you with information and answer questions to
+                the best of its ability.
+              </p>
+            </div>
+          </div>
+        )}
 
         {messages.map((message, count) => {
           if (message.id === `search_placeholder-${index}`) {

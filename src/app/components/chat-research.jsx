@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { isLoggedInAtom } from "@/app/store/atoms";
 
 import MessagesResearch from "./messages-research";

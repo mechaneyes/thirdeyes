@@ -40,7 +40,7 @@ export default function EditorLayout({ children }) {
             sm={2}
             className="editor__panel editor__panel--mvp"
           >
-            <h3>Research Model</h3>
+            <h3>Reflection</h3>
             <ChatResearch />
           </Column>
         </Grid>

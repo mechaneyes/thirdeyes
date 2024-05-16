@@ -10,18 +10,23 @@ import {
   RadioButtonGroup,
 } from "carbon-components-react";
 import { Upload } from "@carbon/icons-react";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import {
   firstPromptAtom,
   newChatAtom,
   queryAtom,
+  reasonedFirstAtom,
+  reasoningAtom,
   selectedChatAtom,
   userDataAtom,
 } from "@/app/store/atoms";
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
 import { signalRefresh, selectModel } from "@/app/lib/api-actions";
-import { performReasoning } from "@/app/lib/chat-actions";
+import { performReasoning, getMarkdownContent } from "@/app/lib/chat-actions";
+import { hetfieldStyleGuide } from "@/app/lib/hetfield-style-guide.js";
+
+// const fs = require("fs").promises;
 
 const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [firstDraft, setFirstDraft] = useState("");
@@ -33,6 +38,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [searches, setSearches] = useState([]);
   const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
   const newChat = useAtomValue(newChatAtom);
+  const [reasonedFirst, setReasonedFirst] = useAtom(reasonedFirstAtom);
+  const [reasoning, setReasoning] = useAtom(reasoningAtom);
   const selectedChat = useAtomValue(selectedChatAtom);
   const userData = useAtomValue(userDataAtom);
 
@@ -54,14 +61,22 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       initialMessages: initialMessages,
       onFinish: async (messages) => {
         setFistPrompt(!fistPrompt);
-        // console.log("messages", messages);
-        let reasoningPrompt = `Following is text wrapped between opening and closing """. Take that text, change any capital letters to lowercase and wrap any distinct paragraphs in HTML <p> tags. This is the text to manipulate: """ ${messages.content} """`;
+        setReasoning(true);
+
+        // let reasoningPrompt = `Following is text wrapped between opening and closing """. Take that text and wrap any distinct paragraphs in HTML <p> tags. This is the text to manipulate: """ ${messages.content} """`;
+
+        let reasoningPrompt = `Following is text wrapped between opening and closing """. 
+            ${hetfieldStyleGuide} This is the text to manipulate: """ ${messages.content} """`;
 
         setFirstDraft(reasoningPrompt);
 
         const reasoned = performReasoning(reasoningPrompt);
         reasoned.then((resolvedValue) => {
           console.log("reasoned", resolvedValue.text);
+          const index = resolvedValue.text.indexOf("```html");
+          let strippedText = resolvedValue.text.substring(index + 7);
+          strippedText = strippedText.replace(/```/g, '');
+          setReasonedFirst(strippedText);
         });
       },
     });
