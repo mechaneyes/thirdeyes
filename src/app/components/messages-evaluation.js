@@ -16,8 +16,8 @@ import {
   firstPromptAtom,
   newChatAtom,
   queryAtom,
-  reasonedFirstAtom,
-  reasoningAtom,
+  reflectedFirstAtom,
+  reflectionAtom,
   selectedChatAtom,
   userDataAtom,
 } from "@/app/store/atoms";
@@ -38,8 +38,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [searches, setSearches] = useState([]);
   const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
   const newChat = useAtomValue(newChatAtom);
-  const [reasonedFirst, setReasonedFirst] = useAtom(reasonedFirstAtom);
-  const [reasoning, setReasoning] = useAtom(reasoningAtom);
+  const [reflectedFirst, setReflectedFirst] = useAtom(reflectedFirstAtom);
+  const [reflecting, setReflecting] = useAtom(reflectionAtom);
   const selectedChat = useAtomValue(selectedChatAtom);
   const userData = useAtomValue(userDataAtom);
 
@@ -61,22 +61,24 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       initialMessages: initialMessages,
       onFinish: async (messages) => {
         setFistPrompt(!fistPrompt);
-        setReasoning(true);
+        setReflecting(true);
+        setReflectedFirst(null)
 
-        // let reasoningPrompt = `Following is text wrapped between opening and closing """. Take that text and wrap any distinct paragraphs in HTML <p> tags. This is the text to manipulate: """ ${messages.content} """`;
+        // let reflectingPrompt = `Following is text wrapped between opening and closing """. Take that text and wrap any distinct paragraphs in HTML <p> tags. This is the text to manipulate: """ ${messages.content} """`;
 
-        let reasoningPrompt = `Following is text wrapped between opening and closing """. 
+        let reflectingPrompt = `Following is text wrapped between opening and closing """. 
             ${hetfieldStyleGuide} This is the text to manipulate: """ ${messages.content} """`;
 
-        setFirstDraft(reasoningPrompt);
+        setFirstDraft(reflectingPrompt);
 
-        const reasoned = performReasoning(reasoningPrompt);
+        const reasoned = performReasoning(reflectingPrompt);
         reasoned.then((resolvedValue) => {
           console.log("reasoned", resolvedValue.text);
           const index = resolvedValue.text.indexOf("```html");
           let strippedText = resolvedValue.text.substring(index + 7);
           strippedText = strippedText.replace(/```/g, '');
-          setReasonedFirst(strippedText);
+          setReflecting(false);
+          setReflectedFirst(strippedText);
         });
       },
     });
@@ -85,6 +87,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     event.preventDefault();
     setQuery(input);
     setMessageExists(true);
+    setReflecting(false);
   };
 
   const handleSelectModel = (e) => {

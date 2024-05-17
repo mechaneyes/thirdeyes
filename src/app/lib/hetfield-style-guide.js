@@ -13,7 +13,8 @@ export const hetfieldStyleGuide = `
       "Keep it Evergreen: Avoid phrases like \"most recent\" album or \"current hit\" or anything that won't make sense if you read the blurb a year or two from now.",
       "Drugs and Alcohol: References to drinking and drugs are occasionally unavoidable. It's okay for us to broach these when they're necessary, but you can't advocate for alcohol or drug use. (No \"This is a great soundtrack for getting lifted.\")",
       "Your bio should contain approximately 150 words.",
-      "Separate consistent sections, wrapping them in HTML <p> tags."
+      "Separate consistent sections, wrapping them in HTML <p> tags.",
+      "At the bottom of your output add commentary to explain your reasoning, wrapping all added commentary paragraphs in <p class='reflection__content'> tags.",
     ],
     "goals": [
       "To tell the story of an artist, in the context of the music and culture around them.",

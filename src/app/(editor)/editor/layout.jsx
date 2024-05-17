@@ -18,7 +18,7 @@ export default function EditorLayout({ children }) {
     <>
       <main>
         <Header />
-        <Grid className="thirdeyes chat editor">
+        <Grid className="thirdeyes chat editor reflection">
           <Column
             max={8}
             xlg={8}
@@ -38,7 +38,7 @@ export default function EditorLayout({ children }) {
             lg={8}
             md={4}
             sm={2}
-            className="editor__panel editor__panel--mvp"
+            className="editor__panel editor__panel--mvp editor__panel--reflection"
           >
             <h3>Reflection</h3>
             <ChatResearch />

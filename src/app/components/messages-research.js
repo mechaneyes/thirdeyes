@@ -11,8 +11,8 @@ import {
   firstPromptAtom,
   newChatAtom,
   queryAtom,
-  reasonedFirstAtom,
-  reasoningAtom,
+  reflectedFirstAtom,
+  reflectionAtom,
   selectedChatAtom,
   userDataAtom,
 } from "@/app/store/atoms";
@@ -27,8 +27,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [searches, setSearches] = useState([]);
   const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
   const newChat = useAtomValue(newChatAtom);
-  const reasonedFirst = useAtomValue(reasonedFirstAtom);
-  const reasoning = useAtomValue(reasoningAtom);
+  const reflectedFirst = useAtomValue(reflectedFirstAtom);
+  const reflecting = useAtomValue(reflectionAtom);
   const selectedChat = useAtomValue(selectedChatAtom);
   const userData = useAtomValue(userDataAtom);
 
@@ -89,33 +89,34 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   }, [isHeightEqual]);
 
   useEffect(() => {
-    reasonedFirst !== null && setMessageExists(true);
-  }, [reasonedFirst]);
+    reflectedFirst !== null && setMessageExists(true);
+  }, [reflectedFirst]);
 
   return (
     <div className="chat__panel__inner" ref={chatPanelRef}>
       <div ref={chatMessagesRef} className="chat__messages">
-        {reasonedFirst !== null ? (
-          <>
-            <div className="reasoning-intro">
-              <p>
-                GPT-4o has performed a reasoning step in order to bring the
-                fine-tuned model&apos;s output into alignment with the Hetfield style
-                guide. This is the result:</p>
-            </div>
-            <div dangerouslySetInnerHTML={{ __html: reasonedFirst }} />
-          </>
-        ) : reasoning && reasonedFirst === null ? (
-          <div className="reasoning-progress">
+        {reflecting && reflectedFirst === null ? (
+          <div className="reflecting-progress">
             <RingLoader color="#75beff" />
           </div>
+        ) : reflectedFirst !== null ? (
+          <>
+            <div className="reflecting-intro">
+              <p>
+                GPT-4o has performed a reflection step in order to bring the
+                fine-tuned model&apos;s output into alignment with the Hetfield
+                style guide. This is the result:
+              </p>
+            </div>
+            <div dangerouslySetInnerHTML={{ __html: reflectedFirst }} />
+          </>
         ) : (
           <div className="chat__messages__intro">
             <div className="research">
-              <p>Use this interface for research purposes.</p>
+              <p>LLM reflection action takes place here.</p>
               <p>
-                The AI will provide you with information and answer questions to
-                the best of its ability.
+                With this pattern, we leverage GPT-4o to build upon the original
+                model&apos;s output.
               </p>
             </div>
           </div>
@@ -143,7 +144,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
         <div ref={anchorRef} className="chat__messages__anchor"></div>
       </div>
 
-      <div className="chat__form">
+      {/* <div className="chat__form">
         <form
           className="chat__form__form"
           onSubmit={(event) => {
@@ -163,7 +164,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
             </button>
           </label>
         </form>
-      </div>
+      </div> */}
       <Image
         src="/images/hero--whirli-hero.png"
         alt="login"
@@ -172,7 +173,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
         width={800}
         height={800}
         className={
-          !messageExists ? "login-image" : "login-image login-image--fade-out"
+          !messageExists || reflecting ? "login-image" : "login-image login-image--fade-out"
         }
         priority={true}
       />

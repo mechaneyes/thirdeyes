@@ -169,7 +169,7 @@
     line-height: 1.5rem;
   } 
   
-  .reasoning-intro p {
+  .reflecting-intro p {
     font-weight: 300;
   }
   
@@ -195,6 +195,17 @@
         right: 1.75rem;
       }
     }
+  }
+}
+
+.reflection {
+  .chat__panel__inner {
+    grid-template-rows: 1fr;
+  }
+
+  .reflection__content {
+    // font-weight: 300;
+    font-style: italic;
   }
 }
 
