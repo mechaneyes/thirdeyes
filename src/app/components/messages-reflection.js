@@ -69,7 +69,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
-      api: "/api/chat-research",
+      api: "/api/chat-reflection",
       initialMessages: initialMessages,
       onFinish: async (messages) => {
         setFistPrompt(!fistPrompt);
