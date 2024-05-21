@@ -5,7 +5,7 @@ import { Column, Grid } from "@carbon/react";
 
 const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
 const ChatEvaluation = dynamic(() => import("@/app/components/chat"), { ssr: false });
-const ChatResearch = dynamic(() => import("@/app/components/chat-research"), {
+const ChatReflection = dynamic(() => import("@/app/components/chat-reflection"), {
   ssr: false,
 });
 const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
@@ -41,7 +41,7 @@ export default function EditorLayout({ children }) {
             className="editor__panel editor__panel--mvp editor__panel--reflection"
           >
             <h3>Reflection</h3>
-            <ChatResearch />
+            <ChatReflection />
           </Column>
         </Grid>
       </main>
