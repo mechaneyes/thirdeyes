@@ -164,13 +164,13 @@
   .chat__messages,
   .chat__messages p {
     font-size: 1.125rem;
-    font-weight: 100;
+    font-weight: 300;
     color: white;
     line-height: 1.5rem;
   } 
   
   .reflecting-intro p {
-    font-weight: 300;
+    font-weight: 100;
   }
   
   // ————————————————————————————————————o————————————————————————————————————o sidebar -->
@@ -203,9 +203,20 @@
     grid-template-rows: 1fr;
   }
 
-  .reflection__content {
-    // font-weight: 300;
+  .passed-prompt {
+    padding: 4rem 0 2.5rem 2rem;
+    font-weight: 400;
+    color: #aeaeae;
+    text-align: right;
+  }
+
+  p.reflection__content {
+    font-weight: 100;
     font-style: italic;
+
+    + p {
+      margin-top: 3rem;
+    }
   }
 }
 

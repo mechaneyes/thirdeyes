@@ -18,6 +18,7 @@ import {
   queryAtom,
   reflectedFirstAtom,
   reflectionAtom,
+  reflectionOriginalPromptAtom,
   selectedChatAtom,
   userDataAtom,
 } from "@/app/store/atoms";
@@ -34,12 +35,14 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [injectSearch, setInjectSearch] = useState(false);
   const [isAccordionItemOpen, setIsAccordionItemOpen] = useState(false);
   const [messageExists, setMessageExists] = useState(false);
+
   const [query, setQuery] = useAtom(queryAtom);
   const [searches, setSearches] = useState([]);
   const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
   const newChat = useAtomValue(newChatAtom);
   const [reflectedFirst, setReflectedFirst] = useAtom(reflectedFirstAtom);
   const [reflecting, setReflecting] = useAtom(reflectionAtom);
+  const setReflectionOriginalPrompt = useSetAtom(reflectionOriginalPromptAtom);
   const selectedChat = useAtomValue(selectedChatAtom);
   const userData = useAtomValue(userDataAtom);
 
@@ -86,6 +89,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const handleQuery = (event) => {
     event.preventDefault();
     setQuery(input);
+    setReflectionOriginalPrompt(input);
     setMessageExists(true);
     setReflecting(false);
   };

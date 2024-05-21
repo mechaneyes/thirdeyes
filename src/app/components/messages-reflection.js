@@ -6,6 +6,7 @@ import { useChat } from "ai/react";
 import { Upload } from "@carbon/icons-react";
 import { useAtom, useAtomValue } from "jotai";
 import { RingLoader } from "react-spinners";
+import ReactHtmlParser from "react-html-parser";
 
 import {
   firstPromptAtom,
@@ -13,6 +14,7 @@ import {
   queryAtom,
   reflectedFirstAtom,
   reflectionAtom,
+  reflectionOriginalPromptAtom,
   selectedChatAtom,
   userDataAtom,
 } from "@/app/store/atoms";
@@ -20,6 +22,7 @@ import GoogleSearch from "@/app/components/modules/GoogleSearch";
 import { signalRefresh } from "@/app/lib/api-actions";
 
 const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
+  const [content, setContent] = useState("");
   const [initialMessages, setInitialMessages] = useState([]);
   const [injectSearch, setInjectSearch] = useState(false);
   const [messageExists, setMessageExists] = useState(false);
@@ -28,6 +31,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [fistPrompt, setFistPrompt] = useAtom(firstPromptAtom);
   const newChat = useAtomValue(newChatAtom);
   const reflectedFirst = useAtomValue(reflectedFirstAtom);
+  const reflectionOriginalPrompt = useAtomValue(reflectionOriginalPromptAtom);
   const reflecting = useAtomValue(reflectionAtom);
   const selectedChat = useAtomValue(selectedChatAtom);
   const userData = useAtomValue(userDataAtom);
@@ -38,6 +42,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const chatIdRef = useRef(null);
 
   let index = 0;
+  let passedPrompt = null;
 
   // initialMessages ... loop through userData.chats + match
   // id with selectedChat (clicked on in sidebar). set initialMessages
@@ -89,7 +94,20 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   }, [isHeightEqual]);
 
   useEffect(() => {
-    reflectedFirst !== null && setMessageExists(true);
+    if (reflectedFirst !== null) {
+      setMessageExists(true);
+
+      let htmlString = "";
+      if (reflectionOriginalPrompt) {
+        htmlString += `<div class="passed-prompt">${reflectionOriginalPrompt}</div>`;
+      }
+      if (reflectedFirst) {
+        htmlString += reflectedFirst;
+      }
+      const jsxElement = ReactHtmlParser(htmlString);
+      setContent((prevContent) => [...prevContent, jsxElement]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reflectedFirst]);
 
   return (
@@ -108,7 +126,10 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                 style guide. This is the result:
               </p>
             </div>
-            <div dangerouslySetInnerHTML={{ __html: reflectedFirst }} />
+
+            <div className="reflection__content">
+              {content}
+            </div>
           </>
         ) : (
           <div className="chat__messages__intro">
@@ -121,25 +142,6 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
             </div>
           </div>
         )}
-
-        {messages.map((message, count) => {
-          if (message.id === `search_placeholder-${index}`) {
-            index++;
-            return searches[index];
-          } else {
-            return (
-              <div
-                key={count}
-                className={`chat__messages__message ${
-                  message.role === "user"
-                    ? "chat__messages__message--user "
-                    : "chat__messages__message--ai"
-                }`}
-                dangerouslySetInnerHTML={{ __html: message.content }}
-              ></div>
-            );
-          }
-        })}
 
         <div ref={anchorRef} className="chat__messages__anchor"></div>
       </div>
@@ -173,7 +175,9 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
         width={800}
         height={800}
         className={
-          !messageExists || reflecting ? "login-image" : "login-image login-image--fade-out"
+          !messageExists || reflecting
+            ? "login-image"
+            : "login-image login-image--fade-out"
         }
         priority={true}
       />

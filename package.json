@@ -56,6 +56,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.49.2",
     "react-hot-toast": "^2.4.1",
+    "react-html-parser": "^2.0.2",
     "react-spinners": "^0.13.8",
     "sass": "^1.69.5",
     "tailwind-merge": "^2.2.1",
