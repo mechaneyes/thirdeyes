@@ -77,11 +77,16 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
         const reasoned = performReasoning(reflectingPrompt);
         reasoned.then((resolvedValue) => {
           console.log("reasoned", resolvedValue.text);
+
+          let strippedText = resolvedValue.text;
           const index = resolvedValue.text.indexOf("```html");
-          let strippedText = resolvedValue.text.substring(index + 7);
+          if (index !== -1) {
+            strippedText = resolvedValue.text.substring(index + 7);
+          }
           strippedText = strippedText.replace(/```/g, '');
-          setReflecting(false);
           setReflectedFirst(strippedText);
+          
+          setReflecting(false);
         });
       },
     });
