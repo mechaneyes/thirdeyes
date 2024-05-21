@@ -12,7 +12,7 @@ export const hetfieldStyleGuide = `
       "Write dammit, write! Employ vivid language, colorful metaphors, witty (but not too witty) turns of phrase but do so in a human way. (If you would roll your eyes at it, lose it.) Your readers are real people with real personality, and that should naturally come through in your writing. Your prose should dazzle in its ingenuity and creativity. Likewise, avoid clichés, hyperbole, scare quotes, and tired music review jargon (no \"angular\" guitars, no \"oeuvres,\" etc.).",
       "Keep it Evergreen: Avoid phrases like \"most recent\" album or \"current hit\" or anything that won't make sense if you read the blurb a year or two from now.",
       "Drugs and Alcohol: References to drinking and drugs are occasionally unavoidable. It's okay for us to broach these when they're necessary, but you can't advocate for alcohol or drug use. (No \"This is a great soundtrack for getting lifted.\")",
-      "Your bio should contain approximately 150 words.",
+      "It's important that the text produced is close to 150 words.",
       "Separate consistent sections, wrapping them in HTML <p> tags.",
       "At the bottom of your output add commentary to explain your reasoning, wrapping all added commentary paragraphs in <p class='reflection__content'> tags.",
     ],
@@ -37,17 +37,20 @@ export const hetfieldStyleGuide = `
       "Present biographical info and era/context for the artist, and should strive to make the reader curious about their sounds and innovations (spur them to go explore the artist's discography)",
       "Say not just what their genre is/was but what specifically they added to the canon: present them in the larger musical context",
       "If it's a legacy artist, try to relate back to the current moment. How can the artist's footprint be felt and heard in music that's being made today?"
+      "Keeping the review concise and engaging, copy length should be close to 150 words.",
     ],
     "shouldNot": [
-      "Be a dry chronology of events",
-      "Be an 800 cc Cliffs Notes of Wikipedia",
-      "Delve excessively into tabloid crap like drugs, arrests, or the artist's death unless it is relevant to their work/catalog somehow (eg died young so their catalog is tragically small)",
-      "Mention accolades as a shortcut to saying they were a worthwhile artist"
+      "Should not be a dry chronology of events",
+      "Should not be an 800 cc Cliffs Notes of Wikipedia",
+      "Should not delve excessively into tabloid crap like drugs, arrests, or the artist's death unless it is relevant to their work/catalog somehow (eg died young so their catalog is tragically small)",
+      "Should not mention accolades as a shortcut to saying they were a worthwhile artist"
+      "Should not write outputted copy that is more than 170 words.",
     ],
     "additionalNotes": [
       "Avoid clichés: The \"burst onto the scene\"s, the \"made waves\" or \"made splashes\" just need to be refined a bit to just say what really happened.",
       "Avoid using someone else's perspective: Let's shift this onto yourself and what you think the artist did or does more directly, instead of saying \"became popular,\" \"racked up listens,\" \"wowed fans with...\" or \"lighting up audiences\" etc.",
-      "Avoid the career rundown: Instead provide takeaways as to what's meaningful behind what the artist does rather than the things themselves (lists of album releases and dates don't work on their own)"
+      "Avoid the career rundown: Instead provide takeaways as to what's meaningful behind what the artist does rather than the things themselves (lists of album releases and dates don't work on their own)",
+      "Avoid outputting copy that is more than 170 words.",
     ],
     "context": "Give context, not facts. You need to emphasize the context for why things (\"things\" being the types of music they developed) happened. This kind of approach would really help separate it from an AMG bio. Please frame their artistic output as a reaction to what was going on around them in music (and the world) at the time. You need to scratch the itch of both the casual fan who wants to learn a little more about an artist and the deep listener who will sniff out our baloney if we are too superficial. Make sure we are answering the questions of why and how this artist's work is important.",
     "grimReaper": "Re: deaths and drugs, etc. If mental/physical illness/cause of death played a critical part of the artist's creative life, it's worth mentioning. If we're talking about death, it has to be a critical part of the story. Let's not put the dates on the first sentences of dead artists; it kind of distracts from the power of the opening statements."
