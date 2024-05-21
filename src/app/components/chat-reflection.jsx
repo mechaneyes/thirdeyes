@@ -6,7 +6,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { useAtom, useAtomValue } from "jotai";
 import { isLoggedInAtom } from "@/app/store/atoms";
 
-import MessagesResearch from "./messages-research";
+import MessagesResearch from "./messages-reflection";
 import ChatLogin from "./chat-login";
 
 export default function ChatResearch() {
