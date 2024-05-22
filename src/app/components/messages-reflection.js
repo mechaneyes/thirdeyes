@@ -38,6 +38,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   const anchorRef = useRef(null);
   const chatPanelRef = useRef(null);
+  const endOfMessagesRef = useRef(null);
   const inputRef = useRef(null);
   const chatIdRef = useRef(null);
 
@@ -110,6 +111,16 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reflectedFirst]);
 
+  useEffect(() => {
+    //   if (endOfMessagesRef.current) {
+    //     endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
+    //   }
+    endOfMessagesRef.current?.scrollIntoView({
+      block: "end",
+      behavior: "smooth",
+    });
+  }, [content]);
+  1;
   return (
     <div className="chat__panel__inner" ref={chatPanelRef}>
       <div ref={chatMessagesRef} className="chat__messages">
@@ -121,14 +132,15 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
           <>
             <div className="reflecting-intro">
               <p>
-                GPT-4o has performed a reflection step in order to bring the
+                Here, GPT-4o performs a reflection step in order to bring the
                 fine-tuned model&apos;s output into alignment with the Hetfield
-                style guide. This is the result:
+                style guide. These are the results:
               </p>
             </div>
 
             <div className="reflection__content">
               {content}
+              <div className="reflection__end-ref" ref={endOfMessagesRef}></div>
             </div>
           </>
         ) : (
@@ -146,27 +158,6 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
         <div ref={anchorRef} className="chat__messages__anchor"></div>
       </div>
 
-      {/* <div className="chat__form">
-        <form
-          className="chat__form__form"
-          onSubmit={(event) => {
-            handleSubmit(event);
-            handleQuery(event);
-          }}
-        >
-          <label>
-            <input
-              ref={inputRef}
-              className="chat__form__input"
-              value={input}
-              onChange={handleInputChange}
-            />
-            <button type="submit">
-              <Upload size={24} className="chat__form__send-icon" />
-            </button>
-          </label>
-        </form>
-      </div> */}
       <Image
         src="/images/hero--whirli-hero.png"
         alt="login"

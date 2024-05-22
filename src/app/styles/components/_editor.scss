@@ -201,7 +201,13 @@
 .reflection {
   .chat__panel__inner {
     grid-template-rows: 1fr;
+    // overflow: visible;
   }
+
+  // .chat__messages {
+  //   margin-bottom: 2.25rem;
+  //   padding: 2.25rem 2.25rem 0;
+  // }
 
   .passed-prompt {
     padding: 4rem 0 2.5rem 2rem;
@@ -217,6 +223,11 @@
     + p {
       margin-top: 3rem;
     }
+  }
+
+  &__end-ref {
+    scroll-margin-bottom: 3rem;
+  
   }
 }
 
