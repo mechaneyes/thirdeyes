@@ -61,6 +61,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
       api: "/api/chat-model-select",
+      initialInput: "Write a bio for ",
       initialMessages: initialMessages,
       onFinish: async (messages) => {
         setFistPrompt(!fistPrompt);
@@ -303,6 +304,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
               ref={inputRef}
               className="chat__form__input"
               value={input}
+              placeholder="Write a bio for"
               onChange={handleInputChange}
             />
             <button type="submit">
