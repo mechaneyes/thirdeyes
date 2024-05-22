@@ -10,6 +10,7 @@ import {
   RadioButtonGroup,
 } from "carbon-components-react";
 import { Upload } from "@carbon/icons-react";
+import ReactHtmlParser from 'react-html-parser';
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import {
@@ -33,6 +34,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [firstDraft, setFirstDraft] = useState("");
   const [initialMessages, setInitialMessages] = useState([]);
   const [injectSearch, setInjectSearch] = useState(false);
+  const [inputPrepend, setInputPrepend] = useState("Write a bio for ");
   const [isAccordionItemOpen, setIsAccordionItemOpen] = useState(false);
   const [messageExists, setMessageExists] = useState(false);
 
@@ -61,12 +63,12 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
       api: "/api/chat-model-select",
-      initialInput: "Write a bio for ",
+      // initialInput: inputPrepend,
       initialMessages: initialMessages,
       onFinish: async (messages) => {
         setFistPrompt(!fistPrompt);
         setReflecting(true);
-        setReflectedFirst(null)
+        setReflectedFirst(null);
 
         // let reflectingPrompt = `Following is text wrapped between opening and closing """. Take that text and wrap any distinct paragraphs in HTML <p> tags. This is the text to manipulate: """ ${messages.content} """`;
 
@@ -84,9 +86,9 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
           if (index !== -1) {
             strippedText = resolvedValue.text.substring(index + 7);
           }
-          strippedText = strippedText.replace(/```/g, '');
+          strippedText = strippedText.replace(/```/g, "");
           setReflectedFirst(strippedText);
-          
+
           setReflecting(false);
         });
       },
@@ -95,7 +97,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const handleQuery = (event) => {
     event.preventDefault();
     setQuery(input);
-    setReflectionOriginalPrompt(input);
+    setReflectionOriginalPrompt(`Write a bio for ${input}`);
     setMessageExists(true);
     setReflecting(false);
   };
@@ -268,6 +270,14 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
           </Accordion>
         </div>
 
+        <div className="chat__intro">
+          <p>
+            The input field simply requires the artist name. Thirdeyes will
+            prepend &quot;Write a bio for&quot; to the artist name before
+            submitting the prompt.
+          </p>
+        </div>
+
         {messages.map((message, count) => {
           if (message.id === `search_placeholder-${index}`) {
             index++;
@@ -281,8 +291,11 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                     ? "chat__messages__message--user "
                     : "chat__messages__message--ai"
                 }`}
-                dangerouslySetInnerHTML={{ __html: message.content }}
-              ></div>
+              >
+                {message.role === "user"
+                  ? `Write a bio for ${message.content}`
+                  : ReactHtmlParser(message.content)}
+              </div>
             );
           }
         })}

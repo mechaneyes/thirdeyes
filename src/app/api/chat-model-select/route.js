@@ -50,6 +50,14 @@ export async function POST(req) {
   const json = await req.json();
   const { messages, previewToken } = json;
 
+  const fixedPrompt = {
+    role: 'system',
+    content: 'Write a bio for '
+  };
+
+  // Prepend the fixed prompt to the messages array
+  const modifiedMessages = [fixedPrompt, ...messages];
+
   const kv = createClient({
     url: process.env.NEXT_PUBLIC_KV_REST_API_URL,
     token: process.env.NEXT_PUBLIC_KV_REST_API_TOKEN,
@@ -69,7 +77,7 @@ export async function POST(req) {
     // model: "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240323-v1:962T1JmV",
     // model: "gpt-4-1106-preview",
     // model: "gpt-3.5-turbo",
-    messages,
+    messages: modifiedMessages,
     temperature: 0.8,
     stream: true,
   });
