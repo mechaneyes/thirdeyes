@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useChat } from "ai/react";
+import { Pinecone } from "@pinecone-database/pinecone";
 import {
   Accordion,
   AccordionItem,
@@ -10,7 +11,7 @@ import {
   RadioButtonGroup,
 } from "carbon-components-react";
 import { Upload } from "@carbon/icons-react";
-import ReactHtmlParser from 'react-html-parser';
+import ReactHtmlParser from "react-html-parser";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import {
@@ -55,62 +56,95 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   let index = 0;
 
-  // const { setInput, append } = useChat({
-  //   api: "/api/chat-research",
-  //   messages: firstDraft,
-  // });
+  const pinecone = new Pinecone({
+    apiKey: process.env.NEXT_PUBLIC_PINECONE_API_KEY,
+  });
 
-  const { messages, input, handleInputChange, handleSubmit, setMessages } =
-    useChat({
-      api: "/api/chat-model-select",
-      // initialInput: inputPrepend,
-      initialMessages: initialMessages,
-      onFinish: async (messages) => {
-        setFistPrompt(!fistPrompt);
-        setReflecting(true);
-        setReflectedFirst(null);
-
-        // let reflectingPrompt = `Following is text wrapped between opening and closing """. Take that text and wrap any distinct paragraphs in HTML <p> tags. This is the text to manipulate: """ ${messages.content} """`;
-
-        let reflectingPrompt = `Following is text wrapped between opening and closing """. 
-            ${hetfieldStyleGuide} This is the text to manipulate: """ ${messages.content} """`;
-
-        setFirstDraft(reflectingPrompt);
-
-        const reasoned = performReasoning(reflectingPrompt);
-        reasoned.then((resolvedValue) => {
-          console.log("reasoned", resolvedValue.text);
-
-          let strippedText = resolvedValue.text;
-          const index = resolvedValue.text.indexOf("```html");
-          if (index !== -1) {
-            strippedText = resolvedValue.text.substring(index + 7);
-          }
-          strippedText = strippedText.replace(/```/g, "");
-          setReflectedFirst(strippedText);
-
-          setReflecting(false);
-        });
-      },
+  // ————————————————————————————————————o————————————————————————————————————o pinecone -->
+  // ————————————————————————————————————o query pinecone —>
+  //
+  async function queryPinecone(query) {
+    const index = pinecone.Index("thirdeyes-wikipedia");
+    const queryEmbedding = await getEmbedding(query);
+    const queryResponse = await index.query({
+      vector: queryEmbedding,
+      topK: 3,
+      includeMetadata: true,
     });
+    return queryResponse.matches.map((match) => match.metadata.text).join("\n");
+  }
 
-  const handleQuery = (event) => {
+  async function getEmbedding(text) {
+    const response = await fetch("/api/embed", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text }),
+    });
+    const { embedding } = await response.json();
+    return embedding;
+  }
+
+  // ————————————————————————————————————o————————————————————————————————————o useChat -->
+  // ————————————————————————————————————o useChat —>
+  //
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    api: "/api/chat-model-select",
+    initialMessages: initialMessages,
+    onSubmit: async (userInput) => {
+      const context = await queryPinecone(userInput);
+
+      const fullPrompt = `
+        Use the following context to help write a bio for ${userInput}. 
+        Only use factual information from the context. If the context doesn't contain relevant information, 
+        use your general knowledge but make it clear which parts are not from the provided context.
+        
+        Context: ${context}
+        
+        Now, write a bio for ${userInput}:
+      `;
+
+      return fullPrompt;
+    },
+    onFinish: async (message) => {
+      setFistPrompt(!fistPrompt);
+      setReflecting(true);
+      setReflectedFirst(null);
+
+      let reflectingPrompt = `Following is text wrapped between opening and closing """. 
+          ${hetfieldStyleGuide} This is the text to manipulate: """ ${message.content} """`;
+
+      setFirstDraft(reflectingPrompt);
+
+      const reasoned = await performReasoning(reflectingPrompt);
+      // console.log("reasoned", reasoned.text);
+
+      let strippedText = reasoned.text;
+      const index = reasoned.text.indexOf("```html");
+      if (index !== -1) {
+        strippedText = reasoned.text.substring(index + 7);
+      }
+      strippedText = strippedText.replace(/```/g, "");
+      setReflectedFirst(strippedText);
+
+      setReflecting(false);
+    },
+  });
+
+  const handleAccordionToggle = (index, isOpen) => {
+    // Assuming you want to close the AccordionItem, set the state to false
+    setIsAccordionItemOpen(!isOpen);
+  };
+
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     setQuery(input);
     setReflectionOriginalPrompt(`Write a bio for ${input}`);
     setMessageExists(true);
     setReflecting(false);
-  };
-
-  const handleSelectModel = (e) => {
-    const form = e.target;
-    const radioButtonValue = form.value;
-    selectModel(radioButtonValue);
-  };
-
-  const handleAccordionToggle = (index, isOpen) => {
-    // Assuming you want to close the AccordionItem, set the state to false
-    setIsAccordionItemOpen(!isOpen);
+    setIsAccordionItemOpen(false);
+    handleSubmit(event);
   };
 
   useEffect(() => {
@@ -304,14 +338,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       </div>
 
       <div className="chat__form">
-        <form
-          className="chat__form__form"
-          onSubmit={(event) => {
-            handleSubmit(event);
-            handleQuery(event);
-            setIsAccordionItemOpen(false);
-          }}
-        >
+        <form className="chat__form__form" onSubmit={handleFormSubmit}>
           <label>
             <input
               ref={inputRef}
