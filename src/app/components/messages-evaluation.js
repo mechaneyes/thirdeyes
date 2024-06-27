@@ -86,6 +86,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     return embedding;
   }
 
+  let context = "";
+
   // ————————————————————————————————————o————————————————————————————————————o useChat -->
   // ————————————————————————————————————o useChat —>
   //
@@ -93,7 +95,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     api: "/api/chat-model-select",
     initialMessages: initialMessages,
     onSubmit: async (userInput) => {
-      const context = await queryPinecone(userInput);
+      context = await queryPinecone(userInput);
 
       const fullPrompt = `
         Use the following context to help write a bio for ${userInput}. 
@@ -112,8 +114,17 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       setReflecting(true);
       setReflectedFirst(null);
 
-      let reflectingPrompt = `Following is text wrapped between opening and closing """. 
-          ${hetfieldStyleGuide} This is the text to manipulate: """ ${message.content} """`;
+      let reflectingPrompt = `
+        You are an editor for a music magazine. You have been tasked with editing a bio provided.
+        The bio is below and wrapped between opening and closing """.
+
+        Context from a database is provided below to help edit and rewrite that bio. Only use factual 
+        information from the context. If the context doesn't contain relevant information, 
+        use your general knowledge but make it clear which parts are not from the provided context.
+        
+        Context: ${context}
+
+        ${hetfieldStyleGuide} This is the text to manipulate: """ ${message.content} """`;
 
       setFirstDraft(reflectingPrompt);
 
