@@ -27,6 +27,7 @@ import GoogleSearch from "@/app/components/modules/GoogleSearch";
 import { signalRefresh, selectModel } from "@/app/lib/api-actions";
 import { performReasoning, getMarkdownContent } from "@/app/lib/chat-actions";
 import { hetfieldStyleGuide } from "@/app/lib/hetfield-style-guide.js";
+import { newInstructions } from "@/app/lib/new-instructions.js";
 
 // const fs = require("fs").promises;
 
@@ -73,7 +74,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
         // let reflectingPrompt = `Following is text wrapped between opening and closing """. Take that text and wrap any distinct paragraphs in HTML <p> tags. This is the text to manipulate: """ ${messages.content} """`;
 
         let reflectingPrompt = `Following is text wrapped between opening and closing """. 
-            ${hetfieldStyleGuide} This is the text to manipulate: """ ${messages.content} """`;
+            ${newInstructions} This is the text to manipulate: """ ${messages.content} """`;
 
         setFirstDraft(reflectingPrompt);
 
