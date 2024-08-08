@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useChat } from "ai/react";
-import { Pinecone } from "@pinecone-database/pinecone";
 import {
   Accordion,
   AccordionItem,
@@ -28,6 +27,7 @@ import GoogleSearch from "@/app/components/modules/GoogleSearch";
 import { signalRefresh, selectModel } from "@/app/lib/api-actions";
 import { performReasoning, getMarkdownContent } from "@/app/lib/chat-actions";
 import { hetfieldStyleGuide } from "@/app/lib/hetfield-style-guide.js";
+import { newInstructions } from "@/app/lib/new-instructions.js";
 
 // const fs = require("fs").promises;
 
@@ -56,99 +56,46 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   let index = 0;
 
-  const pinecone = new Pinecone({
-    apiKey: process.env.NEXT_PUBLIC_PINECONE_API_KEY,
-  });
+  // const { setInput, append } = useChat({
+  //   api: "/api/chat-research",
+  //   messages: firstDraft,
+  // });
 
-  // ————————————————————————————————————o————————————————————————————————————o pinecone -->
-  // ————————————————————————————————————o query pinecone —>
-  //
-  async function queryPinecone(query) {
-    const index = pinecone.Index("thirdeyes-wikipedia");
-    const queryEmbedding = await getEmbedding(query);
-    const queryResponse = await index.query({
-      vector: queryEmbedding,
-      topK: 3,
-      includeMetadata: true,
-    });
-    return queryResponse.matches.map((match) => match.metadata.text).join("\n");
-  }
+  const { messages, input, handleInputChange, handleSubmit, setMessages } =
+    useChat({
+      api: "/api/chat-model-select",
+      // initialInput: inputPrepend,
+      initialMessages: initialMessages,
+      onFinish: async (messages) => {
+        setFistPrompt(!fistPrompt);
+        setReflecting(true);
+        setReflectedFirst(null);
 
-  async function getEmbedding(text) {
-    const response = await fetch("/api/embed", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+        // let reflectingPrompt = `Following is text wrapped between opening and closing """. Take that text and wrap any distinct paragraphs in HTML <p> tags. This is the text to manipulate: """ ${messages.content} """`;
+
+        let reflectingPrompt = `Following is text wrapped between opening and closing """. 
+            ${newInstructions} This is the text to manipulate: """ ${messages.content} """`;
+
+        setFirstDraft(reflectingPrompt);
+
+        const reasoned = performReasoning(reflectingPrompt);
+        reasoned.then((resolvedValue) => {
+          console.log("reasoned", resolvedValue.text);
+
+          let strippedText = resolvedValue.text;
+          const index = resolvedValue.text.indexOf("```html");
+          if (index !== -1) {
+            strippedText = resolvedValue.text.substring(index + 7);
+          }
+          strippedText = strippedText.replace(/```/g, "");
+          setReflectedFirst(strippedText);
+
+          setReflecting(false);
+        });
       },
-      body: JSON.stringify({ text }),
     });
-    const { embedding } = await response.json();
-    return embedding;
-  }
 
-  let context = "";
-
-  // ————————————————————————————————————o————————————————————————————————————o useChat -->
-  // ————————————————————————————————————o useChat —>
-  //
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: "/api/chat-model-select",
-    initialMessages: initialMessages,
-    onSubmit: async (userInput) => {
-      context = await queryPinecone(userInput);
-
-      const fullPrompt = `
-        Use the following context to help write a bio for ${userInput}. 
-        Only use factual information from the context. If the context doesn't contain relevant information, 
-        use your general knowledge but make it clear which parts are not from the provided context.
-        
-        Context: ${context}
-        
-        Now, write a bio for ${userInput}:
-      `;
-
-      return fullPrompt;
-    },
-    onFinish: async (message) => {
-      setFistPrompt(!fistPrompt);
-      setReflecting(true);
-      setReflectedFirst(null);
-
-      let reflectingPrompt = `
-        You are an editor for a music magazine. You have been tasked with editing a bio provided.
-        The bio is below and wrapped between opening and closing """.
-
-        Context from a database is provided below to help edit and rewrite that bio. Only use factual 
-        information from the context. If the context doesn't contain relevant information, 
-        use your general knowledge but make it clear which parts are not from the provided context.
-        
-        Context: ${context}
-
-        ${hetfieldStyleGuide} This is the text to manipulate: """ ${message.content} """`;
-
-      setFirstDraft(reflectingPrompt);
-
-      const reasoned = await performReasoning(reflectingPrompt);
-      // console.log("reasoned", reasoned.text);
-
-      let strippedText = reasoned.text;
-      const index = reasoned.text.indexOf("```html");
-      if (index !== -1) {
-        strippedText = reasoned.text.substring(index + 7);
-      }
-      strippedText = strippedText.replace(/```/g, "");
-      setReflectedFirst(strippedText);
-
-      setReflecting(false);
-    },
-  });
-
-  const handleAccordionToggle = (index, isOpen) => {
-    // Assuming you want to close the AccordionItem, set the state to false
-    setIsAccordionItemOpen(!isOpen);
-  };
-
-  const handleFormSubmit = (event) => {
+  const handleQuery = (event) => {
     event.preventDefault();
     setQuery(input);
     setReflectionOriginalPrompt(`Write a bio for ${input}`);
@@ -156,6 +103,17 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     setReflecting(false);
     setIsAccordionItemOpen(false);
     handleSubmit(event);
+  };
+
+  const handleSelectModel = (e) => {
+    const form = e.target;
+    const radioButtonValue = form.value;
+    selectModel(radioButtonValue);
+  };
+
+  const handleAccordionToggle = (index, isOpen) => {
+    // Assuming you want to close the AccordionItem, set the state to false
+    setIsAccordionItemOpen(!isOpen);
   };
 
   useEffect(() => {
@@ -218,13 +176,13 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
         <div className="chat__messages__selector persona__selector">
           <Accordion>
             <AccordionItem
-              title="Build Persona"
+              title="Select Model"
               open={isAccordionItemOpen}
               onHeadingClick={() =>
                 handleAccordionToggle(0, isAccordionItemOpen)
               }
             >
-              <p className="persona__item">
+              {/* <p className="persona__item">
                 Select a persona to build a conversation with.
               </p>
               <p>
@@ -286,18 +244,23 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                     className="cds--radio-button--disabled"
                   />
                 </RadioButtonGroup>
-              </div>
+              </div> */}
               <div className="persona__item">
-                <h5>Select Model</h5>
+                <h5>Select Model to Evaluate</h5>
                 <RadioButtonGroup
                   name="radio-button-model"
                   defaultSelected="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
                   onChange={(e) => selectModel(e)}
                 >
                   <RadioButton
-                    labelText="Hetfield Fine-Tuned"
+                    labelText="Hetfield Fine-Tuned 240324v2"
                     value="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
                     id="radio-het001-240324v2"
+                  />
+                  <RadioButton
+                    labelText="Hetfield Fine-Tuned 240808a"
+                    value="ft:gpt-4o-mini-2024-07-18:thirdeyes:het200-240808a:9u1gjMnP"
+                    id="radio-het001-240808a"
                   />
                   <RadioButton
                     labelText="GPT-3.5 Turbo"
@@ -349,7 +312,14 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       </div>
 
       <div className="chat__form">
-        <form className="chat__form__form" onSubmit={handleFormSubmit}>
+        <form
+          className="chat__form__form"
+          onSubmit={(event) => {
+            handleSubmit(event);
+            handleQuery(event);
+            setIsAccordionItemOpen(false);
+          }}
+        >
           <label>
             <input
               ref={inputRef}
