@@ -96,24 +96,11 @@ export default function Chat() {
 
   return (
     <>
-      {!isLoggedIn ? (
-        <ChatLogin />
-      ) : isChat ? (
-        <Messages
-          chatMessagesRef={chatMessagesRef}
-          isHeightEqual={isHeightEqual}
-        />
-      ) : isEditor ? (
-        <MessagesEvaluation
-          chatMessagesRef={chatMessagesRef}
-          isHeightEqual={isHeightEqual}
-        />
-      ) : (
-        <MessagesIds
-          chatMessagesRef={chatMessagesRef}
-          isHeightEqual={isHeightEqual}
-        />
-      )}
+      {!isLoggedIn && <ChatLogin />}
+      <MessagesEvaluation
+        chatMessagesRef={chatMessagesRef}
+        isHeightEqual={isHeightEqual}
+      />
     </>
   );
 }
