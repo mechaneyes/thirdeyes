@@ -12,10 +12,10 @@
   // position: absolute;
   position: sticky;
   top: 0;
-  background-color: #243c5cc9;
+  background-color: #2c4d66;
 
   h5 {
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.75rem;
   }
 
   .cds--accordion {
@@ -65,6 +65,15 @@
     &__label-text {
       font-size: 1rem;
       font-weight: 300;
+    }
+
+    &-group {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &-wrapper {
+      padding-bottom: 0.75rem;
     }
 
     &--disabled {

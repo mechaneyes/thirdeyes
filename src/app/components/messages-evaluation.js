@@ -174,13 +174,13 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
         <div className="chat__messages__selector persona__selector">
           <Accordion>
             <AccordionItem
-              title="Build Persona"
+              title="Select Model"
               open={isAccordionItemOpen}
               onHeadingClick={() =>
                 handleAccordionToggle(0, isAccordionItemOpen)
               }
             >
-              <p className="persona__item">
+              {/* <p className="persona__item">
                 Select a persona to build a conversation with.
               </p>
               <p>
@@ -242,18 +242,23 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                     className="cds--radio-button--disabled"
                   />
                 </RadioButtonGroup>
-              </div>
+              </div> */}
               <div className="persona__item">
-                <h5>Select Model</h5>
+                <h5>Select Model to Evaluate</h5>
                 <RadioButtonGroup
                   name="radio-button-model"
                   defaultSelected="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
                   onChange={(e) => selectModel(e)}
                 >
                   <RadioButton
-                    labelText="Hetfield Fine-Tuned"
+                    labelText="Hetfield Fine-Tuned 240324v2"
                     value="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
                     id="radio-het001-240324v2"
+                  />
+                  <RadioButton
+                    labelText="Hetfield Fine-Tuned 240808a"
+                    value="ft:gpt-4o-mini-2024-07-18:thirdeyes:het200-240808a:9u1gjMnP"
+                    id="radio-het001-240808a"
                   />
                   <RadioButton
                     labelText="GPT-3.5 Turbo"
