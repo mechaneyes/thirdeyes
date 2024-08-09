@@ -95,7 +95,7 @@
       display: none;
     }
   }
-  
+
   &__sidebar {
     position: relative;
     height: calc(100vh - 9rem);
@@ -167,12 +167,12 @@
     font-weight: 300;
     color: white;
     line-height: 1.5rem;
-  } 
-  
+  }
+
   .reflecting-intro p {
     font-weight: 100;
   }
-  
+
   // ————————————————————————————————————o————————————————————————————————————o sidebar -->
   // ————————————————————————————————————o sidebar —>
   //
@@ -227,7 +227,6 @@
 
   &__end-ref {
     scroll-margin-bottom: 3rem;
-  
   }
 }
 
@@ -240,6 +239,41 @@
     // Selecting this element as being previous sibling to the modal
     &:has(~ .modal--visible) {
       display: none;
+    }
+  }
+}
+
+.engineering {
+  &__panel {
+    padding: 5rem 5rem 0 0;
+
+    * {
+      font-size: 1.125rem !important;
+    }
+
+    a {
+      color: var(--cds-link-primary, #2fbfff);
+      border-bottom: 1px solid #2fbfff;
+
+      &:hover {
+        color: white;
+        border-bottom: 1px solid white;
+        cursor: pointer;
+      }
+    }
+
+    h3 {
+      font-size: 1.5rem !important;
+    }
+
+    ol {
+      list-style-type: decimal;
+      list-style-position: outside;
+      padding: 0 0 1rem 1rem;
+    }
+
+    li {
+      padding-bottom: 0.5rem;
     }
   }
 }

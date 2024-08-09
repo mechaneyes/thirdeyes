@@ -66,12 +66,20 @@ export default function Home() {
               //     Login
               //   </button>
               // </Link>
-              <ButtonPrimary
-                link="/editor"
-                name="Chat"
-                classes="btn--login-logout"
-                onClick={() => {}}
-              />
+              <>
+                <ButtonPrimary
+                  link="/editor"
+                  name="Chat"
+                  classes="btn--login-logout"
+                  onClick={() => {}}
+                />
+                <ButtonPrimary
+                  link="/engineering"
+                  name="Engineering"
+                  classes="btn--login-logout"
+                  onClick={() => {}}
+                />
+              </>
             )}
           </div>
         </Column>
