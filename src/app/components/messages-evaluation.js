@@ -65,7 +65,6 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
       api: "/api/chat-model-select",
-      // initialInput: inputPrepend,
       initialMessages: initialMessages,
       onFinish: async (messages) => {
         setFistPrompt(!fistPrompt);
@@ -254,12 +253,12 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                   onChange={(e) => selectModel(e)}
                 >
                   <RadioButton
-                    labelText="Hetfield Fine-Tuned 240324v2"
+                    labelText="Hetfield Fine-Tuned GPT-3.5 Turbo - 240324v2"
                     value="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
                     id="radio-het001-240324v2"
                   />
                   <RadioButton
-                    labelText="Hetfield Fine-Tuned 240808a"
+                    labelText="Hetfield Fine-Tuned GPT-4o mini - 240808a"
                     value="ft:gpt-4o-mini-2024-07-18:thirdeyes:het200-240808a:9u1gjMnP"
                     id="radio-het001-240808a"
                   />

@@ -35,8 +35,6 @@ export async function GET(req) {
   const url = new URL(req.url);
   model = url.searchParams.get("model");
 
-  // console.log("🟣 searchParams model", model)
-
   return new Response(
     JSON.stringify({ message: "GET request processed", model }),
     {
@@ -73,10 +71,6 @@ export async function POST(req) {
 
   const response = await openai.chat.completions.create({
     model: model,
-    // model: "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v1:96HPQb1E",
-    // model: "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240323-v1:962T1JmV",
-    // model: "gpt-4-1106-preview",
-    // model: "gpt-3.5-turbo",
     messages: modifiedMessages,
     temperature: 0.8,
     stream: true,
