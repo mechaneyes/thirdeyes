@@ -146,14 +146,20 @@ const Header = () => {
             />
           </>
         ) : (
-          <Link href="/api/auth/login">
-            <button
-              type="button"
-              className="btn btn--outline-primary btn--login-logout"
-            >
-              Login
-            </button>
-          </Link>
+          // <Link href="/api/auth/login">
+          //   <button
+          //     type="button"
+          //     className="btn btn--outline-primary btn--login-logout"
+          //   >
+          //     Login
+          //   </button>
+          // </Link>
+          <ButtonPrimary
+            link="/editor"
+            name="Chat"
+            classes="btn--login-logout"
+            onClick={() => {}}
+          />
         )}
       </nav>
       <Modal

@@ -1,7 +1,7 @@
 import { createClient } from "@vercel/kv";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import OpenAI from "openai";
-import { getSession } from "@auth0/nextjs-auth0/edge";
+// import { getSession } from "@auth0/nextjs-auth0/edge";
 import { nanoid } from "nanoid";
 
 // Edge runtime uses the Request and URL constructor directly rather than "req.query"
@@ -63,9 +63,9 @@ export async function POST(req) {
     token: process.env.NEXT_PUBLIC_KV_REST_API_TOKEN,
   });
 
-  const { user } = await getSession();
-  const key = `user_${user.email}`;
-  const userData = await kv.get(key);
+  // const { user } = await getSession();
+  // const key = `user_${user.email}`;
+  // const userData = await kv.get(key);
 
   if (previewToken) {
     openai.apiKey = previewToken;

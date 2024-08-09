@@ -61,11 +61,17 @@ export default function Home() {
                 /> */}
               </>
             ) : (
-              <Link href="/api/auth/login">
-                <button type="button" className="btn btn--outline-primary">
-                  Login
-                </button>
-              </Link>
+              // <Link href="/api/auth/login">
+              //   <button type="button" className="btn btn--outline-primary">
+              //     Login
+              //   </button>
+              // </Link>
+              <ButtonPrimary
+                link="/editor"
+                name="Chat"
+                classes="btn--login-logout"
+                onClick={() => {}}
+              />
             )}
           </div>
         </Column>

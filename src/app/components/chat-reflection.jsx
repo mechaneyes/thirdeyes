@@ -13,22 +13,24 @@ export default function ChatResearch() {
   const [isHeightEqual, setIsHeightEqual] = useState(false);
   const [isChat, setIsChat] = useState(false);
   const [isEditor, setIsEditor] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
+  // const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
   const chatMessagesRef = useRef(null);
 
-  const { user } = useUser();
+  // const { user } = useUser();
 
-  useEffect(() => {
-    const checkUserStatus = async () => {
-      if (user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    };
+  // useEffect(() => {
+  //   const checkUserStatus = async () => {
+  //     if (user) {
+  //       setIsLoggedIn(true);
+  //     } else {
+  //       setIsLoggedIn(false);
+  //     }
+  //   };
 
-    checkUserStatus();
-  }, [user]);
+  //   checkUserStatus();
+  // }, [user]);
+
+  const isLoggedIn = true
 
   useEffect(() => {
     // MutationObserver run when DOM changes are made
