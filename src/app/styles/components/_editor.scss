@@ -277,3 +277,11 @@
     }
   }
 }
+
+.chat__messages__copy {
+  display: block;
+  margin-top: 8px;
+  padding: 0 !important;
+  color: var(--cds-link-primary, #2fbfff);
+  cursor: pointer;
+}

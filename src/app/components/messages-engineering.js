@@ -9,7 +9,7 @@ import {
   RadioButton,
   RadioButtonGroup,
 } from "carbon-components-react";
-import { Upload } from "@carbon/icons-react";
+import { Copy, Upload } from "@carbon/icons-react";
 import ReactHtmlParser from "react-html-parser";
 import { signalRefresh, selectModel } from "@/app/lib/api-actions";
 
@@ -81,6 +81,15 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                 {message.role === "user"
                   ? `Write a bio for ${message.content}`
                   : ReactHtmlParser(message.content)}
+                {message.role === "assistant" && (
+                  <Copy
+                    size="20"
+                    className="chat__messages__copy"
+                    onClick={() =>
+                      navigator.clipboard.writeText(`"""${message.content}"""`)
+                    }
+                  />
+                )}
               </div>
             );
           }
