@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Column, Grid } from "@carbon/react";
+import { Copy } from "@carbon/icons-react";
 
 const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
 const ChatEngineering = dynamic(
@@ -35,7 +36,10 @@ export default function EditorLayout({ children }) {
                 right. Simply enter an artist name and press &quot;Enter&quot;
                 to submit
               </li>
-              <li>Copy the output returned from the model</li>
+              <li>
+                Copy the output returned from the model using the copy icon:{" "}
+                <Copy size="16" className="chat__messages__copy" />
+              </li>
               <li>
                 Navigate to the{" "}
                 <a href="https://platform.openai.com/playground/p/WOzy47bWKfq8N4GqK5qCuHHZ?model=undefined&mode=chat">
@@ -45,7 +49,7 @@ export default function EditorLayout({ children }) {
                 experimenting with GPT-4o.
               </li>
               <li>
-                Paste the output from our model which you&apos;ve copied into
+                Paste the output from our model, which you&apos;ve just copied, into
                 the form with the placeholder text &quot;Enter user
                 message...&quot;
               </li>
