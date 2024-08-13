@@ -32,7 +32,8 @@ export default function EditorLayout({ children }) {
             <ol>
               <li>
                 Prompt our fine-tuned GPT-3.5 Turbo model using the form to the
-                right. Simply enter an artist name and press &quot;Enter&quot; to submit
+                right. Simply enter an artist name and press &quot;Enter&quot;
+                to submit
               </li>
               <li>Copy the output returned from the model</li>
               <li>
@@ -44,13 +45,13 @@ export default function EditorLayout({ children }) {
                 experimenting with GPT-4o.
               </li>
               <li>
-                Add opening and closing triple quotes (&quot;&quot;&quot;) into the &quot;Enter user
-                message...&quot; field of the playground, and within the triple
-                quotes, paste the output from our model which you&apos;ve copied.
+                Paste the output from our model which you&apos;ve copied into
+                the form with the placeholder text &quot;Enter user
+                message...&quot;
               </li>
               <li>
-                Press &quot;Enter&quot; to submit the prompt. The model will generate a
-                response based on the prompt you&apos;ve provided.
+                Press &quot;Enter&quot; to submit the prompt. The model will
+                generate a response based on the prompt you&apos;ve provided.
               </li>
             </ol>
             <p>
@@ -60,9 +61,9 @@ export default function EditorLayout({ children }) {
               prompt.
             </p>
             <p>
-              The area you&apos;ll want to edit within the playground in the &quot;SYSTEM&quot;
-              instructions area, and is highlighted with the phrase &quot;LEDE
-              INSTRUCTIONS:&quot;
+              The area you&apos;ll want to edit within the playground in the
+              &quot;SYSTEM&quot; instructions area, and is highlighted with the
+              phrase &quot;LEDE INSTRUCTIONS:&quot;
             </p>
           </Column>
           <Column
