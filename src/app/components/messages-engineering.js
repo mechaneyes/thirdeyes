@@ -18,6 +18,8 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   const [isAccordionItemOpen, setIsAccordionItemOpen] = useState(false);
   const [messageExists, setMessageExists] = useState(false);
   const [searches, setSearches] = useState([]);
+  const [copyActive, setCopyActive] = useState(false);
+  const [activeElement, setActiveElement] = useState(null);
 
   const anchorRef = useRef(null);
   const chatPanelRef = useRef(null);
@@ -82,13 +84,32 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                   ? `Write a bio for ${message.content}`
                   : ReactHtmlParser(message.content)}
                 {message.role === "assistant" && (
-                  <Copy
-                    size="20"
-                    className="chat__messages__copy"
-                    onClick={() =>
-                      navigator.clipboard.writeText(`"""${message.content}"""`)
-                    }
-                  />
+                  <div className="tooltip">
+                    <Copy
+                      size="20"
+                      className={
+                        activeElement === message.id
+                          ? "chat__messages__copy chat__messages__copy--active"
+                          : "chat__messages__copy"
+                      }
+                      onMouseDown={() => setActiveElement(message.id)}
+                      onMouseUp={() => setActiveElement(null)}
+                      onClick={() =>
+                        navigator.clipboard.writeText(
+                          `"""${message.content}"""`
+                        )
+                      }
+                    />
+                    <span
+                      className={
+                        activeElement === message.id
+                          ? "tooltiptext tooltiptext--active"
+                          : "tooltiptext"
+                      }
+                    >
+                      Copy That
+                    </span>
+                  </div>
                 )}
               </div>
             );
