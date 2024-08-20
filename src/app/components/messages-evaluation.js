@@ -62,7 +62,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   //   messages: firstDraft,
   // });
 
-  const { messages, input, handleInputChange, handleSubmit, setMessages } =
+  const { messages, input, handleInputChange, handleSubmit } =
     useChat({
       api: "/api/chat-model-select",
       initialMessages: initialMessages,
@@ -102,7 +102,7 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
     setMessageExists(true);
     setReflecting(false);
     setIsAccordionItemOpen(false);
-    handleSubmit(event);
+    // handleSubmit(event);
   };
 
   const handleSelectModel = (e) => {

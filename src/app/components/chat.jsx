@@ -13,32 +13,32 @@ import ChatLogin from "./chat-login";
 
 export default function Chat() {
   const [isHeightEqual, setIsHeightEqual] = useState(false);
-  const [isChat, setIsChat] = useState(false);
-  const [isEditor, setIsEditor] = useState(false);
+  // const [isChat, setIsChat] = useState(false);
+  // const [isEditor, setIsEditor] = useState(false);
   // const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
   const chatMessagesRef = useRef(null);
 
-  const { user } = useUser();
+  // const { user } = useUser();
 
-  useEffect(() => {
-    const pathname = window.location.pathname.split("/").pop();
+  // useEffect(() => {
+  //   const pathname = window.location.pathname.split("/").pop();
 
-    if (pathname === "chat") {
-      setIsChat(true);
-      setIsEditor(false);
-    } else {
-      setIsChat(false);
-      setIsEditor(false);
-    }
+  //   if (pathname === "chat") {
+  //     setIsChat(true);
+  //     setIsEditor(false);
+  //   } else {
+  //     setIsChat(false);
+  //     setIsEditor(false);
+  //   }
 
-    if (pathname === "editor" || pathname === "editor-sidebar") {
-      setIsChat(false);
-      setIsEditor(true);
-    } else {
-      setIsChat(false);
-      setIsEditor(false);
-    }
-  }, []);
+  //   if (pathname === "editor" || pathname === "editor-sidebar") {
+  //     setIsChat(false);
+  //     setIsEditor(true);
+  //   } else {
+  //     setIsChat(false);
+  //     setIsEditor(false);
+  //   }
+  // }, []);
 
   // useEffect(() => {
   //   const checkUserStatus = async () => {
