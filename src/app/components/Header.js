@@ -121,7 +121,7 @@ const Header = () => {
                   }}
                 /> */}
                 <ButtonPrimary
-                  link="/editor"
+                  link="/chat"
                   name="Chat"
                   classes="btn--login-logout"
                 />
@@ -156,7 +156,7 @@ const Header = () => {
           // </Link>
           <>
             <ButtonPrimary
-              link="/editor"
+              link="/chat"
               name="Chat"
               classes="btn--login-logout"
               onClick={() => {}}

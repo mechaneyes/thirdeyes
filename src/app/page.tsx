@@ -38,7 +38,7 @@ export default function Home() {
                       }}
                     /> */}
                     <ButtonPrimary
-                      link="/editor"
+                      link="/chat"
                       name="Chat"
                       classes="btn--login-logout"
                       onClick={() => {}}
@@ -68,7 +68,7 @@ export default function Home() {
               // </Link>
               <>
                 <ButtonPrimary
-                  link="/editor"
+                  link="/chat"
                   name="Chat"
                   classes="btn--login-logout"
                   onClick={() => {}}
