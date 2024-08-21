@@ -249,18 +249,23 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                 <h5>Select Model to Evaluate</h5>
                 <RadioButtonGroup
                   name="radio-button-model"
-                  defaultSelected="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
+                  defaultSelected="ft:gpt-4o-2024-08-06:thirdeyes:het200-240820a:9yU696Uf"
                   onChange={(e) => selectModel(e)}
                 >
+                <RadioButton
+                  labelText="Hetfield Fine-Tuned GPT-4o - 240820a"
+                  value="ft:gpt-4o-2024-08-06:thirdeyes:het200-240820a:9yU696Uf"
+                  id="radio-het001-240820a"
+                />
+                <RadioButton
+                  labelText="Hetfield Fine-Tuned GPT-4o mini - 240808a"
+                  value="ft:gpt-4o-mini-2024-07-18:thirdeyes:het200-240808a:9u1gjMnP"
+                  id="radio-het001-240808a"
+                />
                   <RadioButton
                     labelText="Hetfield Fine-Tuned GPT-3.5 Turbo - 240324v2"
                     value="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
                     id="radio-het001-240324v2"
-                  />
-                  <RadioButton
-                    labelText="Hetfield Fine-Tuned GPT-4o mini - 240808a"
-                    value="ft:gpt-4o-mini-2024-07-18:thirdeyes:het200-240808a:9u1gjMnP"
-                    id="radio-het001-240808a"
                   />
                   <RadioButton
                     labelText="GPT-3.5 Turbo"
