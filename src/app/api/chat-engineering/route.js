@@ -8,7 +8,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-let model = "ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
+let model = "ft:gpt-4o-2024-08-06:thirdeyes:het200-240820a:9yU696Uf"
 
 export async function GET(req) {
   const url = new URL(req.url);
@@ -42,7 +42,7 @@ export async function POST(req) {
   const response = await openai.chat.completions.create({
     model: model,
     messages: modifiedMessages,
-    temperature: 0.8,
+    temperature: 0.87,
     stream: true,
   });
 

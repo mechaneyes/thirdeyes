@@ -78,7 +78,7 @@ export default function EditorLayout({ children }) {
             sm={2}
             className="editor__panel editor__panel--mvp"
           >
-            <h3>Fine-Tuned GPT-3.5 Turbo</h3>
+            <h3>Fine-Tuned GPT-4o: het200-240820a</h3>
             <ChatEngineering />
           </Column>
         </Grid>
