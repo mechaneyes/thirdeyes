@@ -26,9 +26,10 @@ import {
 import GoogleSearch from "@/app/components/modules/GoogleSearch";
 import { signalRefresh, selectModel } from "@/app/lib/api-actions";
 import { performReasoning, getMarkdownContent } from "@/app/lib/chat-actions";
-import { hetfieldStyleGuide } from "@/app/lib/hetfield-style-guide.js";
-import { reflectionInstructions } from "@/app/lib/instructions-reflection.js";
-import { ledeInstructions } from "@/app/lib/instructions-lede.js";
+// import { hetfieldStyleGuide } from "@/app/lib/hetfield-style-guide.js";
+// import { reflectionInstructions } from "@/app/lib/instructions-reflection.js";
+// import { ledeInstructions } from "@/app/lib/instructions-lede.js";
+import { ledeCandidate } from "@/app/lib/instructions-lede-candidate-1.js";
 
 // const fs = require("fs").promises;
 
@@ -62,38 +63,36 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   //   messages: firstDraft,
   // });
 
-  const { messages, input, handleInputChange, handleSubmit } =
-    useChat({
-      api: "/api/chat-model-select",
-      initialMessages: initialMessages,
-      onFinish: async (messages) => {
-        setFistPrompt(!fistPrompt);
-        setReflecting(true);
-        setReflectedFirst(null);
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    api: "/api/chat-model-select",
+    initialMessages: initialMessages,
+    onFinish: async (messages) => {
+      setFistPrompt(!fistPrompt);
+      setReflecting(true);
+      setReflectedFirst(null);
 
-        // let reflectingPrompt = `Following is text wrapped between opening and closing """. Take that text and wrap any distinct paragraphs in HTML <p> tags. This is the text to manipulate: """ ${messages.content} """`;
+      // let reflectingPrompt = `Following is text wrapped between opening and closing """. Take that text and wrap any distinct paragraphs in HTML <p> tags. This is the text to manipulate: """ ${messages.content} """`;
 
-        let reflectingPrompt = `Following is text wrapped between opening and closing """. 
-            ${ledeInstructions} This is the text to manipulate: """ ${messages.content} """`;
+      let reflectingPrompt = `${ledeCandidate} """ ${messages.content} """`;
 
-        setFirstDraft(reflectingPrompt);
+      setFirstDraft(reflectingPrompt);
 
-        const reasoned = performReasoning(reflectingPrompt);
-        reasoned.then((resolvedValue) => {
-          console.log("reasoned", resolvedValue.text);
+      const reasoned = performReasoning(reflectingPrompt);
+      reasoned.then((resolvedValue) => {
+        console.log("reasoned", resolvedValue.text);
 
-          let strippedText = resolvedValue.text;
-          const index = resolvedValue.text.indexOf("```html");
-          if (index !== -1) {
-            strippedText = resolvedValue.text.substring(index + 7);
-          }
-          strippedText = strippedText.replace(/```/g, "");
-          setReflectedFirst(strippedText);
+        let strippedText = resolvedValue.text;
+        const index = resolvedValue.text.indexOf("```html");
+        if (index !== -1) {
+          strippedText = resolvedValue.text.substring(index + 7);
+        }
+        strippedText = strippedText.replace(/```/g, "");
+        setReflectedFirst(strippedText);
 
-          setReflecting(false);
-        });
-      },
-    });
+        setReflecting(false);
+      });
+    },
+  });
 
   const handleQuery = (event) => {
     event.preventDefault();
@@ -252,16 +251,16 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
                   defaultSelected="ft:gpt-4o-2024-08-06:thirdeyes:het200-240820a:9yU696Uf"
                   onChange={(e) => selectModel(e)}
                 >
-                <RadioButton
-                  labelText="Hetfield Fine-Tuned GPT-4o - 240820a"
-                  value="ft:gpt-4o-2024-08-06:thirdeyes:het200-240820a:9yU696Uf"
-                  id="radio-het001-240820a"
-                />
-                <RadioButton
-                  labelText="Hetfield Fine-Tuned GPT-4o mini - 240808a"
-                  value="ft:gpt-4o-mini-2024-07-18:thirdeyes:het200-240808a:9u1gjMnP"
-                  id="radio-het001-240808a"
-                />
+                  <RadioButton
+                    labelText="Hetfield Fine-Tuned GPT-4o - 240820a"
+                    value="ft:gpt-4o-2024-08-06:thirdeyes:het200-240820a:9yU696Uf"
+                    id="radio-het001-240820a"
+                  />
+                  <RadioButton
+                    labelText="Hetfield Fine-Tuned GPT-4o mini - 240808a"
+                    value="ft:gpt-4o-mini-2024-07-18:thirdeyes:het200-240808a:9u1gjMnP"
+                    id="radio-het001-240808a"
+                  />
                   <RadioButton
                     labelText="Hetfield Fine-Tuned GPT-3.5 Turbo - 240324v2"
                     value="ft:gpt-3.5-turbo-0125:mechaneyes:het001-240324v2:96IxroFm"
