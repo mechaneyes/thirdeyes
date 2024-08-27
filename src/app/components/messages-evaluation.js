@@ -30,6 +30,7 @@ import { performReasoning, getMarkdownContent } from "@/app/lib/chat-actions";
 // import { reflectionInstructions } from "@/app/lib/instructions-reflection.js";
 // import { ledeInstructions } from "@/app/lib/instructions-lede.js";
 import { ledeCandidate } from "@/app/lib/instructions-lede-candidate-1.js";
+// import WikipediaSearch from "./components/WikipediaSearch";
 
 // const fs = require("fs").promises;
 
@@ -63,6 +64,19 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
   //   messages: firstDraft,
   // });
 
+  const WikipediaSearch = async (query) => {
+    const response = await fetch("/api/wikipedia", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query }),
+    });
+
+    const data = await response.json();
+    return data;
+  };
+
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/chat-model-select",
     initialMessages: initialMessages,
@@ -71,15 +85,17 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
       setReflecting(true);
       setReflectedFirst(null);
 
-      // let reflectingPrompt = `Following is text wrapped between opening and closing """. Take that text and wrap any distinct paragraphs in HTML <p> tags. This is the text to manipulate: """ ${messages.content} """`;
+      const fromWikipedia = await WikipediaSearch(input);
+      console.log("From Wikipedia", fromWikipedia);
 
-      let reflectingPrompt = `${ledeCandidate} """ ${messages.content} """`;
+      let reflectingPrompt = `To follow will be instructions for which you should consider this context: 
+      ${fromWikipedia}.  ${ledeCandidate} """ ${messages.content} """`;
 
       setFirstDraft(reflectingPrompt);
 
       const reasoned = performReasoning(reflectingPrompt);
       reasoned.then((resolvedValue) => {
-        console.log("reasoned", resolvedValue.text);
+        // console.log("reasoned", resolvedValue.text);
 
         let strippedText = resolvedValue.text;
         const index = resolvedValue.text.indexOf("```html");
@@ -96,18 +112,13 @@ const MessagesEditor = ({ chatMessagesRef, isHeightEqual }) => {
 
   const handleQuery = (event) => {
     event.preventDefault();
+
     setQuery(input);
     setReflectionOriginalPrompt(`Write a bio for ${input}`);
     setMessageExists(true);
     setReflecting(false);
     setIsAccordionItemOpen(false);
     // handleSubmit(event);
-  };
-
-  const handleSelectModel = (e) => {
-    const form = e.target;
-    const radioButtonValue = form.value;
-    selectModel(radioButtonValue);
   };
 
   const handleAccordionToggle = (index, isOpen) => {

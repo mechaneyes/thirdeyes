@@ -216,13 +216,23 @@
     text-align: right;
   }
 
-  p.reflection__content {
+  p.reflection__context {
+    margin-top: 3rem;
     font-weight: 100;
     font-style: italic;
+  }
 
-    + p {
-      margin-top: 3rem;
-    }
+  ul.reflection__context {
+    margin-bottom: 1rem;
+    list-style: circle;
+    font-weight: 100;
+    font-style: italic;
+  }
+
+  p.reflection__content {
+    margin-top: 2rem;
+    font-weight: 100;
+    font-style: italic;
   }
 
   &__end-ref {
