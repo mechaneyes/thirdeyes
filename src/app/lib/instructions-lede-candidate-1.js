@@ -28,7 +28,7 @@ RULES:
 
 10. Separate consistent sections, wrapping them in HTML <p> tags.
 
-11. At the bottom of your output list any information you've leveraged from the provided context, wrapping it in in <ul class='reflection__context'><li></li> tags. Prepend this list with the phrase, <p class='reflection__context'>From Wikipdia:</p>.
+11. At the bottom of your output list any information you've leveraged from the provided context, wrapping it in in <ul class='reflection__context'><li></li> tags. Prepend this list with the phrase, <p class='reflection__context'>Information sourced from Wikipdia:</p>.
 
 12. Below the <p class='reflection__context'> paragraph, add commentary to explain your reasoning, wrapping it in <p class='reflection__content'> tags. Prepend this paragraph with the phrase, "Using Lede Candidate-1: ".
 
