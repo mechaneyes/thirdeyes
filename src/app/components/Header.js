@@ -167,6 +167,12 @@ const Header = () => {
               classes="btn--login-logout"
               onClick={() => {}}
             />
+            <ButtonPrimary
+              link="/hexagram"
+              name="Hexagram"
+              classes="btn--login-logout"
+              onClick={() => {}}
+            />
           </>
         )}
       </nav>

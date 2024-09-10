@@ -148,7 +148,7 @@
       }
 
       .login-image {
-        inset: 43vh -34vw !important;
+        // inset: 43vh -34vw !important;
         width: 125vw !important;
         height: 125vw !important;
         opacity: 1;
@@ -161,20 +161,20 @@
         }
 
         @include bp("small") {
-          inset: 29vh -18vw !important;
+          // inset: 29vh -18vw !important;
           width: 105vw !important;
           height: 105vw !important;
         }
 
         @include bp("medium") {
-          inset: 34vh -16vw !important;
+          // inset: 34vh -16vw !important;
           width: 75vw !important;
           height: 75vw !important;
         }
 
         @include bp("large") {
           position: absolute;
-          inset: 14vh -18vw !important;
+          // inset: 14vh -18vw !important;
         }
       }
     }

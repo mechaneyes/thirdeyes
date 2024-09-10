@@ -1,0 +1,17 @@
+.hex-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  ul {
+    ul {
+        padding-bottom: 24px;
+
+        li {
+            padding-top: 4px;
+            // font-size: 1.25rem;
+        }
+    }
+  }
+}

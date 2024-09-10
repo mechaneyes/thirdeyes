@@ -1,1 +1,11 @@
-@import url('https://use.typekit.net/xgg6bof.css');
+@import url("https://use.typekit.net/xgg6bof.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  ul,
+  ol {
+    list-style: circle;
+  }
+}
