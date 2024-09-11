@@ -1,17 +1,46 @@
 .hex-list {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  // justify-content: start;
+  // align-items: center;
 
   ul {
     ul {
-        padding-bottom: 24px;
+      padding-bottom: 24px;
 
-        li {
-            padding-top: 4px;
-            // font-size: 1.25rem;
-        }
+      li {
+        padding-top: 4px;
+        // font-size: 1.25rem;
+      }
     }
   }
+
+  h3 {
+    font-size: 1.25rem;
+    padding-bottom: 8px;
+  }
+
+  li {
+    font-size: 1.125rem;
+  }
+}
+
+.mermaid-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.mermaid {
+  width: 100%;
+  min-width: 800px;
+
+  p {
+    font-size: 1.25rem;
+  }
+}
+
+.mermaid svg {
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
 }

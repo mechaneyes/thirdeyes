@@ -133,6 +133,11 @@
         overflow: hidden;
       }
 
+      &--mermaid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+      }
+
       .login-message {
         display: flex;
         flex-direction: column;

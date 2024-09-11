@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { Column, Grid } from "@carbon/react";
 import mermaid from "mermaid";
 
 export default function MermaidDiagram() {
@@ -10,22 +11,50 @@ export default function MermaidDiagram() {
     mermaid.initialize({
       startOnLoad: true,
       theme: "dark",
+      themeVariables: {
+        primaryColor: "#BB2528",
+        primaryTextColor: "#ff0000",
+        primaryBorderColor: "#2FBFFF",
+        lineColor: "#2FBFFF",
+        secondaryColor: "#006100",
+        tertiaryColor: "#fff",
+      },
       flowchart: {
-        useMaxWidth: true,
+        useMaxWidth: false,
         htmlLabels: true,
         curve: "basis",
+        nodeBorder: "#2FBFFF",
+        nodeTextColor: "#2FBFFF",
       },
     });
-    mermaid.run();
+
+    mermaid.run({
+      querySelector: ".mermaid",
+      flowchart: {
+        useMaxWidth: false,
+      },
+    });
   }, []);
 
   return (
     <>
-      <h3 className="py-16 text-center text-white">
+      <h3 className="pt-16 pb-8 text-center text-white">
         Hexagram v Third Bridge Creative
-      </h3>
-      <div className="mermaid flex justify-center" ref={ref}>
-        {`
+      </h3>{" "}
+      <Grid className="thirdeyes chat editor engineering">
+        <Column
+          max={10}
+          xlg={10}
+          lg={10}
+          md={4}
+          sm={2}
+          // className="engineering__panel"
+        >
+          <div
+            className="chat__panel__inner chat__panel__inner--mermaid mermaid grid-rows-1 justify-center pt-8"
+            ref={ref}
+          >
+            {`
       flowchart TB
           subgraph A[" "]
               direction TB
@@ -132,114 +161,125 @@ export default function MermaidDiagram() {
 
           A --> B --> C --> D --> E --> F --> G --> H --> I --> J --> K --> L --> M
       `}
-      </div>
-      <div className="hex-list py-16 text-white text-xl">
-        <ul className="">
-          <li>
-            <h3>Data Collection and Preparation</h3>
-            <ul className="list-disc list-inside">
-              <li>Gather existing artist bios</li>
-              <li>Ensure diversity in genres, stages, and types</li>
-              <li>Organize and categorize bios</li>
+          </div>
+        </Column>
+        <Column
+          max={6}
+          xlg={6}
+          lg={6}
+          md={4}
+          sm={2}
+          // className="editor__panel editor__panel--mvp"
+        >
+          <div className="chat__panel__inner hex-list items-center pt-8 text-white">
+            <ul className="">
+              <li>
+                <h3>Data Collection and Preparation</h3>
+                <ul className="list-disc list-inside">
+                  <li>Gather existing artist bios</li>
+                  <li>Ensure diversity in genres, stages, and types</li>
+                  <li>Organize and categorize bios</li>
+                </ul>
+              </li>
+              <li>
+                <h3>Bio Analysis and Feature Extraction</h3>
+                <ul className="list-disc list-inside">
+                  <li>Analyze bios for key characteristics</li>
+                  <li>Extract quantifiable features</li>
+                  <li>Implement evaluation metrics</li>
+                </ul>
+              </li>
+              <li>
+                <h3>Data Augmentation through Fuzzing</h3>
+                <ul className="list-disc list-inside">
+                  <li>Implement bio fuzzing techniques</li>
+                  <li>Generate large set of fuzzed bios</li>
+                  <li>Analyze fuzzed bios</li>
+                </ul>
+              </li>
+              <li>
+                <h3>Prompt Engineering</h3>
+                <ul className="list-disc list-inside">
+                  <li>Create base prompts</li>
+                  <li>Implement prompt fuzzing techniques</li>
+                  <li>Generate diverse prompts</li>
+                </ul>
+              </li>
+              <li>
+                <h3>Multi-LLM Testing Framework</h3>
+                <ul className="list-disc list-inside">
+                  <li>Develop unified interface</li>
+                  <li>Implement adapters for various LLMs</li>
+                  <li>Set up testing pipeline</li>
+                  <li>Implement ensemble approach</li>
+                </ul>
+              </li>
+              <li>
+                <h3>Evaluation System</h3>
+                <ul className="list-disc list-inside">
+                  <li>Develop evaluation metrics</li>
+                  <li>Implement automated scoring</li>
+                  <li>Set up human-in-the-loop review</li>
+                </ul>
+              </li>
+              <li>
+                <h3>Fine-tuning and Optimization</h3>
+                <ul className="list-disc list-inside">
+                  <li>Fine-tune selected LLMs</li>
+                  <li>Implement ensemble approach</li>
+                  <li>Develop iterative refinement system</li>
+                </ul>
+              </li>
+              <li>
+                <h3>Personalization and Fact Consistency</h3>
+                <ul className="list-disc list-inside">
+                  <li>Create template system for artist-specific details</li>
+                  <li>Implement fact-checking mechanism</li>
+                  <li>Implement temporal awareness</li>
+                </ul>
+              </li>
+              <li>
+                <h3>Multi-Modal Enhancement</h3>
+                <ul className="list-disc list-inside">
+                  <li>Incorporate additional data types</li>
+                  <li>Develop system for multi-modal bio generation</li>
+                </ul>
+              </li>
+              <li>
+                <h3>Versioning and Update System</h3>
+                <ul className="list-disc list-inside">
+                  <li>Implement version control</li>
+                  <li>Develop system for updates and comparisons</li>
+                </ul>
+              </li>
+              <li>
+                <h3>API Development</h3>
+                <ul className="list-disc list-inside">
+                  <li>Design and implement API</li>
+                  <li>Create API documentation</li>
+                  <li>Implement internationalization</li>
+                </ul>
+              </li>
+              <li>
+                <h3>Testing and Quality Assurance</h3>
+                <ul className="list-disc list-inside">
+                  <li>Conduct extensive testing</li>
+                  <li>Perform A/B testing</li>
+                  <li>Refine system based on tests</li>
+                </ul>
+              </li>
+              <li>
+                <h3>Deployment and Monitoring</h3>
+                <ul className="list-disc list-inside">
+                  <li>Deploy scalable environment</li>
+                  <li>Set up monitoring for performance</li>
+                  <li>Implement adaptive learning</li>
+                </ul>
+              </li>
             </ul>
-          </li>
-          <li>
-            <h3>Bio Analysis and Feature Extraction</h3>
-            <ul className="list-disc list-inside">
-              <li>Analyze bios for key characteristics</li>
-              <li>Extract quantifiable features</li>
-              <li>Implement evaluation metrics</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Data Augmentation through Fuzzing</h3>
-            <ul className="list-disc list-inside">
-              <li>Implement bio fuzzing techniques</li>
-              <li>Generate large set of fuzzed bios</li>
-              <li>Analyze fuzzed bios</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Prompt Engineering</h3>
-            <ul className="list-disc list-inside">
-              <li>Create base prompts</li>
-              <li>Implement prompt fuzzing techniques</li>
-              <li>Generate diverse prompts</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Multi-LLM Testing Framework</h3>
-            <ul className="list-disc list-inside">
-              <li>Develop unified interface</li>
-              <li>Implement adapters for various LLMs</li>
-              <li>Set up testing pipeline</li>
-              <li>Implement ensemble approach</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Evaluation System</h3>
-            <ul className="list-disc list-inside">
-              <li>Develop evaluation metrics</li>
-              <li>Implement automated scoring</li>
-              <li>Set up human-in-the-loop review</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Fine-tuning and Optimization</h3>
-            <ul className="list-disc list-inside">
-              <li>Fine-tune selected LLMs</li>
-              <li>Implement ensemble approach</li>
-              <li>Develop iterative refinement system</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Personalization and Fact Consistency</h3>
-            <ul className="list-disc list-inside">
-              <li>Create template system for artist-specific details</li>
-              <li>Implement fact-checking mechanism</li>
-              <li>Implement temporal awareness</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Multi-Modal Enhancement</h3>
-            <ul className="list-disc list-inside">
-              <li>Incorporate additional data types</li>
-              <li>Develop system for multi-modal bio generation</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Versioning and Update System</h3>
-            <ul className="list-disc list-inside">
-              <li>Implement version control</li>
-              <li>Develop system for updates and comparisons</li>
-            </ul>
-          </li>
-          <li>
-            <h3>API Development</h3>
-            <ul className="list-disc list-inside">
-              <li>Design and implement API</li>
-              <li>Create API documentation</li>
-              <li>Implement internationalization</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Testing and Quality Assurance</h3>
-            <ul className="list-disc list-inside">
-              <li>Conduct extensive testing</li>
-              <li>Perform A/B testing</li>
-              <li>Refine system based on tests</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Deployment and Monitoring</h3>
-            <ul className="list-disc list-inside">
-              <li>Deploy scalable environment</li>
-              <li>Set up monitoring for performance</li>
-              <li>Implement adaptive learning</li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </Column>
+      </Grid>
     </>
   );
 }
