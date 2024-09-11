@@ -1,46 +1,52 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Column, Grid } from "@carbon/react";
 import mermaid from "mermaid";
 
 export default function MermaidDiagram() {
   const ref = useRef(null);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: "dark",
-      themeVariables: {
-        primaryColor: "#BB2528",
-        primaryTextColor: "#ff0000",
-        primaryBorderColor: "#2FBFFF",
-        lineColor: "#2FBFFF",
-        secondaryColor: "#006100",
-        tertiaryColor: "#fff",
-      },
-      flowchart: {
-        useMaxWidth: false,
-        htmlLabels: true,
-        curve: "basis",
-        nodeBorder: "#2FBFFF",
-        nodeTextColor: "#2FBFFF",
-      },
-    });
+    setIsClient(true);
 
-    mermaid.run({
-      querySelector: ".mermaid",
-      flowchart: {
-        useMaxWidth: false,
-      },
-    });
-  }, []);
+    if (isClient) {
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: "dark",
+        themeVariables: {
+          primaryColor: "#BB2528",
+          primaryTextColor: "#ff0000",
+          primaryBorderColor: "#2FBFFF",
+          lineColor: "#2FBFFF",
+          secondaryColor: "#006100",
+          tertiaryColor: "#fff",
+        },
+        flowchart: {
+          useMaxWidth: false,
+          htmlLabels: true,
+          curve: "basis",
+          nodeBorder: "#2FBFFF",
+          nodeTextColor: "#2FBFFF",
+          clusterBkg: "#FF0000",
+        },
+      });
+
+      mermaid.run({
+        querySelector: ".mermaid",
+        flowchart: {
+          useMaxWidth: false,
+        },
+      });
+    }
+  }, [isClient]);
 
   return (
     <>
       <h3 className="pt-16 pb-8 text-center text-white">
         Hexagram v Third Bridge Creative
-      </h3>{" "}
+      </h3>
       <Grid className="thirdeyes chat editor engineering">
         <Column
           max={10}
@@ -50,118 +56,120 @@ export default function MermaidDiagram() {
           sm={2}
           // className="engineering__panel"
         >
-          <div
-            className="chat__panel__inner chat__panel__inner--mermaid mermaid grid-rows-1 justify-center pt-8"
-            ref={ref}
-          >
-            {`
-      flowchart TB
-          subgraph A[" "]
-              direction TB
-              A0[Data Collection and Preparation]
-              A0 --> A1[Gather existing artist bios]
-              A0 --> A2[Ensure diversity in genres, stages, and types]
-              A0 --> A3[Organize and categorize bios]
-          end
+          {isClient && (
+            <div
+              className="chat__panel__inner chat__panel__inner--mermaid mermaid grid-rows-1 justify-center pt-8"
+              ref={ref}
+            >
+              {`
+                flowchart TB
+                    subgraph A[" "]
+                        direction TB
+                        A0[Data Collection and Preparation]
+                        A0 --> A1[Gather existing artist bios]
+                        A0 --> A2[Ensure diversity in genres, stages, and types]
+                        A0 --> A3[Organize and categorize bios]
+                    end
 
-          subgraph B[" "]
-              direction TB
-              B0[Bio Analysis and Feature Extraction]
-              B0 --> B1[Analyze bios for key characteristics]
-              B0 --> B2[Extract quantifiable features]
-              B0 --> B3[Implement evaluation metrics]
-          end
+                    subgraph B[" "]
+                        direction TB
+                        B0[Bio Analysis and Feature Extraction]
+                        B0 --> B1[Analyze bios for key characteristics]
+                        B0 --> B2[Extract quantifiable features]
+                        B0 --> B3[Implement evaluation metrics]
+                    end
 
-          subgraph C[" "]
-              direction TB
-              C0[Data Augmentation through Fuzzing]
-              C0 --> C1[Implement bio fuzzing techniques]
-              C0 --> C2[Generate large set of fuzzed bios]
-              C0 --> C3[Analyze fuzzed bios]
-          end
+                    subgraph C[" "]
+                        direction TB
+                        C0[Data Augmentation through Fuzzing]
+                        C0 --> C1[Implement bio fuzzing techniques]
+                        C0 --> C2[Generate large set of fuzzed bios]
+                        C0 --> C3[Analyze fuzzed bios]
+                    end
 
-          subgraph D[" "]
-              direction TB
-              D0[Prompt Engineering]
-              D0 --> D1[Create base prompts]
-              D0 --> D2[Implement prompt fuzzing techniques]
-              D0 --> D3[Generate diverse prompts]
-          end
+                    subgraph D[" "]
+                        direction TB
+                        D0[Prompt Engineering]
+                        D0 --> D1[Create base prompts]
+                        D0 --> D2[Implement prompt fuzzing techniques]
+                        D0 --> D3[Generate diverse prompts]
+                    end
 
-          subgraph E[" "]
-              direction TB
-              E0[Multi-LLM Testing Framework]
-              E0 --> E1[Develop unified interface]
-              E0 --> E2[Implement adapters for various LLMs]
-              E0 --> E3[Set up testing pipeline]
-              E0 --> E4[Implement ensemble approach]
-          end
+                    subgraph E[" "]
+                        direction TB
+                        E0[Multi-LLM Testing Framework]
+                        E0 --> E1[Develop unified interface]
+                        E0 --> E2[Implement adapters for various LLMs]
+                        E0 --> E3[Set up testing pipeline]
+                        E0 --> E4[Implement ensemble approach]
+                    end
 
-          subgraph F[" "]
-              direction TB
-              F0[Evaluation System]
-              F0 --> F1[Develop evaluation metrics]
-              F0 --> F2[Implement automated scoring]
-              F0 --> F3[Set up human-in-the-loop review]
-          end
+                    subgraph F[" "]
+                        direction TB
+                        F0[Evaluation System]
+                        F0 --> F1[Develop evaluation metrics]
+                        F0 --> F2[Implement automated scoring]
+                        F0 --> F3[Set up human-in-the-loop review]
+                    end
 
-          subgraph G[" "]
-              direction TB
-              G0[Fine-tuning and Optimization]
-              G0 --> G1[Fine-tune selected LLMs]
-              G0 --> G2[Implement ensemble approach]
-              G0 --> G3[Develop iterative refinement system]
-          end
+                    subgraph G[" "]
+                        direction TB
+                        G0[Fine-tuning and Optimization]
+                        G0 --> G1[Fine-tune selected LLMs]
+                        G0 --> G2[Implement ensemble approach]
+                        G0 --> G3[Develop iterative refinement system]
+                    end
 
-          subgraph H[" "]
-              direction TB
-              H0[Personalization and Fact Consistency]
-              H0 --> H1[Create template system for artist-specific details]
-              H0 --> H2[Implement fact-checking mechanism]
-              H0 --> H3[Implement temporal awareness]
-          end
+                    subgraph H[" "]
+                        direction TB
+                        H0[Personalization and Fact Consistency]
+                        H0 --> H1[Create template system for artist-specific details]
+                        H0 --> H2[Implement fact-checking mechanism]
+                        H0 --> H3[Implement temporal awareness]
+                    end
 
-          subgraph I[" "]
-              direction TB
-              I0[Multi-Modal Enhancement]
-              I0 --> I1[Incorporate additional data types]
-              I0 --> I2[Develop system for multi-modal bio generation]
-          end
+                    subgraph I[" "]
+                        direction TB
+                        I0[Multi-Modal Enhancement]
+                        I0 --> I1[Incorporate additional data types]
+                        I0 --> I2[Develop system for multi-modal bio generation]
+                    end
 
-          subgraph J[" "]
-              direction TB
-              J0[Versioning and Update System]
-              J0 --> J1[Implement version control]
-              J0 --> J2[Develop system for updates and comparisons]
-          end
+                    subgraph J[" "]
+                        direction TB
+                        J0[Versioning and Update System]
+                        J0 --> J1[Implement version control]
+                        J0 --> J2[Develop system for updates and comparisons]
+                    end
 
-          subgraph K[" "]
-              direction TB
-              K0[API Development]
-              K0 --> K1[Design and implement API]
-              K0 --> K2[Create API documentation]
-              K0 --> K3[Implement internationalization]
-          end
+                    subgraph K[" "]
+                        direction TB
+                        K0[API Development]
+                        K0 --> K1[Design and implement API]
+                        K0 --> K2[Create API documentation]
+                        K0 --> K3[Implement internationalization]
+                    end
 
-          subgraph L[" "]
-              direction TB
-              L0[Testing and Quality Assurance]
-              L0 --> L1[Conduct extensive testing]
-              L0 --> L2[Perform A/B testing]
-              L0 --> L3[Refine system based on tests]
-          end
+                    subgraph L[" "]
+                        direction TB
+                        L0[Testing and Quality Assurance]
+                        L0 --> L1[Conduct extensive testing]
+                        L0 --> L2[Perform A/B testing]
+                        L0 --> L3[Refine system based on tests]
+                    end
 
-          subgraph M[" "]
-              direction TB
-              M0[Deployment and Monitoring]
-              M0 --> M1[Deploy scalable environment]
-              M0 --> M2[Set up monitoring for performance]
-              M0 --> M3[Implement adaptive learning]
-          end
+                    subgraph M[" "]
+                        direction TB
+                        M0[Deployment and Monitoring]
+                        M0 --> M1[Deploy scalable environment]
+                        M0 --> M2[Set up monitoring for performance]
+                        M0 --> M3[Implement adaptive learning]
+                    end
 
-          A --> B --> C --> D --> E --> F --> G --> H --> I --> J --> K --> L --> M
-      `}
-          </div>
+                    A --> B --> C --> D --> E --> F --> G --> H --> I --> J --> K --> L --> M
+              `}
+            </div>
+          )}
         </Column>
         <Column
           max={6}
