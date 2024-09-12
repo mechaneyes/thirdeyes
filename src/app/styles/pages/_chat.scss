@@ -11,6 +11,11 @@
     padding-bottom: 2rem;
   }
 
+  &.thirdeyes {
+    height: auto;
+    padding-bottom: 40px;
+  }
+
   &__container {
     height: calc(100% - 5rem);
   }
