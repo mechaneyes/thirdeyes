@@ -1,11 +1,15 @@
+import Header from "@/app/components/header";
 import Drafting from "@/app/components/drafting";
 import Research from "@/app/components/research";
 
-export default function EditorHome() {
+export default function Create() {
   return (
-    <div className="w-full relative h-[51.125rem] flex flex-row items-center justify-center gap-4 max-w-[81.25rem] text-left text-[1rem] text-darkslategray-100 font-mr-eaves-xl-san-ot">
-      <Drafting />
-      <Research />
-    </div>
+    <>
+      <Header />
+      <div className="w-full relative h-[51.125rem] flex flex-row items-center justify-center gap-4 max-w-7xl text-left text-[1rem] text-darkslategray-100 font-mr-eaves-xl-san-ot">
+        <Drafting />
+        <Research />
+      </div>
+    </>
   );
 }

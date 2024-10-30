@@ -1,188 +1,21 @@
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { useAtom } from "jotai";
-import { theUserAtom } from "@/app/store/atoms";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { createClient } from "@vercel/kv";
-
-import Modal from "@/app/components/Modal";
-import { ButtonPrimary } from "@/app/components/buttons/ButtonPrimary";
-import { ButtonHamburger } from "@/app/components/buttons/ButtonHamburger";
-
 const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { user } = useUser();
-  const [theUser, setTheUser] = useAtom(theUserAtom);
-
-  // user && console.log("auth0 user", user);
-  // console.log('theUser', theUser)
-
-  const kv = createClient({
-    url: process.env.NEXT_PUBLIC_KV_REST_API_URL,
-    token: process.env.NEXT_PUBLIC_KV_REST_API_TOKEN,
-  });
-
-  // ————————————————————————————————————o————————————————————————————————————o get/set users -->
-  //
-  // ————————————————————————————————————o set users —>
-  //
-  async function setUser(user) {
-    if (!user) return;
-
-    const key = `user_${user.email}`;
-    const userObject = {
-      name: user.name,
-      nickname: user.nickname,
-      email: user.email,
-      chats: [],
-    };
-
-    await kv.set(key, JSON.stringify(userObject), { nx: true });
-  }
-
-  // ————————————————————————————————————o get users —>
-  //
-  async function getUser() {
-    const key = `user_${user.email}`;
-    const userDataString = await kv.get(key);
-
-    let userData;
-    try {
-      userData = JSON.parse(JSON.stringify(userDataString));
-    } catch (error) {
-      console.error("Invalid JSON:", userDataString);
-    }
-
-    if (userData) {
-      // Check if any of the properties in userObject are not present
-      const missingItems = ["name", "nickname", "email", "chats"].filter(
-        (item) => !(item in userData)
-      );
-
-      if (missingItems.length > 0) {
-        // If any items are missing, add them
-        userData = missingItems.reduce((acc, item) => {
-          acc[item] = user[item] || [];
-          return acc;
-        }, userData);
-
-        // Save the updated userData back to the key-value store
-        await setUser(user);
-      }
-    } else {
-      console.log("User not found");
-      setUser(user);
-    }
-
-    // console.log(`Key: ${key}`, userData);
-  }
-
-  useEffect(() => {
-    if (user) {
-      setTheUser(user);
-
-      getUser().catch(console.error);
-
-      // ————————————————————————————————————o deleting users —>
-      //
-      // async function deleteUser(email) {
-      //   const key = `user_${email}`;
-      //   await kv.del(key);
-      // }
-      // deleteUser('ray@mechaneyes.com').catch(console.error);
-    }
-  }, [user]);
-
   return (
-    <header className="header">
-      <ButtonHamburger
-        classes="btn--header__modal"
-        onClick={() => setIsModalOpen(!isModalOpen)}
-      />
-
-      <Link href="/">
-        <h2>Thirdeyes</h2>
-      </Link>
-
-      {/* {user ?? <ChatHistory userId={user.id} />} */}
-
-      <nav>
-        {user ? (
-          <>
-            {user && (
-              <>
-                {/* <ButtonPrimary
-                  link="/chat"
-                  name="Chat"
-                  classes="btn--login-logout"
-                  onClick={() => {
-                    console.log("Button clicked");
-                  }}
-                /> */}
-                <ButtonPrimary
-                  link="/chat"
-                  name="Chat"
-                  classes="btn--login-logout"
-                />
-                <ButtonPrimary
-                  link="/howto"
-                  name="How To"
-                  classes="btn--login-logout"
-                />
-              </>
-            )}
-            <ButtonPrimary
-              link="/api/auth/logout"
-              name="Logout"
-              classes="btn--login-logout"
-            />
-            <Image
-              src={user.picture ? user.picture : ""}
-              className="rounded-full w-12 h-12"
-              alt="User Profile Picture"
-              width={48}
-              height={48}
-            />
-          </>
-        ) : (
-          // <Link href="/api/auth/login">
-          //   <button
-          //     type="button"
-          //     className="btn btn--outline-primary btn--login-logout"
-          //   >
-          //     Login
-          //   </button>
-          // </Link>
-          <>
-            <ButtonPrimary
-              link="/chat"
-              name="Chat"
-              classes="btn--login-logout"
-              onClick={() => {}}
-            />
-            <ButtonPrimary
-              link="/engineering"
-              name="Engineering"
-              classes="btn--login-logout"
-              onClick={() => {}}
-            />
-            <ButtonPrimary
-              link="/hexagram"
-              name="Hexagram"
-              classes="btn--login-logout"
-              onClick={() => {}}
-            />
-          </>
-        )}
-      </nav>
-      <Modal
-        classes={`modal modal--chat ${
-          isModalOpen ? "modal--visible" : "modal--hidden"
-        }`}
-        onClick={() => setIsModalOpen(false)}
-      />
-    </header>
+    <div className="w-full relative flex flex-row items-center justify-between max-w-7xl mt-6 text-left text-[3rem] text-royalblue font-bd-colonius">
+      <div className="flex flex-col items-start justify-start">
+        <div className="relative leading-[3rem]">Thirdeyes</div>
+      </div>
+      <div className="flex flex-row items-center justify-end py-[0rem] pl-[1rem] pr-[0rem] gap-[0.5rem] text-center text-[1rem] text-black font-mr-eaves-xl-san-ot">
+        <div className="relative leading-[1.5rem] font-light inline-block max-w-[7.375rem]">
+          e-flux
+        </div>
+        <b className="relative leading-[1.5rem] inline-block max-w-[7.375rem]">
+          ·
+        </b>
+        <div className="relative leading-[1.5rem] font-light inline-block max-w-[7.375rem]">
+          Login
+        </div>
+      </div>
+    </div>
   );
 };
 
