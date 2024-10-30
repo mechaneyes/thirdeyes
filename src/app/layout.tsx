@@ -7,7 +7,7 @@ import "./styles/styles.scss";
 
 export const metadata: Metadata = {
   title: "Thirdeyes",
-  description: "Third Bridge Creative v Mechaneyes",
+  description: "Writers Empowered by Third Bridge Creative",
   openGraph: {
     images: ["/images/og-image.png"],
   },
