@@ -311,7 +311,6 @@
   }
 }
 
-
 .tooltip {
   position: relative;
   display: block;
@@ -335,5 +334,26 @@
   &:hover .tooltiptext {
     opacity: 1;
     transition: opacity 0.3s;
+  }
+}
+
+.editor {
+  &-inner {
+    &::-webkit-scrollbar {
+      width: 12px;
+      padding: 2px;
+      background-color: rgba(0, 98, 255, 0.12);
+    }
+  
+    &::-webkit-scrollbar-track {
+      border-radius: 8px;
+      border: 1px solid #3164fd;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      border: 1px solid #3164fd;
+      background: rgba(49, 100, 253, 0.7);
+    }
   }
 }

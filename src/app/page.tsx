@@ -6,10 +6,10 @@ import dynamic from "next/dynamic";
 import { Grid, Column } from "@carbon/react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 // import Chat from '@/app/components/chat'
-const Header = dynamic(() => import("./components/Header"), { ssr: false });
+const Header = dynamic(() => import("./components/header"), { ssr: false });
 import { ButtonPrimary } from "@/app/components/buttons/ButtonPrimary";
 
-// import Header from "./components/Header";
+// import Header from "./components/header";
 
 export default function Home() {
   const { user } = useUser();

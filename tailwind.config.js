@@ -14,6 +14,9 @@ module.exports = {
         lightblue: "#c7e2f3",
         deepskyblue: "#65b2ec",
         white: "#fff",
+        writingtext: "#3958AF",
+        writingbg: "#0062FF1F",
+        writingborder: "#219af5",
         mediumslateblue: {
           100: "#3164fd",
           200: "rgba(49, 100, 253, 0.7)",

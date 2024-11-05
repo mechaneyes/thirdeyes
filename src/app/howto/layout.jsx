@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Column, Grid } from "@carbon/react";
 
-const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
+const Header = dynamic(() => import("@/app/components/header"), { ssr: false });
 const HowTo = dynamic(() => import("@/app/components/howto"), { ssr: false });
 
 export default function EditorLayout({ children }) {
