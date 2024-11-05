@@ -8,7 +8,7 @@ export default function Create() {
     <>
       <Header />
       <div className="create-body grid grid-template-row-2 gap-4 pb-16">
-        <div className="w-full relative h-[51.125rem] flex flex-row items-center justify-center gap-4 max-w-7xl text-left text-[1rem] text-darkslategray-100 font-mr-eaves-xl-san-ot">
+        <div className="w-full relative h-[51.125rem] flex flex-row items-center justify-center gap-4 max-w-7xl text-left text-4 text-darkslategray-100 font-mr-eaves-xl-san-ot">
           <Drafting />
           <Research />
         </div>

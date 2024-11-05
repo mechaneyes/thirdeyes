@@ -344,16 +344,37 @@
       padding: 2px;
       background-color: rgba(0, 98, 255, 0.12);
     }
-  
+
     &::-webkit-scrollbar-track {
       border-radius: 8px;
       border: 1px solid #3164fd;
     }
-  
+
     &::-webkit-scrollbar-thumb {
       border-radius: 8px;
       border: 1px solid #3164fd;
       background: rgba(49, 100, 253, 0.7);
+    }
+  }
+}
+
+.research {
+  &-inner {
+    &::-webkit-scrollbar {
+      width: 12px;
+      padding: 2px;
+      background-color: rgba(153 93 220 / 0.09);
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 8px;
+      border: 1px solid rgba(153 93 220 / 0.8);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      border: 1px solid rgb(153 93 220);
+      background: rgba(153 93 220 / 0.8);
     }
   }
 }

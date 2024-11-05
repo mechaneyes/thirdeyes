@@ -2,19 +2,19 @@ import Editor from "./editor";
 
 const Writing = () => {
   return (
-    <div className="w-full relative rounded-3xs bg-lightblue border-writingborder border-[1px] border-solid box-border flex flex-col items-center justify-start text-left text-[0.875rem] text-darkslateblue font-mr-eaves-xl-san-ot">
-      <div className="self-stretch flex flex-row items-start justify-start p-[1rem] gap-[1rem] z-[0]">
+    <div className="w-full relative rounded-3xs bg-lightblue border-writingborder border-[1px] border-solid box-border flex flex-col items-center justify-start text-left text-3.5 text-darkslateblue font-mr-eaves-xl-san-ot">
+      <div className="self-stretch flex flex-row items-start justify-start p-4 gap-4 z-[0]">
         <Editor />
         <div className="w-[1.5rem] overflow-hidden shrink-0 flex flex-col items-center justify-center py-[0.562rem] px-[0rem] box-border gap-[0.5rem]">
           <div
-            className="w-[1rem] relative h-[1rem] overflow-hidden shrink-0"
+            className="w-4 relative h-4 overflow-hidden shrink-0"
             width={16}
             height={16}
             alt=""
             src="Fit-to-height.svg"
           />
           <div
-            className="w-[1rem] relative h-[1rem] overflow-hidden shrink-0"
+            className="w-4 relative h-4 overflow-hidden shrink-0"
             width={16}
             height={16}
             alt=""
@@ -28,7 +28,7 @@ const Writing = () => {
             src="spacer.svg"
           />
           <div
-            className="w-[1rem] relative h-[1rem] overflow-hidden shrink-0"
+            className="w-4 relative h-4 overflow-hidden shrink-0"
             width={16}
             height={16}
             alt=""
@@ -42,7 +42,7 @@ const Writing = () => {
             src="Save.svg"
           />
           <div
-            className="w-[1rem] relative h-[1rem] overflow-hidden shrink-0"
+            className="w-4 relative h-4 overflow-hidden shrink-0"
             width={16}
             height={16}
             alt=""

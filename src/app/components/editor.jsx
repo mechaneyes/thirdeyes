@@ -1,7 +1,7 @@
 const Editor = () => {
   return (
     <div className="editor pr-2 py-4 text-writingtext shadow-[2px_2px_8px_rgba(0,_0,_0,_0.2)] rounded-3xs bg-white border-writingborder border border-solid">
-      <div className="editor-inner h-40 overflow-auto px-6">
+      <div className="editor-inner h-80 overflow-auto px-6">
         <div className="flex-1 relative leading-[1.188rem]">
           <p>
             Few artists have bent musical form to their will quite like Arca,
