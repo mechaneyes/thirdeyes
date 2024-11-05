@@ -338,7 +338,14 @@
 }
 
 .editor {
+  textarea {
+    color: #3958af;
+    border: none;
+  }
+
   &-inner {
+    margin: 1rem 0;
+
     &::-webkit-scrollbar {
       width: 12px;
       padding: 2px;

@@ -21,6 +21,7 @@
     "@carbon/layout": "^11.20.0",
     "@carbon/react": "^1.46.1",
     "@langchain/community": "^0.2.31",
+    "@legendapp/state": "^3.0.0-beta.16",
     "@pinecone-database/pinecone": "^2.2.2",
     "@pothos/core": "^3.40.1",
     "@radix-ui/react-alert-dialog": "^1.0.5",
