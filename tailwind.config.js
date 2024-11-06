@@ -64,6 +64,7 @@ module.exports = {
       boxShadow: {
         "hieroshadow-15": "2px 4px 16px -6px rgba(0, 0, 0, 0.15)",
         "hieroshadow-25": "2px 4px 16px -6px rgba(0, 0, 0, 0.25)",
+        "hieroshadow-35": "2px 4px 16px -6px rgba(0, 0, 0, 0.35)",
       },
       fontFamily: {
         "mr-eaves-xl-san-ot": "'Mr Eaves XL San OT'",

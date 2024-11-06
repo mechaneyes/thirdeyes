@@ -50,7 +50,7 @@ const Writing = () => {
     }, 1300);
   };
   return (
-    <div className="w-full relative rounded-3xs bg-lightblue border-writingborder border border-solid box-border flex flex-col items-center justify-start text-left text-3.5 text-darkslateblue font-mr-eaves-xl-san-ot">
+    <div className="w-full relative rounded-3xs bg-lightblue shadow-hieroshadow-35 border-writingborder border border-solid box-border flex flex-col items-center justify-start text-left text-3.5 text-darkslateblue font-mr-eaves-xl-san-ot">
       <div className="self-stretch flex flex-col items-start justify-start p-4 pb-6 gap-4">
         <div className="self-stretch flex justify-between items-center pr-10">
           <h3 className="text-xl text-darkslateblue-100 font-bold">Editor</h3>
