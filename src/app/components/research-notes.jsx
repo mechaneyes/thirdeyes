@@ -25,14 +25,17 @@ const ResearchNotes = () => {
   };
 
   return (
-    <div className="notes self-stretch flex-1 flex flex-col items-center justify-start pt-[0rem] px-4 pb-6 gap-6 z-[0]">
-      <div className="self-stretch flex-1 shadow-hieroshadow-25 rounded-3xs bg-gray border-researchpurple/65 border border-solid overflow-hidden flex flex-col items-start justify-start p-4 gap-[0.75rem]">
-        <div className="flex flex-row items-center justify-between w-full">
+    <div className="notes self-stretch flex-1 flex flex-col items-center justify-start p-3 pb-4 gap-4 z-[0]">
+      <div className="self-stretch flex-1 shadow-hieroshadow-25 rounded-3xs bg-gray border-researchpurple/65 border border-solid overflow-hidden flex flex-col items-start justify-start p-3 gap-3">
+        <div className="flex flex-row items-start justify-between w-full">
           <h3 className="text-xl text-darkslateblue-300 font-bold">
             Scratchpad
           </h3>
 
-          <span onClick={handleClearContent} className="pr-2 text-darkslateblue-300 cursor-pointer">
+          <span
+            onClick={handleClearContent}
+            className="text-darkslateblue-300 align-top leading-none cursor-pointer"
+          >
             Clear
           </span>
         </div>
@@ -41,7 +44,7 @@ const ResearchNotes = () => {
           value={scratchpadContent}
           onChange={handleContentChange}
           placeholder={`Write your notes here. \nNotes are saved automatically.`}
-          className="scratchpad w-full h-full mb-8 p-4 bg-transparent border rounded-3xs border-darkslateblue-400/60 shadow-hieroshadow-15 resize-none focus:outline-none  text-darkslateblue-200"
+          className="scratchpad w-full h-full mb-4 p-4 bg-transparent border rounded-3xs border-darkslateblue-400/60 shadow-hieroshadow-15 resize-none focus:outline-none  text-darkslateblue-200"
         />
       </div>
     </div>
