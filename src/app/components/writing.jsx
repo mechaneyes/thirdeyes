@@ -51,13 +51,13 @@ const Writing = () => {
   };
   return (
     <div className="w-full h-full relative rounded-3xs bg-lightblue shadow-hieroshadow-35 border-writingborder border border-solid box-border flex flex-col items-center justify-start text-left text-3.5 text-darkslateblue font-mr-eaves-xl-san-ot">
-      <div className="h-full self-stretch flex flex-col items-start justify-start p-4 pb-6 gap-4">
+      <div className="h-full self-stretch flex flex-col items-start justify-start p-3 pb-4 gap-2">
         <div className="self-stretch flex justify-between items-center pr-10">
-          <h3 className="text-xl text-darkslateblue-100 font-bold">Editor</h3>
+          <h3 className="text-xl text-darkslateblue-100 font-normal">Editor</h3>
 
           <div
             onClick={handleSaveContent}
-            className="text-darkslateblue-100 font-bold cursor-pointer"
+            className="text-darkslateblue-100 font-normal cursor-pointer"
           >
             {!savedContent && <span>Save locally</span>}
             {savedContent && (
@@ -71,8 +71,8 @@ const Writing = () => {
             <textarea
               value={editorContent}
               onChange={handleContentChange}
-              placeholder={`Draft your bio here. \nDrafts are saved automatically.`}
-              className="editor-inner w-full overflow-auto px-6 bg-transparent resize-none focus:outline-none text-darkslateblue-200"
+              placeholder={`Draft your bio here. \n\nDrafts are saved automatically. \nClick "Save locally" to download a copy.`}
+              className="editor-inner w-full h-full overflow-auto px-4 bg-transparent resize-none focus:outline-none text-base text-darkslateblue-200"
             />
           </div>
 
