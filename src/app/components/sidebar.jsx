@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Column } from "@carbon/react";
 
 import ChatSaved from "./chat-saved";
-import { ButtonPrimary } from "./buttons/ButtonPrimary";
+import { ButtonPrimary } from "./ui/ButtonPrimary";
 
 export default function Sidebar() {
   let pathname = "";

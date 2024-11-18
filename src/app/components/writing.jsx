@@ -51,7 +51,7 @@ const Writing = () => {
   };
   return (
     <div className="w-full h-full relative rounded-3xs bg-lightblue shadow-hieroshadow-35 border-writingborder border border-solid box-border flex flex-col items-center justify-start text-left text-3.5 text-darkslateblue font-mr-eaves-xl-san-ot">
-      <div className="self-stretch flex flex-col items-start justify-start p-4 pb-6 gap-4">
+      <div className="h-full self-stretch flex flex-col items-start justify-start p-4 pb-6 gap-4">
         <div className="self-stretch flex justify-between items-center pr-10">
           <h3 className="text-xl text-darkslateblue-100 font-bold">Editor</h3>
 
@@ -66,8 +66,8 @@ const Writing = () => {
           </div>
         </div>
 
-        <div className="self-stretch flex flex-row items-start justify-start gap-4">
-          <div className="editor w-full pr-2 text-writingtext shadow-[2px_2px_8px_rgba(0,_0,_0,_0.2)] rounded-3xs bg-white border-writingborder/70 border border-solid">
+        <div className="h-full self-stretch flex flex-row items-start justify-start gap-4">
+          <div className="editor w-full h-full pr-2 text-writingtext shadow-[2px_2px_8px_rgba(0,_0,_0,_0.2)] rounded-3xs bg-white border-writingborder/70 border border-solid">
             <textarea
               value={editorContent}
               onChange={handleContentChange}
