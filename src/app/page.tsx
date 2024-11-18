@@ -1,98 +1,19 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
-import dynamic from "next/dynamic";
-import { Grid, Column } from "@carbon/react";
-import { useUser } from "@auth0/nextjs-auth0/client";
-// import Chat from '@/app/components/chat'
-const Header = dynamic(() => import("./components/header"), { ssr: false });
-import { ButtonPrimary } from "@/app/components/buttons/ButtonPrimary";
-
-// import Header from "./components/header";
+import Header from "@/app/components/header";
+import Drafting from "@/app/components/drafting";
+import Research from "@/app/components/research";
+import Writing from "@/app/components/writing";
 
 export default function Home() {
-  const { user } = useUser();
   return (
     <>
       <Header />
-      <Grid className="thirdeyes home">
-        <Column lg={6} md={3} sm={4} className="home__main home__main--left">
-          <h1>Future Echoes</h1>
-          <h3>An account of people who are lost in music</h3>
-          <p>
-            Thirdeyes produces first drafts of artist bios emulating the
-            editorial style of &quot;hetfield&quot;.
-          </p>
-          <div className="home__ctas">
-            {user ? (
-              <>
-                {user && (
-                  <>
-                    {/* <ButtonPrimary
-                      link="/chat"
-                      name="Chat"
-                      classes="btn--login-logout"
-                      onClick={() => {
-                        console.log("Button clicked");
-                      }}
-                    /> */}
-                    <ButtonPrimary
-                      link="/chat"
-                      name="Chat"
-                      classes="btn--login-logout"
-                      onClick={() => {}}
-                    />
-                    <ButtonPrimary
-                      link="/howto"
-                      name="How To"
-                      classes="btn--login-logout"
-                      onClick={() => {}}
-                    />
-                  </>
-                )}
-                {/* <ButtonPrimary
-                  link="/api/auth/logout"
-                  name="Logout"
-                  classes="btn--login-logout"
-                  onClick={() => {
-                    console.log("Button clicked");
-                  }}
-                /> */}
-              </>
-            ) : (
-              // <Link href="/api/auth/login">
-              //   <button type="button" className="btn btn--outline-primary">
-              //     Login
-              //   </button>
-              // </Link>
-              <>
-                <ButtonPrimary
-                  link="/chat"
-                  name="Chat"
-                  classes="btn--login-logout"
-                  onClick={() => {}}
-                />
-                <ButtonPrimary
-                  link="/engineering"
-                  name="Engineering"
-                  classes="btn--login-logout"
-                  onClick={() => {}}
-                />
-              </>
-            )}
-          </div>
-        </Column>
-        <Column lg={10} md={5} sm={4} className="home__main home__main--right">
-          <Image
-            src="/images/home--jorik-kleen.jpg"
-            alt="ALTALTALTALTALTALTALT"
-            width={1024}
-            height={768}
-            priority={true}
-          />
-        </Column>
-      </Grid>
+      <div className="create-body grid grid-template-row-2 gap-4 pb-16">
+        <div className="create-main w-full relative h-[50rem] flex flex-row items-center justify-center gap-4 max-w-7xl text-left text-4 text-darkslategray-100 font-mr-eaves-xl-san-ot">
+          <Drafting />
+          <Research />
+        </div>
+        <Writing />
+      </div>
     </>
   );
 }
