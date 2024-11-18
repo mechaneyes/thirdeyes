@@ -4,7 +4,7 @@ import ButtonResearch from "@/components/ui/button-research";
 const ResearchBody = () => {
   return (
     <div className="research-body h-full flex-1 flex flex-col items-center justify-start p-3 gap-4 text-darkslateblue-300" style={{ height: 'calc(100% - 33px)' }}>
-      <div className="research-content shadow-hieroshadow-25 rounded-3xs bg-gray border-researchpurple/65 border border-solid overflow-hidden flex flex-col items-start justify-start p-3 pb-5 pr-2">
+      <div className="research-content shadow-hieroshadow-25 rounded-md bg-gray border-researchpurple/65 border border-solid overflow-hidden flex flex-col items-start justify-start p-3 pb-5 pr-2">
         <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
           Wikipedia: Arca
         </h3>
