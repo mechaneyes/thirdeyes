@@ -12,7 +12,7 @@ const ButtonResearch = (props: ButtonPrimaryProps) => {
 
   const buttonContent = (
     <div
-      className={`shadow-hieroshadow-25 rounded-md bg-researchpurple/60 border-researchpurple border border-solid overflow-hidden flex flex-col items-center justify-center py-0.25 px-2 ${classes}`}
+      className={`shadow-hieroshadow-25 rounded-md bg-researchpurple/60 border-researchpurple border border-solid overflow-hidden flex flex-col items-center justify-center py-0.25 px-2.5 ${classes}`}
       onClick={onClick}
     >
       <div className="relative text-base font-normal tracking-wide">
