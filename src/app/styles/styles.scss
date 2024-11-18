@@ -32,12 +32,7 @@ body {
 .thirdeyes {
   position: relative;
   max-width: $maxWidth;
-  padding: 1rem 0;
   @include font-main;
-
-  @include bp("small") {
-    padding: 1rem;
-  }
 
   * {
     box-sizing: border-box;
