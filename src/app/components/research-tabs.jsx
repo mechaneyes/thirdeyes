@@ -1,6 +1,6 @@
 const TabsResearch = ({ activeTab, onTabChange }) => {
   return (
-    <div className="research-tabs self-stretch rounded-t-lg rounded-b-none bg-lightgray border-researchpurple border-b border-solid flex flex-row items-center justify-start">
+    <div className="research-tabs self-stretch rounded-t-lg rounded-b-none border-researchpurple border-b border-solid flex flex-row items-center justify-start">
       <div 
         onClick={() => onTabChange("research")}
         className={`h-8 flex-1 py-1 flex flex-row items-center justify-center font-extrabold cursor-pointer border-researchpurple/100 border-r border-solid ${

@@ -8,8 +8,8 @@ const ResearchBody = () => {
         <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
           Wikipedia: Arca
         </h3>
-        <div className="research-inner relative h-full overflow-y-scroll pr-4 text-darkslateblue-200">
-          <p>
+        <div className="research-inner relative h-full overflow-y-scroll pr-4 text-base text-darkslateblue-200 leading-5">
+          <p className="text-base leading-6">
             Few artists have bent musical form to their will quite like Arca,
             a.k.a. Alejandra Ghersi Rodríguez. Having invented her very own
             style from the collision of pop and experimental electronic sound
@@ -38,7 +38,7 @@ const ResearchBody = () => {
             behold: The search for self and the quest for authentic expression
             are encoded in every dazzling waveform.
           </p>
-          <p>
+          <p className="text-base leading-6">
             Few artists have bent musical form to their will quite like Arca,
             a.k.a. Alejandra Ghersi Rodríguez. Having invented her very own
             style from the collision of pop and experimental electronic sound

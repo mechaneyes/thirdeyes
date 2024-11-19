@@ -167,7 +167,7 @@
     font-size: 1.125rem;
     font-weight: 300;
     color: white;
-    line-height: 1.5rem;
+    // line-height: 1.5rem;
   }
 
   .reflecting-intro p {
@@ -383,5 +383,24 @@
       border: 1px solid rgb(153 93 220);
       background: rgba(153 93 220 / 0.8);
     }
+  }
+}
+
+.drafting-scrollable {
+  &::-webkit-scrollbar {
+    width: 12px;
+    padding: 2px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 8px;
+    border: 1px solid rgba(61, 153, 89, 0.8);
+    background-color: #e5fdea;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 1px solid rgba(61, 153, 89, 0.8);
+    background: #a0e2a5;
   }
 }

@@ -43,6 +43,8 @@ module.exports = {
         mediumseagreen: {
           100: "rgba(48, 191, 91, 0.4)",
           200: "rgba(48, 191, 91, 0.3)",
+          300: "rgb(163 202 166)",
+          400: "rgb(132 228 140)",
         },
         seagreen: "rgba(61, 153, 89, 0.8)",
         darkslategray: {
