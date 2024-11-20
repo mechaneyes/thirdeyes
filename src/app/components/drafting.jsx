@@ -9,7 +9,7 @@ const Drafting = () => {
   const [activeTab, setActiveTab] = useState("lede");
 
   return (
-    <div className="drafting self-stretch flex-1 rounded-lg bg-mediumseagreen-200 border-seagreen shadow-hieroshadow-35 border border-solid flex flex-col items-center justify-start">
+    <div className="drafting self-stretch flex-1 rounded-lg bg-mediumseagreen-200 shadow-hieroshadow-35 border-seagreen border-x border-b border-b-lg border-solid flex flex-col items-center justify-start">
       <TabsDrafting activeTab={activeTab} onTabChange={setActiveTab} />
       {/* {activeTab === "research" ? <ResearchBody /> : <ResearchNotes />} */}
       <div className="h-full flex flex-col items-center justify-between p-3 pr-2 gap-4" style={{ height: 'calc(100% - 33px)' }}>

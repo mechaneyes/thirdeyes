@@ -1,6 +1,6 @@
 const DraftingLede = () => {
   return (
-    <div className="shadow-hieroshadow-15 rounded-md bg-gray border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2">
+    <div className="shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2">
       <h4 className="text-base text-darkslategray-200 font-normal">
         Lede Strategy #00
       </h4>
