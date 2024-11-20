@@ -55,7 +55,7 @@ const Writing = () => {
   };
   return (
     <div className="w-full h-full relative rounded-3xs bg-lightblue shadow-hieroshadow-35 border-writingborder border border-solid box-border flex flex-col items-center justify-start text-left text-3.5 text-darkslateblue font-mr-eaves-xl-san-ot">
-      <div className="h-full self-stretch flex flex-col items-start justify-start p-3 pb-4 gap-2">
+      <div className="h-full self-stretch flex flex-col items-start justify-start p-3 gap-2">
         <div className="self-stretch flex justify-between items-center pr-10">
           <h3 className="text-xl text-darkslateblue-100 font-normal">Editor</h3>
 
@@ -69,7 +69,7 @@ const Writing = () => {
                 <span className="text-seagreen cursor-wait">Saved!</span>
               )}
             </div>
-            <b className="px-3 text-5xl text-darkslateblue-100">·</b>
+            <b className="px-2 text-5xl leading-[0rem] text-darkslateblue-100">·</b>
             <span
               onClick={handleClearContent}
               className="text-darkslateblue-100 font-normal cursor-pointer"

@@ -12,12 +12,10 @@ const ButtonResearch = (props: ButtonPrimaryProps) => {
 
   const buttonContent = (
     <div
-      className={`shadow-hieroshadow-25 rounded-md bg-researchpurple/60 border-researchpurple border border-solid overflow-hidden flex flex-col items-center justify-center py-1.5 px-2.5 ${classes}`}
+      className={`shadow-hieroshadow-25 rounded-md bg-researchlavender-400 border-researchpurple border border-solid overflow-hidden flex flex-col items-center justify-center py-1.5 px-2.5 ${classes} hover:bg-researchlavender-300 cursor-pointer`}
       onClick={onClick}
     >
-      <div className="relative text-base font-normal tracking-wide">
-        {name}
-      </div>
+      <div className="relative text-base font-normal tracking-wide">{name}</div>
     </div>
   );
 
