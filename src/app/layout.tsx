@@ -13,6 +13,17 @@ export const metadata: Metadata = {
   },
 };
 
+const typeKitLoader = {
+  href: 'https://use.typekit.net/xgg6bof.css',
+  crossOrigin: 'anonymous',
+  rel: 'preconnect',
+}
+
+// Headers configuration
+export const headers = {
+  link: [typeKitLoader],
+}
+
 export default async function RootLayout({
   children,
 }: {
