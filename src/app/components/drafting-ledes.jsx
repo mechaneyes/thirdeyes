@@ -14,7 +14,8 @@ const DraftingLedes = () => {
 
   useEffect(() => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+      scrollContainerRef.current.scrollTop =
+        scrollContainerRef.current.scrollHeight;
     }
   }, [messages]); // Scroll whenever messages update
 
@@ -23,19 +24,20 @@ const DraftingLedes = () => {
       className="w-full h-full flex flex-col items-center justify-between p-3 gap-4"
       style={{ height: "calc(100% - 33px)" }}
     >
-      <div 
+      <div
         ref={scrollContainerRef}
         className="drafting-scrollable w-full h-full flex flex-col items-center justify-between gap-2 pr-3 overflow-y-scroll"
       >
         <div className="self-stretch w-full">
-          <div className="space-y-4 mb-4">
-            {messages.map((message) => (
-              <div key={message.id} className="pb-3 text-base font-normal leading-6 text-darkslategray-200/70">
-                <strong>{message.role === "user" ? "You: " : "AI: "}</strong>
-                <span>{message.content}</span>
-              </div>
-            ))}
-          </div>
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className="pb-3 text-base font-normal leading-6 text-darkslategray-200/70"
+            >
+              <strong>{message.role === "user" ? "You: " : "AI: "}</strong>
+              <span>{message.content}</span>
+            </div>
+          ))}
         </div>
       </div>
       <MessageForm
