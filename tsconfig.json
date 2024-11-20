@@ -34,8 +34,10 @@
     "src/app/(chat)/page.jsx",
     "src/app/(chat)/chat-tmp/[id]/page.jsx",
     "src/app/components/chat.jsx",
-    "src/app/(chat)/layout.jsx"
-, "src/app/editor/tiptap.js", "src/app/components/messages-reflection.js"  ],
+    "src/app/(chat)/layout.jsx",
+    "src/app/editor/tiptap.js",
+    "src/app/components/messages-reflection.js"
+  ],
   "exclude": ["node_modules"],
   "ts-node": {
     "compilerOptions": {
