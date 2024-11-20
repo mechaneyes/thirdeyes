@@ -3,8 +3,9 @@
 import { useState } from "react";
 import TabsDrafting from "./drafting-tabs";
 import DraftingLedes from "./drafting-ledes";
-import DraftingOrigin from "./drafting-origin";
+import DraftingOrigin from "./drafting-origins";
 import DraftingWorks from "./drafting-works";
+import MessageForm from './message-form';
 import Textbox from "./textbox";
 
 const Drafting = () => {
@@ -34,6 +35,7 @@ const Drafting = () => {
           {renderContent()}
         </div>
         <Textbox borderColor="border-seagreen" />
+        <MessageForm />
       </div>
     </div>
   );

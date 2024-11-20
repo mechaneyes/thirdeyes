@@ -4,6 +4,12 @@ const DraftingOrigin = () => {
   return (
     <>
       <DraftingLede />
+      <DraftingLede />
+      <DraftingLede />
+      <DraftingLede />
+      <DraftingLede />
+      <DraftingLede />
+      <DraftingLede />
     </>
   );
 };
