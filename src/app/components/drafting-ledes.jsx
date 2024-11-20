@@ -1,41 +1,49 @@
-import { useChat } from 'ai/react';
-import MessageForm from './message-form';
+import { useChat } from "ai/react";
+import { useEffect, useRef } from "react";
+import MessageForm from "./message-form";
 
 const DraftingLedes = () => {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    api: '/api/drafting/lede-primary',
-    body: {
-      model: 'gpt-4-turbo'
+  const scrollContainerRef = useRef(null);
+  const { messages, input, handleInputChange, handleSubmit, isLoading } =
+    useChat({
+      api: "/api/drafting/lede-primary",
+      body: {
+        model: "gpt-4-turbo",
+      },
+    });
+
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
     }
-  });
+  }, [messages]); // Scroll whenever messages update
 
   return (
-    <div className="self-stretch w-full">
-      <div className="space-y-4 mb-4">
-        {messages.map((message) => (
-          <div key={message.id} className="p-3 rounded-lg bg-gray-50">
-            <strong>{message.role === "user" ? "You: " : "AI: "}</strong>
-            <span>{message.content}</span>
+    <div
+      className="w-full h-full flex flex-col items-center justify-between p-3 gap-4"
+      style={{ height: "calc(100% - 33px)" }}
+    >
+      <div 
+        ref={scrollContainerRef}
+        className="drafting-scrollable w-full h-full flex flex-col items-center justify-between gap-2 pr-3 overflow-y-scroll"
+      >
+        <div className="self-stretch w-full">
+          <div className="space-y-4 mb-4">
+            {messages.map((message) => (
+              <div key={message.id} className="pb-3 text-base font-normal leading-6 text-darkslategray-200/70">
+                <strong>{message.role === "user" ? "You: " : "AI: "}</strong>
+                <span>{message.content}</span>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
-
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <input
-          value={input}
-          onChange={handleInputChange}
-          disabled={isLoading}
-          className="flex-1 p-2 border rounded-lg"
-          placeholder="Type your message..."
-        />
-        <button 
-          type="submit" 
-          disabled={isLoading}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50"
-        >
-          Send
-        </button>
-      </form>
+      <MessageForm
+        input={input}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleSubmit}
+        isLoading={isLoading}
+      />
     </div>
   );
 };
