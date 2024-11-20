@@ -7,8 +7,8 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { createClient } from "@vercel/kv";
 
 import Modal from "@/app/components/Modal";
-import { ButtonPrimary } from "@/app/components/buttons/ButtonPrimary";
-import { ButtonHamburger } from "@/app/components/buttons/ButtonHamburger";
+import { ButtonPrimary } from "@/app/components/ui/ButtonPrimary";
+import { ButtonHamburger } from "@/app/components/ui/ButtonHamburger";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

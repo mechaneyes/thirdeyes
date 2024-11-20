@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { Column, Grid } from "@carbon/react";
 
-const Header = dynamic(() => import("@/app/components/header"), { ssr: false });
+const Header = dynamic(() => import("@/app/components/Header"), { ssr: false });
 const Chat = dynamic(() => import("@/app/components/chat"), { ssr: false });
 const SidebarEditor = dynamic(() => import("@/app/components/sidebar-editor"), {
   ssr: false,

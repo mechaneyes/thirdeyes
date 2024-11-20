@@ -1,4 +1,4 @@
-import Header from "@/app/components/header";
+import Header from "@/app/components/Header";
 import Drafting from "@/app/components/drafting";
 import Research from "@/app/components/research";
 import Writing from "@/app/components/writing";

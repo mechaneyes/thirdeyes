@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 
 import { newChatAtom } from "@/app/store/atoms";
 import ChatSavedEditor from "./chat-saved-editor";
-import { ButtonPrimary } from "./buttons/ButtonPrimary";
+import { ButtonPrimary } from "./ui/ButtonPrimary";
 
 export default function SidebarEditor() {
   const [newChat, setNewChat] = useAtom(newChatAtom);

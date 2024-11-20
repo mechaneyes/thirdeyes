@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { authTokenAtom } from "@/app/store/atoms";
 import GoogleLogin from "@/app/components/google-login";
 import Tiptap from "@/app/components/tiptap";
-import { ButtonChatOptions } from "@/app/components/buttons/ButtonChatOptions";
+import { ButtonChatOptions } from "@/app/components/ui/ButtonChatOptions";
 import ModalEditor from "@/app/components/ModalEditor";
 
 import { guttler, guttlerClipped } from "@/app/store/tiptap-content";

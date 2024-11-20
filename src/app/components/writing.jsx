@@ -23,6 +23,10 @@ const Writing = () => {
     setEditorContent(event.target.value);
   };
 
+  const handleClearContent = () => {
+    setEditorContent("");
+  };
+
   const handleSaveContent = () => {
     const blob = new Blob([editorContent], {
       type: "text/plain;charset=utf-8",
@@ -55,14 +59,23 @@ const Writing = () => {
         <div className="self-stretch flex justify-between items-center pr-10">
           <h3 className="text-xl text-darkslateblue-100 font-normal">Editor</h3>
 
-          <div
-            onClick={handleSaveContent}
-            className="text-darkslateblue-100 font-normal cursor-pointer"
-          >
-            {!savedContent && <span>Save locally</span>}
-            {savedContent && (
-              <span className="text-seagreen cursor-wait">Saved!</span>
-            )}
+          <div className="flex justify-end items-center">
+            <div
+              onClick={handleSaveContent}
+              className="text-darkslateblue-100 font-normal cursor-pointer"
+            >
+              {!savedContent && <span>Save locally</span>}
+              {savedContent && (
+                <span className="text-seagreen cursor-wait">Saved!</span>
+              )}
+            </div>
+            <b className="px-3 text-5xl text-darkslateblue-100">·</b>
+            <span
+              onClick={handleClearContent}
+              className="text-darkslateblue-100 font-normal cursor-pointer"
+            >
+              Clear
+            </span>
           </div>
         </div>
 
