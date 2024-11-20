@@ -1,4 +1,4 @@
-import Textbox from "./textbox";
+import MessageForm from './message-form';
 import ButtonResearch from "@/components/ui/button-research";
 
 const ResearchBody = () => {
@@ -70,7 +70,7 @@ const ResearchBody = () => {
         <ButtonResearch name="Artist Socials" />
         <ButtonResearch name="Similar Artists" />
       </div>
-      <Textbox borderColor="border-researchpurple/70" />
+      <MessageForm />
     </div>
   );
 };
