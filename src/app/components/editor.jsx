@@ -72,7 +72,7 @@ const Editor = () => {
         value={editorContent}
         onChange={handleContentChange}
         placeholder={`Draft your bio here. \nDrafts are saved automatically.`}
-        className="editor-inner w-full h-80 overflow-auto mb-8 px-6 bg-transparent resize-none focus:outline-none text-darkslateblue-200"
+        className="editor-inner w-full h-80 overflow-auto mb-8 px-6 bg-transparent resize-none focus:outline-none text-darkslateblue-200 font-light"
       />
     </div>
   );

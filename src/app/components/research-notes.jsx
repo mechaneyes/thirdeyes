@@ -44,7 +44,7 @@ const ResearchNotes = () => {
           value={scratchpadContent}
           onChange={handleContentChange}
           placeholder={`Write your notes here. \n\nNotes are saved automatically.`}
-          className="scratchpad w-full h-full mb-4 p-4 bg-transparent border rounded-md border-researchlavender-500 shadow-hieroshadow-15 resize-none focus:outline-none text-base text-darkslateblue-200"
+          className="scratchpad  w-full h-full mb-4 p-4 bg-transparent border rounded-md border-researchlavender-500 shadow-hieroshadow-25 resize-none focus:outline-none text-base text-darkslateblue-200 font-light"
         />
       </div>
     </div>
