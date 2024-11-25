@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
-import { ledePrimary } from "../prompts";
+import { ledePrimary, ledeVoice, ledeEvaluation } from "../prompts";
 
 const openai = new OpenAI();
 
@@ -31,7 +31,9 @@ export async function POST(req: Request) {
 
     const validMessages = messages.filter((msg) => msg.content);
 
-    const completion = await openai.beta.chat.completions.parse({
+    // ————————————————————————————————————o primary model —>
+    // 
+    const primaryCompletion = await openai.beta.chat.completions.parse({
       model: "gpt-4o-2024-08-06",
       messages: [
         {
@@ -51,9 +53,35 @@ export async function POST(req: Request) {
       presence_penalty: 0.72,
     });
 
-    const result = completion.choices[0].message.parsed;
+    const primaryResult = primaryCompletion.choices[0].message.parsed;
+    console.log("🪼 🪼 🪼 primary:", JSON.stringify(primaryResult, null, 2));
 
-    return new Response(JSON.stringify(result), {
+    // ————————————————————————————————————o voice reflection model —>
+    // 
+    const secondaryCompletion = await openai.beta.chat.completions.parse({
+      model: "gpt-4o-2024-08-06",
+      messages: [
+        {
+          role: "system",
+          content: ledeVoice.content,
+        },
+        {
+          role: "user",
+          content: JSON.stringify(primaryResult),
+        },
+      ],
+      response_format: zodResponseFormat(MusicReviewLedes, "result"),
+      temperature: 0.83,
+      max_tokens: 4095,
+      top_p: 0.9,
+      frequency_penalty: 0.29,
+      presence_penalty: 1.25
+    });
+
+    const secondaryResult = secondaryCompletion.choices[0].message.parsed;
+    console.log("🐦‍🔥 🐦‍🔥 🐦‍🔥 secondary:", JSON.stringify(secondaryResult, null, 2));
+
+    return new Response(JSON.stringify(secondaryResult), {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
