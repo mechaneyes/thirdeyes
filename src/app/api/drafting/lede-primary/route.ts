@@ -1,7 +1,9 @@
-import { openai } from "@ai-sdk/openai";
-import { generateObject } from "ai";
+import OpenAI from "openai";
+import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
 import { ledePrimary } from "../prompts";
+
+const openai = new OpenAI();
 
 const Lede = z.object({
   id: z.string(),
@@ -20,8 +22,6 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
 
-    console.log('messages', messages);
-
     if (!messages || !Array.isArray(messages)) {
       return new Response(
         JSON.stringify({ error: "Invalid messages format" }),
@@ -29,20 +29,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // Validate message content exists
     const validMessages = messages.filter((msg) => msg.content);
-
-    const result = await generateObject({
-      model: openai("gpt-4o", {
-        structuredOutputs: true,
-        temperature: 0.84,
-        maxTokens: 4095,
-        topP: 1,
-        frequencyPenalty: 0.24,
-        presencePenalty: 0.72,
-      }),
-      schema: MusicReviewLedes,
-      mode: "json",
+    
+    const completion = await openai.beta.chat.completions.parse({
+      model: "gpt-4o-2024-08-06",
       messages: [
         {
           role: "system",
@@ -53,9 +43,17 @@ export async function POST(req: Request) {
           content: msg.content,
         })),
       ],
+      response_format: zodResponseFormat(MusicReviewLedes, "result"),
+      temperature: 0.84,
+      max_tokens: 4095,
+      top_p: 1,
+      frequency_penalty: 0.24,
+      presence_penalty: 0.72,
     });
 
-    return new Response(JSON.stringify(result.object), {
+    const result = completion.choices[0].message.parsed;
+
+    return new Response(JSON.stringify(result), {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {

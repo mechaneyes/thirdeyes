@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Header from "@/app/components/Header";
 import Drafting from "@/app/components/drafting";
 import Research from "@/app/components/research";
@@ -7,9 +6,6 @@ import Writing from "@/app/components/writing";
 export default function Home() {
   return (
     <>
-      <Head>
-        <link rel="stylesheet" href="https://use.typekit.net/xgg6bof.css" />
-      </Head>
       <div className="thirdeyes w-full flex flex-col items-center justify-center px-3 pb-4 bg-sky-100 overflow-hidden">
         <Header />
         <div

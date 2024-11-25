@@ -36,7 +36,6 @@ const DraftingLedes = () => {
       });
 
       const responseData = await response.text();
-      console.log("Raw response:", responseData);
 
       if (!response.ok) {
         throw new Error(`Server error: ${response.status} - ${responseData}`);
