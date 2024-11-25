@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     }
 
     const validMessages = messages.filter((msg) => msg.content);
-    
+
     const completion = await openai.beta.chat.completions.parse({
       model: "gpt-4o-2024-08-06",
       messages: [
@@ -58,7 +58,13 @@ export async function POST(req: Request) {
     });
   } catch (error) {
     console.error("API route error:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
+
+    let errorMessage = "An unknown error occurred";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+
+    return new Response(JSON.stringify({ error: errorMessage }), {
       status: 500,
     });
   }
