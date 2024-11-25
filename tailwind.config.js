@@ -76,9 +76,10 @@ module.exports = {
         "hieroshadow-35": "2px 4px 16px -6px rgba(0, 0, 0, 0.35)",
       },
       fontFamily: {
-        "mr-eaves-xl-san-ot": "'Mr Eaves XL San OT'",
-        futura: "Futura",
-        "bd-colonius": "'BD Colonius'",
+        'body': ["prometo", "sans-serif"],
+        'futura': "Futura",
+        'logo': "bd-colonius",
+        'mister': ["mr-eaves-modern"],
       },
       borderRadius: {
         "3xs": "10px",

@@ -8,11 +8,6 @@ export default function Home() {
   return (
     <>
       <Head>
-        <link
-          rel="preconnect"
-          href="https://p.typekit.net"
-          crossOrigin="anonymous"
-        />
         <link rel="stylesheet" href="https://use.typekit.net/xgg6bof.css" />
       </Head>
       <div className="thirdeyes w-full flex flex-col items-center justify-center px-3 pb-4 bg-sky-100 overflow-hidden">

@@ -80,7 +80,7 @@ const DraftingLedes = () => {
             key={lede.id}
             className="shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2"
           >
-            <h4 className="text-base text-darkslategray-200 font-normal">
+            <h4 className="pb-1 text-base text-darkslategray-200 font-normal">
               {lede.strategy}
             </h4>
             <div className="text-base leading-6 text-darkslategray-200/90">
@@ -91,7 +91,7 @@ const DraftingLedes = () => {
 
         {recommended && (
           <div className="shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2">
-            <h4 className="text-base text-darkslategray-200 font-normal">
+            <h4 className="pb-1 text-base text-darkslategray-200 font-normal">
               Recommended
             </h4>
             <div className="text-base leading-6 text-darkslategray-200/90">
