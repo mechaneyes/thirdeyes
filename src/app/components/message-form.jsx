@@ -1,6 +1,6 @@
 import React from "react";
 
-const MessageForm = ({ input, handleInputChange, handleSubmit, isLoading }) => {
+const MessageForm = ({ input, onInputChange, handleSubmit, isLoading, placeholder }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     handleSubmit(input);
@@ -12,10 +12,10 @@ const MessageForm = ({ input, handleInputChange, handleSubmit, isLoading }) => {
         <div className="flex-1 relative shadow-[2px_2px_8px_rgba(0,_0,_0,_0.2)] rounded-md bg-white border border-solid border-seagreen">
           <input
             value={input}
-            onChange={handleInputChange}
+            onChange={(e) => onInputChange(e.target.value)}
             disabled={isLoading}
             className="w-full h-10 px-3 bg-transparent outline-none border-0"
-            placeholder="Type your message..."
+            placeholder={placeholder}
           />
         </div>
         <button

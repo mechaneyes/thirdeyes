@@ -1,7 +1,6 @@
 // 'use server'
 "use server";
 
-import { createClient } from "@vercel/kv";
 import { getSession } from "@auth0/nextjs-auth0";
 import { generateText } from 'ai';
 import { openai } from '@ai-sdk/openai';
