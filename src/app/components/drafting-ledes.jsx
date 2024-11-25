@@ -1,5 +1,6 @@
 import { useState } from "react";
 import MessageForm from "./message-form";
+import LoadingIndicator from "./ui/loading-indicator";
 
 const DraftingLedes = () => {
   const [messages, setMessages] = useState([]);
@@ -68,6 +69,8 @@ const DraftingLedes = () => {
       style={{ height: "calc(100% - 33px)" }}
     >
       <div className="drafting-scrollable w-full h-full flex flex-col items-center justify-between gap-2 pr-3 overflow-y-scroll">
+        {isLoading && <LoadingIndicator loadingCopy="Generating ledes" />}
+
         {error && (
           <div className="mb-4 p-4 bg-red-50 rounded-lg border border-red-200">
             <p className="text-red-700">{error}</p>
@@ -100,7 +103,7 @@ const DraftingLedes = () => {
         )}
       </div>
 
-      <MessageForm 
+      <MessageForm
         input={input}
         onInputChange={handleInputChange}
         handleSubmit={handleSubmit}
