@@ -75,7 +75,7 @@ const ResearchBody = () => {
           ) : (
             <div className="space-y-2">
               <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
-                {title}
+                {title} via Wikipedia
               </h3>
               {formatText(wikiDefault)}
             </div>
@@ -83,7 +83,7 @@ const ResearchBody = () => {
         </div>
       </div>
       {/* <MessageForm /> */}
-      <div className="w-full flex flex-row items-start justify-center flex-wrap content-start gap-2 pt-2 text-white">
+      <div className="w-full flex flex-row items-start justify-center flex-wrap content-start gap-2 py-1 text-white">
         <ButtonResearch name="Discography" />
         <ButtonResearch name="Media Link Tree" />
         <ButtonResearch name="Artist Genres" />
