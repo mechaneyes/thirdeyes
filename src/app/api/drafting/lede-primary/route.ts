@@ -16,7 +16,8 @@ const MusicReviewLedes = z.object({
   recommended: z.string(),
 });
 
-export const maxDuration = 30;
+export const maxDuration = 120;
+export const revalidate = 0; // Disable caching
 
 export async function POST(req: Request) {
   try {
