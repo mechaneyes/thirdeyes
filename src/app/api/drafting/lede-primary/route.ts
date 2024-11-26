@@ -20,115 +20,108 @@ export const maxDuration = 120;
 export const revalidate = 0; // Disable caching
 
 export async function POST(req: Request) {
-  try {
-    const { messages } = await req.json();
+  const stream = new ReadableStream({
+    start(controller) {
+      async function processMessages() {
+        try {
+          const { messages } = await req.json();
 
-    if (!messages || !Array.isArray(messages)) {
-      return new Response(
-        JSON.stringify({ error: "Invalid messages format" }),
-        { status: 400 }
-      );
-    }
+          if (!messages || !Array.isArray(messages)) {
+            controller.enqueue(
+              `data: ${JSON.stringify({
+                error: "Invalid messages format",
+              })}\n\n`
+            );
+            controller.close();
+            return;
+          }
 
-    const validMessages = messages.filter((msg) => msg.content);
+          const validMessages = messages.filter((msg) => msg.content);
 
-    // ————————————————————————————————————o primary model —>
-    //
-    const primaryCompletion = await openai.beta.chat.completions.parse({
-      model: "gpt-4o-2024-08-06",
-      messages: [
-        {
-          role: "system",
-          content: ledePrimary.content,
-        },
-        ...validMessages.map((msg) => ({
-          role: msg.role || "user",
-          content: msg.content,
-        })),
-      ],
-      response_format: zodResponseFormat(MusicReviewLedes, "result"),
-      temperature: 0.84,
-      max_tokens: 4095,
-      top_p: 1,
-      frequency_penalty: 0.24,
-      presence_penalty: 0.72,
-    });
+          // ————————————————————————————————————o primary model —>
+          //
+          const primaryCompletion = await openai.beta.chat.completions.parse({
+            model: "gpt-4o-2024-08-06",
+            messages: [
+              { role: "system", content: ledePrimary.content },
+              ...validMessages.map((msg) => ({
+                role: msg.role || "user",
+                content: msg.content,
+              })),
+            ],
+            response_format: zodResponseFormat(MusicReviewLedes, "result"),
+            temperature: 0.84,
+            max_tokens: 4095,
+            top_p: 1,
+            frequency_penalty: 0.24,
+            presence_penalty: 0.72,
+          });
 
-    const primaryResult = primaryCompletion.choices[0].message.parsed;
-    console.log("🪼 🪼 🪼 primary:", JSON.stringify(primaryResult, null, 2));
+          const primaryResult = primaryCompletion.choices[0].message.parsed;
+          controller.enqueue(
+            `data: ${JSON.stringify({ primary: primaryResult })}\n\n`
+          );
 
-    // ————————————————————————————————————o voice reflection model —>
-    //
-    const secondaryCompletion = await openai.beta.chat.completions.parse({
-      model: "gpt-4o-2024-08-06",
-      messages: [
-        {
-          role: "system",
-          content: ledeVoice.content,
-        },
-        {
-          role: "user",
-          content: JSON.stringify(primaryResult),
-        },
-      ],
-      response_format: zodResponseFormat(MusicReviewLedes, "result"),
-      temperature: 0.83,
-      max_tokens: 4095,
-      top_p: 0.9,
-      frequency_penalty: 0.29,
-      presence_penalty: 1.25,
-    });
+          // ————————————————————————————————————o Secondary model —>
+          //
+          const secondaryCompletion = await openai.beta.chat.completions.parse({
+            model: "gpt-4o-2024-08-06",
+            messages: [
+              { role: "system", content: ledeVoice.content },
+              { role: "user", content: JSON.stringify(primaryResult) },
+            ],
+            response_format: zodResponseFormat(MusicReviewLedes, "result"),
+            temperature: 0.83,
+            max_tokens: 4095,
+            top_p: 0.9,
+            frequency_penalty: 0.29,
+            presence_penalty: 1.25,
+          });
 
-    const secondaryResult = secondaryCompletion.choices[0].message.parsed;
-    console.log(
-      "🐦‍🔥 🐦‍🔥 🐦‍🔥 secondary:",
-      JSON.stringify(secondaryResult, null, 2)
-    );
+          const secondaryResult = secondaryCompletion.choices[0].message.parsed;
+          controller.enqueue(
+            `data: ${JSON.stringify({ secondary: secondaryResult })}\n\n`
+          );
 
-    // ————————————————————————————————————o evaluation reflection model —>
-    //
-    const tertiaryCompletion = await openai.beta.chat.completions.parse({
-      model: "gpt-4o-2024-08-06",
-      messages: [
-        {
-          role: "system",
-          content: ledeEvaluation.content,
-        },
-        {
-          role: "user",
-          content: JSON.stringify(secondaryResult),
-        },
-      ],
-      response_format: zodResponseFormat(MusicReviewLedes, "result"),
-      temperature: 0.9,
-      max_tokens: 4095,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-    });
+          // ————————————————————————————————————o Tertiary model —>
+          //
+          const tertiaryCompletion = await openai.beta.chat.completions.parse({
+            model: "gpt-4o-2024-08-06",
+            messages: [
+              { role: "system", content: ledeEvaluation.content },
+              { role: "user", content: JSON.stringify(secondaryResult) },
+            ],
+            response_format: zodResponseFormat(MusicReviewLedes, "result"),
+            temperature: 0.9,
+            max_tokens: 4095,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0,
+          });
 
-    const tertiaryResult = tertiaryCompletion.choices[0].message.parsed;
-    console.log("🐔 🐔 🐔 tertiary:", JSON.stringify(tertiaryResult, null, 2));
+          const tertiaryResult = tertiaryCompletion.choices[0].message.parsed;
+          controller.enqueue(
+            `data: ${JSON.stringify({ tertiary: tertiaryResult })}\n\n`
+          );
+          controller.close();
+        } catch (error) {
+          console.error("API route error:", error);
+          controller.enqueue(
+            `data: ${JSON.stringify({ error: error.message })}\n\n`
+          );
+          controller.close();
+        }
+      }
 
-    const allResults = {
-      primary: primaryResult,
-      secondary: secondaryResult,
-      tertiary: tertiaryResult,
-    };
+      processMessages();
+    },
+  });
 
-    return new Response(JSON.stringify(allResults), {
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (error) {
-    console.error("API route error:", error);
-
-    let errorMessage = "An unknown error occurred";
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    }
-
-    return new Response(JSON.stringify({ error: errorMessage }), {
-      status: 500,
-    });
-  }
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      Connection: "keep-alive",
+    },
+  });
 }

@@ -5,6 +5,7 @@ import LoadingIndicator from "./ui/loading-indicator";
 const DraftingLedes = () => {
   const [messages, setMessages] = useState([]);
   const [ledes, setLedes] = useState([]);
+  const [loadingStep, setLoadingStep] = useState("Primary");
   const [recommended, setRecommended] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,27 +21,45 @@ const DraftingLedes = () => {
     setError(null);
 
     try {
-      const payload = {
-        messages: [
-          ...messages,
-          {
-            role: "user",
-            content: input || "",
-          },
-        ],
-      };
-
       const response = await fetch("/api/drafting/lede-primary", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          messages: [...messages, { role: "user", content: input }],
+        }),
       });
 
-      const data = await response.json();
-      console.log("🪷 🪷 data from server 🪷 🪷", JSON.stringify(data, null, 2));
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
 
-      setLedes(data.tertiary.ledes);
-      setRecommended(data.tertiary.recommended);
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value);
+        const lines = chunk.split("\n\n");
+
+        for (const line of lines) {
+          if (line.startsWith("data: ")) {
+            const data = JSON.parse(line.slice(5));
+
+            if (data.primary) {
+              console.log("🪷 🪷 Primary Data 🪷 🪷", JSON.stringify(data.primary, null, 2));
+              setLoadingStep("Voice");
+            }
+            if (data.secondary) {
+              console.log("🪷 🪷 Voice Data 🪷 🪷", JSON.stringify(data.secondary, null, 2));
+              setLoadingStep("Evaluation");
+            }
+            if (data.tertiary) {
+              console.log("🪷 🪷 Evaluation Data 🪷 🪷", JSON.stringify(data.tertiary, null, 2));
+              setLedes(data.tertiary.ledes);
+              setRecommended(data.tertiary.recommended);
+            }
+          }
+        }
+      }
+
       setMessages((prev) => [...prev, { role: "user", content: input }]);
       setInput(""); // Clear after submission
     } catch (err) {
@@ -59,7 +78,11 @@ const DraftingLedes = () => {
       style={{ height: "calc(100% - 33px)" }}
     >
       <div className="drafting-scrollable w-full h-full flex flex-col items-center justify-between gap-2 pr-3 overflow-y-scroll">
-        {isLoading && <LoadingIndicator loadingCopy="Generating ledes" />}
+        {isLoading && (
+          <LoadingIndicator
+            loadingCopy={`Generating ledes — ${loadingStep} model`}
+          />
+        )}
 
         {error && (
           <div className="mb-4 p-4 bg-red-50 rounded-lg border border-red-200">
