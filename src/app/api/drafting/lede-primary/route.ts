@@ -25,7 +25,9 @@ export async function POST(req: Request) {
     start(controller) {
       async function processMessages() {
         try {
-          const { messages } = await req.json();
+          const { messages, wikipediaContext } = await req.json();
+      
+          console.log('Received context:', wikipediaContext);
 
           if (!messages || !Array.isArray(messages)) {
             controller.enqueue(
@@ -40,8 +42,7 @@ export async function POST(req: Request) {
           const validMessages = messages.filter((msg) => msg.content);
 
           // Enhance prompt with Wikipedia context
-          // const enhancedPrompt = `${ledePrimary.content}\nThe context to use is as follows:\n${wikipediaContext}`;
-          const enhancedPrompt = ledePrimary.content
+          const enhancedPrompt = `${ledePrimary.content}\n\nAdditional context:\n${wikipediaContext}`;
 
           // ————————————————————————————————————o primary model —>
           //

@@ -27,7 +27,7 @@ const DraftingLedes = () => {
     setError(null);
 
     try {
-      const response = await fetch("/api/wikipedia", {
+      const wikiResponse = await fetch("/api/wikipedia", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -35,27 +35,23 @@ const DraftingLedes = () => {
         }),
       });
 
-      const data = await response.json();
+      const wikiData = await wikiResponse.json();
+      console.log("Wikipedia API Response:", wikiData);
+
       // console.log("Wikipedia API Response:", JSON.stringify(data.context, null, 2));
 
-      setWikiDefault(data.context);
+      setWikiDefault(wikiData.context);
 
-      if (!data.success) {
-        throw new Error(data.error || "Wikipedia search failed");
+      if (!wikiData.success) {
+        throw new Error(wikiData.error || "Wikipedia search failed");
       }
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : "An unknown error occurred";
-      setError(errorMessage);
-      console.error("Error in handleSubmit:", err);
-    }
 
-    try {
       const response = await fetch("/api/drafting/lede-primary", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: [...messages, { role: "user", content: input }],
+          wikipediaContext: wikiData.context,
         }),
       });
 

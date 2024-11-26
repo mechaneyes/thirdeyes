@@ -68,7 +68,7 @@ const ResearchBody = () => {
               </p>
               <p className="text-base leading-6">
                 The tool will automatically load the Wikipedia data associated
-                with the artist you're building the lede for.
+                with the artist you&apos;re building the lede for.
               </p>
               <p className="text-base leading-6">More in store.</p>
             </>
