@@ -36,21 +36,11 @@ const DraftingLedes = () => {
         body: JSON.stringify(payload),
       });
 
-      const responseData = await response.text();
+      const data = await response.json();
+      console.log("🪷 🪷 data from server 🪷 🪷", JSON.stringify(data, null, 2));
 
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.status} - ${responseData}`);
-      }
-
-      const data = JSON.parse(responseData);
-
-      if (!Array.isArray(data.ledes) || typeof data.recommended !== "string") {
-        console.log("Invalid data structure:", data);
-        throw new Error("Invalid response format from server");
-      }
-
-      setLedes(data.ledes);
-      setRecommended(data.recommended);
+      setLedes(data.tertiary.ledes);
+      setRecommended(data.tertiary.recommended);
       setMessages((prev) => [...prev, { role: "user", content: input }]);
       setInput(""); // Clear after submission
     } catch (err) {

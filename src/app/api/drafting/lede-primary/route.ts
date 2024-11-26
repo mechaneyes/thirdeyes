@@ -6,7 +6,7 @@ import { ledePrimary, ledeVoice, ledeEvaluation } from "../prompts";
 const openai = new OpenAI();
 
 const Lede = z.object({
-  id: z.string(),
+  id: z.number().int(),
   strategy: z.string(),
   output: z.string(),
 });
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     const validMessages = messages.filter((msg) => msg.content);
 
     // ————————————————————————————————————o primary model —>
-    // 
+    //
     const primaryCompletion = await openai.beta.chat.completions.parse({
       model: "gpt-4o-2024-08-06",
       messages: [
@@ -57,7 +57,7 @@ export async function POST(req: Request) {
     console.log("🪼 🪼 🪼 primary:", JSON.stringify(primaryResult, null, 2));
 
     // ————————————————————————————————————o voice reflection model —>
-    // 
+    //
     const secondaryCompletion = await openai.beta.chat.completions.parse({
       model: "gpt-4o-2024-08-06",
       messages: [
@@ -75,13 +75,47 @@ export async function POST(req: Request) {
       max_tokens: 4095,
       top_p: 0.9,
       frequency_penalty: 0.29,
-      presence_penalty: 1.25
+      presence_penalty: 1.25,
     });
 
     const secondaryResult = secondaryCompletion.choices[0].message.parsed;
-    console.log("🐦‍🔥 🐦‍🔥 🐦‍🔥 secondary:", JSON.stringify(secondaryResult, null, 2));
+    console.log(
+      "🐦‍🔥 🐦‍🔥 🐦‍🔥 secondary:",
+      JSON.stringify(secondaryResult, null, 2)
+    );
 
-    return new Response(JSON.stringify(secondaryResult), {
+    // ————————————————————————————————————o evaluation reflection model —>
+    //
+    const tertiaryCompletion = await openai.beta.chat.completions.parse({
+      model: "gpt-4o-2024-08-06",
+      messages: [
+        {
+          role: "system",
+          content: ledeEvaluation.content,
+        },
+        {
+          role: "user",
+          content: JSON.stringify(secondaryResult),
+        },
+      ],
+      response_format: zodResponseFormat(MusicReviewLedes, "result"),
+      temperature: 0.9,
+      max_tokens: 4095,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+    });
+
+    const tertiaryResult = tertiaryCompletion.choices[0].message.parsed;
+    console.log("🐔 🐔 🐔 tertiary:", JSON.stringify(tertiaryResult, null, 2));
+
+    const allResults = {
+      primary: primaryResult,
+      secondary: secondaryResult,
+      tertiary: tertiaryResult,
+    };
+
+    return new Response(JSON.stringify(allResults), {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
