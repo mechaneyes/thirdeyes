@@ -1,0 +1,8 @@
+{
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.suggest.completeJSDocs": true,
+  "typescript.suggest.completeFunctionCalls": true,
+  "javascript.suggest.enabled": true,
+  "typescript.suggest.enabled": true
+}

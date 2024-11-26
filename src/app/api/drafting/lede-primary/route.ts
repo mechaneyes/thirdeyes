@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
+
 import { ledePrimary, ledeVoice, ledeEvaluation } from "../prompts";
 
 const openai = new OpenAI();
@@ -38,12 +39,16 @@ export async function POST(req: Request) {
 
           const validMessages = messages.filter((msg) => msg.content);
 
+          // Enhance prompt with Wikipedia context
+          // const enhancedPrompt = `${ledePrimary.content}\nThe context to use is as follows:\n${wikipediaContext}`;
+          const enhancedPrompt = ledePrimary.content
+
           // ————————————————————————————————————o primary model —>
           //
           const primaryCompletion = await openai.beta.chat.completions.parse({
             model: "gpt-4o-2024-08-06",
             messages: [
-              { role: "system", content: ledePrimary.content },
+              { role: "system", content: enhancedPrompt },
               ...validMessages.map((msg) => ({
                 role: msg.role || "user",
                 content: msg.content,

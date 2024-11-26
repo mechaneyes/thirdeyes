@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useAtom } from "jotai";
+
+import { researchFirstRun } from "@/store/atoms";
 import MessageForm from "./message-form";
 import LoadingIndicator from "./ui/loading-indicator";
 
@@ -10,6 +13,9 @@ const DraftingLedes = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [input, setInput] = useState("");
+
+  const [firstRun, setFirstRun] = useAtom(researchFirstRun);
+
   const placeholder = "Enter artist name.";
 
   const handleInputChange = (newInput) => {
@@ -19,6 +25,30 @@ const DraftingLedes = () => {
   const handleSubmit = async () => {
     setIsLoading(true);
     setError(null);
+
+    try {
+      const response = await fetch("/api/wikipedia", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: input,
+        }),
+      });
+
+      const data = await response.json();
+      // console.log("Wikipedia API Response:", JSON.stringify(data.context, null, 2));
+
+      setFirstRun(data.context);
+
+      if (!data.success) {
+        throw new Error(data.error || "Wikipedia search failed");
+      }
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "An unknown error occurred";
+      setError(errorMessage);
+      console.error("Error in handleSubmit:", err);
+    }
 
     try {
       const response = await fetch("/api/drafting/lede-primary", {
