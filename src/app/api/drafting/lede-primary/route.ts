@@ -106,8 +106,14 @@ export async function POST(req: Request) {
           controller.close();
         } catch (error) {
           console.error("API route error:", error);
+
+          let errorMessage = "An unknown error occurred";
+          if (error instanceof Error) {
+            errorMessage = error.message;
+          }
+
           controller.enqueue(
-            `data: ${JSON.stringify({ error: error.message })}\n\n`
+            `data: ${JSON.stringify({ error: errorMessage })}\n\n`
           );
           controller.close();
         }
