@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAtom } from "jotai";
 
-import { researchFirstRun } from "@/store/atoms";
+import { reWikipediaDefault } from "@/store/atoms";
 import MessageForm from "./message-form";
 import LoadingIndicator from "./ui/loading-indicator";
 
@@ -14,7 +14,7 @@ const DraftingLedes = () => {
   const [error, setError] = useState(null);
   const [input, setInput] = useState("");
 
-  const [firstRun, setFirstRun] = useAtom(researchFirstRun);
+  const [wikiDefault, setWikiDefault] = useAtom(reWikipediaDefault);
 
   const placeholder = "Enter artist name.";
 
@@ -38,7 +38,7 @@ const DraftingLedes = () => {
       const data = await response.json();
       // console.log("Wikipedia API Response:", JSON.stringify(data.context, null, 2));
 
-      setFirstRun(data.context);
+      setWikiDefault(data.context);
 
       if (!data.success) {
         throw new Error(data.error || "Wikipedia search failed");

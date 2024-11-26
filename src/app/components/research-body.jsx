@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 
-import { researchFirstRun } from "@/store/atoms";
+import { reWikipediaDefault } from "@/store/atoms";
 import MessageForm from "./message-form";
 import ButtonResearch from "@/components/ui/button-research";
 
 const ResearchBody = () => {
-  const [firstRun] = useAtom(researchFirstRun);
+  const [wikiDefault] = useAtom(reWikipediaDefault);
   const [title, setTitle] = useState("Research");
 
   useEffect(() => {
-    if (firstRun) {
-      const match = firstRun.match(/Page: (.*?)\nSummary:/);
+    if (wikiDefault) {
+      const match = wikiDefault.match(/Page: (.*?)\nSummary:/);
       if (match && match[1]) {
         setTitle(match[1]);
       }
     }
-  }, [firstRun]);
+  }, [wikiDefault]);
 
   const formatText = (text) => {
     if (!text) return null;
@@ -55,9 +55,9 @@ const ResearchBody = () => {
       className="research-body h-full flex-1 flex flex-col items-center justify-start p-3 gap-4 text-darkslateblue-300"
       style={{ height: "calc(100% - 33px)" }}
     >
-      <div className="research-content shadow-hieroshadow-25 rounded-md bg-researchlavender-100 border-researchlavender-500 border border-solid overflow-hidden flex flex-col items-start justify-start p-3 pb-5 pr-2">
+      <div className="research-content h-full shadow-hieroshadow-25 rounded-md bg-researchlavender-100 border-researchlavender-500 border border-solid overflow-hidden flex flex-col items-start justify-start p-3 pb-5 pr-2">
         <div className="research-inner relative h-full overflow-y-scroll pr-4 text-base text-darkslateblue-200 leading-5 whitespace-pre-wrap">
-          {firstRun === undefined ? (
+          {wikiDefault === undefined ? (
             <>
               <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
                 Research
@@ -77,7 +77,7 @@ const ResearchBody = () => {
               <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
                 {title}
               </h3>
-              {formatText(firstRun)}
+              {formatText(wikiDefault)}
             </div>
           )}
         </div>
