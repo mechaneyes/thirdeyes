@@ -33,8 +33,6 @@ export async function POST(req: Request) {
         try {
           const { messages, wikipediaContext } = await req.json();
       
-          console.log('Received context:', wikipediaContext);
-
           if (!messages || !Array.isArray(messages)) {
             controller.enqueue(
               `data: ${JSON.stringify({
@@ -48,20 +46,20 @@ export async function POST(req: Request) {
           const validMessages = messages.filter((msg) => msg.content);
 
           // Enhance prompt with Wikipedia context
-          const enhancedPrompt = `${ledePrimary.content}\n\nContext:\n"""""\n${wikipediaContext}\n"""""`;
+          // const enhancedPrompt = `${ledePrimary.content}\n\nContext:\n"""""\n${wikipediaContext}\n"""""`;
 
           // ————————————————————————————————————o primary model —>
           //
           const primaryCompletion = await openai.beta.chat.completions.parse({
             model: "gpt-4o-2024-08-06",
             messages: [
-              { role: "system", content: enhancedPrompt },
+              { role: "system", content: ledePrimary.content },
               ...validMessages.map((msg) => ({
                 role: msg.role || "user",
                 content: msg.content,
               })),
             ],
-            response_format: zodResponseFormat(PrimaryLedes, "result"),
+            response_format: zodResponseFormat(MusicReviewLedes, "result"),
             temperature: 0.84,
             max_tokens: 4095,
             top_p: 1,

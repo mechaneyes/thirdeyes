@@ -1,5 +1,5 @@
 import Header from "@/app/components/Header";
-import Drafting from "@/app/components/drafting";
+import Strategies from "@/app/components/strategies";
 import Research from "@/app/components/research";
 import Writing from "@/app/components/writing";
 
@@ -13,7 +13,7 @@ export default function Home() {
           style={{ height: "calc(100vh - 87px)" }}
         >
           <div className="third-main w-full h-full relative row-span-8 flex flex-row items-center justify-center gap-3 max-w-7xl text-left text-4 text-darkslategray-100 font-mr-eaves-xl-san-ot">
-            <Drafting />
+            <Strategies />
             <Research />
           </div>
           <div className="third-write h-full row-span-4">

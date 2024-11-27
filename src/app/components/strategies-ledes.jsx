@@ -9,7 +9,7 @@ import {
 import MessageForm from "./message-form";
 import LoadingIndicator from "./ui/loading-indicator";
 
-const DraftingLedes = () => {
+const StrategiesLedes = () => {
   const [error, setError] = useState(null);
   const [input, setInput] = useState("");
   const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -49,6 +49,9 @@ const DraftingLedes = () => {
     setError(null);
 
     try {
+
+      // ————————————————————————————————————o wikipedia context —>
+      //
       const wikiResponse = await fetch("/api/wikipedia", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -58,16 +61,14 @@ const DraftingLedes = () => {
       });
 
       const wikiData = await wikiResponse.json();
-      console.log("Wikipedia API Response:", wikiData);
-
-      // console.log("Wikipedia API Response:", JSON.stringify(data.context, null, 2));
-
       setWikiDefault(wikiData.context);
 
       if (!wikiData.success) {
         throw new Error(wikiData.error || "Wikipedia search failed");
       }
 
+      // ————————————————————————————————————o lede model interaction —>
+      //
       const response = await fetch("/api/drafting/lede-primary", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -106,10 +107,10 @@ const DraftingLedes = () => {
               setLoadingStep("Evaluation");
             }
             if (data.tertiary) {
-              console.log(
-                "✅✅✅ Evaluation Data ✅✅✅",
-                JSON.stringify(data.tertiary, null, 2)
-              );
+              // console.log(
+              //   "✅✅✅ Evaluation Data ✅✅✅",
+              //   JSON.stringify(data.tertiary, null, 2)
+              // );
               setLoadingStep("Primary");
               setLedes(data.tertiary.ledes);
               setRecommended(data.tertiary.recommended);
@@ -159,8 +160,11 @@ const DraftingLedes = () => {
 
         {isFirstLoad && ledes.length == 0 && (
           <div className="w-full h-full flex items-center justify-center">
-            <div className="shadow-hieroshadow-25 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-center justify-center gap-4 p-6 transition duration-200 text-darkslategray-200/90 text-base leading-6">
+            <div className="shadow-hieroshadow-25 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-start justify-center gap-4 p-3 pb-4 transition duration-200 text-darkslategray-200/90 text-base leading-6">
               <div>
+                <h3 className="pb-2 text-xl text-darkslategray-200/90 font-normal">
+                  Strategies: Ledes
+                </h3>
                 You&apos;ll be drafting ledes for your artist. Enter the
                 artist&apos;s name in the form below to get started.
               </div>
@@ -224,4 +228,4 @@ const DraftingLedes = () => {
   );
 };
 
-export default DraftingLedes;
+export default StrategiesLedes;
