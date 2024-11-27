@@ -343,6 +343,7 @@
   }
 
   &-inner {
+    height: calc(100% - 2rem);
     margin: 1rem 0;
 
     &::-webkit-scrollbar {
