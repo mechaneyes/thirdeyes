@@ -6,17 +6,25 @@ import MessageForm from "./message-form";
 import LoadingIndicator from "./ui/loading-indicator";
 
 const DraftingLedes = () => {
-  const [messages, setMessages] = useState([]);
-  const [ledes, setLedes] = useState([]);
-  const [loadingStep, setLoadingStep] = useState("Primary");
-  const [recommended, setRecommended] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [ledes, setLedes] = useState([]);
+  const [loadingStep, setLoadingStep] = useState("Primary");
+  const [messages, setMessages] = useState([]);
+  const [recommended, setRecommended] = useState("");
+  const [tooltipVisible, setTooltipVisible] = useState(false);
 
   const [wikiDefault, setWikiDefault] = useAtom(reWikipediaDefault);
 
   const placeholder = "Enter artist name.";
+
+  const handleCopy = (content, event) => {
+    navigator.clipboard.writeText(content).then(() => {
+      setTooltipVisible(true);
+      setTimeout(() => setTooltipVisible(false), 2000);
+    });
+  };
 
   const handleInputChange = (newInput) => {
     setInput(newInput);
@@ -110,7 +118,7 @@ const DraftingLedes = () => {
 
   return (
     <div
-      className="w-full h-full flex flex-col items-center justify-between p-3 gap-4"
+      className="relative w-full h-full flex flex-col items-center justify-between p-3 gap-4"
       style={{ height: "calc(100% - 33px)" }}
     >
       <div className="drafting-scrollable w-full h-full flex flex-col items-center justify-between gap-2 pr-3 overflow-y-scroll">
@@ -118,6 +126,12 @@ const DraftingLedes = () => {
           <LoadingIndicator
             loadingCopy={`Generating ledes — ${loadingStep} model`}
           />
+        )}
+
+        {tooltipVisible && (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center border-darkslategray-200 border-2 border-solid bg-mediumseagreen-200 text-darkslategray-200 py-2 px-4 rounded-md shadow-lg font-base text-2xl text-center leading-8">
+            Copied to clipboard!
+          </div>
         )}
 
         {error && (
@@ -132,6 +146,9 @@ const DraftingLedes = () => {
               <div
                 key={lede.id}
                 className="shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer"
+                onClick={(e) =>
+                  handleCopy(`${lede.strategy}\n${lede.output}`, e)
+                }
               >
                 <h4 className="pb-1 text-base text-darkslategray-200 font-normal">
                   {lede.strategy}
@@ -143,7 +160,10 @@ const DraftingLedes = () => {
             ))}
 
             {recommended && (
-              <div className="shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer">
+              <div
+                className="shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer"
+                onClick={(e) => handleCopy(recommended, e)}
+              >
                 <h4 className="pb-1 text-base text-darkslategray-200 font-normal">
                   Recommended
                 </h4>
