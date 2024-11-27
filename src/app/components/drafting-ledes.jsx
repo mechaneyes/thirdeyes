@@ -149,12 +149,12 @@ const DraftingLedes = () => {
         {isFirstLoad && (
           <div className="shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-center justify-center gap-4 p-6 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer text-darkslategray-200/90 text-base leading-6">
             <div>
-              You'll be drafting ledes for your artist. Enter the artist's name
+              You&apos;ll be drafting ledes for your artist. Enter the artist&apos;s name
               in the form below to get started.
             </div>
             <div>
               When you start the lede generation process, Thirdeyes searches for
-              the artist on Wikipedia and generates a lede based on the artist's
+              the artist on Wikipedia and generates a lede based on the artist&apos;s
               Wikipedia page.
             </div>
             <div>
