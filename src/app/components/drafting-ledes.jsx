@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAtom } from "jotai";
 
-import { reWikipediaDefault } from "@/store/atoms";
+import {
+  strategiesLedesAtom,
+  strategiesRecAtom,
+  reWikipediaDefault,
+} from "@/store/atoms";
 import MessageForm from "./message-form";
 import LoadingIndicator from "./ui/loading-indicator";
 
@@ -10,15 +14,23 @@ const DraftingLedes = () => {
   const [input, setInput] = useState("");
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [ledes, setLedes] = useState([]);
   const [loadingStep, setLoadingStep] = useState("Primary");
   const [messages, setMessages] = useState([]);
-  const [recommended, setRecommended] = useState("");
   const [tooltipVisible, setTooltipVisible] = useState(false);
+  const scrollableRef = useRef(null);
 
+  const [ledes, setLedes] = useAtom(strategiesLedesAtom);
+  const [recommended, setRecommended] = useAtom(strategiesRecAtom);
   const [wikiDefault, setWikiDefault] = useAtom(reWikipediaDefault);
 
   const placeholder = "Enter artist name.";
+
+  useEffect(() => {
+    if (scrollableRef.current) {
+      scrollableRef.current.scrollTop = 0;
+    }
+    console.log("eep");
+  }, []);
 
   const handleCopy = (content, event) => {
     navigator.clipboard.writeText(content).then(() => {
@@ -120,13 +132,12 @@ const DraftingLedes = () => {
 
   return (
     <div
-      className="relative w-full h-full flex flex-col items-center justify-between p-3 gap-4"
+      className="relative w-full h-full flex flex-col p-3 gap-4"
       style={{ height: "calc(100% - 33px)" }}
     >
       <div
-        className={`drafting-scrollable w-full h-full flex flex-col items-center ${
-          isFirstLoad ? "justify-center" : "justify-between"
-        } gap-2 pr-3 overflow-y-scroll`}
+        className="drafting-scrollable w-full flex-1 flex flex-col items-start gap-2 pr-3 overflow-y-auto"
+        ref={scrollableRef}
       >
         {isLoading && (
           <LoadingIndicator
@@ -146,25 +157,27 @@ const DraftingLedes = () => {
           </div>
         )}
 
-        {isFirstLoad && (
-          <div className="shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-center justify-center gap-4 p-6 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer text-darkslategray-200/90 text-base leading-6">
-            <div>
-              You&apos;ll be drafting ledes for your artist. Enter the artist&apos;s name
-              in the form below to get started.
-            </div>
-            <div>
-              When you start the lede generation process, Thirdeyes searches for
-              the artist on Wikipedia and generates a lede based on the artist&apos;s
-              Wikipedia page.
-            </div>
-            <div>
-              That Wikipedia data is simultaneously presented to the right in
-              the Research panel.
+        {isFirstLoad && ledes.length == 0 && (
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="shadow-hieroshadow-25 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-center justify-center gap-4 p-6 transition duration-200 text-darkslategray-200/90 text-base leading-6">
+              <div>
+                You&apos;ll be drafting ledes for your artist. Enter the
+                artist&apos;s name in the form below to get started.
+              </div>
+              <div>
+                When you start the lede generation process, Thirdeyes searches
+                for the artist on Wikipedia and generates a lede using the
+                Wikipedia information as context.
+              </div>
+              <div>
+                That Wikipedia data is simultaneously presented to the right in
+                the Research panel.
+              </div>
             </div>
           </div>
         )}
 
-        {!isFirstLoad && !isLoading && (
+        {ledes.length > 0 && !isLoading && (
           <>
             {ledes.map((lede) => (
               <div
