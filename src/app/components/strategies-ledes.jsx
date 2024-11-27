@@ -69,7 +69,7 @@ const StrategiesLedes = () => {
 
       // ————————————————————————————————————o lede model interaction —>
       //
-      const response = await fetch("/api/drafting/lede-primary", {
+      const response = await fetch("/api/strategies/lede", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
