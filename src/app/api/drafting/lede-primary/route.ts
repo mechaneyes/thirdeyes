@@ -12,6 +12,12 @@ const Lede = z.object({
   output: z.string(),
 });
 
+const PrimaryLedes = z.object({
+  ledes: z.array(Lede),
+  recommended: z.string(),
+  context: z.string(),
+});
+
 const MusicReviewLedes = z.object({
   ledes: z.array(Lede),
   recommended: z.string(),
@@ -42,7 +48,7 @@ export async function POST(req: Request) {
           const validMessages = messages.filter((msg) => msg.content);
 
           // Enhance prompt with Wikipedia context
-          const enhancedPrompt = `${ledePrimary.content}\n\nAdditional context:\n${wikipediaContext}`;
+          const enhancedPrompt = `${ledePrimary.content}\n\nContext:\n"""""\n${wikipediaContext}\n"""""`;
 
           // ————————————————————————————————————o primary model —>
           //
@@ -55,7 +61,7 @@ export async function POST(req: Request) {
                 content: msg.content,
               })),
             ],
-            response_format: zodResponseFormat(MusicReviewLedes, "result"),
+            response_format: zodResponseFormat(PrimaryLedes, "result"),
             temperature: 0.84,
             max_tokens: 4095,
             top_p: 1,
