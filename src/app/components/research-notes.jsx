@@ -27,14 +27,14 @@ const ResearchNotes = () => {
   return (
     <div className="notes self-stretch flex-1 flex flex-col items-center justify-start p-3 pb-4 gap-4 z-[0]">
       <div className="self-stretch flex-1 shadow-hieroshadow-25 rounded-3xs bg-gray border-researchlavender-500 border border-solid overflow-hidden flex flex-col items-start justify-start p-3 gap-2">
-        <div className="flex flex-row items-start justify-between w-full">
+        <div className="flex flex-row items-center justify-between w-full">
           <h3 className="text-xl text-darkslateblue-300 font-normal">
             Scratchpad
           </h3>
 
           <span
             onClick={handleClearContent}
-            className="text-darkslateblue-300 align-top font-normal cursor-pointer"
+            className="text-darkslateblue-300 font-normal cursor-pointer"
           >
             Clear
           </span>

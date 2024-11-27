@@ -8,6 +8,7 @@ import LoadingIndicator from "./ui/loading-indicator";
 const DraftingLedes = () => {
   const [error, setError] = useState(null);
   const [input, setInput] = useState("");
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [ledes, setLedes] = useState([]);
   const [loadingStep, setLoadingStep] = useState("Primary");
@@ -32,6 +33,7 @@ const DraftingLedes = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
+    setIsFirstLoad(false);
     setError(null);
 
     try {
@@ -121,7 +123,11 @@ const DraftingLedes = () => {
       className="relative w-full h-full flex flex-col items-center justify-between p-3 gap-4"
       style={{ height: "calc(100% - 33px)" }}
     >
-      <div className="drafting-scrollable w-full h-full flex flex-col items-center justify-between gap-2 pr-3 overflow-y-scroll">
+      <div
+        className={`drafting-scrollable w-full h-full flex flex-col items-center ${
+          isFirstLoad ? "justify-center" : "justify-between"
+        } gap-2 pr-3 overflow-y-scroll`}
+      >
         {isLoading && (
           <LoadingIndicator
             loadingCopy={`Generating ledes — ${loadingStep} model`}
@@ -140,7 +146,25 @@ const DraftingLedes = () => {
           </div>
         )}
 
-        {!isLoading && (
+        {isFirstLoad && (
+          <div className="shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-center justify-center gap-4 p-6 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer text-darkslategray-200/90 text-base leading-6">
+            <div>
+              You'll be drafting ledes for your artist. Enter the artist's name
+              in the form below to get started.
+            </div>
+            <div>
+              When you start the lede generation process, Thirdeyes searches for
+              the artist on Wikipedia and generates a lede based on the artist's
+              Wikipedia page.
+            </div>
+            <div>
+              That Wikipedia data is simultaneously presented to the right in
+              the Research panel.
+            </div>
+          </div>
+        )}
+
+        {!isFirstLoad && !isLoading && (
           <>
             {ledes.map((lede) => (
               <div
