@@ -132,7 +132,7 @@ const DraftingLedes = () => {
 
   return (
     <div
-      className="relative w-full h-full flex flex-col p-3 gap-4"
+      className="relative w-full h-full flex flex-col p-3 pr-2 gap-4"
       style={{ height: "calc(100% - 33px)" }}
     >
       <div

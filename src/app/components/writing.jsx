@@ -85,7 +85,7 @@ const Writing = () => {
               value={editorContent}
               onChange={handleContentChange}
               placeholder={`Draft your bio here. \n\nDrafts are saved automatically. \nClick "Save locally" to download a copy.`}
-              className="editor-inner w-full h-full overflow-auto m-0 p-4 bg-transparent resize-none focus:outline-none text-base text-darkslateblue-100 font-light"
+              className="editor-inner w-full h-full overflow-auto m-0 px-4 bg-transparent resize-none focus:outline-none text-base text-darkslateblue-100 font-light"
             />
           </div>
 
