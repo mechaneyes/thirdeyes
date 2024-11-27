@@ -1,9 +1,9 @@
 const TabsDrafting = ({ activeTab, onTabChange }) => {
   return (
-    <div className="self-stretch rounded-t-lg rounded-b-none bg-lightgray border-seagreen border-y border-solid flex flex-row items-center justify-start text-darkslategray-200 text-white">
+    <div className="self-stretch rounded-t-lg rounded-b-none bg-lightgray border-seagreen border-y border-solid flex flex-row items-center justify-start text-white font-bold cursor-pointer">
       <div 
         onClick={() => onTabChange("lede")}
-        className={`h-8 flex-1 flex flex-row items-center justify-center font-extrabold cursor-pointer border-seagreen border-r border-solid rounded-tl-lg ${
+        className={`h-8 flex-1 flex flex-row items-center justify-center border-seagreen border-r border-solid rounded-tl-lg ${
           activeTab === "lede" ? "bg-mediumseagreen-400" : "bg-mediumseagreen-300"
         }`}
       >
@@ -11,7 +11,7 @@ const TabsDrafting = ({ activeTab, onTabChange }) => {
       </div>
       <div 
         onClick={() => onTabChange("origin")}
-        className={`h-8 flex-1 flex flex-row items-center justify-center font-extrabold cursor-pointer border-seagreen border-solid border-r ${
+        className={`h-8 flex-1 flex flex-row items-center justify-center border-seagreen border-solid border-r ${
           activeTab === "origin" ? "bg-mediumseagreen-400" : "bg-mediumseagreen-300"
         }`}
       >
@@ -19,7 +19,7 @@ const TabsDrafting = ({ activeTab, onTabChange }) => {
       </div>
       <div 
         onClick={() => onTabChange("works")}
-        className={`h-8 flex-1 flex flex-row items-center justify-center font-extrabold cursor-pointer border-seagreen border-solid rounded-tr-lg ${
+        className={`h-8 flex-1 flex flex-row items-center justify-center border-seagreen border-solid rounded-tr-lg ${
           activeTab === "works" ? "bg-mediumseagreen-400" : "bg-mediumseagreen-300"
         }`}
       >

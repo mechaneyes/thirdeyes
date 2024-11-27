@@ -159,7 +159,7 @@ const StrategiesLedes = () => {
         )}
 
         {isFirstLoad && ledes.length == 0 && (
-          <div className="w-full h-full flex items-center justify-center">
+          <div className="lede-first-load w-full h-full flex items-center justify-center">
             <div className="shadow-hieroshadow-25 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-start justify-center gap-4 p-3 pb-4 transition duration-200 text-darkslategray-200/90 text-base leading-6">
               <div>
                 <h3 className="pb-2 text-xl text-darkslategray-200/90 font-normal">
@@ -186,7 +186,7 @@ const StrategiesLedes = () => {
             {ledes.map((lede) => (
               <div
                 key={lede.id}
-                className="shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer"
+                className="lede w-full shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer"
                 onClick={(e) =>
                   handleCopy(lede.output, e)
                 }
@@ -202,7 +202,7 @@ const StrategiesLedes = () => {
 
             {recommended && (
               <div
-                className="shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer"
+                className="recommended shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer"
                 onClick={(e) => handleCopy(recommended, e)}
               >
                 <h4 className="pb-1 text-base text-darkslategray-200 font-normal">
