@@ -16,15 +16,17 @@ const ResearchDiscourse = () => {
         <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
           Discourse
         </h3>
-        {reDiscourse ? (
-          reDiscourse
-        ) : reDiscourseProg ? (
-          <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
-            <LoadingIndicator loadingCopy={`Generating discourse`} />
-          </div>
-        ) : (
-          "Discourse not yet available."
-        )}
+        <div className="text-base leading-6">
+          {reDiscourse ? (
+            reDiscourse
+          ) : reDiscourseProg ? (
+            <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
+              <LoadingIndicator loadingCopy={`Generating discourse`} />
+            </div>
+          ) : (
+            "Discourse not yet available."
+          )}
+        </div>
       </div>
     </div>
   );
