@@ -17,17 +17,15 @@ const ResearchInfluences = () => {
         <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
           Influences
         </h3>
-        <div className="text-base leading-6">
-          {reInfluences ? (
-            reInfluences
-          ) : reInfluencesProg ? (
-            <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
-              <LoadingIndicator loadingCopy={`Generating influences`} />
-            </div>
-          ) : (
-            "Influences not yet available."
-          )}
-        </div>
+        {reInfluences ? (
+          <div className="text-base leading-6">{reInfluences}</div>
+        ) : reInfluencesProg ? (
+          <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
+            <LoadingIndicator loadingCopy={`Generating influences`} />
+          </div>
+        ) : (
+          "Influences not yet available."
+        )}
       </div>
     </div>
   );

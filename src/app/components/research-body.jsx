@@ -9,12 +9,15 @@ import {
   researchDiscourseProgressAtom,
   researchInfluencesAtom,
   researchInfluencesProgressAtom,
+  researchLyricalAnalysisAtom,
+  researchLyricalAnalysisProgressAtom,
   researchSonicAnalysisAtom,
   researchSonicAnalysisProgressAtom,
 } from "@/store/atoms";
 import ResearchBio from "./research-bio";
 import ResearchDiscourse from "./research-discourse";
 import ResearchInfluences from "./research-influences";
+import ResearchLyricalAnalysis from "./research-lyrical-analysis";
 import ResearchSonicAnalysis from "./research-sonic-analysis";
 import ResearchWelcome from "./research-welcome";
 import ButtonResearch from "@/components/ui/button-research";
@@ -31,6 +34,10 @@ const ResearchBody = () => {
   const [reInfluencesProg, setReInfluencesProg] = useAtom(
     researchInfluencesProgressAtom
   );
+  const [reLyrical, setReLyrical] = useAtom(researchLyricalAnalysisAtom);
+  const [reLyricalProg, setReLyricalProg] = useAtom(
+    researchLyricalAnalysisProgressAtom
+  );
   const [reSonic, setReSonic] = useAtom(researchSonicAnalysisAtom);
   const [reSonicProg, setReSonicProg] = useAtom(
     researchSonicAnalysisProgressAtom
@@ -44,6 +51,8 @@ const ResearchBody = () => {
         return <ResearchDiscourse />;
       case "influences":
         return <ResearchInfluences />;
+      case "lyrical":
+        return <ResearchLyricalAnalysis />;
       case "sonic":
         return <ResearchSonicAnalysis />;
       default:
@@ -111,6 +120,36 @@ const ResearchBody = () => {
     }
   };
 
+  const fetchLyricalAnalysis = async () => {
+    try {
+      setReLyricalProg(true);
+      const response = await fetch("/api/research/lyrical-analysis", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          role: "user",
+          content: artistName,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch sonic analysis.");
+      }
+
+      const data = await response.json();
+      if (!data.success) {
+        throw new Error(data.error || "Failed to get sonic analysis");
+      }
+
+      console.log("Response content:", data);
+      setReLyrical(data.content);
+      setReLyricalProg(false);
+      return data.content;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const fetchSonicAnalysis = async () => {
     try {
       setReSonicProg(true);
@@ -149,7 +188,10 @@ const ResearchBody = () => {
 
   useEffect(() => {
     artistName
-      ? (fetchDiscourse(), fetchInfluences(), fetchSonicAnalysis())
+      ? (fetchDiscourse(),
+        fetchInfluences(),
+        fetchLyricalAnalysis(),
+        fetchSonicAnalysis())
       : console.log("No artist name.");
   }, [artistName]);
 
@@ -161,9 +203,8 @@ const ResearchBody = () => {
       <div className="research-content w-full h-full shadow-hieroshadow-25 rounded-md bg-researchlavender-100 border-researchlavender-500 border border-solid overflow-hidden flex flex-col items-start justify-start p-3 pr-2">
         {renderActiveView()}
       </div>
-      {artistName}
       <div className="w-full flex flex-row items-start justify-center flex-wrap content-start gap-2 py-1 text-white">
-        <ButtonResearch name="Discography" />
+        <ButtonResearch classes="pointer-events-none" name="Discography" />
         <ButtonResearch
           name="Influences"
           isActive={activeView === "influences"}
@@ -179,14 +220,18 @@ const ResearchBody = () => {
           isActive={activeView === "discourse"}
           onClick={() => setActiveView("discourse")}
         />
-        <ButtonResearch name="Recent News" />
-        <ButtonResearch name="Artist Socials" />
+        <ButtonResearch classes="pointer-events-none" name="Recent News" />
+        <ButtonResearch classes="pointer-events-none" name="Artist Socials" />
         <ButtonResearch
           name="Sonic Analysis"
           isActive={activeView === "sonic"}
           onClick={() => setActiveView("sonic")}
         />
-        <ButtonResearch name="Lyrical Analysis" />
+        <ButtonResearch
+          name="Lyrical Analysis"
+          isActive={activeView === "lyrical"}
+          onClick={() => setActiveView("lyrical")}
+        />
       </div>
     </div>
   );

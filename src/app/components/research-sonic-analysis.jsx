@@ -17,17 +17,15 @@ const ResearchSonicAnalysis = () => {
           Sonic Analysis
         </h3>
 
-        <div className="text-base leading-6">
-          {reSonic ? (
-            reSonic
-          ) : reSonicProg ? (
-            <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
-              <LoadingIndicator loadingCopy={`Generating sonic analysis`} />
-            </div>
-          ) : (
-            "Sonic Analysis not yet available."
-          )}
-        </div>
+        {reSonic ? (
+          <div className="text-base leading-6">{reSonic}</div>
+        ) : reSonicProg ? (
+          <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
+            <LoadingIndicator loadingCopy={`Generating sonic analysis`} />
+          </div>
+        ) : (
+          "Sonic Analysis not yet available."
+        )}
       </div>
     </div>
   );
