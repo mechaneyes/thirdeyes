@@ -1,12 +1,20 @@
+import { useEffect } from "react";
 import { useAtom } from "jotai";
 
-import { reWikipediaDefault } from "@/store/atoms";
+import { researchActiveAtom, reWikipediaDefault } from "@/store/atoms";
 import ResearchBio from "./research-bio";
 import MessageForm from "./message-form";
 import ButtonResearch from "@/components/ui/button-research";
 
 const ResearchBody = () => {
   const [wikiDefault] = useAtom(reWikipediaDefault);
+  const [activeView, setActiveView] = useAtom(researchActiveAtom);
+
+  useEffect(() => {
+    if (wikiDefault !== undefined) {
+      setActiveView("bio");
+    }
+  }, [wikiDefault]);
 
   return (
     <div
@@ -38,13 +46,17 @@ const ResearchBody = () => {
       {/* <MessageForm /> */}
       <div className="w-full flex flex-row items-start justify-center flex-wrap content-start gap-2 py-1 text-white">
         <ButtonResearch name="Discography" />
-        <ButtonResearch name="Media Link Tree" />
-        <ButtonResearch name="Artist Genres" />
-        <ButtonResearch name="Biographical Info" />
-        <ButtonResearch name="Adjective Cloud" />
+        <ButtonResearch name="Influences" />
+        <ButtonResearch
+          name="Biographical Info"
+          isActive={activeView === "bio"}
+          onClick={() => setActiveView("bio")}
+        />
+        <ButtonResearch name="Discource" />
         <ButtonResearch name="Recent News" />
         <ButtonResearch name="Artist Socials" />
-        <ButtonResearch name="Similar Artists" />
+        <ButtonResearch name="Sonic Analysis" />
+        <ButtonResearch name="Lyrical Analysis" />
       </div>
     </div>
   );
