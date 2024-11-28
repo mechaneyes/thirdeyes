@@ -5,24 +5,36 @@ import {
   globalArtistNameAtom,
   researchActiveAtom,
   researchBioAtom,
+  researchDiscourseAtom,
+  researchDiscourseProgressAtom,
   researchInfluencesAtom,
+  researchInfluencesProgressAtom,
 } from "@/store/atoms";
 import ResearchBio from "./research-bio";
+import ResearchDiscourse from "./research-discourse";
 import ResearchInfluences from "./research-influences";
 import ResearchWelcome from "./research-welcome";
-import MessageForm from "./message-form";
 import ButtonResearch from "@/components/ui/button-research";
 
 const ResearchBody = () => {
   const [activeView, setActiveView] = useAtom(researchActiveAtom);
   const [artistName] = useAtom(globalArtistNameAtom);
   const [reBio] = useAtom(researchBioAtom);
+  const [reDiscourse, setReDiscourse] = useAtom(researchDiscourseAtom);
+  const [reDiscourseProg, setReDiscourseProg] = useAtom(
+    researchDiscourseProgressAtom
+  );
   const [reInfluences, setReInfluences] = useAtom(researchInfluencesAtom);
+  const [reInfluencesProg, setReInfluencesProg] = useAtom(
+    researchInfluencesProgressAtom
+  );
 
   const renderActiveView = () => {
     switch (activeView) {
       case "bio":
         return <ResearchBio />;
+      case "discourse":
+        return <ResearchDiscourse />;
       case "influences":
         return <ResearchInfluences />;
       default:
@@ -30,8 +42,39 @@ const ResearchBody = () => {
     }
   };
 
+  const fetchDiscourse = async () => {
+    try {
+      setReDiscourseProg(true);
+      const response = await fetch("/api/research/discourse", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          role: "user",
+          content: artistName,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch discourse.");
+      }
+
+      const data = await response.json();
+      if (!data.success) {
+        throw new Error(data.error || "Failed to get discourse");
+      }
+
+      console.log("Response content:", data);
+      setReDiscourse(data.content);
+      setReDiscourseProg(false);
+      return data.content;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const fetchInfluences = async () => {
     try {
+      setReInfluencesProg(true);
       const response = await fetch("/api/research/influences", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,6 +95,7 @@ const ResearchBody = () => {
 
       console.log("Response content:", data);
       setReInfluences(data.content);
+      setReInfluencesProg(false);
       return data.content;
     } catch (error) {
       console.error(error.message);
@@ -65,7 +109,9 @@ const ResearchBody = () => {
   }, [reBio]);
 
   useEffect(() => {
-    artistName ? fetchInfluences() : console.log("No artist name.");
+    artistName
+      ? (fetchDiscourse(), fetchInfluences())
+      : console.log("No artist name.");
   }, [artistName]);
 
   return (
@@ -77,7 +123,6 @@ const ResearchBody = () => {
         {renderActiveView()}
       </div>
       {artistName}
-      {/* <MessageForm /> */}
       <div className="w-full flex flex-row items-start justify-center flex-wrap content-start gap-2 py-1 text-white">
         <ButtonResearch name="Discography" />
         <ButtonResearch
@@ -90,7 +135,11 @@ const ResearchBody = () => {
           isActive={activeView === "bio"}
           onClick={() => setActiveView("bio")}
         />
-        <ButtonResearch name="Discource" />
+        <ButtonResearch
+          name="Discourse"
+          isActive={activeView === "discourse"}
+          onClick={() => setActiveView("discourse")}
+        />
         <ButtonResearch name="Recent News" />
         <ButtonResearch name="Artist Socials" />
         <ButtonResearch name="Sonic Analysis" />
