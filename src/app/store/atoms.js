@@ -17,6 +17,7 @@ export const reflectionOriginalPromptAtom = atom(null);
 export const researchActiveAtom = atom("");
 export const researchBioAtom = atom(undefined);
 export const researchInfluencesAtom = atom(undefined);
+export const researchInfluencesProgressAtom = atom(false);
 export const selectedChatAtom = atom(null);
 export const spotifyDataAtom = atom([]);
 export const theUserAtom = atom(null);

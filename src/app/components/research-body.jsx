@@ -6,11 +6,11 @@ import {
   researchActiveAtom,
   researchBioAtom,
   researchInfluencesAtom,
+  researchInfluencesProgressAtom,
 } from "@/store/atoms";
 import ResearchBio from "./research-bio";
 import ResearchInfluences from "./research-influences";
 import ResearchWelcome from "./research-welcome";
-import MessageForm from "./message-form";
 import ButtonResearch from "@/components/ui/button-research";
 
 const ResearchBody = () => {
@@ -18,6 +18,7 @@ const ResearchBody = () => {
   const [artistName] = useAtom(globalArtistNameAtom);
   const [reBio] = useAtom(researchBioAtom);
   const [reInfluences, setReInfluences] = useAtom(researchInfluencesAtom);
+  const [reInfluencesProg, setReInfluencesProg] = useAtom(researchInfluencesProgressAtom);
 
   const renderActiveView = () => {
     switch (activeView) {
@@ -32,6 +33,7 @@ const ResearchBody = () => {
 
   const fetchInfluences = async () => {
     try {
+      setReInfluencesProg(true);
       const response = await fetch("/api/research/influences", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,6 +54,7 @@ const ResearchBody = () => {
 
       console.log("Response content:", data);
       setReInfluences(data.content);
+      setReInfluencesProg(false);
       return data.content;
     } catch (error) {
       console.error(error.message);
@@ -77,7 +80,6 @@ const ResearchBody = () => {
         {renderActiveView()}
       </div>
       {artistName}
-      {/* <MessageForm /> */}
       <div className="w-full flex flex-row items-start justify-center flex-wrap content-start gap-2 py-1 text-white">
         <ButtonResearch name="Discography" />
         <ButtonResearch
