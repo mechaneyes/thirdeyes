@@ -12,7 +12,14 @@ const ResearchInfluences = () => {
         <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
           Influences
         </h3>
-        {reInfluences ? reInfluences : "Influences not yet available."}
+        {reInfluences ? (
+          reInfluences
+        ) : (
+          <>
+            <div>Influences not yet available.</div>
+            <div>Check back later.</div>
+          </>
+        )}
       </div>
     </div>
   );
