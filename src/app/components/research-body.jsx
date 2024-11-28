@@ -1,20 +1,20 @@
 import { useEffect } from "react";
 import { useAtom } from "jotai";
 
-import { researchActiveAtom, reWikipediaDefault } from "@/store/atoms";
+import { researchActiveAtom, researchBioAtom } from "@/store/atoms";
 import ResearchBio from "./research-bio";
 import MessageForm from "./message-form";
 import ButtonResearch from "@/components/ui/button-research";
 
 const ResearchBody = () => {
-  const [wikiDefault] = useAtom(reWikipediaDefault);
+  const [reBio] = useAtom(researchBioAtom);
   const [activeView, setActiveView] = useAtom(researchActiveAtom);
 
   useEffect(() => {
-    if (wikiDefault !== undefined) {
+    if (reBio !== undefined) {
       setActiveView("bio");
     }
-  }, [wikiDefault]);
+  }, [reBio]);
 
   return (
     <div
@@ -22,7 +22,7 @@ const ResearchBody = () => {
       style={{ height: "calc(100% - 33px)" }}
     >
       <div className="research-content w-full h-full shadow-hieroshadow-25 rounded-md bg-researchlavender-100 border-researchlavender-500 border border-solid overflow-hidden flex flex-col items-start justify-start p-3 pr-2">
-        {wikiDefault === undefined ? (
+        {reBio === undefined ? (
           <div className="research-inner relative h-full overflow-y-scroll pr-4 text-base text-darkslateblue-200 leading-5 whitespace-pre-wrap">
             <>
               <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">

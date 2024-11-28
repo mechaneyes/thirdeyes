@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import {
   strategiesOriginsAtom,
   strategiesOriginsContextAtom,
-  reWikipediaDefault,
+  researchBioAtom,
 } from "@/store/atoms";
 import MessageForm from "./message-form";
 import LoadingIndicator from "./ui/loading-indicator";
@@ -21,7 +21,7 @@ const StrategiesOrigins = () => {
 
   const [origins, setOrigins] = useAtom(strategiesOriginsAtom);
   const [reasoning, setReasoning] = useAtom(strategiesOriginsContextAtom);
-  const wikiDefault = useAtom(reWikipediaDefault);
+  const reBio = useAtom(researchBioAtom);
 
   const placeholder = "Enter lede.";
 
@@ -55,7 +55,7 @@ const StrategiesOrigins = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: [...messages, { role: "user", content: input }],
-          wikipediaContext: wikiDefault,
+          wikipediaContext: reBio,
         }),
       });
 

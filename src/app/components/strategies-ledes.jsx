@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import {
   strategiesLedesAtom,
   strategiesRecAtom,
-  reWikipediaDefault,
+  researchBioAtom,
 } from "@/store/atoms";
 import MessageForm from "./message-form";
 import LoadingIndicator from "./ui/loading-indicator";
@@ -21,7 +21,7 @@ const StrategiesLedes = () => {
 
   const [ledes, setLedes] = useAtom(strategiesLedesAtom);
   const [recommended, setRecommended] = useAtom(strategiesRecAtom);
-  const [wikiDefault, setWikiDefault] = useAtom(reWikipediaDefault);
+  const [reBio, setReBio] = useAtom(researchBioAtom);
 
   const placeholder = "Enter artist name.";
 
@@ -59,7 +59,7 @@ const StrategiesLedes = () => {
       });
 
       const wikiData = await wikiResponse.json();
-      setWikiDefault(wikiData.context);
+      setReBio(wikiData.context);
 
       if (!wikiData.success) {
         throw new Error(wikiData.error || "Wikipedia search failed");

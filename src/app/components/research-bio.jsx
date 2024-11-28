@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 
-import { reWikipediaDefault } from "@/store/atoms";
+import { researchBioAtom } from "@/store/atoms";
 
 const ResearchBio = () => {
-  const [wikiDefault] = useAtom(reWikipediaDefault);
+  const [reBio] = useAtom(researchBioAtom);
   const [title, setTitle] = useState("Research");
 
   useEffect(() => {
-    if (wikiDefault) {
-      const match = wikiDefault.match(/Page: (.*?)\nSummary:/);
+    if (reBio) {
+      const match = reBio.match(/Page: (.*?)\nSummary:/);
       if (match && match[1]) {
         setTitle(match[1]);
       }
     }
-  }, [wikiDefault]);
+  }, [reBio]);
 
   const formatText = (text) => {
     if (!text) return null;
@@ -54,7 +54,7 @@ const ResearchBio = () => {
         <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
           {title} via Wikipedia
         </h3>
-        {formatText(wikiDefault)}
+        {formatText(reBio)}
       </div>
     </div>
   );
