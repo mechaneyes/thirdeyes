@@ -11,15 +11,13 @@ export const revalidate = 0; // Disable caching
 
 export async function POST(req: Request) {
   try {
-    const body = (await req.json()) as RequestBody;
+    const message = await req.json();
 
-    if (!body.text) {
-      return new Response(JSON.stringify({ error: "No text provided" }), {
-        status: 400,
-      });
+    if (!message.content) {
+      throw new Error("No content provided");
     }
 
-    const response = await openai.chat.completions.create({
+    const completion = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [
         {
@@ -31,15 +29,7 @@ export async function POST(req: Request) {
             },
           ],
         },
-        {
-          role: "user",
-          content: [
-            {
-              type: "text",
-              text: body.text,
-            },
-          ],
-        },
+        message,
       ],
       response_format: {
         type: "text",
@@ -51,17 +41,10 @@ export async function POST(req: Request) {
       presence_penalty: 0.25,
     });
 
-    // Extract content from completion
-    const content = completion.choices[0].message.content;
-
-    if (!content) {
-      throw new Error("No content in response");
-    }
-
     return new Response(
       JSON.stringify({
         success: true,
-        content,
+        content: completion.choices[0].message.content,
       }),
       {
         headers: {

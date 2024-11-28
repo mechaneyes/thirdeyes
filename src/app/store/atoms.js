@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 
 export const authTokenAtom = atom({});
-export const globalArtistNameAtom = atom("");
+export const globalArtistNameAtom = atom(undefined);
 export const strategiesLedesAtom = atom([]);
 export const strategiesOriginsAtom = atom([]);
 export const strategiesOriginsContextAtom = atom("");
@@ -16,6 +16,7 @@ export const reflectionAtom = atom(false);
 export const reflectionOriginalPromptAtom = atom(null);
 export const researchActiveAtom = atom("");
 export const researchBioAtom = atom(undefined);
+export const researchInfluencesAtom = atom(undefined);
 export const selectedChatAtom = atom(null);
 export const spotifyDataAtom = atom([]);
 export const theUserAtom = atom(null);
