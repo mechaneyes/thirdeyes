@@ -3,6 +3,7 @@ import { atom } from "jotai";
 export const authTokenAtom = atom({});
 export const globalArtistNameAtom = atom(undefined);
 export const strategiesLedesAtom = atom([]);
+export const strategiesLoadingAtom = atom(false);
 export const strategiesOriginsAtom = atom([]);
 export const strategiesOriginsContextAtom = atom("");
 export const strategiesRecAtom = atom("");

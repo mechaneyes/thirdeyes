@@ -204,30 +204,47 @@ const ResearchBody = () => {
         {renderActiveView()}
       </div>
       <div className="w-full flex flex-row items-start justify-center flex-wrap content-start gap-2 py-1 text-white">
-        <ButtonResearch classes="pointer-events-none" name="Discography" />
         <ButtonResearch
+          isResearch={true}
+          name="Discography"
+          classes="pointer-events-none"
+        />
+        <ButtonResearch
+          isResearch={true}
           name="Influences"
           isActive={activeView === "influences"}
           onClick={() => setActiveView("influences")}
         />
         <ButtonResearch
+          isResearch={true}
           name="Biographical Info"
           isActive={activeView === "bio"}
           onClick={() => setActiveView("bio")}
         />
         <ButtonResearch
+          isResearch={true}
           name="Discourse"
           isActive={activeView === "discourse"}
           onClick={() => setActiveView("discourse")}
         />
-        <ButtonResearch classes="pointer-events-none" name="Recent News" />
-        <ButtonResearch classes="pointer-events-none" name="Artist Socials" />
         <ButtonResearch
+          isResearch={true}
+          name="Recent News"
+          classes="pointer-events-none"
+        />
+        <ButtonResearch
+          isResearch={true}
+          name="Artist Socials"
+          classes="pointer-events-none"
+        />
+        <ButtonResearch
+          isResearch={true}
           name="Sonic Analysis"
           isActive={activeView === "sonic"}
           onClick={() => setActiveView("sonic")}
         />
         <ButtonResearch
+          isResearch={true}
           name="Lyrical Analysis"
           isActive={activeView === "lyrical"}
           onClick={() => setActiveView("lyrical")}

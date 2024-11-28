@@ -4,24 +4,30 @@ import { useAtom } from "jotai";
 import {
   globalArtistNameAtom,
   strategiesLedesAtom,
+  strategiesLoadingAtom,
   strategiesRecAtom,
+  researchActiveAtom,
   researchBioAtom,
 } from "@/store/atoms";
 import MessageForm from "./message-form";
 import LoadingIndicator from "./ui/loading-indicator";
+import ButtonResearch from "@/components/ui/button-research";
 
 const StrategiesLedes = () => {
   const [error, setError] = useState(null);
   const [input, setInput] = useState("");
   const [isFirstLoad, setIsFirstLoad] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
   const [loadingStep, setLoadingStep] = useState("Primary");
   const [messages, setMessages] = useState([]);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const scrollableRef = useRef(null);
 
+  const [activeView, setActiveView] = useAtom(researchActiveAtom);
   const [artistName, setArtistName] = useAtom(globalArtistNameAtom);
   const [ledes, setLedes] = useAtom(strategiesLedesAtom);
+  const [strategiesLoading, setStrategiesLoading] = useAtom(
+    strategiesLoadingAtom
+  );
   const [recommended, setRecommended] = useAtom(strategiesRecAtom);
   const [reBio, setReBio] = useAtom(researchBioAtom);
 
@@ -45,7 +51,7 @@ const StrategiesLedes = () => {
   };
 
   const handleSubmit = async () => {
-    setIsLoading(true);
+    setStrategiesLoading(true);
     setIsFirstLoad(false);
     setError(null);
     setArtistName(input);
@@ -128,7 +134,7 @@ const StrategiesLedes = () => {
       setError(errorMessage);
       console.error("Error in handleSubmit:", err);
     } finally {
-      setIsLoading(false);
+      setStrategiesLoading(false);
     }
   };
 
@@ -141,10 +147,66 @@ const StrategiesLedes = () => {
         className="drafting-scrollable w-full flex-1 flex flex-col items-start gap-2 pr-3 overflow-y-auto"
         ref={scrollableRef}
       >
-        {isLoading && (
-          <LoadingIndicator
-            loadingCopy={`Generating ledes — ${loadingStep} model`}
-          />
+        {strategiesLoading && (
+          <div className="lede-first-load w-full h-full flex flex-col items-center justify-center">
+            <div className="h-20">
+              <LoadingIndicator
+                loadingCopy={`Generating ledes — ${loadingStep} model`}
+              />
+            </div>
+            <div className="shadow-hieroshadow-25 mt-4 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-start justify-center gap-4 p-3 pb-4 transition duration-200 text-darkslategray-200/90 text-base leading-6">
+              <div>
+                <h3 className="pb-2 text-xl text-darkslategray-200/90 font-normal">
+                  Strategies: A Waiting Game
+                </h3>
+                While Thirdeyes is out there dancing with models, the
+                information it's retrieving is being deposited in the Research
+                panel to the right. 👉
+              </div>
+              <div>
+                Feel free to explore the other research tools while you wait.
+              </div>
+              <div className="w-full flex flex-row items-start justify-center flex-wrap content-start gap-2 py-1 pt-3 text-white">
+                <ButtonResearch
+                  classes="pointer-events-none"
+                  name="Discography"
+                />
+                <ButtonResearch
+                  name="Influences"
+                  isActive={activeView === "influences"}
+                  onClick={() => setActiveView("influences")}
+                />
+                <ButtonResearch
+                  name="Biographical Info"
+                  isActive={activeView === "bio"}
+                  onClick={() => setActiveView("bio")}
+                />
+                <ButtonResearch
+                  name="Discourse"
+                  isActive={activeView === "discourse"}
+                  onClick={() => setActiveView("discourse")}
+                />
+                <ButtonResearch
+                  classes="pointer-events-none"
+                  name="Recent News"
+                />
+                <ButtonResearch
+                  classes="pointer-events-none"
+                  name="Artist Socials"
+                />
+                <ButtonResearch
+                  name="Sonic Analysis"
+                  isActive={activeView === "sonic"}
+                  onClick={() => setActiveView("sonic")}
+                />
+                <ButtonResearch
+                  name="Lyrical Analysis"
+                  isActive={activeView === "lyrical"}
+                  onClick={() => setActiveView("lyrical")}
+                />
+              </div>
+            </div>
+          </div>
         )}
 
         {tooltipVisible && (
@@ -170,19 +232,15 @@ const StrategiesLedes = () => {
                 artist&apos;s name in the form below to get started.
               </div>
               <div>
-                While working on the ledes, Thirdeyes searches for the artist on
-                Wikipedia and presents the information it finds in the Research
-                panel to the right. 👉
-              </div>
-              <div className="italic font-medium">
-                <span className="text-red-600">Important:</span> Don&apos;t
-                leave this tab while the ledes are being generated
+                While working on the ledes, Thirdeyes is out gathering
+                information you can use in crafting your bio. It will be
+                presented in the Research panel to the right. 👉
               </div>
             </div>
           </div>
         )}
 
-        {ledes.length > 0 && !isLoading && (
+        {ledes.length > 0 && !strategiesLoading && (
           <>
             {ledes.map((lede) => (
               <div
@@ -220,7 +278,7 @@ const StrategiesLedes = () => {
         input={input}
         onInputChange={handleInputChange}
         handleSubmit={handleSubmit}
-        isLoading={isLoading}
+        strategiesLoading={strategiesLoading}
         placeholder={placeholder}
       />
     </div>
