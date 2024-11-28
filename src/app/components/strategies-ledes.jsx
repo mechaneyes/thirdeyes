@@ -29,7 +29,6 @@ const StrategiesLedes = () => {
     if (scrollableRef.current) {
       scrollableRef.current.scrollTop = 0;
     }
-    console.log("eep");
   }, []);
 
   const handleCopy = (content, event) => {
@@ -49,7 +48,6 @@ const StrategiesLedes = () => {
     setError(null);
 
     try {
-
       // ————————————————————————————————————o wikipedia context —>
       //
       const wikiResponse = await fetch("/api/wikipedia", {
@@ -93,17 +91,17 @@ const StrategiesLedes = () => {
             const data = JSON.parse(line.slice(5));
 
             if (data.primary) {
-              console.log(
-                "🎬🎬🎬 Primary Data 🎬🎬🎬",
-                JSON.stringify(data.primary, null, 2)
-              );
+              // console.log(
+              //   "🎬🎬🎬 Primary Data 🎬🎬🎬",
+              //   JSON.stringify(data.primary, null, 2)
+              // );
               setLoadingStep("Voice");
             }
             if (data.secondary) {
-              console.log(
-                "🙊🙊🙊 Voice Data 🙊🙊🙊",
-                JSON.stringify(data.secondary, null, 2)
-              );
+              // console.log(
+              //   "🙊🙊🙊 Voice Data 🙊🙊🙊",
+              //   JSON.stringify(data.secondary, null, 2)
+              // );
               setLoadingStep("Evaluation");
             }
             if (data.tertiary) {
@@ -165,17 +163,17 @@ const StrategiesLedes = () => {
                 <h3 className="pb-2 text-xl text-darkslategray-200/90 font-normal">
                   Strategies: Ledes
                 </h3>
-                You&apos;ll be drafting ledes for your artist. Enter the
+                Here you&apos;ll be drafting ledes for artist bios. Enter the
                 artist&apos;s name in the form below to get started.
               </div>
               <div>
-                When you start the lede generation process, Thirdeyes searches
-                for the artist on Wikipedia and generates a lede using the
-                Wikipedia information as context.
+                While working on the ledes, Thirdeyes searches for the artist on
+                Wikipedia and presents the information it finds in the Research
+                panel to the right. 👉
               </div>
-              <div>
-                That Wikipedia data is simultaneously presented to the right in
-                the Research panel.
+              <div className="italic font-medium">
+                <span className="text-red-600">Important:</span> Don&apos;t
+                leave this tab while the ledes are being generated
               </div>
             </div>
           </div>
@@ -187,9 +185,7 @@ const StrategiesLedes = () => {
               <div
                 key={lede.id}
                 className="lede w-full shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer"
-                onClick={(e) =>
-                  handleCopy(lede.output, e)
-                }
+                onClick={(e) => handleCopy(lede.output, e)}
               >
                 <h4 className="pb-1 text-base text-darkslategray-200 font-normal">
                   {lede.strategy}
