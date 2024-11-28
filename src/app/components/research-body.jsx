@@ -68,27 +68,43 @@ const ResearchBody = () => {
       .split("\n")
       .filter((line) => line.trim().length > 0)
       .map((line, index) => {
+        if (line.startsWith("#####")) {
+          const headerText = line.replace("##### ", "").trim();
+          return (
+            <div key={index} className="font-bold text-sm mt-2 mb-1">
+              {headerText}
+            </div>
+          );
+        }
+        if (line.startsWith("####")) {
+          const headerText = line.replace("#### ", "").trim();
+          return (
+            <div key={index} className="font-normal text-base mt-2 mb-1">
+              {headerText}
+            </div>
+          );
+        }
         if (line.startsWith("###")) {
           const headerText = line.replace("### ", "").trim();
           return (
-            <h4 key={index} className="font-normal text-base mt-2 mb-1">
+            <div key={index} className="font-normal text-lg mt-4 mb-1">
               {headerText}
-            </h4>
+            </div>
           );
         }
         if (line.startsWith("##")) {
           const headerText = line.replace("## ", "").trim();
           return (
-            <h3 key={index} className="font-normal text-lg mt-4 mb-2">
+            <div key={index} className="font-normal text-xl mt-6 mb-2">
               {headerText}
-            </h3>
+            </div>
           );
         }
         return (
           line.trim() && (
-            <p key={index} className="mb-2">
+            <div key={index} className="mb-2">
               {line}
-            </p>
+            </div>
           )
         );
       });
@@ -175,8 +191,8 @@ const ResearchBody = () => {
         throw new Error(data.error || "Failed to get sonic analysis");
       }
 
-      console.log("Response content:", data);
-      setReLyrical(data.content);
+      const formattedText = formatText(data.content);
+      setReLyrical(formattedText);
       setReLyricalProg(false);
       return data.content;
     } catch (error) {
