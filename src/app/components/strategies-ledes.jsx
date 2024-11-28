@@ -160,7 +160,7 @@ const StrategiesLedes = () => {
                   Strategies: A Waiting Game
                 </h3>
                 While Thirdeyes is out there dancing with models, the
-                information it's retrieving is being deposited in the Research
+                information it&apos;s retrieving is being deposited in the Research
                 panel to the right. 👉
               </div>
               <div>
