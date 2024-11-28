@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useAtom } from "jotai";
 
-import { researchActiveAtom, researchBioAtom } from "@/store/atoms";
+import { globalArtistNameAtom, researchActiveAtom, researchBioAtom } from "@/store/atoms";
 import ResearchBio from "./research-bio";
 import MessageForm from "./message-form";
 import ButtonResearch from "@/components/ui/button-research";
 
 const ResearchBody = () => {
+  const artistName = useAtom(globalArtistNameAtom);
   const [reBio] = useAtom(researchBioAtom);
   const [activeView, setActiveView] = useAtom(researchActiveAtom);
 
@@ -43,6 +44,7 @@ const ResearchBody = () => {
           <ResearchBio />
         )}
       </div>
+      {artistName}
       {/* <MessageForm /> */}
       <div className="w-full flex flex-row items-start justify-center flex-wrap content-start gap-2 py-1 text-white">
         <ButtonResearch name="Discography" />

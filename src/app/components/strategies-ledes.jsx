@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAtom } from "jotai";
 
 import {
+  globalArtistNameAtom,
   strategiesLedesAtom,
   strategiesRecAtom,
   researchBioAtom,
@@ -19,6 +20,7 @@ const StrategiesLedes = () => {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const scrollableRef = useRef(null);
 
+  const [artistName, setArtistName] = useAtom(globalArtistNameAtom);
   const [ledes, setLedes] = useAtom(strategiesLedesAtom);
   const [recommended, setRecommended] = useAtom(strategiesRecAtom);
   const [reBio, setReBio] = useAtom(researchBioAtom);
@@ -46,6 +48,7 @@ const StrategiesLedes = () => {
     setIsLoading(true);
     setIsFirstLoad(false);
     setError(null);
+    setArtistName(input);
 
     try {
       // ————————————————————————————————————o wikipedia context —>
