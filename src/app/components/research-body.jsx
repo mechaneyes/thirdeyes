@@ -5,10 +5,13 @@ import {
   globalArtistNameAtom,
   researchActiveAtom,
   researchBioAtom,
+  researchDiscourseAtom,
+  researchDiscourseProgressAtom,
   researchInfluencesAtom,
   researchInfluencesProgressAtom,
 } from "@/store/atoms";
 import ResearchBio from "./research-bio";
+import ResearchDiscourse from "./research-discourse";
 import ResearchInfluences from "./research-influences";
 import ResearchWelcome from "./research-welcome";
 import ButtonResearch from "@/components/ui/button-research";
@@ -17,17 +20,55 @@ const ResearchBody = () => {
   const [activeView, setActiveView] = useAtom(researchActiveAtom);
   const [artistName] = useAtom(globalArtistNameAtom);
   const [reBio] = useAtom(researchBioAtom);
+  const [reDiscourse, setReDiscourse] = useAtom(researchDiscourseAtom);
+  const [reDiscourseProg, setReDiscourseProg] = useAtom(
+    researchDiscourseProgressAtom
+  );
   const [reInfluences, setReInfluences] = useAtom(researchInfluencesAtom);
-  const [reInfluencesProg, setReInfluencesProg] = useAtom(researchInfluencesProgressAtom);
+  const [reInfluencesProg, setReInfluencesProg] = useAtom(
+    researchInfluencesProgressAtom
+  );
 
   const renderActiveView = () => {
     switch (activeView) {
       case "bio":
         return <ResearchBio />;
+      case "discourse":
+        return <ResearchDiscourse />;
       case "influences":
         return <ResearchInfluences />;
       default:
         return <ResearchWelcome />;
+    }
+  };
+
+  const fetchDiscourse = async () => {
+    try {
+      setReDiscourseProg(true);
+      const response = await fetch("/api/research/discourse", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          role: "user",
+          content: artistName,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch discourse.");
+      }
+
+      const data = await response.json();
+      if (!data.success) {
+        throw new Error(data.error || "Failed to get discourse");
+      }
+
+      console.log("Response content:", data);
+      setReDiscourse(data.content);
+      setReDiscourseProg(false);
+      return data.content;
+    } catch (error) {
+      console.error(error.message);
     }
   };
 
@@ -68,7 +109,9 @@ const ResearchBody = () => {
   }, [reBio]);
 
   useEffect(() => {
-    artistName ? fetchInfluences() : console.log("No artist name.");
+    artistName
+      ? (fetchDiscourse(), fetchInfluences())
+      : console.log("No artist name.");
   }, [artistName]);
 
   return (
@@ -92,7 +135,11 @@ const ResearchBody = () => {
           isActive={activeView === "bio"}
           onClick={() => setActiveView("bio")}
         />
-        <ButtonResearch name="Discource" />
+        <ButtonResearch
+          name="Discourse"
+          isActive={activeView === "discourse"}
+          onClick={() => setActiveView("discourse")}
+        />
         <ButtonResearch name="Recent News" />
         <ButtonResearch name="Artist Socials" />
         <ButtonResearch name="Sonic Analysis" />
