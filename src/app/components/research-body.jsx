@@ -21,6 +21,7 @@ import ResearchLyricalAnalysis from "./research-lyrical-analysis";
 import ResearchSonicAnalysis from "./research-sonic-analysis";
 import ResearchWelcome from "./research-welcome";
 import ButtonResearch from "@/components/ui/button-research";
+// import { formatText } from "@/lib/research-functions";
 
 const ResearchBody = () => {
   const [activeView, setActiveView] = useAtom(researchActiveAtom);
@@ -58,6 +59,39 @@ const ResearchBody = () => {
       default:
         return <ResearchWelcome />;
     }
+  };
+
+  const formatText = (text) => {
+    if (!text) return null;
+
+    return text
+      .split("\n")
+      .filter((line) => line.trim().length > 0)
+      .map((line, index) => {
+        if (line.startsWith("###")) {
+          const headerText = line.replace("### ", "").trim();
+          return (
+            <h4 key={index} className="font-normal text-base mt-2 mb-1">
+              {headerText}
+            </h4>
+          );
+        }
+        if (line.startsWith("##")) {
+          const headerText = line.replace("## ", "").trim();
+          return (
+            <h3 key={index} className="font-normal text-lg mt-4 mb-2">
+              {headerText}
+            </h3>
+          );
+        }
+        return (
+          line.trim() && (
+            <p key={index} className="mb-2">
+              {line}
+            </p>
+          )
+        );
+      });
   };
 
   const fetchDiscourse = async () => {
@@ -111,8 +145,8 @@ const ResearchBody = () => {
         throw new Error(data.error || "Failed to get influences");
       }
 
-      console.log("Response content:", data);
-      setReInfluences(data.content);
+      const formattedText = formatText(data.content);
+      setReInfluences(formattedText);
       setReInfluencesProg(false);
       return data.content;
     } catch (error) {
