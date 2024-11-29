@@ -58,7 +58,8 @@ const ResearchBio = () => {
         <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
           {title} via Wikipedia
         </h3>
-        {formatText(reBio)}
+        {!reBio ? "Wikipedia Information not yet available." : formatText(reBio)}
+        {/* {formatText(reBio)} */}
       </div>
     </div>
   );
