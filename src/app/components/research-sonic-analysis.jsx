@@ -11,7 +11,11 @@ const ResearchSonicAnalysis = () => {
   const [reSonicProg] = useAtom(researchSonicAnalysisProgressAtom);
 
   return (
-    <div className="research-inner relative w-full h-full overflow-y-scroll pr-4 text-base text-darkslateblue-200 leading-5 whitespace-pre-wrap">
+    <div
+      className={`research-inner relative w-full h-full ${
+        reSonic ? "overflow-y-scroll" : ""
+      } pr-4 text-base text-darkslateblue-200 leading-5 whitespace-pre-wrap`}
+    >
       <div className="h-full">
         <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
           Sonic Analysis

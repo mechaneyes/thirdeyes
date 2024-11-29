@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 import { useAtom } from "jotai";
 
 import { researchNewsAtom, researchNewsProgressAtom } from "@/store/atoms";
@@ -9,7 +9,11 @@ const ResearchNews = () => {
   const [reNewsProg] = useAtom(researchNewsProgressAtom);
 
   return (
-    <div className="research-inner relative w-full h-full overflow-y-scroll pr-4 text-base text-darkslateblue-200 leading-5 whitespace-pre-wrap">
+    <div
+      className={`research-inner relative w-full h-full ${
+        reNews ? "overflow-y-scroll" : ""
+      } pr-4 text-base text-darkslateblue-200 leading-5 whitespace-pre-wrap`}
+    >
       <div className="h-full">
         <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
           Recent News
@@ -24,7 +28,9 @@ const ResearchNews = () => {
                   rel="noopener noreferrer"
                   className="block text-darkslateblue-300 group"
                 >
-                  <div className="text-lg font-normal group-hover:text-researchlavender-300">{result.title}</div>
+                  <div className="text-lg font-normal group-hover:text-researchlavender-300">
+                    {result.title}
+                  </div>
 
                   <div className="text-sm font-normal group-hover:text-researchlavender-300 mt-1">
                     {result.displayLink}
