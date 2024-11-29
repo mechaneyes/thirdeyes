@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useAtom } from "jotai";
 
 import { researchActiveAtom, researchBioAtom } from "@/store/atoms";
@@ -33,12 +32,6 @@ const ResearchBody = () => {
         return <ResearchWelcome />;
     }
   };
-
-  useEffect(() => {
-    if (reBio !== null) {
-      setActiveView("bio");
-    }
-  }, [reBio]);
 
   return (
     <div

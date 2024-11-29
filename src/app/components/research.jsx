@@ -36,7 +36,6 @@ const Research = () => {
   const setReSonic = useSetAtom(researchSonicAnalysisAtom);
   const setReSonicProg = useSetAtom(researchSonicAnalysisProgressAtom);
 
-
   const formatText = (text) => {
     if (!text) return null;
 

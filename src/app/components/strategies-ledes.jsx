@@ -70,6 +70,8 @@ const StrategiesLedes = () => {
       const wikiData = await wikiResponse.json();
       setReBio(wikiData.context);
 
+      isFirstLoad && setActiveView("bio");
+
       if (!wikiData.success) {
         throw new Error(wikiData.error || "Wikipedia search failed");
       }
