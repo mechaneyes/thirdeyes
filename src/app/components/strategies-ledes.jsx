@@ -11,7 +11,7 @@ import {
 } from "@/store/atoms";
 import MessageForm from "./message-form";
 import LoadingIndicator from "./ui/loading-indicator";
-import ButtonResearch from "@/components/ui/button-research";
+import ButtonResearchGroup from "@/components/ui/button-research-group";
 
 const StrategiesLedes = () => {
   const [error, setError] = useState(null);
@@ -101,23 +101,15 @@ const StrategiesLedes = () => {
 
             if (data.primary) {
               // console.log(
-              //   "🎬🎬🎬 Primary Data 🎬🎬🎬",
+              //   "🎬 Primary Data",
               //   JSON.stringify(data.primary, null, 2)
               // );
               setLoadingStep("Voice");
             }
             if (data.secondary) {
-              // console.log(
-              //   "🙊🙊🙊 Voice Data 🙊🙊🙊",
-              //   JSON.stringify(data.secondary, null, 2)
-              // );
               setLoadingStep("Evaluation");
             }
             if (data.tertiary) {
-              // console.log(
-              //   "✅✅✅ Evaluation Data ✅✅✅",
-              //   JSON.stringify(data.tertiary, null, 2)
-              // );
               setLoadingStep("Primary");
               setLedes(data.tertiary.ledes);
               setRecommended(data.tertiary.recommended);
@@ -147,7 +139,7 @@ const StrategiesLedes = () => {
         className="drafting-scrollable w-full flex-1 flex flex-col items-start gap-2 pr-3 overflow-y-auto"
         ref={scrollableRef}
       >
-        {strategiesLoading && (
+        {/* {strategiesLoading && ( */}
           <div className="lede-first-load w-full h-full flex flex-col items-center justify-center">
             <div className="h-20">
               <LoadingIndicator
@@ -166,57 +158,14 @@ const StrategiesLedes = () => {
               <div>
                 Feel free to explore the other research tools while you wait.
               </div>
-              <div className="w-full flex flex-row items-start justify-center flex-wrap content-start gap-2 py-1 pt-3 text-white">
-                <ButtonResearch
-                  isResearch={false}
-                  name="Discography"
-                  classes="pointer-events-none"
-                />
-                <ButtonResearch
-                  isResearch={false}
-                  name="Influences"
-                  isActive={activeView === "influences"}
-                  onClick={() => setActiveView("influences")}
-                />
-                <ButtonResearch
-                  isResearch={false}
-                  name="Biographical Info"
-                  isActive={activeView === "bio"}
-                  onClick={() => setActiveView("bio")}
-                />
-                <ButtonResearch
-                  isResearch={false}
-                  name="Discourse"
-                  isActive={activeView === "discourse"}
-                  onClick={() => setActiveView("discourse")}
-                />
-                <ButtonResearch
-                  isResearch={false}
-                  name="Recent News"
-                  isActive={activeView === "news"}
-                  onClick={() => setActiveView("news")}
-                />
-                <ButtonResearch
-                  isResearch={false}
-                  name="Artist Socials"
-                  classes="pointer-events-none"
-                />
-                <ButtonResearch
-                  isResearch={false}
-                  name="Sonic Analysis"
-                  isActive={activeView === "sonic"}
-                  onClick={() => setActiveView("sonic")}
-                />
-                <ButtonResearch
-                  isResearch={false}
-                  name="Lyrical Analysis"
-                  isActive={activeView === "lyrical"}
-                  onClick={() => setActiveView("lyrical")}
-                />
-              </div>
+              <ButtonResearchGroup
+                activeView={activeView}
+                setActiveView={setActiveView}
+                isResearch={false}
+              />
             </div>
           </div>
-        )}
+        {/* )} */}
 
         {tooltipVisible && (
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center border-darkslategray-200 border-2 border-solid bg-mediumseagreen-200 text-darkslategray-200 py-2 px-4 rounded-md shadow-lg font-base text-2xl text-center leading-8">
