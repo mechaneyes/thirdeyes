@@ -131,8 +131,8 @@ const ResearchBody = () => {
         throw new Error(data.error || "Failed to get discourse");
       }
 
-      console.log("Response content:", data);
-      setReDiscourse(data.content);
+      const formattedText = formatText(data.content);
+      setReDiscourse(formattedText);
       setReDiscourseProg(false);
       return data.content;
     } catch (error) {
