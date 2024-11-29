@@ -138,6 +138,21 @@ const ResearchBody = () => {
     }
   };
 
+  const fetchNews = async () => {
+    setReNewsProg(true);
+    try {
+      const response = await fetch(
+        `/api/research/search?q=${encodeURIComponent(artistName)}`
+      );
+      const data = await response.json();
+      setReNews(data.results.items);
+    } catch (error) {
+      console.error("Search failed:", error);
+    } finally {
+      setReNewsProg(false);
+    }
+  };
+
   const fetchInfluences = async () => {
     try {
       setReInfluencesProg(true);
@@ -228,28 +243,14 @@ const ResearchBody = () => {
     }
   };
 
-  const fetchNews = async () => {
-    setReNewsProg(true);
-    try {
-      const response = await fetch(
-        `/api/research/search?q=${encodeURIComponent(artistName)}`
-      );
-      const data = await response.json();
-      setReNews(data.results.items);
-    } catch (error) {
-      console.error("Search failed:", error);
-    } finally {
-      setReNewsProg(false);
-    }
-  };
-
   useEffect(() => {
-    if (reBio !== undefined) {
+    if (reBio !== null) {
       setActiveView("bio");
     }
   }, [reBio]);
 
   useEffect(() => {
+    setReSonic(null);
     artistName
       ? (fetchDiscourse(),
         fetchNews(),
