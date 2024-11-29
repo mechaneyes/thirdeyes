@@ -160,46 +160,55 @@ const StrategiesLedes = () => {
                   Strategies: A Waiting Game
                 </h3>
                 While Thirdeyes is out there dancing with models, the
-                information it&apos;s retrieving is being deposited in the Research
-                panel to the right. 👉
+                information it&apos;s retrieving is being deposited in the
+                Research panel to the right. 👉
               </div>
               <div>
                 Feel free to explore the other research tools while you wait.
               </div>
               <div className="w-full flex flex-row items-start justify-center flex-wrap content-start gap-2 py-1 pt-3 text-white">
                 <ButtonResearch
-                  classes="pointer-events-none"
+                  isResearch={false}
                   name="Discography"
+                  classes="pointer-events-none"
                 />
                 <ButtonResearch
+                  isResearch={false}
                   name="Influences"
                   isActive={activeView === "influences"}
                   onClick={() => setActiveView("influences")}
                 />
                 <ButtonResearch
+                  isResearch={false}
                   name="Biographical Info"
                   isActive={activeView === "bio"}
                   onClick={() => setActiveView("bio")}
                 />
                 <ButtonResearch
+                  isResearch={false}
                   name="Discourse"
                   isActive={activeView === "discourse"}
                   onClick={() => setActiveView("discourse")}
                 />
                 <ButtonResearch
-                  classes="pointer-events-none"
+                  isResearch={false}
                   name="Recent News"
+                  isActive={activeView === "news"}
+                  onClick={() => setActiveView("news")}
                 />
                 <ButtonResearch
-                  classes="pointer-events-none"
+                  isResearch={false}
                   name="Artist Socials"
+                  classes="pointer-events-none"
                 />
                 <ButtonResearch
+                  isResearch={false}
                   name="Sonic Analysis"
                   isActive={activeView === "sonic"}
                   onClick={() => setActiveView("sonic")}
                 />
                 <ButtonResearch
+                  isResearch={false}
                   name="Lyrical Analysis"
                   isActive={activeView === "lyrical"}
                   onClick={() => setActiveView("lyrical")}

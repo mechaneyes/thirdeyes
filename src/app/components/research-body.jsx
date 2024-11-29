@@ -43,9 +43,7 @@ const ResearchBody = () => {
     researchLyricalAnalysisProgressAtom
   );
   const [reNews, setReNews] = useAtom(researchNewsAtom);
-  const [reNewsProg, setReNewsProg] = useAtom(
-    researchNewsProgressAtom
-  );
+  const [reNewsProg, setReNewsProg] = useAtom(researchNewsProgressAtom);
   const [reSonic, setReSonic] = useAtom(researchSonicAnalysisAtom);
   const [reSonicProg, setReSonicProg] = useAtom(
     researchSonicAnalysisProgressAtom
@@ -246,7 +244,6 @@ const ResearchBody = () => {
         `/api/research/search?q=${encodeURIComponent(artistName)}`
       );
       const data = await response.json();
-      // console.log("data.items:", data.results.items);
       setReNews(data.results.items);
     } catch (error) {
       console.error("Search failed:", error);
@@ -263,10 +260,10 @@ const ResearchBody = () => {
 
   useEffect(() => {
     artistName
-      ? // fetchDiscourse(),
-        (fetchNews(),
-        // fetchInfluences(),
-        // fetchLyricalAnalysis(),
+      ? (fetchDiscourse(),
+        fetchNews(),
+        fetchInfluences(),
+        fetchLyricalAnalysis(),
         fetchSonicAnalysis())
       : console.log("No artist name.");
   }, [artistName]);

@@ -14,7 +14,7 @@ const ButtonResearch = (props: ButtonPrimaryProps) => {
 
   const buttonContent = (
     <div
-      className={`shadow-hieroshadow-25 rounded-md border-researchpurple border border-solid overflow-hidden flex flex-col items-center justify-center py-1.5 px-2.5 leading-none ${classes} hover:bg-researchlavender-300 cursor-pointer
+      className={`shadow-hieroshadow-25 rounded-md border-researchpurple border border-solid overflow-hidden flex flex-col items-center justify-center py-1.5 px-2.5 leading-none ${classes} cursor-pointer
         ${
           isActive && isResearch
             ? "bg-researchlavender-300"
