@@ -93,7 +93,7 @@ const ResearchBody = () => {
           );
         }
         if (line.startsWith("##")) {
-          const headerText = line.replace("## ", "").trim();
+          const headerText = line.replace(/^#+\s?/, "").trim();
           return (
             <div key={index} className="font-normal text-xl mt-6 mb-2">
               {headerText}
@@ -221,8 +221,8 @@ const ResearchBody = () => {
         throw new Error(data.error || "Failed to get sonic analysis");
       }
 
-      console.log("Response content:", data);
-      setReSonic(data.content);
+      const formattedText = formatText(data.content);
+      setReSonic(formattedText);
       setReSonicProg(false);
       return data.content;
     } catch (error) {
