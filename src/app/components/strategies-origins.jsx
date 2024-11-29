@@ -4,6 +4,7 @@ import { useAtom } from "jotai";
 import {
   strategiesOriginsAtom,
   strategiesOriginsContextAtom,
+  strategiesLoadingAtom,
   researchBioAtom,
 } from "@/store/atoms";
 import MessageForm from "./message-form";
@@ -22,6 +23,9 @@ const StrategiesOrigins = () => {
   const [origins, setOrigins] = useAtom(strategiesOriginsAtom);
   const [reasoning, setReasoning] = useAtom(strategiesOriginsContextAtom);
   const reBio = useAtom(researchBioAtom);
+  const [strategiesLoading, setStrategiesLoading] = useAtom(
+    strategiesLoadingAtom
+  );
 
   const placeholder = "Enter lede.";
 
@@ -43,6 +47,7 @@ const StrategiesOrigins = () => {
   };
 
   const handleSubmit = async () => {
+    setStrategiesLoading(true);
     setIsLoading(true);
     setIsFirstLoad(false);
     setError(null);
@@ -89,6 +94,7 @@ const StrategiesOrigins = () => {
       setError(errorMessage);
       console.error("Error in handleSubmit:", err);
     } finally {
+      setStrategiesLoading(false);
       setIsLoading(false);
     }
   };
@@ -133,10 +139,6 @@ const StrategiesOrigins = () => {
               <div>
                 Thirdeyes will use the Wikipedia information it&apos;s already
                 generated as context to inform the LLM writing these origins.
-              </div>
-              <div className="italic font-medium">
-                Again: Don&apos;t leave this tab while the origins are being
-                generated
               </div>
             </div>
           </div>
