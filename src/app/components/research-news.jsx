@@ -32,7 +32,7 @@ const ResearchNews = () => {
                     {result.title}
                   </div>
 
-                  <div className="text-sm font-normal group-hover:text-researchlavender-300 mt-1">
+                  <div className="text-normal font-light group-hover:text-researchlavender-300 mt-1">
                     {result.displayLink}
                   </div>
 

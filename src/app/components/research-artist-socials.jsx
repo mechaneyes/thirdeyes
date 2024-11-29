@@ -19,7 +19,7 @@ const ResearchArtistSocials = () => {
     >
       <div className="h-full">
         <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
-          Artist Socials Links
+          Artist Social Media Links
         </h3>
 
         {reArtistSocials ? (
@@ -32,7 +32,7 @@ const ResearchArtistSocials = () => {
                   rel="noopener noreferrer"
                   className="block text-darkslateblue-300 group"
                 >
-                  <div className="text-base font-normal group-hover:text-researchlavender-300">
+                  <div className="text-lg font-normal group-hover:text-researchlavender-300">
                     {result.title}
                   </div>
 

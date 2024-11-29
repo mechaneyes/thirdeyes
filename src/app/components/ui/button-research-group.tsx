@@ -46,6 +46,7 @@ const ButtonResearchGroup = ({
       <ButtonResearch
         isResearch={isResearch}
         name="Artist Socials"
+        isActive={activeView === "socials"}
         onClick={() => setActiveView("socials")}
       />
       <ButtonResearch
