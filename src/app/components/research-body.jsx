@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
 
-import { researchActiveAtom, researchBioAtom } from "@/store/atoms";
+import { researchActiveAtom } from "@/store/atoms";
+import ResearchArtistSocials from "./research-artist-socials";
 import ResearchBio from "./research-bio";
 import ResearchDiscourse from "./research-discourse";
 import ResearchInfluences from "./research-influences";
@@ -12,7 +13,6 @@ import ButtonResearchGroup from "@/components/ui/button-research-group";
 
 const ResearchBody = () => {
   const [activeView, setActiveView] = useAtom(researchActiveAtom);
-  const [reBio] = useAtom(researchBioAtom);
 
   const renderActiveView = () => {
     switch (activeView) {
@@ -26,6 +26,8 @@ const ResearchBody = () => {
         return <ResearchLyricalAnalysis />;
       case "news":
         return <ResearchNews />;
+      case "socials":
+        return <ResearchArtistSocials />;
       case "sonic":
         return <ResearchSonicAnalysis />;
       default:

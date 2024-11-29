@@ -9,6 +9,8 @@ import ResearchNotes from "./research-notes";
 
 import {
   globalArtistNameAtom,
+  researchArtistSocialsAtom,
+  researchArtistSocialsProgressAtom,
   researchDiscourseAtom,
   researchDiscourseProgressAtom,
   researchInfluencesAtom,
@@ -33,6 +35,8 @@ const Research = () => {
   const setReLyricalProg = useSetAtom(researchLyricalAnalysisProgressAtom);
   const setReNews = useSetAtom(researchNewsAtom);
   const setReNewsProg = useSetAtom(researchNewsProgressAtom);
+  const setReArtistSocials = useSetAtom(researchArtistSocialsAtom);
+  const setReArtistSocialsProg = useSetAtom(researchArtistSocialsProgressAtom);
   const setReSonic = useSetAtom(researchSonicAnalysisAtom);
   const setReSonicProg = useSetAtom(researchSonicAnalysisProgressAtom);
 
@@ -83,6 +87,24 @@ const Research = () => {
           )
         );
       });
+  };
+
+  const fetchArtistSocials = async () => {
+    setReArtistSocialsProg(true);
+    try {
+      const response = await fetch(
+        `/api/research/search?q=${encodeURIComponent(
+          `${artistName} social media links`
+        )}`
+      );
+      const data = await response.json();
+      console.log('data.results.items', data.results.items);
+      setReArtistSocials(data.results.items);
+    } catch (error) {
+      console.error("Search failed:", error);
+    } finally {
+      setReArtistSocialsProg(false);
+    }
   };
 
   const fetchDiscourse = async () => {
@@ -221,13 +243,15 @@ const Research = () => {
   };
 
   useEffect(() => {
+    setReArtistSocials(null);
     setReDiscourse(null);
     setReNews(null);
     setReInfluences(null);
     setReLyrical(null);
     setReSonic(null);
     artistName
-      ? (fetchDiscourse(),
+      ? (fetchArtistSocials(),
+        fetchDiscourse(),
         fetchNews(),
         fetchInfluences(),
         fetchLyricalAnalysis(),

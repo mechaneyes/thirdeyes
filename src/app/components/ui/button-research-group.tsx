@@ -46,8 +46,7 @@ const ButtonResearchGroup = ({
       <ButtonResearch
         isResearch={isResearch}
         name="Artist Socials"
-        classes="pointer-events-none"
-        onClick={() => console.log("Socials feature coming soon")}
+        onClick={() => setActiveView("socials")}
       />
       <ButtonResearch
         isResearch={isResearch}
