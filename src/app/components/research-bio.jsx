@@ -1,20 +1,10 @@
-import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 
-import { researchBioAtom } from "@/store/atoms";
+import { globalArtistNameAtom, researchBioAtom } from "@/store/atoms";
 
 const ResearchBio = () => {
+  const [artistName] = useAtom(globalArtistNameAtom);
   const [reBio] = useAtom(researchBioAtom);
-  const [title, setTitle] = useState("Research");
-
-  useEffect(() => {
-    if (reBio) {
-      const match = reBio.match(/Page: (.*?)\nSummary:/);
-      if (match && match[1]) {
-        setTitle(match[1]);
-      }
-    }
-  }, [reBio]);
 
   const formatText = (text) => {
     if (!text) return null;
@@ -54,13 +44,20 @@ const ResearchBio = () => {
         reBio ? "overflow-y-scroll" : ""
       } pr-4 text-base text-darkslateblue-200 leading-5 whitespace-pre-wrap`}
     >
-      <div className="space-y-2">
-        <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
-          {title} via Wikipedia
-        </h3>
-        {!reBio ? "Wikipedia Information not yet available." : formatText(reBio)}
-        {/* {formatText(reBio)} */}
-      </div>
+      <h3 className="pb-6 text-xl text-darkslateblue-300 font-normal">
+        Biographical Information
+      </h3>
+
+      {reBio ? (
+        <>
+          <div className="text-lg font-normal group-hover:text-researchlavender-300 pb-2">
+            {artistName} via Wikipedia
+          </div>
+          {formatText(reBio)}
+        </>
+      ) : (
+        "Biographical Information not yet available."
+      )}
     </div>
   );
 };
