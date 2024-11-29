@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 
 import {
   globalArtistNameAtom,
@@ -23,31 +23,22 @@ import ResearchLyricalAnalysis from "./research-lyrical-analysis";
 import ResearchNews from "./research-news";
 import ResearchSonicAnalysis from "./research-sonic-analysis";
 import ResearchWelcome from "./research-welcome";
-import ButtonResearch from "@/components/ui/button-research";
-// import { formatText } from "@/lib/research-functions";
+import ButtonResearchGroup from "@/components/ui/button-research-group";
 
 const ResearchBody = () => {
   const [activeView, setActiveView] = useAtom(researchActiveAtom);
   const [artistName] = useAtom(globalArtistNameAtom);
   const [reBio] = useAtom(researchBioAtom);
-  const [reDiscourse, setReDiscourse] = useAtom(researchDiscourseAtom);
-  const [reDiscourseProg, setReDiscourseProg] = useAtom(
-    researchDiscourseProgressAtom
-  );
-  const [reInfluences, setReInfluences] = useAtom(researchInfluencesAtom);
-  const [reInfluencesProg, setReInfluencesProg] = useAtom(
-    researchInfluencesProgressAtom
-  );
-  const [reLyrical, setReLyrical] = useAtom(researchLyricalAnalysisAtom);
-  const [reLyricalProg, setReLyricalProg] = useAtom(
-    researchLyricalAnalysisProgressAtom
-  );
-  const [reNews, setReNews] = useAtom(researchNewsAtom);
-  const [reNewsProg, setReNewsProg] = useAtom(researchNewsProgressAtom);
-  const [reSonic, setReSonic] = useAtom(researchSonicAnalysisAtom);
-  const [reSonicProg, setReSonicProg] = useAtom(
-    researchSonicAnalysisProgressAtom
-  );
+  const setReDiscourse = useSetAtom(researchDiscourseAtom);
+  const setReDiscourseProg = useSetAtom(researchDiscourseProgressAtom);
+  const setReInfluences = useSetAtom(researchInfluencesAtom);
+  const setReInfluencesProg = useSetAtom(researchInfluencesProgressAtom);
+  const setReLyrical = useSetAtom(researchLyricalAnalysisAtom);
+  const setReLyricalProg = useSetAtom(researchLyricalAnalysisProgressAtom);
+  const setReNews = useSetAtom(researchNewsAtom);
+  const setReNewsProg = useSetAtom(researchNewsProgressAtom);
+  const setReSonic = useSetAtom(researchSonicAnalysisAtom);
+  const setReSonicProg = useSetAtom(researchSonicAnalysisProgressAtom);
 
   const renderActiveView = () => {
     switch (activeView) {
@@ -276,54 +267,12 @@ const ResearchBody = () => {
       <div className="research-content w-full h-full shadow-hieroshadow-25 rounded-md bg-researchlavender-100 border-researchlavender-500 border border-solid overflow-hidden flex flex-col items-start justify-start p-3 pr-2">
         {renderActiveView()}
       </div>
-      <div className="w-full flex flex-row items-start justify-center flex-wrap content-start gap-2 py-1 text-white">
-        <ButtonResearch
-          isResearch={true}
-          name="Discography"
-          classes="pointer-events-none"
-        />
-        <ButtonResearch
-          isResearch={true}
-          name="Influences"
-          isActive={activeView === "influences"}
-          onClick={() => setActiveView("influences")}
-        />
-        <ButtonResearch
-          isResearch={true}
-          name="Biographical Info"
-          isActive={activeView === "bio"}
-          onClick={() => setActiveView("bio")}
-        />
-        <ButtonResearch
-          isResearch={true}
-          name="Discourse"
-          isActive={activeView === "discourse"}
-          onClick={() => setActiveView("discourse")}
-        />
-        <ButtonResearch
-          isResearch={true}
-          name="Recent News"
-          isActive={activeView === "news"}
-          onClick={() => setActiveView("news")}
-        />
-        <ButtonResearch
-          isResearch={true}
-          name="Artist Socials"
-          classes="pointer-events-none"
-        />
-        <ButtonResearch
-          isResearch={true}
-          name="Sonic Analysis"
-          isActive={activeView === "sonic"}
-          onClick={() => setActiveView("sonic")}
-        />
-        <ButtonResearch
-          isResearch={true}
-          name="Lyrical Analysis"
-          isActive={activeView === "lyrical"}
-          onClick={() => setActiveView("lyrical")}
-        />
-      </div>
+
+      <ButtonResearchGroup
+        activeView={activeView}
+        setActiveView={setActiveView}
+        isResearch={true}
+      />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 
 import {
   globalArtistNameAtom,
@@ -23,13 +23,13 @@ const StrategiesLedes = () => {
   const scrollableRef = useRef(null);
 
   const [activeView, setActiveView] = useAtom(researchActiveAtom);
-  const [artistName, setArtistName] = useAtom(globalArtistNameAtom);
+  const setArtistName = useSetAtom(globalArtistNameAtom);
   const [ledes, setLedes] = useAtom(strategiesLedesAtom);
   const [strategiesLoading, setStrategiesLoading] = useAtom(
     strategiesLoadingAtom
   );
   const [recommended, setRecommended] = useAtom(strategiesRecAtom);
-  const [reBio, setReBio] = useAtom(researchBioAtom);
+  const setReBio = useSetAtom(researchBioAtom);
 
   const placeholder = "Enter artist name.";
 
@@ -39,7 +39,7 @@ const StrategiesLedes = () => {
     }
   }, []);
 
-  const handleCopy = (content, event) => {
+  const handleCopy = (content) => {
     navigator.clipboard.writeText(content).then(() => {
       setTooltipVisible(true);
       setTimeout(() => setTooltipVisible(false), 2000);
@@ -139,7 +139,7 @@ const StrategiesLedes = () => {
         className="drafting-scrollable w-full flex-1 flex flex-col items-start gap-2 pr-3 overflow-y-auto"
         ref={scrollableRef}
       >
-        {/* {strategiesLoading && ( */}
+        {strategiesLoading && (
           <div className="lede-first-load w-full h-full flex flex-col items-center justify-center">
             <div className="h-20">
               <LoadingIndicator
@@ -165,7 +165,7 @@ const StrategiesLedes = () => {
               />
             </div>
           </div>
-        {/* )} */}
+        )}
 
         {tooltipVisible && (
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center border-darkslategray-200 border-2 border-solid bg-mediumseagreen-200 text-darkslategray-200 py-2 px-4 rounded-md shadow-lg font-base text-2xl text-center leading-8">
