@@ -250,6 +250,10 @@ const ResearchBody = () => {
   }, [reBio]);
 
   useEffect(() => {
+    setReDiscourse(null);
+    setReNews(null);
+    setReInfluences(null);
+    setReLyrical(null);
     setReSonic(null);
     artistName
       ? (fetchDiscourse(),
