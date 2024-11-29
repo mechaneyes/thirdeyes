@@ -11,6 +11,8 @@ import {
   researchInfluencesProgressAtom,
   researchLyricalAnalysisAtom,
   researchLyricalAnalysisProgressAtom,
+  researchNewsAtom,
+  researchNewsProgressAtom,
   researchSonicAnalysisAtom,
   researchSonicAnalysisProgressAtom,
 } from "@/store/atoms";
@@ -18,6 +20,7 @@ import ResearchBio from "./research-bio";
 import ResearchDiscourse from "./research-discourse";
 import ResearchInfluences from "./research-influences";
 import ResearchLyricalAnalysis from "./research-lyrical-analysis";
+import ResearchNews from "./research-news";
 import ResearchSonicAnalysis from "./research-sonic-analysis";
 import ResearchWelcome from "./research-welcome";
 import ButtonResearch from "@/components/ui/button-research";
@@ -39,6 +42,10 @@ const ResearchBody = () => {
   const [reLyricalProg, setReLyricalProg] = useAtom(
     researchLyricalAnalysisProgressAtom
   );
+  const [reNews, setReNews] = useAtom(researchNewsAtom);
+  const [reNewsProg, setReNewsProg] = useAtom(
+    researchNewsProgressAtom
+  );
   const [reSonic, setReSonic] = useAtom(researchSonicAnalysisAtom);
   const [reSonicProg, setReSonicProg] = useAtom(
     researchSonicAnalysisProgressAtom
@@ -54,6 +61,8 @@ const ResearchBody = () => {
         return <ResearchInfluences />;
       case "lyrical":
         return <ResearchLyricalAnalysis />;
+      case "news":
+        return <ResearchNews />;
       case "sonic":
         return <ResearchSonicAnalysis />;
       default:
@@ -230,6 +239,22 @@ const ResearchBody = () => {
     }
   };
 
+  const fetchNews = async () => {
+    setReNewsProg(true);
+    try {
+      const response = await fetch(
+        `/api/research/search?q=${encodeURIComponent(artistName)}`
+      );
+      const data = await response.json();
+      // console.log("data.items:", data.results.items);
+      setReNews(data.results.items);
+    } catch (error) {
+      console.error("Search failed:", error);
+    } finally {
+      setReNewsProg(false);
+    }
+  };
+
   useEffect(() => {
     if (reBio !== undefined) {
       setActiveView("bio");
@@ -238,9 +263,10 @@ const ResearchBody = () => {
 
   useEffect(() => {
     artistName
-      ? (fetchDiscourse(),
-        fetchInfluences(),
-        fetchLyricalAnalysis(),
+      ? // fetchDiscourse(),
+        (fetchNews(),
+        // fetchInfluences(),
+        // fetchLyricalAnalysis(),
         fetchSonicAnalysis())
       : console.log("No artist name.");
   }, [artistName]);
@@ -280,7 +306,8 @@ const ResearchBody = () => {
         <ButtonResearch
           isResearch={true}
           name="Recent News"
-          classes="pointer-events-none"
+          isActive={activeView === "news"}
+          onClick={() => setActiveView("news")}
         />
         <ButtonResearch
           isResearch={true}
