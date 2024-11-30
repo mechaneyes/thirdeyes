@@ -9,6 +9,7 @@ import {
 } from "@/store/atoms";
 import MessageForm from "./message-form";
 import LoadingIndicator from "@/components/ui/loading-indicator";
+import StrategiesOriginsWelcome from "./strategies-origins-welcome";
 import TooltipCopied from "@/components/ui/tooltip-copied";
 
 const StrategiesOrigins = () => {
@@ -100,11 +101,15 @@ const StrategiesOrigins = () => {
 
   return (
     <div
-      className="relative w-full h-full flex flex-col p-3 pr-2 gap-4"
+      className={`relative w-full h-full flex flex-col p-3 ${
+        isFirstLoad ? "" : "pr-2"
+      } gap-4`}
       style={{ height: "calc(100% - 33px)" }}
     >
       <div
-        className="drafting-scrollable w-full flex-1 flex flex-col items-start gap-2 pr-3 overflow-y-auto"
+        className={`drafting-scrollable w-full flex-1 flex flex-col items-start gap-2 ${
+          isFirstLoad ? "" : "pr-3 overflow-y-auto"
+        }`}
         ref={scrollableRef}
       >
         {isLoading && (
@@ -122,21 +127,7 @@ const StrategiesOrigins = () => {
         )}
 
         {isFirstLoad && origins.length == 0 && (
-          <div className="lede-first-load w-full h-full flex items-center justify-center">
-            <div className="shadow-hieroshadow-25 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-start justify-center gap-4 p-3 pb-4 transition duration-200 text-darkslategray-200/90 text-base leading-6">
-              <div>
-                <h3 className="pb-2 text-xl text-darkslategray-200/90 font-normal">
-                  Strategies: Origins
-                </h3>
-                In this step you&apos;re drafting origins for your artist&apos;s
-                bio. Enter the lede you&apos;ve been writing in the form below.
-              </div>
-              <div>
-                Thirdeyes will use the Wikipedia information it&apos;s already
-                generated as context to inform the LLM writing these origins.
-              </div>
-            </div>
-          </div>
+          <StrategiesOriginsWelcome />
         )}
 
         {origins.length > 0 && !isLoading && (

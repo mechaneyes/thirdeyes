@@ -20,7 +20,7 @@ export default function StrategiesLedesWelcome() {
             Here you&apos;ll be drafting ledes for artist bios. Enter the
             artist&apos;s name in the form below to get started.
           </div>
-          <div>
+          <div className="pt-4">
             While working on the ledes, Thirdeyes is out gathering information
             you can use in crafting your bio. It will be presented in the
             Research panel to the right. 👉
