@@ -1,4 +1,4 @@
-import Header from "@/app/components/Header";
+import Header from "@/app/components/header";
 import Strategies from "@/app/components/strategies";
 import Research from "@/app/components/research";
 import Writing from "@/app/components/writing";

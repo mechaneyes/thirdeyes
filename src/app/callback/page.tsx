@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
-const Header = dynamic(() => import('@/app/components/Header'), { ssr: false });
+const Header = dynamic(() => import('@/app/components/header'), { ssr: false });
 
 interface User {
   email: string;
