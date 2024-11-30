@@ -1,3 +1,5 @@
+import plugin from "tailwindcss/plugin";
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -76,10 +78,20 @@ module.exports = {
         "hieroshadow-35": "2px 4px 16px -6px rgba(0, 0, 0, 0.35)",
       },
       fontFamily: {
-        'body': ["prometo", "sans-serif"],
-        'futura': "Futura",
-        'logo': "bd-colonius",
-        'mister': ["mr-eaves-modern"],
+        body: ["prometo", "sans-serif"],
+        futura: "Futura",
+        // "littlebit-dotty": "littlebit-dotty-variable",
+        loopy: "littlebit-loopy-variable",
+        // "littlebit-square": "littlebit-square-variable",
+        logo: "bd-colonius",
+        mister: ["mr-eaves-modern"],
+      },
+      fontVariationSettings: {
+        dots: '"DOTS" 1',
+        "loop-sm": '"LOOP" 12',
+        "loop-md": '"LOOP" 500',
+        "loop-lg": '"LOOP" 1000',
+        "bloc-open": '"BLOC" 1, "OPEN" 1',
       },
       borderRadius: {
         "3xs": "10px",
@@ -91,13 +103,48 @@ module.exports = {
       base: "1rem",
       lg: "1.125rem",
       xl: "1.25rem",
-      "2xl": "1.563rem",
-      "3xl": "1.953rem",
-      "4xl": "2.441rem",
-      "5xl": "3.052rem",
+      "2xl": "1.5rem",
+      "3xl": "2rem",
+      "4xl": "2.5rem",
+      "5xl": "3rem",
+      "6xl": "4rem",
+      "7xl": "5rem",
       inherit: "inherit",
     },
   },
+  plugins: [
+    require("@tailwindcss/typography"),
+    plugin(({ addUtilities, matchUtilities }) => {
+      // Static utilities
+      addUtilities({
+        ".font-dots": {
+          "font-variation-settings": '"DOTS" 1',
+        },
+        ".font-bloc-open": {
+          "font-variation-settings": '"BLOC" 1, "OPEN" 1',
+        },
+      });
+
+      // Dynamic loop size utility
+      matchUtilities(
+        {
+          "font-loop": (value) => ({
+            "font-variation-settings": `"LOOP" ${value}`,
+          }),
+        },
+        {
+          values: {
+            1: "12",
+            100: "100",
+            250: "250",
+            500: "500",
+            750: "750",
+            1000: "1000",
+          },
+        }
+      );
+    }),
+  ],
   corePlugins: {
     preflight: false,
   },

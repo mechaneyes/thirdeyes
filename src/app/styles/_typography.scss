@@ -1,21 +1,6 @@
 .thirdeyes {
   @include font-main;
   
-  h1 {
-    padding-bottom: 1rem;
-    @include font-main;
-    font-size: 2rem;
-    font-weight: 300;
-    line-height: 2.6rem;
-  }
-
-  // h3 {
-  //   // padding-bottom: 1rem;
-  //   font-size: 1.25rem;
-  //   font-weight: 300;
-  //   line-height: normal;
-  // }
-  
   h5 {
     font-weight: 400;
   }

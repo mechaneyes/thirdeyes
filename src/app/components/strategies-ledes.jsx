@@ -149,15 +149,8 @@ const StrategiesLedes = () => {
             </div>
             <div className="shadow-hieroshadow-25 mt-4 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-start justify-center gap-4 p-3 pb-4 transition duration-200 text-darkslategray-200/90 text-base leading-6">
               <div>
-                <h3 className="pb-2 text-xl text-darkslategray-200/90 font-normal">
-                  Strategies: A Waiting Game
-                </h3>
-                While Thirdeyes is out there dancing with models, the
-                information it&apos;s retrieving is being deposited in the
-                Research panel to the right. 👉
-              </div>
-              <div>
-                Feel free to explore the other research tools while you wait.
+                While Thirdeyes is dancing with models, explore information
+                it&apos;s retrieving in the Research panel.
               </div>
               <ButtonResearchGroup
                 activeView={activeView}
@@ -168,9 +161,7 @@ const StrategiesLedes = () => {
           </div>
         )}
 
-        {tooltipVisible && (
-          <TooltipCopied />
-        )}
+        {tooltipVisible && <TooltipCopied />}
 
         {error && (
           <div className="mb-4 p-4 bg-red-50 rounded-lg border border-red-200">

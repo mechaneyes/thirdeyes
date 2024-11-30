@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 import Header from "@/app/components/header";
 import Strategies from "@/app/components/strategies";
@@ -16,30 +16,43 @@ export default function Home() {
       <div className="thirdeyes w-full flex flex-col items-center justify-center px-3 pb-4 bg-sky-100 overflow-hidden">
         <Header />
         <div
-          className="w-full max-w-7xl flex flex-col justify-between gap-3"
+          className="playground w-full max-w-7xl flex flex-col justify-between gap-3"
           style={{ height: "calc(100vh - 87px)" }}
         >
           <motion.div
-            layout="position"
+            layoutId="playground"
             className="flex flex-row items-center justify-center gap-3"
             style={{ height: isExpanded ? "33%" : "66%" }}
+            transition={{
+              default: { ease: "linear" },
+              layout: { duration: 0.3 },
+            }}
           >
-            <motion.div layout="position" className="w-full h-full">
+            <motion.div className="w-full h-full">
               <Strategies />
             </motion.div>
 
-            <motion.div layout="position" className="w-full h-full">
+            <motion.div className="w-full h-full">
               <Research />
             </motion.div>
           </motion.div>
 
-          <motion.div
-            layout="position"
-            transition={{ duration: 0.4 }}
-            style={{ height: isExpanded ? "66%" : "33%" }}
-          >
-            <Writing onToggle={() => setIsExpanded(!isExpanded)} />
-          </motion.div>
+          <AnimatePresence>
+            <motion.div
+              key="writing-expanded"
+              layoutId="writing"
+              initial={{ height: "66%" }}
+              animate={{ height: "66%" }}
+              exit={{ height: 0 }}
+              transition={{
+                default: { ease: "linear" },
+                layout: { duration: 0.3 },
+              }}
+              className="w-full h-full"
+            >
+              <Writing onToggle={() => setIsExpanded(!isExpanded)} />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </>
