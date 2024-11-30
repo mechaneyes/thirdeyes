@@ -1,14 +1,20 @@
 import { useState, useEffect, useRef } from "react";
 import { useAtom, useSetAtom } from "jotai";
 
+import { pageExpandedAtom } from "@/store/atoms";
+
 import MessageForm from "./message-form";
+import StrategiesWorksWelcome from "./strategies-works-welcome";
 import TooltipCopied from "@/components/ui/tooltip-copied";
 
 const DraftingWorks = () => {
   const [error, setError] = useState(null);
   const [input, setInput] = useState("");
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const scrollableRef = useRef(null);
+
+  const [isExpanded, setIsExpanded] = useAtom(pageExpandedAtom);
 
   const placeholder = "Enter your draft.";
 
@@ -16,15 +22,21 @@ const DraftingWorks = () => {
     setInput(newInput);
   };
 
-  const handleSubmit = async () => {};
+  const handleSubmit = async () => {
+    setIsFirstLoad(false);
+  };
 
   return (
     <div
-      className="relative w-full h-full flex flex-col p-3 pr-2 gap-4"
+      className={`relative w-full h-full flex flex-col p-3 ${
+        isFirstLoad ? "" : "pr-2"
+      } gap-4`}
       style={{ height: "calc(100% - 33px)" }}
     >
       <div
-        className="drafting-scrollable w-full flex-1 flex flex-col items-start gap-2 pr-3 overflow-y-auto"
+        className={`drafting-scrollable w-full flex-1 flex flex-col items-start gap-2 ${
+          isFirstLoad ? "" : "pr-3 overflow-y-auto"
+        }`}
         ref={scrollableRef}
       >
         {/* {strategiesLoading && (
@@ -55,9 +67,7 @@ const DraftingWorks = () => {
           </div>
         )} */}
 
-        {tooltipVisible && (
-          <TooltipCopied />
-        )}
+        {tooltipVisible && <TooltipCopied />}
 
         {error && (
           <div className="mb-4 p-4 bg-red-50 rounded-lg border border-red-200">
@@ -66,22 +76,7 @@ const DraftingWorks = () => {
         )}
 
         {/* {isFirstLoad && ledes.length == 0 && ( */}
-        <div className="lede-first-load w-full h-full flex items-center justify-center">
-          <div className="shadow-hieroshadow-25 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-start justify-center gap-4 p-3 pb-4 transition duration-200 text-darkslategray-200/90 text-base leading-6">
-            <div>
-              <h3 className="pb-2 text-xl text-darkslategray-200/90 font-normal">
-                Strategies: Works
-              </h3>
-              Here you&apos;ll be drafting the works section for artist bios.
-              Enter the data in the form below to get started.
-            </div>
-            <div>
-              I row upon the belly on the back and between two waters. I am not
-              so dexte rous that you. Nothing is more easy than to swim; it do
-              not what don&apos;t to be afraid of.
-            </div>
-          </div>
-        </div>
+        <StrategiesWorksWelcome />
         {/* )} */}
 
         {/* {ledes.length > 0 && !strategiesLoading && (
@@ -104,13 +99,14 @@ const DraftingWorks = () => {
         )} */}
       </div>
 
-      <MessageForm
-        input={input}
-        onInputChange={handleInputChange}
-        handleSubmit={handleSubmit}
-        // strategiesLoading={strategiesLoading}
-        placeholder={placeholder}
-      />
+      {!isExpanded && (
+        <MessageForm
+          input={input}
+          onInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          placeholder={placeholder}
+        />
+      )}
     </div>
   );
 };
