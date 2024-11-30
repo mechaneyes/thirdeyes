@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useAtom } from "jotai";
+
+import { pageExpandedAtom } from "@/store/atoms";
 
 import Header from "@/app/components/header";
 import Strategies from "@/app/components/strategies";
@@ -9,7 +12,7 @@ import Research from "@/app/components/research";
 import Writing from "@/app/components/writing";
 
 export default function Home() {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useAtom(pageExpandedAtom);
 
   return (
     <>

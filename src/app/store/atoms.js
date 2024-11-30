@@ -11,6 +11,7 @@ export const firstPromptAtom = atom(false);
 export const isAuthorizedAtom = atom(false);
 export const isLoggedInAtom = atom(true);
 export const newChatAtom = atom(false);
+export const pageExpandedAtom = atom(false);
 export const queryAtom = atom(null);
 export const reflectedFirstAtom = atom(null);
 export const reflectionAtom = atom(false);

@@ -3,6 +3,7 @@ import { useAtom, useSetAtom } from "jotai";
 
 import {
   globalArtistNameAtom,
+  pageExpandedAtom,
   strategiesLedesAtom,
   strategiesLoadingAtom,
   strategiesRecAtom,
@@ -28,6 +29,7 @@ const StrategiesLedes = () => {
   const [activeView, setActiveView] = useAtom(researchActiveAtom);
   const setArtistName = useSetAtom(globalArtistNameAtom);
   const [ledes, setLedes] = useAtom(strategiesLedesAtom);
+  const [isExpanded, setIsExpanded] = useAtom(pageExpandedAtom);
   const [strategiesLoading, setStrategiesLoading] = useAtom(
     strategiesLoadingAtom
   );
@@ -134,11 +136,15 @@ const StrategiesLedes = () => {
 
   return (
     <div
-      className={`relative w-full h-full flex flex-col p-3 ${isFirstLoad ? "" : "pr-2"} gap-4`}
+      className={`relative w-full h-full flex flex-col p-3 ${
+        isFirstLoad ? "" : "pr-2"
+      } gap-4`}
       style={{ height: "calc(100% - 33px)" }}
     >
       <div
-        className={`drafting-scrollable w-full flex-1 flex flex-col items-start gap-2 ${isFirstLoad ? "" : "pr-3"} overflow-y-auto`}
+        className={`drafting-scrollable w-full flex-1 flex flex-col items-start gap-2 ${
+          isFirstLoad ? "" : "pr-3 overflow-y-auto"
+        }`}
         ref={scrollableRef}
       >
         {strategiesLoading && (
@@ -172,7 +178,11 @@ const StrategiesLedes = () => {
 
         {isFirstLoad && ledes.length == 0 && (
           <div className="lede-first-load w-full h-full flex items-start justify-center">
-            <div className="shadow-hieroshadow-25 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-full flex flex-col items-start justify-between gap-4 p-3 pb-16 text-darkslategray-200/90 text-base leading-6">
+            <div
+              className={`shadow-hieroshadow-25 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-full flex flex-col items-start justify-between gap-4 p-3 ${
+                !isExpanded ? "pb-16" : "h-full"
+              } text-darkslategray-200/90 text-base leading-6`}
+            >
               <div>
                 <div>
                   <h3 className="pb-2 text-xl text-darkslategray-200/90 font-normal">
@@ -227,13 +237,15 @@ const StrategiesLedes = () => {
         )}
       </div>
 
-      <MessageForm
-        input={input}
-        onInputChange={handleInputChange}
-        handleSubmit={handleSubmit}
-        strategiesLoading={strategiesLoading}
-        placeholder={placeholder}
-      />
+      {!isExpanded && (
+        <MessageForm
+          input={input}
+          onInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          strategiesLoading={strategiesLoading}
+          placeholder={placeholder}
+        />
+      )}
     </div>
   );
 };
