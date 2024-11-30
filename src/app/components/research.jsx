@@ -126,12 +126,13 @@ const Research = () => {
           format: release.media[0]?.format || "Unknown Format",
           label: release.labels?.[0]?.name && release.labels?.[0]?.name,
           tracks:
-            release.media[0]?.tracks?.map((track) => ({
-              position: track.position,
-              title: track.title,
-              duration: track.length,
-            })) || [],
-        }));
+        release.media[0]?.tracks?.map((track) => ({
+          position: track.position,
+          title: track.title,
+          duration: track.length,
+        })) || [],
+        }))
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
 
       console.log("releases", releases);
       setReDiscography(releases);
