@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAtom, useSetAtom } from "jotai";
 
 import {
+  pageExpandedAtom,
   strategiesOriginsAtom,
   strategiesOriginsContextAtom,
   strategiesLoadingAtom,
@@ -22,6 +23,7 @@ const StrategiesOrigins = () => {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const scrollableRef = useRef(null);
 
+  const [isExpanded, setIsExpanded] = useAtom(pageExpandedAtom);
   const [origins, setOrigins] = useAtom(strategiesOriginsAtom);
   const [reasoning, setReasoning] = useAtom(strategiesOriginsContextAtom);
   const reBio = useAtom(researchBioAtom);
@@ -126,9 +128,7 @@ const StrategiesOrigins = () => {
           </div>
         )}
 
-        {isFirstLoad && origins.length == 0 && (
-          <StrategiesOriginsWelcome />
-        )}
+        {isFirstLoad && origins.length == 0 && <StrategiesOriginsWelcome />}
 
         {origins.length > 0 && !isLoading && (
           <>
@@ -158,13 +158,14 @@ const StrategiesOrigins = () => {
         )}
       </div>
 
-      <MessageForm
-        input={input}
-        onInputChange={handleInputChange}
-        handleSubmit={handleSubmit}
-        isLoading={isLoading}
-        placeholder={placeholder}
-      />
+      {!isExpanded && (
+        <MessageForm
+          input={input}
+          onInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          placeholder={placeholder}
+        />
+      )}
     </div>
   );
 };
