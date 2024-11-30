@@ -98,12 +98,26 @@ const Research = () => {
         )}`
       );
       const data = await response.json();
-      console.log('data.results.items', data.results.items);
       setReArtistSocials(data.results.items);
     } catch (error) {
       console.error("Search failed:", error);
     } finally {
       setReArtistSocialsProg(false);
+    }
+  };
+
+  const fetchDiscography = async () => {
+    try {
+      const response = await fetch(
+        `/api/research/discography?artistName=${encodeURIComponent(artistName)}`
+      );
+      const data = await response.json();
+      console.log("discography", data.discography);
+      // setReArtistSocials(data.results.items);
+    } catch (error) {
+      console.error("Search failed:", error);
+    } finally {
+      // setReArtistSocialsProg(false);
     }
   };
 
@@ -250,12 +264,13 @@ const Research = () => {
     setReLyrical(null);
     setReSonic(null);
     artistName
-      ? (fetchArtistSocials(),
-        fetchDiscourse(),
-        fetchNews(),
-        fetchInfluences(),
-        fetchLyricalAnalysis(),
-        fetchSonicAnalysis())
+      ? // ? (fetchArtistSocials(),
+        // fetchDiscourse(),
+        // fetchNews(),
+        // fetchInfluences(),
+        // fetchLyricalAnalysis(),
+        // fetchSonicAnalysis())
+        fetchDiscography()
       : console.log("No artist name.");
   }, [artistName]);
 

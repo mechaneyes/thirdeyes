@@ -24,7 +24,6 @@ export async function POST(req) {
     async function getWikipediaContext(searchQuery) {
       try {
         const result = await wikipediaTool.invoke(searchQuery);
-        console.log("Wikipedia result length:", result.length);
 
         return result;
       } catch (error) {
@@ -35,7 +34,6 @@ export async function POST(req) {
 
     // Get Wikipedia context
     const wikiResult = await getWikipediaContext(query);
-    console.log("Wikipedia context found:", wikiResult ? "yes" : "no");
 
     return new Response(
       JSON.stringify({
