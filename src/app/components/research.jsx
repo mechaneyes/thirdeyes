@@ -11,6 +11,8 @@ import {
   globalArtistNameAtom,
   researchArtistSocialsAtom,
   researchArtistSocialsProgressAtom,
+  researchDiscographyAtom,
+  researchDiscographyProgressAtom,
   researchDiscourseAtom,
   researchDiscourseProgressAtom,
   researchInfluencesAtom,
@@ -27,6 +29,8 @@ const Research = () => {
   const [activeTab, setActiveTab] = useState("research");
 
   const [artistName] = useAtom(globalArtistNameAtom);
+  const setReDiscography = useSetAtom(researchDiscographyAtom);
+  const setReDiscographyProg = useSetAtom(researchDiscographyProgressAtom);
   const setReDiscourse = useSetAtom(researchDiscourseAtom);
   const setReDiscourseProg = useSetAtom(researchDiscourseProgressAtom);
   const setReInfluences = useSetAtom(researchInfluencesAtom);
@@ -107,17 +111,34 @@ const Research = () => {
   };
 
   const fetchDiscography = async () => {
+    setReDiscographyProg(true);
     try {
       const response = await fetch(
         `/api/research/discography?artistName=${encodeURIComponent(artistName)}`
       );
       const data = await response.json();
-      console.log("discography", data.discography);
-      // setReArtistSocials(data.results.items);
+      const releases = data.discography
+        .filter((release) => release.title)
+        .map((release) => ({
+          artist: release.artistCredits.map((names) => names.name),
+          title: release.title,
+          date: release.date && release.date,
+          format: release.media[0]?.format || "Unknown Format",
+          label: release.labels?.[0]?.name && release.labels?.[0]?.name,
+          tracks:
+            release.media[0]?.tracks?.map((track) => ({
+              position: track.position,
+              title: track.title,
+              duration: track.length,
+            })) || [],
+        }));
+
+      console.log("releases", releases);
+      setReDiscography(releases);
     } catch (error) {
       console.error("Search failed:", error);
     } finally {
-      // setReArtistSocialsProg(false);
+      setReDiscographyProg(false);
     }
   };
 

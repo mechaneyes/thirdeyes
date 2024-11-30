@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import { researchActiveAtom } from "@/store/atoms";
 import ResearchArtistSocials from "./research-artist-socials";
 import ResearchBio from "./research-bio";
+import ResearchDiscography from "./research-discography";
 import ResearchDiscourse from "./research-discourse";
 import ResearchInfluences from "./research-influences";
 import ResearchLyricalAnalysis from "./research-lyrical-analysis";
@@ -18,6 +19,8 @@ const ResearchBody = () => {
     switch (activeView) {
       case "bio":
         return <ResearchBio />;
+      case "discography":
+        return <ResearchDiscography />;
       case "discourse":
         return <ResearchDiscourse />;
       case "influences":

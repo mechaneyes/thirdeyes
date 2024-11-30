@@ -1,15 +1,5 @@
 .thirdeyes {
   @include font-main;
-  
-  h5 {
-    font-weight: 400;
-  }
-
-  p {
-    padding-bottom: 1rem;
-    font-size: 1rem;
-    font-weight: 300;
-  }
 
   .italic,
   em {

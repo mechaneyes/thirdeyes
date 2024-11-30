@@ -11,22 +11,22 @@ const ResearchWelcome = () => {
       <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
         Research: Welcome
       </h3>
-      <p>
+      <div className="pb-4">
         Welcome to Thirdeyes Research! You can use this tool to find information
         about artists, bands, or other topics.
-      </p>
-      <p>
+      </div>
+      <div className="pb-4">
         On first run the Wikipedia information associated with the artist
         you&apos;re working on is presented.
-      </p>
-      <p>
+      </div>
+      <div className="pb-4">
         Behind the scenes more information is being fetched about the artist. As
         it becomes available, that info can be accessed using the buttons below.
-      </p>
-      <p>
+      </div>
+      <div>
         To get started, enter an artist name in the form in the Strategies panel
         on the left.
-      </p>
+      </div>
     </div>
   );
 };
