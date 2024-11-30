@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
-export default function LogoLoopy() {
-  const text = "Thirdeyes";
+export default function LogoLoopy({ inputText }) {
+  const text = inputText || "Thirdeyes";
   const characters = text.split("");
   
   // Create state for each character
@@ -33,7 +33,7 @@ export default function LogoLoopy() {
           }
         })
       );
-    }, 40);
+    }, 80);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -43,7 +43,7 @@ export default function LogoLoopy() {
       {characters.map((char, index) => (
         <div
           key={index}
-          className="font-loopy text-6xl"
+          className="font-loopy text-6xl leading-none pb-4"
           style={{
             fontVariationSettings: `"LOOP" ${characterStates[index].loopiness}`,
           }}
