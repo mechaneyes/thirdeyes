@@ -27,18 +27,18 @@ export default function Home() {
             <motion.div layout="position" className="w-full h-full">
               <Strategies />
             </motion.div>
+
             <motion.div layout="position" className="w-full h-full">
               <Research />
             </motion.div>
           </motion.div>
+
           <motion.div
             layout="position"
+            transition={{ duration: 0.4 }}
             style={{ height: isExpanded ? "66%" : "33%" }}
           >
-            <Writing
-              isExpanded={isExpanded}
-              onToggle={() => setIsExpanded(!isExpanded)}
-            />
+            <Writing onToggle={() => setIsExpanded(!isExpanded)} />
           </motion.div>
         </div>
       </div>

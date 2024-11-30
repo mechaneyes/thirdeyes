@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { PanelBottomOpen, PanelBottomClose } from "lucide-react";
 
-const Writing = ({ isExpanded = false, onToggle }) => {
+const Writing = ({ onToggle }) => {
   const [editorContent, setEditorContent] = useState("");
   const [isTopActive, setIsTopActive] = useState(true);
   const [savedContent, setSavedContent] = useState(false);
