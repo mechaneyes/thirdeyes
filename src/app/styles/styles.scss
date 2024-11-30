@@ -1,19 +1,13 @@
 @use "carbon-components-react";
 @import "@carbon/themes/scss/themes";
-@import "abstracts/mixins";
-@import "abstracts/variables";
-@import "abstracts/typography";
+@import "mixins";
+@import "variables";
+@import "typography";
 @import "editor";
 @import "spotify";
 
-html,
-body {
-  height: 100%;
-  // background: #1e374e;
-
-  a {
-    text-decoration: none;
-  }
+a {
+  text-decoration: none;
 }
 
 .thirdeyes {
@@ -23,16 +17,5 @@ body {
 
   * {
     box-sizing: border-box;
-  }
-}
-
-.create {
-  p {
-    padding-bottom: 1rem;
-  }
-
-  textarea {
-    font-size: 1rem;
-    line-height: 1.5;
   }
 }
