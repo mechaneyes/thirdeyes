@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 
 import {
   strategiesOriginsAtom,
@@ -8,7 +8,8 @@ import {
   researchBioAtom,
 } from "@/store/atoms";
 import MessageForm from "./message-form";
-import LoadingIndicator from "./ui/loading-indicator";
+import LoadingIndicator from "@/components/ui/loading-indicator";
+import TooltipCopied from "@/components/ui/tooltip-copied";
 
 const StrategiesOrigins = () => {
   const [error, setError] = useState(null);
@@ -23,9 +24,7 @@ const StrategiesOrigins = () => {
   const [origins, setOrigins] = useAtom(strategiesOriginsAtom);
   const [reasoning, setReasoning] = useAtom(strategiesOriginsContextAtom);
   const reBio = useAtom(researchBioAtom);
-  const [strategiesLoading, setStrategiesLoading] = useAtom(
-    strategiesLoadingAtom
-  );
+  const setStrategiesLoading = useSetAtom(strategiesLoadingAtom);
 
   const placeholder = "Enter lede.";
 
@@ -114,11 +113,7 @@ const StrategiesOrigins = () => {
           />
         )}
 
-        {tooltipVisible && (
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center border-darkslategray-200 border-2 border-solid bg-mediumseagreen-200 text-darkslategray-200 py-2 px-4 rounded-md shadow-lg font-base text-2xl text-center leading-8">
-            Copied to clipboard!
-          </div>
-        )}
+        {tooltipVisible && <TooltipCopied />}
 
         {error && (
           <div className="mb-4 p-4 bg-red-50 rounded-lg border border-red-200">
@@ -133,8 +128,8 @@ const StrategiesOrigins = () => {
                 <h3 className="pb-2 text-xl text-darkslategray-200/90 font-normal">
                   Strategies: Origins
                 </h3>
-                In this step you&apos;re drafting origins for your artist&apos;s bio.
-                Enter the lede you&apos;ve been writing in the form below.
+                In this step you&apos;re drafting origins for your artist&apos;s
+                bio. Enter the lede you&apos;ve been writing in the form below.
               </div>
               <div>
                 Thirdeyes will use the Wikipedia information it&apos;s already

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAtom, useSetAtom } from "jotai";
 
 import MessageForm from "./message-form";
+import TooltipCopied from "@/components/ui/tooltip-copied";
 
 const DraftingWorks = () => {
   const [error, setError] = useState(null);
@@ -55,9 +56,7 @@ const DraftingWorks = () => {
         )} */}
 
         {tooltipVisible && (
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center border-darkslategray-200 border-2 border-solid bg-mediumseagreen-200 text-darkslategray-200 py-2 px-4 rounded-md shadow-lg font-base text-2xl text-center leading-8">
-            Copied to clipboard!
-          </div>
+          <TooltipCopied />
         )}
 
         {error && (

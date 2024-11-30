@@ -9,9 +9,11 @@ import {
   researchActiveAtom,
   researchBioAtom,
 } from "@/store/atoms";
-import MessageForm from "./message-form";
-import LoadingIndicator from "./ui/loading-indicator";
+
 import ButtonResearchGroup from "@/components/ui/button-research-group";
+import LoadingIndicator from "@/components/ui/loading-indicator";
+import MessageForm from "./message-form";
+import TooltipCopied from "@/components/ui/tooltip-copied";
 
 const StrategiesLedes = () => {
   const [error, setError] = useState(null);
@@ -167,9 +169,7 @@ const StrategiesLedes = () => {
         )}
 
         {tooltipVisible && (
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center border-darkslategray-200 border-2 border-solid bg-mediumseagreen-200 text-darkslategray-200 py-2 px-4 rounded-md shadow-lg font-base text-2xl text-center leading-8">
-            Copied to clipboard!
-          </div>
+          <TooltipCopied />
         )}
 
         {error && (
