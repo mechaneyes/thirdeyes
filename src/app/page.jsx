@@ -41,8 +41,8 @@ export default function Home() {
             <motion.div
               key="writing-expanded"
               layoutId="writing"
-              initial={{ height: "66%" }}
-              animate={{ height: "66%" }}
+              initial={{ height: "33%" }} // Changed from 66%
+              animate={{ height: isExpanded ? "66%" : "33%" }} // Made dynamic
               exit={{ height: 0 }}
               transition={{
                 default: { ease: "linear" },
