@@ -3,21 +3,8 @@
 @import "abstracts/mixins";
 @import "abstracts/variables";
 @import "abstracts/typography";
-@import "pages/chat";
-@import "pages/home";
-@import "pages/howto";
-@import "pages/present";
-@import "pages/profile";
-@import "components/animations";
-@import "components/buttons";
-@import "components/chat-sidebar";
-@import "components/editor";
-@import "components/header";
-@import "components/modals";
-@import "components/model-selector";
-@import "components/search";
-@import "components/sidebar";
-@import "components/spotify";
+@import "editor";
+@import "spotify";
 
 html,
 body {
