@@ -5,6 +5,7 @@ import {
   globalArtistNameAtom,
   pageExpandedAtom,
   strategiesLedesAtom,
+  strategiesLedesFirstLoadAtom,
   strategiesLoadingAtom,
   strategiesRecAtom,
   researchActiveAtom,
@@ -21,7 +22,6 @@ import TooltipCopied from "@/components/ui/tooltip-copied";
 const StrategiesLedes = () => {
   const [error, setError] = useState(null);
   const [input, setInput] = useState("");
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [loadingStep, setLoadingStep] = useState("Primary");
   const [messages, setMessages] = useState([]);
   const [tooltipVisible, setTooltipVisible] = useState(false);
@@ -30,6 +30,7 @@ const StrategiesLedes = () => {
   const [activeView, setActiveView] = useAtom(researchActiveAtom);
   const setArtistName = useSetAtom(globalArtistNameAtom);
   const [ledes, setLedes] = useAtom(strategiesLedesAtom);
+  const [isFirstLoad, setIsFirstLoad] = useAtom(strategiesLedesFirstLoadAtom);
   const [isExpanded, setIsExpanded] = useAtom(pageExpandedAtom);
   const [strategiesLoading, setStrategiesLoading] = useAtom(
     strategiesLoadingAtom
