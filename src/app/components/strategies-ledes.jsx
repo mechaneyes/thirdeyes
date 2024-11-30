@@ -77,7 +77,7 @@ const StrategiesLedes = () => {
       const wikiData = await wikiResponse.json();
       setReBio(wikiData.context);
 
-      isFirstLoad && setActiveView("bio");
+      isFirstLoad && setActiveView("discography");
 
       if (!wikiData.success) {
         throw new Error(wikiData.error || "Wikipedia search failed");

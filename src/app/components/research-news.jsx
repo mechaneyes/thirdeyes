@@ -21,22 +21,22 @@ const ResearchNews = () => {
         {reNews ? (
           <div className="">
             {reNews.map((result) => (
-              <article key={result.link} className="pt-5">
+              <article key={result.link} className="pt-5 pb-4">
                 <Link
                   href={result.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block text-darkslateblue-300 group"
                 >
-                  <div className="text-lg font-normal group-hover:text-researchlavender-300">
+                  <div className="text-xl font-normal group-hover:text-researchlavender-300">
                     {result.title}
                   </div>
 
-                  <div className="text-normal font-light group-hover:text-researchlavender-300 mt-1">
+                  <div className="text-normal font-normal group-hover:text-researchlavender-300 pt-2">
                     {result.displayLink}
                   </div>
 
-                  <p className="mt-2">{result.snippet}</p>
+                  <div className="pt-2 leading-6">{result.snippet}</div>
                 </Link>
               </article>
             ))}
