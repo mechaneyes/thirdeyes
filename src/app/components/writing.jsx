@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { PanelBottomOpen, PanelBottomClose } from "lucide-react";
 
-const Writing = () => {
+const Writing = ({ isExpanded = false, onToggle }) => {
   const [editorContent, setEditorContent] = useState("");
+  const [isTopActive, setIsTopActive] = useState(true);
   const [savedContent, setSavedContent] = useState(false);
 
   useEffect(() => {
@@ -18,6 +20,16 @@ const Writing = () => {
     // Save editorContent whenever it changes
     localStorage.setItem("editorContent", editorContent);
   }, [editorContent]);
+
+  const handleTopClick = () => {
+    setIsTopActive(false);
+    onToggle();
+  };
+
+  const handleBottomClick = () => {
+    setIsTopActive(true);
+    onToggle();
+  };
 
   const handleContentChange = (event) => {
     setEditorContent(event.target.value);
@@ -69,7 +81,9 @@ const Writing = () => {
                 <span className="text-seagreen cursor-wait">Saved!</span>
               )}
             </div>
-            <b className="px-2 text-5xl leading-[0rem] text-darkslateblue-100">·</b>
+            <b className="px-2 text-5xl leading-[0rem] text-darkslateblue-100">
+              ·
+            </b>
             <span
               onClick={handleClearContent}
               className="text-darkslateblue-100 font-normal cursor-pointer"
@@ -89,48 +103,16 @@ const Writing = () => {
             />
           </div>
 
-          <div className="w-[1.5rem] overflow-hidden shrink-0 flex flex-col items-center justify-center py-[0.562rem] px-[0rem] box-border gap-[0.5rem]">
-            <div
-              className="w-4 relative h-4 overflow-hidden shrink-0"
-              width={16}
-              height={16}
-              alt=""
-              src="Fit-to-height.svg"
+          <div className="w-6 overflow-hidden shrink-0 flex flex-col items-center justify-center py-[0.562rem] px-[0rem] box-border gap-[0.5rem]">
+            <PanelBottomOpen
+              onClick={isTopActive ? handleTopClick : undefined}
+              color={isTopActive ? "#0362fe" : "#9d9d9d"}
+              style={{ cursor: isTopActive ? "pointer" : "default" }}
             />
-            <div
-              className="w-4 relative h-4 overflow-hidden shrink-0"
-              width={16}
-              height={16}
-              alt=""
-              src="Open-panel--filled--bottom.svg"
-            />
-            <div
-              className="self-stretch relative max-w-full overflow-hidden h-[0.375rem] shrink-0"
-              width={24}
-              height={6}
-              alt=""
-              src="spacer.svg"
-            />
-            <div
-              className="w-4 relative h-4 overflow-hidden shrink-0"
-              width={16}
-              height={16}
-              alt=""
-              src="Folder.svg"
-            />
-            <div
-              className="w-[1.063rem] relative h-[1.063rem] overflow-hidden shrink-0"
-              width={17}
-              height={17}
-              alt=""
-              src="Save.svg"
-            />
-            <div
-              className="w-4 relative h-4 overflow-hidden shrink-0"
-              width={16}
-              height={16}
-              alt=""
-              src="cloud--upload.svg"
+            <PanelBottomClose
+              onClick={!isTopActive ? handleBottomClick : undefined}
+              color={!isTopActive ? "#0362fe" : "#9d9d9d"}
+              style={{ cursor: !isTopActive ? "pointer" : "default" }}
             />
           </div>
         </div>
