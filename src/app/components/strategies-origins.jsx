@@ -5,6 +5,7 @@ import {
   pageExpandedAtom,
   strategiesOriginsAtom,
   strategiesOriginsContextAtom,
+  strategiesOriginsFirstLoadAtom,
   strategiesLoadingAtom,
   researchBioAtom,
 } from "@/store/atoms";
@@ -16,7 +17,6 @@ import TooltipCopied from "@/components/ui/tooltip-copied";
 const StrategiesOrigins = () => {
   const [error, setError] = useState(null);
   const [input, setInput] = useState("");
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [loadingStep, setLoadingStep] = useState("Primary");
   const [messages, setMessages] = useState([]);
@@ -26,6 +26,7 @@ const StrategiesOrigins = () => {
   const [isExpanded, setIsExpanded] = useAtom(pageExpandedAtom);
   const [origins, setOrigins] = useAtom(strategiesOriginsAtom);
   const [reasoning, setReasoning] = useAtom(strategiesOriginsContextAtom);
+  const [isFirstLoad, setIsFirstLoad] = useAtom(strategiesOriginsFirstLoadAtom);
   const reBio = useAtom(researchBioAtom);
   const setStrategiesLoading = useSetAtom(strategiesLoadingAtom);
 

@@ -7,6 +7,7 @@ export const strategiesLedesFirstLoadAtom = atom(true);
 export const strategiesLoadingAtom = atom(false);
 export const strategiesOriginsAtom = atom([]);
 export const strategiesOriginsContextAtom = atom("");
+export const strategiesOriginsFirstLoadAtom = atom(true);
 export const strategiesRecAtom = atom("");
 export const firstPromptAtom = atom(false);
 export const isAuthorizedAtom = atom(false);
