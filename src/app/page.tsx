@@ -10,27 +10,29 @@ import Writing from "@/app/components/writing";
 
 export default function Home() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const totalHeight = "calc(100vh - 87px)";
 
   return (
     <>
       <div className="thirdeyes w-full flex flex-col items-center justify-center px-3 pb-4 bg-sky-100 overflow-hidden">
         <Header />
         <div
-          className="third-body w-full max-w-7xl flex flex-col gap-3"
-          style={{ height: totalHeight }}
+          className="w-full max-w-7xl flex flex-col justify-between gap-3"
+          style={{ height: "calc(100vh - 87px)" }}
         >
           <motion.div
-            layout
-            className={`third-main flex flex-row items-center justify-center gap-3`}
+            layout="position"
+            className="flex flex-row items-center justify-center gap-3"
             style={{ height: isExpanded ? "33%" : "66%" }}
           >
-            <Strategies />
-            <Research />
+            <motion.div layout="position" className="w-full h-full">
+              <Strategies />
+            </motion.div>
+            <motion.div layout="position" className="w-full h-full">
+              <Research />
+            </motion.div>
           </motion.div>
           <motion.div
-            layout
-            className="third-write"
+            layout="position"
             style={{ height: isExpanded ? "66%" : "33%" }}
           >
             <Writing

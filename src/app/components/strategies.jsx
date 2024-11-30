@@ -24,7 +24,7 @@ const Strategies = () => {
   };
 
   return (
-    <div className="strategies self-stretch flex-1 pb-1 rounded-lg bg-mediumseagreen-200 shadow-hieroshadow-35 border-seagreen border-x border-b border-b-lg border-solid flex flex-col items-center justify-start">
+    <div className="strategies h-full self-stretch flex-1 pb-1 rounded-lg bg-mediumseagreen-200 shadow-hieroshadow-35 border-seagreen border-x border-b border-b-lg border-solid flex flex-col items-center justify-start">
       <StrategiesTabs activeTab={activeTab} onTabChange={setActiveTab} />
       {renderContent()}
     </div>
