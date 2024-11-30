@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 
-import Header from "@/app/components/header";
+import Header from "./components/header";
 import Strategies from "@/app/components/strategies";
 import Research from "@/app/components/research";
 import Writing from "@/app/components/writing";
