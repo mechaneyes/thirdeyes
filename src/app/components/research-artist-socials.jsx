@@ -18,14 +18,14 @@ const ResearchArtistSocials = () => {
       } pr-4 text-base text-darkslateblue-200 leading-5 whitespace-pre-wrap`}
     >
       <div className="h-full">
-        <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
+        <h3 className="pb-1 text-2xl text-darkslateblue-300 font-normal">
           Artist Social Media Links
         </h3>
 
         {reArtistSocials ? (
           <div className="">
             {reArtistSocials.map((result) => (
-              <article key={result.link} className="pt-5 pb-2">
+              <article key={result.link} className="pt-4 pb-2">
                 <Link
                   href={result.link}
                   target="_blank"

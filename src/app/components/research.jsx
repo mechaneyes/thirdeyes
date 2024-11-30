@@ -78,7 +78,7 @@ const Research = () => {
         if (line.startsWith("##")) {
           const headerText = line.replace(/^#+\s?/, "").trim();
           return (
-            <div key={index} className="font-normal text-xl mt-6 mb-2">
+            <div key={index} className="font-normal text-xl pt-4 mb-2">
               {headerText}
             </div>
           );
@@ -126,15 +126,14 @@ const Research = () => {
           format: release.media[0]?.format || "Unknown Format",
           label: release.labels?.[0]?.name && release.labels?.[0]?.name,
           tracks:
-        release.media[0]?.tracks?.map((track) => ({
-          position: track.position,
-          title: track.title,
-          duration: track.length,
-        })) || [],
+            release.media[0]?.tracks?.map((track) => ({
+              position: track.position,
+              title: track.title,
+              duration: track.length,
+            })) || [],
         }))
         .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-      console.log("releases", releases);
       setReDiscography(releases);
     } catch (error) {
       console.error("Search failed:", error);
@@ -286,13 +285,13 @@ const Research = () => {
     setReLyrical(null);
     setReSonic(null);
     artistName
-      ? // ? (fetchArtistSocials(),
-        // fetchDiscourse(),
-        // fetchNews(),
-        // fetchInfluences(),
-        // fetchLyricalAnalysis(),
-        // fetchSonicAnalysis())
-        fetchDiscography()
+      ? (fetchArtistSocials(),
+        fetchDiscography(),
+        fetchDiscourse(),
+        fetchNews(),
+        fetchInfluences(),
+        fetchLyricalAnalysis(),
+        fetchSonicAnalysis())
       : console.log("No artist name.");
   }, [artistName]);
 

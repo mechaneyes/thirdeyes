@@ -30,9 +30,9 @@ const ResearchBio = () => {
         return (
           // only paragraphs for non-empty lines
           line.trim() && (
-            <p key={index} className="mb-2">
+            <div key={index} className="text-base font-base leading-6 mb-2">
               {line}
-            </p>
+            </div>
           )
         );
       });
@@ -44,7 +44,7 @@ const ResearchBio = () => {
         reBio ? "overflow-y-scroll" : ""
       } pr-4 text-base text-darkslateblue-200 leading-5 whitespace-pre-wrap`}
     >
-      <h3 className="pb-6 text-xl text-darkslateblue-300 font-normal">
+      <h3 className="pb-6 text-2xl text-darkslateblue-300 font-normal">
         Biographical Information
       </h3>
 
