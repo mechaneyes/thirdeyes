@@ -102,10 +102,7 @@ const StrategiesLedes = () => {
             const data = JSON.parse(line.slice(5));
 
             if (data.primary) {
-              // console.log(
-              //   "🎬 Primary Data",
-              //   JSON.stringify(data.primary, null, 2)
-              // );
+              // console.log("🎬 Primary Data", JSON.stringify(data.primary, null, 2));
               setLoadingStep("Voice");
             }
             if (data.secondary) {
