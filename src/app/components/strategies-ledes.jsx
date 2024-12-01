@@ -25,6 +25,7 @@ const StrategiesLedes = () => {
   const [messages, setMessages] = useState([]);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const scrollableRef = useRef(null);
+  const [showError, setShowError] = useState(false);
 
   const [activeView, setActiveView] = useAtom(researchActiveAtom);
   const setArtistName = useSetAtom(globalArtistNameAtom);
@@ -44,6 +45,16 @@ const StrategiesLedes = () => {
       scrollableRef.current.scrollTop = 0;
     }
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      setShowError(true);
+      const timer = setTimeout(() => {
+        setShowError(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   const handleCopy = (content) => {
     navigator.clipboard.writeText(content).then(() => {
@@ -167,9 +178,11 @@ const StrategiesLedes = () => {
 
         {tooltipVisible && <TooltipCopied />}
 
-        {error && (
-          <div className="mb-4 p-4 bg-red-50 rounded-lg border border-red-200">
-            <p className="text-red-700">{error}</p>
+        {error && showError && (
+          <div className="w-full flex justify-center">
+            <div className="flex justify-center w-1/2 mb-4 p-4 bg-red-50 rounded-lg border border-red-200">
+              <p className="text-red-700">{error}</p>
+            </div>
           </div>
         )}
 
