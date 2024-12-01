@@ -25,11 +25,11 @@ const ResearchDiscography = () => {
           <div className="pt-4 leading-6">
             {reDiscography.map((release, index) => (
               <div key={index} className="pb-8">
-                <p className="font-normal text-xl">{release.title}</p>
+                <div className="font-normal text-xl">{release.title}</div>
                 <div className="text-base font-base">
                   {release.date} • {release.format}
                 </div>
-                <div className="text-base font-normal pt-2">Tracks:</div>
+                <div className="text-base font-normal pt-4">Tracks:</div>
                 {release.tracks.map((track, index) => (
                   <div key={index}>
                     {track.position}. {track.title}

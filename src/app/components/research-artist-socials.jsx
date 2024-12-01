@@ -32,7 +32,7 @@ const ResearchArtistSocials = () => {
                   rel="noopener noreferrer"
                   className="block text-darkslateblue-300 group"
                 >
-                  <div className="text-lg font-normal group-hover:text-researchlavender-300">
+                  <div className="text-xl font-normal group-hover:text-researchlavender-300">
                     {result.title}
                   </div>
 

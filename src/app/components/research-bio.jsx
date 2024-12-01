@@ -6,23 +6,34 @@ const ResearchBio = () => {
   const [artistName] = useAtom(globalArtistNameAtom);
   const [reBio] = useAtom(researchBioAtom);
 
+  console.log('reBio', reBio);
+
   const formatText = (text) => {
     if (!text) return null;
 
-    // Remove "Page:" and "Summary:" prefixes
-    const cleanText = text.replace(/^Page:.*\nSummary:\s*/, "");
-
-    return cleanText
+    return text
       .split("\n")
       .filter((line) => line.trim().length > 0) // kill empty lines
       .map((line, index) => {
-        if (
-          (line.startsWith("==") || line.startsWith("===")) &&
-          (line.endsWith("==") || line.endsWith("==="))
-        ) {
-          const headerText = line.replace(/===/g, "").replace(/==/g, "").trim();
+        if (line.match(/^Page:(.*)/)) {
+          line = line.replace(/^Page:\s*/, "");
+          return (
+            <div key={index} className="text-xl font-normal leading-6 mb-2">
+              Wikipedia: {line}
+            </div>
+          );
+        }
+        if (line.startsWith("==") && line.endsWith("==")) {
+          const headerText = line.replace(/==/g, "").trim();
           return (
             <h4 key={index} className="font-normal text-lg mt-4 mb-2">
+              {headerText}
+            </h4>
+          );
+        } else if (line.startsWith("===") && line.endsWith("===")) {
+          const headerText = line.replace(/===/g, "").trim();
+          return (
+            <h4 key={index} className="font-normal text-base mt-4 mb-2">
               {headerText}
             </h4>
           );
@@ -48,16 +59,9 @@ const ResearchBio = () => {
         Biographical Information
       </h3>
 
-      {reBio ? (
-        <>
-          <div className="text-lg font-normal group-hover:text-researchlavender-300 pb-2">
-            {artistName} via Wikipedia
-          </div>
-          {formatText(reBio)}
-        </>
-      ) : (
-        "Biographical Information not yet available."
-      )}
+      {reBio
+        ? formatText(reBio)
+        : "Biographical Information not yet available."}
     </div>
   );
 };
