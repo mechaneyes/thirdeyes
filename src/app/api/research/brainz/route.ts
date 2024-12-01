@@ -1,15 +1,15 @@
 const USER_AGENT = "Thirdeyes/1.0.0 ( ray@mechaneyes.com )";
 
-export const delayedFetch = async (url: string, delay: number = 1000) => {
-  await new Promise((resolve) => setTimeout(resolve, delay));
-  return fetch(url, {
-    headers: {
-      "User-Agent": USER_AGENT,
-    },
-  });
-};
-
 export async function GET(req: Request) {
+  const delayedFetch = async (url: string, delay: number = 1000) => {
+    await new Promise((resolve) => setTimeout(resolve, delay));
+    return fetch(url, {
+      headers: {
+        "User-Agent": USER_AGENT,
+      },
+    });
+  };
+
   try {
     const url = new URL(req.url);
     const artistName = url.searchParams.get("artistName");
