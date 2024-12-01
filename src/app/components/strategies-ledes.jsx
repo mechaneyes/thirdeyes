@@ -218,6 +218,7 @@ const StrategiesLedes = () => {
       {!isExpanded && (
         <MessageForm
           input={input}
+          setInput={setInput}
           onInputChange={handleInputChange}
           handleSubmit={handleSubmit}
           strategiesLoading={strategiesLoading}

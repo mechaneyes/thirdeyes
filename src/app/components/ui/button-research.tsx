@@ -15,7 +15,7 @@ const ButtonResearch = (props: ButtonPrimaryProps) => {
 
   const buttonContent = (
     <div
-      className={`shadow-hieroshadow-25 rounded-md border-researchpurple border-2 border-solid overflow-hidden flex flex-col items-center justify-center py-1.5 px-2.5 leading-none p-2 
+      className={`shadow-hieroshadow-25 rounded-md border-researchpurple border border-solid overflow-hidden flex flex-col items-center justify-center py-1.5 px-2.5 leading-none p-2 
         transition-all duration-200 ease-in-out ${classes} 
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-opacity-80'}
         ${

@@ -1,9 +1,17 @@
 import { useState } from "react";
-
+import { useSetAtom } from "jotai";
 import { Unplug } from "lucide-react";
+
+import {
+  globalArtistNameAtom,
+  strategiesLedesFirstLoadAtom,
+  strategiesLedesAtom,
+  strategiesLoadingAtom,
+} from "@/app/store/atoms";
 
 const MessageForm = ({
   input,
+  setInput,
   onInputChange,
   handleSubmit,
   isLoading,
@@ -11,9 +19,22 @@ const MessageForm = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const setArtistName = useSetAtom(globalArtistNameAtom);
+  const setIsFirstLoad = useSetAtom(strategiesLedesFirstLoadAtom);
+  const setLedes = useSetAtom(strategiesLedesAtom);
+  const setStrategiesLoading = useSetAtom(strategiesLoadingAtom);
+
   const onSubmit = (e) => {
     e.preventDefault();
     handleSubmit(input);
+  };
+
+  const handleReset = () => {
+    setInput("");
+    setArtistName(null);
+    setIsFirstLoad(true);
+    setLedes([]);
+    setStrategiesLoading(false);
   };
 
   return (
@@ -36,7 +57,7 @@ const MessageForm = ({
           Send
         </button>
         <Unplug
-          // onClick={!isTopActive ? handleBottomClick : undefined}
+          onClick={handleReset}
           color={isHovered ? "#3b82f6" : "white"}
           className="cursor-pointer border-solid border-2 rounded-md border-blue-500 bg-blue-500 hover:bg-white transition-colors duration-300 w-10 h-10 p-1.5"
           onMouseEnter={() => setIsHovered(true)}
