@@ -15,17 +15,18 @@ const ButtonResearch = (props: ButtonPrimaryProps) => {
 
   const buttonContent = (
     <div
-      className={`shadow-hieroshadow-25 rounded-md border-researchpurple border border-solid overflow-hidden flex flex-col items-center justify-center py-1.5 px-2.5 leading-none ${classes} 
-        ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+      className={`shadow-hieroshadow-25 rounded-md border-researchpurple border-2 border-solid overflow-hidden flex flex-col items-center justify-center py-1.5 px-2.5 leading-none p-2 
+        transition-all duration-200 ease-in-out ${classes} 
+        ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-opacity-80'}
         ${
           isActive && isResearch
             ? "bg-researchlavender-300"
             : !isActive && isResearch
-            ? "bg-researchlavender-400/75 hover:bg-researchlavender-300"
+            ? "bg-researchlavender-400/75"
             : isActive && !isResearch
-            ? "bg-mediumseagreen-400 hover:bg-mediumseagreen-400 border-seagreen"
+            ? "bg-mediumseagreen-400 border-seagreen"
             : !isActive && !isResearch
-            ? "bg-mediumseagreen-300 hover:bg-mediumseagreen-400 border-seagreen"
+            ? "bg-mediumseagreen-300 border-seagreen"
             : ""
         }`}
       onClick={disabled ? undefined : onClick}
