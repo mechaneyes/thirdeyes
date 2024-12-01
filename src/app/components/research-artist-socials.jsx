@@ -18,9 +18,11 @@ const ResearchArtistSocials = () => {
       } pr-4 text-base text-darkslateblue-200 leading-5 whitespace-pre-wrap`}
     >
       <div className="h-full">
-        <h3 className="pb-1 text-2xl text-darkslateblue-300 font-normal">
-          Artist Social Media Links
-        </h3>
+        {artistName && (
+          <h3 className="pb-1 text-2xl text-darkslateblue-300 font-normal">
+            Artist Socials
+          </h3>
+        )}
 
         {reArtistSocials ? (
           <div className="">

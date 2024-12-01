@@ -1,11 +1,4 @@
-import { useEffect, useState } from "react";
-import { useAtom } from "jotai";
-
-import { researchInfluencesAtom } from "@/store/atoms";
-
 const ResearchWelcome = () => {
-  const [reInfluences] = useAtom(researchInfluencesAtom);
-
   return (
     <div className="research-inner relative h-full w-11/12 pr-4 text-base text-darkslateblue-200 leading-6 whitespace-pre-wrap">
       <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
