@@ -1,5 +1,13 @@
 const USER_AGENT = "Thirdeyes/1.0.0 ( ray@mechaneyes.com )";
 
+interface Release {
+  title: string;
+  id: string;
+  date?: string;
+  format?: string;
+  tracks?: { title: string; number: number }[];
+}
+
 const delayedFetch = async (url: string, delay: number = 1000): Promise<Response> => {
   await new Promise((resolve) => setTimeout(resolve, delay));
   return fetch(url, {
@@ -53,13 +61,13 @@ export async function GET(req: Request): Promise<Response> {
     );
     const discographyData = await discographyResponse.json();
 
-    const releases = discographyData.releases.map((release: { title: string; id: string }) => ({
+    const releases: Release[] = discographyData.releases.map((release: { title: string; id: string }) => ({
       title: release.title,
       id: release.id,
     }));
 
     const releaseDetails = await Promise.all(
-      releases.map(async (release, index) => {
+      releases.map(async (release: Release, index: number) => {
         const response = await delayedFetch(
           `https://musicbrainz.org/ws/2/release/${release.id}?inc=artist-credits+labels+discids+recordings&fmt=json`,
           (index + 1) * 1000
