@@ -9,16 +9,12 @@ const ResearchWelcome = () => {
         about artists, bands, or other topics.
       </div>
       <div className="pb-4">
-        On first run the Wikipedia information associated with the artist
-        you&apos;re working on is presented.
-      </div>
-      <div className="pb-4">
-        Behind the scenes more information is being fetched about the artist. As
-        it becomes available, that info can be accessed using the buttons below.
+        Behind the scenes information about the artist is being fetched. As it
+        becomes available, that info can be accessed using the buttons below.
       </div>
       <div>
-        To get started, enter an artist name in the form in the Strategies panel
-        on the left.
+        To get started, search for an artist in the Strategies panel on the
+        left.
       </div>
     </div>
   );
