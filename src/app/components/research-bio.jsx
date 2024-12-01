@@ -6,8 +6,6 @@ const ResearchBio = () => {
   const [artistName] = useAtom(globalArtistNameAtom);
   const [reBio] = useAtom(researchBioAtom);
 
-  console.log('reBio', reBio);
-
   const formatText = (text) => {
     if (!text) return null;
 
@@ -39,7 +37,7 @@ const ResearchBio = () => {
           );
         }
         return (
-          // only paragraphs for non-empty lines
+          // only print if line is not empty
           line.trim() && (
             <div key={index} className="text-base font-base leading-6 mb-2">
               {line}

@@ -66,7 +66,7 @@ const StrategiesLedes = () => {
     try {
       // ————————————————————————————————————o wikipedia context —>
       //
-      const wikiResponse = await fetch("/api/wikipedia", {
+      const wikiResponse = await fetch("/api/research/wikipedia", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
