@@ -117,6 +117,8 @@ const Research = () => {
         `/api/research/discography?artistName=${encodeURIComponent(artistName)}`
       );
       const data = await response.json();
+      console.log(data.discography)
+      
       const releases = data.discography
         .filter((release) => release.title)
         .map((release) => ({
