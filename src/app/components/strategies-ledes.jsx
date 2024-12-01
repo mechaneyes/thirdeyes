@@ -158,8 +158,9 @@ const StrategiesLedes = () => {
             </div>
             <div className="shadow-hieroshadow-25 mt-4 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-start justify-center gap-4 p-3 pb-4 transition duration-200 text-darkslategray-200/90 text-base leading-6">
               <div>
-                While Thirdeyes is dancing with models, explore information
-                it&apos;s retrieving in the Research panel.
+                While Thirdeyes is dancing with models, explore the information
+                it&apos;s retrieving and using the populate the Research panel
+                to the right.
               </div>
               <ButtonResearchGroup
                 activeView={activeView}
@@ -178,9 +179,7 @@ const StrategiesLedes = () => {
           </div>
         )}
 
-        {isFirstLoad && ledes.length == 0 && (
-          <StrategyLedesWelcome />
-        )}
+        {isFirstLoad && ledes.length == 0 && <StrategyLedesWelcome />}
 
         {ledes.length > 0 && !strategiesLoading && (
           <>

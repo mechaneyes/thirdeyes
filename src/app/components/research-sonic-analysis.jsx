@@ -25,7 +25,7 @@ const ResearchSonicAnalysis = () => {
           <div className="text-base leading-6">{reSonic}</div>
         ) : reSonicProg ? (
           <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
-            <LoadingIndicator loadingCopy={`Generating sonic analysis`} />
+            <LoadingIndicator loadingCopy={`Generating Sonic Analysis`} />
           </div>
         ) : (
           "Sonic Analysis not yet available."

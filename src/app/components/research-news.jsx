@@ -43,7 +43,7 @@ const ResearchNews = () => {
           </div>
         ) : reNewsProg ? (
           <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
-            <LoadingIndicator loadingCopy={`Generating Recent News`} />
+            <LoadingIndicator loadingCopy={`Gathering Recent News`} />
           </div>
         ) : (
           "Recent News not yet available."

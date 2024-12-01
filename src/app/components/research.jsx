@@ -110,41 +110,43 @@ const Research = () => {
     }
   };
 
+  // const fetchDiscography = async () => {
+  //   setReDiscographyProg(true);
+  //   try {
+  //     const response = await fetch(
+  //       `/api/research/discography?artistName=${encodeURIComponent(artistName)}`
+  //     );
+  //     const data = await response.json();
+  //     // console.log(data.discography);
+
+  //     const releases = data.discography
+  //       .filter((release) => release.title)
+  //       .map((release) => ({
+  //         artist: release.artistCredits.map((names) => names.name),
+  //         title: release.title,
+  //         date: release.date && release.date,
+  //         format: release.media[0]?.format || "Unknown Format",
+  //         label: release.labels?.[0]?.name && release.labels?.[0]?.name,
+  //         tracks:
+  //           release.media[0]?.tracks?.map((track) => ({
+  //             position: track.position,
+  //             title: track.title,
+  //             duration: track.length,
+  //           })) || [],
+  //       }))
+  //       .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  //     setReDiscography(releases);
+  //   } catch (error) {
+  //     console.error("Search failed:", error);
+  //   } finally {
+  //     setReDiscographyProg(false);
+  //   }
+  // };
+
   const fetchDiscography = async () => {
     setReDiscographyProg(true);
-    try {
-      const response = await fetch(
-        `/api/research/discography?artistName=${encodeURIComponent(artistName)}`
-      );
-      const data = await response.json();
-      // console.log(data.discography);
 
-      const releases = data.discography
-        .filter((release) => release.title)
-        .map((release) => ({
-          artist: release.artistCredits.map((names) => names.name),
-          title: release.title,
-          date: release.date && release.date,
-          format: release.media[0]?.format || "Unknown Format",
-          label: release.labels?.[0]?.name && release.labels?.[0]?.name,
-          tracks:
-            release.media[0]?.tracks?.map((track) => ({
-              position: track.position,
-              title: track.title,
-              duration: track.length,
-            })) || [],
-        }))
-        .sort((a, b) => new Date(a.date) - new Date(b.date));
-
-      setReDiscography(releases);
-    } catch (error) {
-      console.error("Search failed:", error);
-    } finally {
-      setReDiscographyProg(false);
-    }
-  };
-
-  const fetchRelease = async () => {
     try {
       const response = await fetch(
         `/api/research/brainz?artistName=${encodeURIComponent(artistName)}`
@@ -162,6 +164,7 @@ const Research = () => {
         })),
       }));
 
+      setReDiscographyProg(false);
       setReDiscography(releases);
     } catch (error) {
       console.error("Fetch failed:", error);
@@ -311,14 +314,13 @@ const Research = () => {
     setReLyrical(null);
     setReSonic(null);
     if (artistName) {
-      fetchRelease();
-      // fetchArtistSocials(),
-      //   fetchDiscography(),
-      //   fetchDiscourse(),
-      //   fetchNews(),
-      //   fetchInfluences(),
-      //   fetchLyricalAnalysis(),
-      //   fetchSonicAnalysis();
+      fetchArtistSocials(),
+        fetchDiscography(),
+        fetchDiscourse(),
+        fetchNews(),
+        fetchInfluences(),
+        fetchLyricalAnalysis(),
+        fetchSonicAnalysis();
     }
   }, [artistName]);
 

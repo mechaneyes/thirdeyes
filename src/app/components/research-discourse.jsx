@@ -24,7 +24,7 @@ const ResearchDiscourse = () => {
           <div className="text-base leading-6">{reDiscourse}</div>
         ) : reDiscourseProg ? (
           <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
-            <LoadingIndicator loadingCopy={`Generating discourse`} />
+            <LoadingIndicator loadingCopy={`Retrieving Discourse`} />
           </div>
         ) : (
           "Discourse not yet available."

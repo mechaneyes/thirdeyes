@@ -31,7 +31,7 @@ const ResearchDiscography = () => {
                 </div>
                 <div className="text-base font-normal pt-2">Tracks</div>
                 {release.tracks.map((track, index) => (
-                  <div key={index} className="flex flex-row justify-start items-center">
+                  <div key={index}>
                     {track.number}. {track.title}
                   </div>
                 ))}
@@ -40,7 +40,7 @@ const ResearchDiscography = () => {
           </div>
         ) : reDiscographyProg ? (
           <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
-            <LoadingIndicator loadingCopy={`Generating influences`} />
+            <LoadingIndicator loadingCopy={`Generating Discography`} />
           </div>
         ) : (
           "Discography not yet available."

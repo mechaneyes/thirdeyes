@@ -25,7 +25,7 @@ const ResearchInfluences = () => {
           <div className="text-base leading-6">{reInfluences}</div>
         ) : reInfluencesProg ? (
           <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
-            <LoadingIndicator loadingCopy={`Generating influences`} />
+            <LoadingIndicator loadingCopy={`Analyzing Influences`} />
           </div>
         ) : (
           "Influences not yet available."
