@@ -12,7 +12,6 @@ import {
   researchBioAtom,
 } from "@/store/atoms";
 
-import ButtonResearchGroup from "@/components/ui/button-research-group";
 import LoadingIndicator from "@/components/ui/loading-indicator";
 import LogoLoopy from "@/components/logo-loopy";
 import MessageForm from "./message-form";
@@ -156,17 +155,12 @@ const StrategiesLedes = () => {
                 loadingCopy={`Generating ledes — ${loadingStep} model`}
               />
             </div>
-            <div className="shadow-hieroshadow-25 mt-4 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-11/12 flex flex-col items-start justify-center gap-4 p-3 pb-4 transition duration-200 text-darkslategray-200/90 text-base leading-6">
+            <div className="shadow-hieroshadow-25 mt-4 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-4/5 flex flex-col items-start justify-center gap-4 p-3 pb-4 transition duration-200 text-darkslategray-200/90 text-base leading-6">
               <div>
                 While Thirdeyes is dancing with models, explore the information
                 it&apos;s retrieving and using to populate the Research panel to
                 the right. <span className="text-2xl">👉</span>
               </div>
-              <ButtonResearchGroup
-                activeView={activeView}
-                setActiveView={setActiveView}
-                isResearch={false}
-              />
             </div>
           </div>
         )}
