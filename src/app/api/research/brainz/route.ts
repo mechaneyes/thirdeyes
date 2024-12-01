@@ -1,15 +1,15 @@
 const USER_AGENT = "Thirdeyes/1.0.0 ( ray@mechaneyes.com )";
 
-export async function GET(req: Request) {
-  const delayedFetch = async (url: string, delay: number = 1000) => {
-    await new Promise((resolve) => setTimeout(resolve, delay));
-    return fetch(url, {
-      headers: {
-        "User-Agent": USER_AGENT,
-      },
-    });
-  };
+const delayedFetch = async (url: string, delay: number = 1000): Promise<Response> => {
+  await new Promise((resolve) => setTimeout(resolve, delay));
+  return fetch(url, {
+    headers: {
+      "User-Agent": USER_AGENT,
+    },
+  });
+};
 
+export async function GET(req: Request): Promise<Response> {
   try {
     const url = new URL(req.url);
     const artistName = url.searchParams.get("artistName");
@@ -29,9 +29,7 @@ export async function GET(req: Request) {
 
     // Artist search
     const artistResponse = await delayedFetch(
-      `https://musicbrainz.org/ws/2/artist/?query=artist:${encodeURIComponent(
-        artistName
-      )}&fmt=json`
+      `https://musicbrainz.org/ws/2/artist/?query=artist:${encodeURIComponent(artistName)}&fmt=json`
     );
     const artistData = await artistResponse.json();
 
@@ -49,47 +47,42 @@ export async function GET(req: Request) {
     }
 
     const artistId = artistData.artists[0].id;
-    // console.log("artistId", artistId);
 
     const discographyResponse = await delayedFetch(
       `https://musicbrainz.org/ws/2/artist/${artistId}/releases?inc=aliases+releases&fmt=json`
     );
     const discographyData = await discographyResponse.json();
-    console.log("discographyData", discographyData);
 
-    const releases = discographyData.releases.map((release: any) => ({
+    const releases = discographyData.releases.map((release: { title: string; id: string }) => ({
       title: release.title,
       id: release.id,
     }));
 
     const releaseDetails = await Promise.all(
-      releases.map((release, index) =>
-        delayedFetch(
+      releases.map(async (release, index) => {
+        const response = await delayedFetch(
           `https://musicbrainz.org/ws/2/release/${release.id}?inc=artist-credits+labels+discids+recordings&fmt=json`,
           (index + 1) * 1000
-        ).then((response) =>
-          response.json().then((data) => ({
-            ...release,
-            id: data.id,
-            title: data.title,
-            date: data.date,
-            format: data.media?.[0]?.format,
-            tracks:
-              data.media?.[0]?.tracks?.map((track: any) => ({
-                title: track.title,
-                number: track.number,
-              })) || [],
-          }))
-        )
-      )
+        );
+        const data = await response.json();
+        return {
+          ...release,
+          id: data.id,
+          title: data.title,
+          date: data.date,
+          format: data.media?.[0]?.format,
+          tracks: data.media?.[0]?.tracks?.map((track: any) => ({
+            title: track.title,
+            number: track.number,
+          })) || [],
+        };
+      })
     );
 
     // Sort by date
     const sortedReleases = releaseDetails.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
     );
-
-    console.log("sortedReleases", sortedReleases);
 
     return new Response(
       JSON.stringify({
