@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
 
 import { globalArtistNameAtom, researchBioAtom } from "@/store/atoms";
+import LoadingIndicator from "./ui/loading-indicator";
 
 const ResearchBio = () => {
   const [artistName] = useAtom(globalArtistNameAtom);
@@ -53,13 +54,18 @@ const ResearchBio = () => {
         reBio ? "overflow-y-scroll" : ""
       } pr-4 text-base text-darkslateblue-200 leading-5 whitespace-pre-wrap`}
     >
-      <h3 className="pb-6 text-2xl text-darkslateblue-300 font-normal">
-        Biographical Information
-      </h3>
-
-      {reBio
-        ? formatText(reBio)
-        : "Biographical Information not yet available."}
+      {reBio ? (
+        <>
+          <h3 className="pb-6 text-2xl text-darkslateblue-300 font-normal">
+            Biographical Information
+          </h3>
+          {formatText(reBio)}
+        </>
+      ) : (
+        <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
+          <LoadingIndicator loadingCopy={`Generating Biography`} />
+        </div>
+      )}
     </div>
   );
 };

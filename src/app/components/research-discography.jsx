@@ -39,12 +39,12 @@ const ResearchDiscography = () => {
               ))}
             </div>
           </>
-        ) : reDiscographyProg ? (
-          <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
-            <LoadingIndicator loadingCopy={`Generating Discography`} />
-          </div>
         ) : (
-          "Discography not yet available."
+          reDiscographyProg && (
+            <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
+              <LoadingIndicator loadingCopy={`Generating Discography`} />
+            </div>
+          )
         )}
       </div>
     </div>
