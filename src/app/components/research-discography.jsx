@@ -29,10 +29,10 @@ const ResearchDiscography = () => {
                 <div className="text-base font-base">
                   {release.date} • {release.format}
                 </div>
-                <div className="text-base font-normal pt-4">Tracks:</div>
+                <div className="text-base font-normal pt-2">Tracks</div>
                 {release.tracks.map((track, index) => (
-                  <div key={index}>
-                    {track.position}. {track.title}
+                  <div key={index} className="flex flex-row justify-start items-center">
+                    {track.number}. {track.title}
                   </div>
                 ))}
               </div>

@@ -1,4 +1,4 @@
-const USER_AGENT = "Thirdeyes/1.0.0 (https://thirdeyes.fm)";
+const USER_AGENT = "Thirdeyes/1.0.0 ( ray@mechaneyes.com )";
 
 export async function GET(req: Request) {
   try {
@@ -47,28 +47,43 @@ export async function GET(req: Request) {
     const artistId = artistData.artists[0].id;
     console.log("artistId", artistId);
 
-    // Fetch discography
-    const disgographyResponse = await fetch(
-      `https://musicbrainz.org/ws/2/release?artist=${artistId}&fmt=json`,
+    // 🍄 🍄 🍄 🍄
+    // 🍄 🍄 🍄 🍄
+    // 🍄 🍄 🍄 🍄
+    const artistReleases = await fetch(
+      `https://musicbrainz.org/ws/2/artist/${artistId}?inc=aliases+releases&fmt=json`,
       {
         headers: {
           "User-Agent": USER_AGENT,
         },
       }
     );
-    const disgographyData = await disgographyResponse.json();
+    const artistReleasesData = await artistReleases.json();
+    // console.log("artistReleasesData", artistReleasesData);
 
-    const discography = disgographyData.releases.map((release) => ({
+    // Fetch discography
+    // const disgographyResponse = await fetch(
+    //   `https://musicbrainz.org/ws/2/release?artist=${artistId}&fmt=json`,
+    //   {
+    //     headers: {
+    //       "User-Agent": USER_AGENT,
+    //     },
+    //   }
+    // );
+    // const disgographyData = await disgographyResponse.json();
+
+    const discography = artistReleasesData.releases.map((release) => ({
       title: release.title,
       id: release.id,
     }));
+    // console.log("discography", discography);
 
     // Fetch detailed release info
     // Map over discography to fetch details for each release
     const releaseDetails = await Promise.all(
       discography.map(async (release) => {
         const releaseResponse = await fetch(
-          `https://musicbrainz.org/ws/2/release/${release.id}?inc=artist-credits+labels+discids+recordings&fmt=json`,
+          `https://musicbrainz.org/ws/2/release/${release.id}?inc=aliases+artist-credits+labels+discids+recordings&fmt=json`,
           {
             headers: {
               "User-Agent": USER_AGENT,
@@ -76,6 +91,7 @@ export async function GET(req: Request) {
           }
         );
         const detailedData = await releaseResponse.json();
+        console.log("detailedData", detailedData);
 
         return {
           ...release,

@@ -117,8 +117,8 @@ const Research = () => {
         `/api/research/discography?artistName=${encodeURIComponent(artistName)}`
       );
       const data = await response.json();
-      console.log(data.discography)
-      
+      // console.log(data.discography);
+
       const releases = data.discography
         .filter((release) => release.title)
         .map((release) => ({
@@ -141,6 +141,30 @@ const Research = () => {
       console.error("Search failed:", error);
     } finally {
       setReDiscographyProg(false);
+    }
+  };
+
+  const fetchRelease = async () => {
+    try {
+      const response = await fetch(
+        `/api/research/brainz?artistName=${encodeURIComponent(artistName)}`
+      );
+      const data = await response.json();
+      console.log(data);
+
+      const releases = data.releases.map((release) => ({
+        title: release.title,
+        date: release.date,
+        format: release.format,
+        tracks: release.tracks.map((track) => ({
+          title: track.title,
+          number: track.number,
+        })),
+      }));
+
+      setReDiscography(releases);
+    } catch (error) {
+      console.error("Fetch failed:", error);
     }
   };
 
@@ -286,15 +310,16 @@ const Research = () => {
     setReInfluences(null);
     setReLyrical(null);
     setReSonic(null);
-    artistName
-      ? (fetchArtistSocials(),
-        fetchDiscography(),
-        fetchDiscourse(),
-        fetchNews(),
-        fetchInfluences(),
-        fetchLyricalAnalysis(),
-        fetchSonicAnalysis())
-      : console.log("No artist name.");
+    if (artistName) {
+      fetchRelease();
+      // fetchArtistSocials(),
+      //   fetchDiscography(),
+      //   fetchDiscourse(),
+      //   fetchNews(),
+      //   fetchInfluences(),
+      //   fetchLyricalAnalysis(),
+      //   fetchSonicAnalysis();
+    }
   }, [artistName]);
 
   return (
