@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { pageExpandedAtom } from "@/store/atoms";
 
 export default function StrategiesWorksWelcome() {
-  const [isExpanded, setIsExpanded] = useAtom(pageExpandedAtom);
+  const [isExpanded] = useAtom(pageExpandedAtom);
 
   return (
     <div className="lede-first-load w-full h-full flex items-center justify-center">
@@ -18,7 +18,8 @@ export default function StrategiesWorksWelcome() {
               Strategies: Works
             </h3>
             Here you&apos;ll be drafting the works section for artist bios.
-            Enter the data in the form below to get started.
+            Enter the four drafts you've written in the form below to get
+            started.
           </div>
           <div className="pt-4">
             I row upon the belly on the back and between two waters. I am not so

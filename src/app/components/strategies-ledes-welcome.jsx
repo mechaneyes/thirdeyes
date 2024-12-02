@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { pageExpandedAtom } from "@/store/atoms";
 
 export default function StrategiesLedesWelcome() {
-  const [isExpanded, setIsExpanded] = useAtom(pageExpandedAtom);
+  const [isExpanded] = useAtom(pageExpandedAtom);
 
   return (
     <div className="lede-first-load w-full h-full flex items-center justify-center">
