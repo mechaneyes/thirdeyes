@@ -12,6 +12,7 @@ import {
 const MessageForm = ({
   input,
   setInput,
+  toReset,
   onInputChange,
   handleSubmit,
   isLoading,
@@ -21,7 +22,6 @@ const MessageForm = ({
 
   const setArtistName = useSetAtom(globalArtistNameAtom);
   const setIsFirstLoad = useSetAtom(strategiesLedesFirstLoadAtom);
-  const setLedes = useSetAtom(strategiesLedesAtom);
   const setStrategiesLoading = useSetAtom(strategiesLoadingAtom);
 
   const onSubmit = (e) => {
@@ -33,7 +33,7 @@ const MessageForm = ({
     setInput("");
     setArtistName(null);
     setIsFirstLoad(true);
-    setLedes([]);
+    // toReset();
     setStrategiesLoading(false);
   };
 

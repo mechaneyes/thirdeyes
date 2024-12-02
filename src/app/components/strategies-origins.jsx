@@ -23,12 +23,14 @@ const StrategiesOrigins = () => {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const scrollableRef = useRef(null);
 
-  const [isExpanded, setIsExpanded] = useAtom(pageExpandedAtom);
+  const [isExpanded] = useAtom(pageExpandedAtom);
   const [origins, setOrigins] = useAtom(strategiesOriginsAtom);
   const [reasoning, setReasoning] = useAtom(strategiesOriginsContextAtom);
   const [isFirstLoad, setIsFirstLoad] = useAtom(strategiesOriginsFirstLoadAtom);
   const reBio = useAtom(researchBioAtom);
-  const setStrategiesLoading = useSetAtom(strategiesLoadingAtom);
+  const [strategiesLoading, setStrategiesLoading] = useAtom(
+    strategiesLoadingAtom
+  );
 
   const placeholder = "Enter lede.";
 
@@ -162,8 +164,10 @@ const StrategiesOrigins = () => {
       {!isExpanded && (
         <MessageForm
           input={input}
+          setInput={setInput}
           onInputChange={handleInputChange}
           handleSubmit={handleSubmit}
+          toReset={() => setOrigins([])}
           placeholder={placeholder}
         />
       )}

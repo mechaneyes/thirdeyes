@@ -28,7 +28,7 @@ const StrategiesWorks = () => {
   );
   const [works, setWorks] = useAtom(strategiesWorksAtom);
   const [isFirstLoad, setIsFirstLoad] = useAtom(strategiesWorksFirstLoadAtom);
-  const [isExpanded, setIsExpanded] = useAtom(pageExpandedAtom);
+  const [isExpanded] = useAtom(pageExpandedAtom);
   const [reBio] = useAtom(researchBioAtom);
 
   const placeholder = "Enter your draft.";
@@ -190,8 +190,10 @@ const StrategiesWorks = () => {
       {!isExpanded && (
         <MessageForm
           input={input}
+          setInput={setInput}
           onInputChange={handleInputChange}
           handleSubmit={handleSubmit}
+          toReset={() => setWorks([])}
           placeholder={placeholder}
         />
       )}

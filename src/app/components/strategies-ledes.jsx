@@ -27,11 +27,11 @@ const StrategiesLedes = () => {
   const scrollableRef = useRef(null);
   const [showError, setShowError] = useState(false);
 
-  const [activeView, setActiveView] = useAtom(researchActiveAtom);
+  const [setActiveView] = useAtom(researchActiveAtom);
   const setArtistName = useSetAtom(globalArtistNameAtom);
   const [ledes, setLedes] = useAtom(strategiesLedesAtom);
   const [isFirstLoad, setIsFirstLoad] = useAtom(strategiesLedesFirstLoadAtom);
-  const [isExpanded, setIsExpanded] = useAtom(pageExpandedAtom);
+  const [isExpanded] = useAtom(pageExpandedAtom);
   const [strategiesLoading, setStrategiesLoading] = useAtom(
     strategiesLoadingAtom
   );
@@ -228,7 +228,7 @@ const StrategiesLedes = () => {
           setInput={setInput}
           onInputChange={handleInputChange}
           handleSubmit={handleSubmit}
-          strategiesLoading={strategiesLoading}
+          toReset={() => setLedes([])}
           placeholder={placeholder}
         />
       )}
