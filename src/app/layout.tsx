@@ -29,7 +29,7 @@ export default async function RootLayout({
         />
         <link rel="stylesheet" href="https://use.typekit.net/xgg6bof.css" />
       </head>
-      <body>
+      <body className="overflow-hidden">
         <UserProvider>{children}</UserProvider>
         <Analytics />
       </body>
