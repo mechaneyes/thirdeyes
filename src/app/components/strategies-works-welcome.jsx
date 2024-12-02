@@ -18,7 +18,7 @@ export default function StrategiesWorksWelcome() {
               Strategies: Works
             </h3>
             Here you&apos;ll be drafting the works section for artist bios.
-            Enter the four drafts you've written in the form below to get
+            Enter the four drafts you&apos;ve written in the form below to get
             started.
           </div>
           <div className="pt-4">
