@@ -6,7 +6,7 @@ export default function StrategiesLedesWelcome() {
   const [isExpanded, setIsExpanded] = useAtom(pageExpandedAtom);
 
   return (
-    <div className="lede-first-load w-full h-full flex items-start justify-center">
+    <div className="lede-first-load w-full h-full flex items-center justify-center">
       <div
         className={`shadow-hieroshadow-25 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-full flex flex-col items-start justify-between gap-4 p-3 ${
           !isExpanded ? "pb-16" : "h-full"
