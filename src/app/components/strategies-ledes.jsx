@@ -163,12 +163,12 @@ const StrategiesLedes = () => {
           <div className="lede-first-load w-full h-full flex flex-col items-center justify-center">
             <div className="h-20">
               <LoadingIndicator
-                loadingCopy={`Generating ledes — ${loadingStep} model`}
+                loadingCopy={`Generating Ledes — ${loadingStep} Model`}
               />
             </div>
             <div className="shadow-hieroshadow-25 mt-4 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-4/5 flex flex-col items-start justify-center gap-4 p-3 pb-4 transition duration-200 text-darkslategray-200/90 text-base leading-6">
               <div>
-                While Thirdeyes is dancing with models, explore the information
+                While Thirdeyes is dancing with the models, explore the information
                 it&apos;s retrieving and using to populate the Research panel to
                 the right. <span className="text-2xl">👉</span>
               </div>

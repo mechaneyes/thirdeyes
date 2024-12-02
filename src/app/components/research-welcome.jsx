@@ -4,17 +4,8 @@ const ResearchWelcome = () => {
       <h3 className="pb-1 text-xl text-darkslateblue-300 font-normal">
         Research: Welcome
       </h3>
-      <div className="pb-4">
-        Welcome to Thirdeyes Research! You can use this tool to find information
-        about artists, bands, or other topics.
-      </div>
-      <div className="pb-4">
-        Behind the scenes information about the artist is being fetched. As it
-        becomes available, that info can be accessed using the buttons below.
-      </div>
       <div>
-        To get started, search for an artist in the Strategies panel on the
-        left.
+        {`Welcome to Thirdeyes Research! You can use this tool to find information about artists, bands, or other topics.\n\nBehind the scenes information about the artist is being fetched. As it becomes available, that info can be accessed using the buttons below.\n\nTo get started, search for an artist in the Strategies panel on the left.`}
       </div>
     </div>
   );
