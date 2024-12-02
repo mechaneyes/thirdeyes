@@ -7,14 +7,12 @@ const Header = () => {
         <Link className="font-logo font-normal" href="/">
           Thirdeyes
         </Link>
-        <div className="font-body text-base font-normal">
-          Third Bridge Creative
-        </div>
+        <div className="font-body text-base font-normal"></div>
       </div>
       <div className="flex items-center justify-end gap-2 font-body text-base font-normal">
-        <Link href="https://trello.com/b/eLCNLMP5/ai-development">Trello</Link>
-        <b className="text-xl">·</b>
-        <Link href="#">Login</Link>
+        Third Bridge Creative
+        {/* <b className="text-xl">·</b>
+        <Link href="#">Login</Link> */}
       </div>
     </div>
   );
