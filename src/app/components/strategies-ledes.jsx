@@ -184,7 +184,7 @@ const StrategiesLedes = () => {
             <div className="flex justify-center w-1/2 mb-4 p-4 bg-red-50 rounded-lg border border-red-200">
               {/* <p className="text-red-700">{error}</p> */}
               <p className="text-red-700">
-                He burns one's self the brains. Please try again.
+                He burns one&apos;s self the brains. Please try again.
               </p>
             </div>
           </div>
