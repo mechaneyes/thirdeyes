@@ -60,11 +60,11 @@ export async function POST(req: Request) {
               })),
             ],
             response_format: zodResponseFormat(MusicReviewLedes, "result"),
-            temperature: 0.84,
-            max_tokens: 4095,
+            temperature: 1,
+            max_tokens: 1948,
             top_p: 1,
             frequency_penalty: 0.24,
-            presence_penalty: 0.72,
+            presence_penalty: 0.72
           });
 
           const primaryResult = primaryCompletion.choices[0].message.parsed;
@@ -74,24 +74,24 @@ export async function POST(req: Request) {
 
           // ————————————————————————————————————o Secondary model —>
           //
-          const secondaryCompletion = await openai.beta.chat.completions.parse({
-            model: "gpt-4o-2024-08-06",
-            messages: [
-              { role: "system", content: ledeVoice.content },
-              { role: "user", content: JSON.stringify(primaryResult) },
-            ],
-            response_format: zodResponseFormat(MusicReviewLedes, "result"),
-            temperature: 0.83,
-            max_tokens: 4095,
-            top_p: 0.9,
-            frequency_penalty: 0.29,
-            presence_penalty: 1.25,
-          });
+          // const secondaryCompletion = await openai.beta.chat.completions.parse({
+          //   model: "gpt-4o-2024-08-06",
+          //   messages: [
+          //     { role: "system", content: ledeVoice.content },
+          //     { role: "user", content: JSON.stringify(primaryResult) },
+          //   ],
+          //   response_format: zodResponseFormat(MusicReviewLedes, "result"),
+          //   temperature: 0.83,
+          //   max_tokens: 4095,
+          //   top_p: 0.9,
+          //   frequency_penalty: 0.29,
+          //   presence_penalty: 1.25,
+          // });
 
-          const secondaryResult = secondaryCompletion.choices[0].message.parsed;
-          controller.enqueue(
-            `data: ${JSON.stringify({ secondary: secondaryResult })}\n\n`
-          );
+          // const secondaryResult = secondaryCompletion.choices[0].message.parsed;
+          // controller.enqueue(
+          //   `data: ${JSON.stringify({ secondary: secondaryResult })}\n\n`
+          // );
 
           // ————————————————————————————————————o Tertiary model —>
           //
@@ -99,7 +99,7 @@ export async function POST(req: Request) {
             model: "gpt-4o-2024-08-06",
             messages: [
               { role: "system", content: ledeEvaluation.content },
-              { role: "user", content: JSON.stringify(secondaryResult) },
+              { role: "user", content: JSON.stringify(primaryResult) },
             ],
             response_format: zodResponseFormat(MusicReviewLedes, "result"),
             temperature: 0.9,
