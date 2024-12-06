@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 
 import {
   pageExpandedAtom,
@@ -28,8 +28,8 @@ const StrategiesWorks = () => {
   );
   const [works, setWorks] = useAtom(strategiesWorksAtom);
   const [isFirstLoad, setIsFirstLoad] = useAtom(strategiesWorksFirstLoadAtom);
-  const [isExpanded] = useAtom(pageExpandedAtom);
-  const [reBio] = useAtom(researchBioAtom);
+  const isExpanded = useAtomValue(pageExpandedAtom);
+  const reBio = useAtomValue(researchBioAtom);
 
   const placeholder = "Enter your draft.";
 

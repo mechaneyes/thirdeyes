@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom, useSetAtom, useAtomValue } from "jotai";
 
 import {
   globalArtistNameAtom,
@@ -27,11 +27,11 @@ const StrategiesLedes = () => {
   const scrollableRef = useRef(null);
   const [showError, setShowError] = useState(false);
 
-  const [setActiveView] = useAtom(researchActiveAtom);
+  const setActiveView = useSetAtom(researchActiveAtom);
   const setArtistName = useSetAtom(globalArtistNameAtom);
   const [ledes, setLedes] = useAtom(strategiesLedesAtom);
   const [isFirstLoad, setIsFirstLoad] = useAtom(strategiesLedesFirstLoadAtom);
-  const [isExpanded] = useAtom(pageExpandedAtom);
+  const isExpanded = useAtomValue(pageExpandedAtom);
   const [strategiesLoading, setStrategiesLoading] = useAtom(
     strategiesLoadingAtom
   );
@@ -168,9 +168,10 @@ const StrategiesLedes = () => {
             </div>
             <div className="shadow-hieroshadow-25 mt-4 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid w-4/5 flex flex-col items-start justify-center gap-4 p-3 pb-4 transition duration-200 text-darkslategray-200/90 text-base leading-6">
               <div>
-                While Thirdeyes is dancing with the models, explore the information
-                it&apos;s retrieving and using to populate the Research panel to
-                the right. <span className="text-2xl">👉</span>
+                While Thirdeyes is dancing with the models, explore the
+                information it&apos;s retrieving and using to populate the
+                Research panel to the right.{" "}
+                <span className="text-2xl">👉</span>
               </div>
             </div>
           </div>
@@ -181,7 +182,10 @@ const StrategiesLedes = () => {
         {error && showError && (
           <div className="w-full flex justify-center">
             <div className="flex justify-center w-1/2 mb-4 p-4 bg-red-50 rounded-lg border border-red-200">
-              <p className="text-red-700">{error}</p>
+              {/* <p className="text-red-700">{error}</p> */}
+              <p className="text-red-700">
+                He burns one's self the brains. Please try again.
+              </p>
             </div>
           </div>
         )}

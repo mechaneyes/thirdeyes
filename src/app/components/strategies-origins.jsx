@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom, useSetAtom, useAtomValue } from "jotai";
 
 import {
   pageExpandedAtom,
@@ -23,14 +23,12 @@ const StrategiesOrigins = () => {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const scrollableRef = useRef(null);
 
-  const [isExpanded] = useAtom(pageExpandedAtom);
+  const isExpanded = useAtomValue(pageExpandedAtom);
   const [origins, setOrigins] = useAtom(strategiesOriginsAtom);
   const [reasoning, setReasoning] = useAtom(strategiesOriginsContextAtom);
   const [isFirstLoad, setIsFirstLoad] = useAtom(strategiesOriginsFirstLoadAtom);
-  const reBio = useAtom(researchBioAtom);
-  const [strategiesLoading, setStrategiesLoading] = useAtom(
-    strategiesLoadingAtom
-  );
+  const reBio = useAtomValue(researchBioAtom);
+  const setStrategiesLoading = useSetAtom(strategiesLoadingAtom);
 
   const placeholder = "Enter lede.";
 
