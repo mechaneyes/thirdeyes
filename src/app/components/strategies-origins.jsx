@@ -147,14 +147,6 @@ const StrategiesOrigins = () => {
                 </div>
               </div>
             ))}
-            <div className="origin w-full shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2">
-              <h4 className="pb-1 text-base text-darkslategray-200 font-normal">
-                Context Reasoning
-              </h4>
-              <div className="text-base leading-6 text-darkslategray-200/90">
-                {reasoning}
-              </div>
-            </div>
           </>
         )}
       </div>
