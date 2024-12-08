@@ -119,16 +119,21 @@ const StrategiesLedes = () => {
             const data = JSON.parse(line.slice(5));
 
             if (data.primary) {
-              // console.log("🎬 Primary Data", JSON.stringify(data.primary, null, 2));
+              console.log("🎬 Primary Data", JSON.stringify(data.primary, null, 2));
+              console.log("🪼🪼")
+              console.log("🐡")
+              console.log("🪼🪼")
               setLoadingStep("Voice");
             }
             if (data.secondary) {
               setLoadingStep("Evaluation");
+              console.log("🎬 Primary Data", JSON.stringify(data.secondary, null, 2));
             }
             if (data.tertiary) {
               setLoadingStep("Primary");
               setLedes(data.tertiary.ledes);
               setRecommended(data.tertiary.recommended);
+              console.log("🐔 Tertiary Data", JSON.stringify(data.tertiary, null, 2));
             }
           }
         }
@@ -208,20 +213,6 @@ const StrategiesLedes = () => {
                 </div>
               </div>
             ))}
-
-            {recommended && (
-              <div
-                className="recommended shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer"
-                onClick={(e) => handleCopy(recommended, e)}
-              >
-                <h4 className="pb-1 text-base text-darkslategray-200 font-normal">
-                  Recommended
-                </h4>
-                <div className="text-base leading-6 text-darkslategray-200/90">
-                  {recommended}
-                </div>
-              </div>
-            )}
           </>
         )}
       </div>

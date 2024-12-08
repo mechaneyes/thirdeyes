@@ -13,14 +13,17 @@ const Lede = z.object({
 });
 
 const PrimaryLedes = z.object({
-  ledes: z.array(Lede),
-  recommended: z.string(),
-  context: z.string(),
+  ledes: z.array(
+    z.object({
+      id: z.number().int(),
+      strategy: z.string(),
+      output: z.string(),
+    })
+  ),
 });
 
 const MusicReviewLedes = z.object({
   ledes: z.array(Lede),
-  recommended: z.string(),
 });
 
 export const maxDuration = 120;
@@ -32,7 +35,7 @@ export async function POST(req: Request) {
       async function processMessages() {
         try {
           const { messages, wikipediaContext } = await req.json();
-      
+
           if (!messages || !Array.isArray(messages)) {
             controller.enqueue(
               `data: ${JSON.stringify({
@@ -59,15 +62,61 @@ export async function POST(req: Request) {
                 content: msg.content,
               })),
             ],
-            response_format: zodResponseFormat(MusicReviewLedes, "result"),
-            temperature: 1,
-            max_tokens: 1948,
+            response_format: {
+              type: "json_schema",
+              json_schema: {
+                name: "ledes_schema",
+                strict: true,
+                schema: {
+                  type: "object",
+                  properties: {
+                    ledes: {
+                      type: "array",
+                      description:
+                        "A collection of exactly 11 strategies and outputs associated with the artist Frankie Knuckles.",
+                      items: {
+                        type: "object",
+                        properties: {
+                          id: {
+                            type: "number",
+                            description:
+                              "A unique identifier for the strategy.",
+                          },
+                          strategy: {
+                            type: "string",
+                            description:
+                              "The specific strategy related to the artist.",
+                          },
+                          output: {
+                            type: "string",
+                            description:
+                              "The detailed output or description corresponding to the strategy.",
+                          },
+                        },
+                        required: ["id", "strategy", "output"],
+                        additionalProperties: false,
+                      },
+                    },
+                  },
+                  required: ["ledes"],
+                  additionalProperties: false,
+                },
+              },
+            },
+            temperature: 0.87,
+            max_tokens: 3000,
             top_p: 1,
             frequency_penalty: 0.24,
-            presence_penalty: 0.72
+            presence_penalty: 0.72,
           });
 
           const primaryResult = primaryCompletion.choices[0].message.parsed;
+
+          console.log(
+            "🎬 Primary Data",
+            JSON.stringify(primaryResult, null, 2)
+          );
+
           controller.enqueue(
             `data: ${JSON.stringify({ primary: primaryResult })}\n\n`
           );
@@ -101,7 +150,47 @@ export async function POST(req: Request) {
               { role: "system", content: ledeEvaluation.content },
               { role: "user", content: JSON.stringify(primaryResult) },
             ],
-            response_format: zodResponseFormat(MusicReviewLedes, "result"),
+            response_format: {
+              type: "json_schema",
+              json_schema: {
+                name: "ledes_schema",
+                strict: true,
+                schema: {
+                  type: "object",
+                  properties: {
+                    ledes: {
+                      type: "array",
+                      description:
+                        "A collection of exactly 11 strategies and outputs associated with the artist Frankie Knuckles.",
+                      items: {
+                        type: "object",
+                        properties: {
+                          id: {
+                            type: "number",
+                            description:
+                              "A unique identifier for the strategy.",
+                          },
+                          strategy: {
+                            type: "string",
+                            description:
+                              "The specific strategy related to the artist.",
+                          },
+                          output: {
+                            type: "string",
+                            description:
+                              "The detailed output or description corresponding to the strategy.",
+                          },
+                        },
+                        required: ["id", "strategy", "output"],
+                        additionalProperties: false,
+                      },
+                    },
+                  },
+                  required: ["ledes"],
+                  additionalProperties: false,
+                },
+              },
+            },
             temperature: 0.9,
             max_tokens: 4095,
             top_p: 1,
