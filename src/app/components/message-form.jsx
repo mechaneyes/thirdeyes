@@ -56,13 +56,13 @@ const MessageForm = ({
         >
           Send
         </button>
-        <Unplug
+        {/* <Unplug
           onClick={handleReset}
           color={isHovered ? "#3b82f6" : "white"}
           className="cursor-pointer border-solid border-2 rounded-md border-blue-500 bg-blue-500 hover:bg-white transition-colors duration-300 w-10 h-10 p-1.5"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-        />
+        /> */}
       </form>
     </div>
   );
