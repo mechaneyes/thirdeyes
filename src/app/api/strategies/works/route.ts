@@ -11,16 +11,24 @@ interface RequestBody {
   wikipediaContext?: string;
 }
 
-const MusicReviewWorks = z.object({
-  works: z.array(
-    z.object({
-      id: z.number().int(),
-      option: z.string(),
-      original: z.string(),
-      edit: z.string(),
-    }).strict()
-  ).describe("A list of works, each providing details including ID, option, original text, and edited text"),
-}).strict();
+const MusicReviewWorks = z
+  .object({
+    works: z
+      .array(
+        z
+          .object({
+            id: z.number().int(),
+            option: z.string(),
+            original: z.string(),
+            edit: z.string(),
+          })
+          .strict()
+      )
+      .describe(
+        "A list of works, each providing details including ID, option, original text, and edited text"
+      ),
+  })
+  .strict();
 
 export const maxDuration = 120;
 export const revalidate = 0; // Disable caching
@@ -82,16 +90,60 @@ export async function POST(req: Request) {
               { role: "system", content: worksEdit.content },
               { role: "user", content: JSON.stringify(primaryResult) },
             ],
-            response_format: zodResponseFormat(MusicReviewWorks, "result"),
+            response_format: {
+              type: "json_schema",
+              json_schema: {
+                name: "works_schema",
+                strict: true,
+                schema: {
+                  type: "object",
+                  properties: {
+                    works: {
+                      type: "array",
+                      description:
+                        "A collection of works that include an 'id', 'option', and 'edit'.",
+                      items: {
+                        type: "object",
+                        properties: {
+                          id: {
+                            type: "number",
+                            description: "A unique identifier for each work."
+                          },
+                          option: {
+                            type: "string",
+                            description:
+                              "A description of the strategy and approach taken in the work."
+                          },
+                          edit: {
+                            type: "string",
+                            description:
+                              "The detailed commentary or analysis regarding the work."
+                          }
+                        },
+                        required: ["id", "option", "edit"],
+                        additionalProperties: false
+                      }
+                    }
+                  },
+                  required: ["works"],
+                  additionalProperties: false
+                }
+              }
+            },
             temperature: 0.91,
             max_tokens: 4095,
             top_p: 1,
             frequency_penalty: 0,
-            presence_penalty: 0
+            presence_penalty: 0,
           });
 
           const secondaryResult = secondaryCompletion.choices[0].message.parsed;
-          
+
+          console.log(
+            "🐡 secondary data",
+            JSON.stringify(secondaryResult, null, 2)
+          );
+
           controller.enqueue(
             `data: ${JSON.stringify({ secondary: secondaryResult })}\n\n`
           );

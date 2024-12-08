@@ -86,17 +86,17 @@ const StrategiesWorks = () => {
             const data = JSON.parse(line.slice(5));
 
             if (data.primary) {
-              // console.log(
-              //   "🐮 Primary Data",
-              //   JSON.stringify(data.primary, null, 2)
-              // );
+              console.log(
+                "🐮 Primary Data",
+                JSON.stringify(data.primary, null, 2)
+              );
               setLoadingStep("Edit");
             }
             if (data.secondary) {
-              // console.log(
-              //   "🐔 Edit Data",
-              //   JSON.stringify(data.secondary, null, 2)
-              // );
+              console.log(
+                "🐔 Edit Data",
+                JSON.stringify(data.secondary, null, 2)
+              );
               setLoadingStep("Primary");
               setWorks(data.secondary.works);
             }
@@ -169,17 +169,8 @@ const StrategiesWorks = () => {
               <h4 className="pb-2 text-lg text-darkslategray-200 font-normal">
                 {work.option}
               </h4>
-              <div className="pb-1 text-normal leading-6 text-darkslategray-200/90 font-normal">
-                Edit
-              </div>
               <div className="text-base leading-6 text-darkslategray-200/90">
                 {work.edit}
-              </div>
-              <div className="pt-3 text-normal leading-6 text-darkslategray-200/90 font-normal">
-                Original
-              </div>
-              <div className="text-base leading-6 text-darkslategray-200/90">
-                {work.original}
               </div>
             </div>
           ))}
