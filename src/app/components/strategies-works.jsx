@@ -124,7 +124,7 @@ const StrategiesWorks = () => {
       style={{ height: "calc(100% - 33px)" }}
     >
       <div
-        className={`drafting-scrollable w-full flex-1 flex flex-col items-center justify-center gap-2 ${
+        className={`drafting-scrollable w-full flex-1 flex flex-col items-start justify-start gap-2 ${
           isFirstLoad ? "" : "pr-3 overflow-y-auto"
         }`}
         ref={scrollableRef}
