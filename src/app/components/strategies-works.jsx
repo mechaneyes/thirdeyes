@@ -84,22 +84,21 @@ const StrategiesWorks = () => {
         for (const line of lines) {
           if (line.startsWith("data: ")) {
             const data = JSON.parse(line.slice(5));
+            console.log("Received data:", data);
 
             if (data.primary) {
-              console.log(
-                "🐮 Primary Data",
-                JSON.stringify(data.primary, null, 2)
-              );
-              setLoadingStep("Edit");
+              console.log("data.primary:", data.primary.works);
+              setWorks(Array.isArray(data.primary.works) ? data.primary.works : []);
+              // setLoadingStep("Edit");
             }
-            if (data.secondary) {
-              console.log(
-                "🐔 Edit Data",
-                JSON.stringify(data.secondary, null, 2)
-              );
-              setLoadingStep("Primary");
-              setWorks(data.secondary.works);
-            }
+            // if (data.secondary) {
+            //   console.log(
+            //     "🐔 Edit Data",
+            //     JSON.stringify(data.secondary, null, 2)
+            //   );
+            //   setLoadingStep("Primary");
+            //   // setWorks(data.secondary.works);
+            // }
           }
         }
       }
@@ -158,23 +157,23 @@ const StrategiesWorks = () => {
 
         {isFirstLoad && works.length === 0 && <StrategiesWorksWelcome />}
 
-        {/* {works.length > 0 &&  ( */}
-        <>
-          {works.map((work) => (
-            <div
-              key={work.id}
-              className="lede w-full shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer"
-              onClick={(e) => handleCopy(work.edit, e)}
-            >
-              <h4 className="pb-2 text-lg text-darkslategray-200 font-normal">
-                {work.option}
-              </h4>
-              <div className="text-base leading-6 text-darkslategray-200/90">
-                {work.edit}
+        {/* {works.length > 0 && ( */}
+          <>
+            {Array.isArray(works) && works.map((work) => (
+              <div
+                key={work.id}
+                className="lede w-full shadow-hieroshadow-15 rounded-md bg-mediumseagreen-100 border-seagreen border border-solid flex flex-col items-start justify-start p-3 pt-2 hover:bg-mediumseagreen-100/60 hover:shadow-lg transition duration-200 cursor-pointer"
+                onClick={() => handleCopy(work.edit)}
+              >
+                <h4 className="pb-2 text-lg text-darkslategray-200 font-normal">
+                  {work.option}
+                </h4>
+                <div className="text-base leading-6 text-darkslategray-200/90">
+                  {work.edit}
+                </div>
               </div>
-            </div>
-          ))}
-        </>
+            ))}
+          </>
         {/* )} */}
       </div>
 

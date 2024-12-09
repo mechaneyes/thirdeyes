@@ -11,25 +11,6 @@ interface RequestBody {
   wikipediaContext?: string;
 }
 
-const MusicReviewWorks = z
-  .object({
-    works: z
-      .array(
-        z
-          .object({
-            id: z.number().int(),
-            option: z.string(),
-            original: z.string(),
-            edit: z.string(),
-          })
-          .strict()
-      )
-      .describe(
-        "A list of works, each providing details including ID, option, original text, and edited text"
-      ),
-  })
-  .strict();
-
 export const maxDuration = 120;
 export const revalidate = 0; // Disable caching
 
@@ -52,6 +33,7 @@ export async function POST(req: Request) {
           }
 
           const validMessages = messages.filter((msg) => msg.content);
+          console.log("🐮 Valid Messages", validMessages);
 
           // Enhance prompt with Wikipedia context
           // const enhancedPrompt = `${ledePrimary.content}\n\nContext:\n"""""\n${wikipediaContext}\n"""""`;
@@ -66,29 +48,6 @@ export async function POST(req: Request) {
                 role: msg.role || "user",
                 content: msg.content,
               })),
-            ],
-            response_format: {
-              type: "text",
-            },
-            temperature: 0.91,
-            max_tokens: 4095,
-            top_p: 1,
-            frequency_penalty: 0,
-            presence_penalty: 0,
-          });
-
-          const primaryResult = primaryCompletion.choices[0].message.content;
-          controller.enqueue(
-            `data: ${JSON.stringify({ primary: primaryResult })}\n\n`
-          );
-
-          // ————————————————————————————————————o Secondary model —>
-          //
-          const secondaryCompletion = await openai.beta.chat.completions.parse({
-            model: "gpt-4o-2024-08-06",
-            messages: [
-              { role: "system", content: worksEdit.content },
-              { role: "user", content: JSON.stringify(primaryResult) },
             ],
             response_format: {
               type: "json_schema",
@@ -137,37 +96,17 @@ export async function POST(req: Request) {
             presence_penalty: 0,
           });
 
-          const secondaryResult = secondaryCompletion.choices[0].message.parsed;
-
-          console.log(
-            "🐡 secondary data",
-            JSON.stringify(secondaryResult, null, 2)
-          );
-
+          const primaryResult = primaryCompletion.choices[0].message.content;
+          console.log("🔍 Primary Result Type:", typeof primaryResult);
+          console.log("🔍 Primary Result Structure:", JSON.stringify(primaryResult, null, 2));
+          
+          // Parse the JSON string into an object
+          const parsedResult = JSON.parse(primaryResult);
+          
           controller.enqueue(
-            `data: ${JSON.stringify({ secondary: secondaryResult })}\n\n`
+            `data: ${JSON.stringify({ primary: parsedResult })}\n\n`
           );
-
-          // // ————————————————————————————————————o Tertiary model —>
-          // //
-          // const tertiaryCompletion = await openai.beta.chat.completions.parse({
-          //   model: "gpt-4o-2024-08-06",
-          //   messages: [
-          //     { role: "system", content: ledeEvaluation.content },
-          //     { role: "user", content: JSON.stringify(secondaryResult) },
-          //   ],
-          //   response_format: zodResponseFormat(MusicReviewLedes, "result"),
-          //   temperature: 0.9,
-          //   max_tokens: 4095,
-          //   top_p: 1,
-          //   frequency_penalty: 0,
-          //   presence_penalty: 0,
-          // });
-
-          // const tertiaryResult = tertiaryCompletion.choices[0].message.parsed;
-          // controller.enqueue(
-          //   `data: ${JSON.stringify({ tertiary: tertiaryResult })}\n\n`
-          // );
+          console.log("🐮 Primary Result", parsedResult);
           controller.close();
         } catch (error) {
           console.error("API route error:", error);
