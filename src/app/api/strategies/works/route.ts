@@ -41,7 +41,7 @@ export async function POST(req: Request) {
           // ————————————————————————————————————o primary model —>
           //
           const primaryCompletion = await openai.beta.chat.completions.parse({
-            model: "gpt-4o-2024-08-06",
+            model: "gpt-4o",
             messages: [
               { role: "system", content: worksPrimary.content },
               ...validMessages.map((msg) => ({

@@ -54,7 +54,7 @@ export async function POST(req: Request) {
           // ————————————————————————————————————o primary model —>
           //
           const primaryCompletion = await openai.beta.chat.completions.parse({
-            model: "gpt-4o-2024-08-06",
+            model: "gpt-4o",
             messages: [
               { role: "system", content: ledePrimary.content },
               ...validMessages.map((msg) => ({
@@ -124,7 +124,7 @@ export async function POST(req: Request) {
           // ————————————————————————————————————o Secondary model —>
           //
           // const secondaryCompletion = await openai.beta.chat.completions.parse({
-          //   model: "gpt-4o-2024-08-06",
+          //   model: "gpt-4o",
           //   messages: [
           //     { role: "system", content: ledeVoice.content },
           //     { role: "user", content: JSON.stringify(primaryResult) },
@@ -145,7 +145,7 @@ export async function POST(req: Request) {
           // ————————————————————————————————————o Tertiary model —>
           //
           const tertiaryCompletion = await openai.beta.chat.completions.parse({
-            model: "gpt-4o-2024-08-06",
+            model: "gpt-4o",
             messages: [
               { role: "system", content: ledeEvaluation.content },
               { role: "user", content: JSON.stringify(primaryResult) },
