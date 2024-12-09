@@ -97,11 +97,10 @@ export async function POST(req: Request) {
           });
 
           const primaryResult = primaryCompletion.choices[0].message.content;
-          console.log("🔍 Primary Result Type:", typeof primaryResult);
-          console.log("🔍 Primary Result Structure:", JSON.stringify(primaryResult, null, 2));
-          
-          // Parse the JSON string into an object
-          const parsedResult = JSON.parse(primaryResult);
+          // console.log("🔍 Primary Result Type:", typeof primaryResult);
+          // console.log("🔍 Primary Result Structure:", JSON.stringify(primaryResult, null, 2));
+          // Parse the JSON string into an object, providing a default empty object if null
+          const parsedResult = JSON.parse(primaryResult || '{}');
           
           controller.enqueue(
             `data: ${JSON.stringify({ primary: parsedResult })}\n\n`
