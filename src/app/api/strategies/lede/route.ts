@@ -103,11 +103,11 @@ export async function POST(req: Request) {
                 },
               },
             },
-            temperature: 0.87,
-            max_tokens: 3000,
+            temperature: 0.91,
+            max_tokens: 1948,
             top_p: 1,
-            frequency_penalty: 0.24,
-            presence_penalty: 0.72,
+            frequency_penalty: 0.1,
+            presence_penalty: 0.5,
           });
 
           const primaryResult = primaryCompletion.choices[0].message.parsed;
@@ -192,7 +192,7 @@ export async function POST(req: Request) {
               },
             },
             temperature: 0.9,
-            max_tokens: 4095,
+            max_tokens: 1400,
             top_p: 1,
             frequency_penalty: 0,
             presence_penalty: 0,
