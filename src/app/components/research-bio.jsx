@@ -55,12 +55,7 @@ const ResearchBio = () => {
       } pr-4 text-base text-darkslateblue-200 leading-5 whitespace-pre-wrap`}
     >
       {reBio ? (
-        <>
-          <h3 className="pb-6 text-2xl text-darkslateblue-300 font-normal">
-            Biographical Information
-          </h3>
-          {formatText(reBio)}
-        </>
+        formatText(reBio)
       ) : (
         <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">
           <LoadingIndicator loadingCopy={`Generating Biography`} />
