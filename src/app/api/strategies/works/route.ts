@@ -33,10 +33,17 @@ export async function POST(req: Request) {
           }
 
           const validMessages = messages.filter((msg) => msg.content);
-          console.log("🐮 Valid Messages", validMessages);
+          // console.log("🐮 Valid Messages", validMessages);
 
-          // Enhance prompt with Wikipedia context
-          // const enhancedPrompt = `${ledePrimary.content}\n\nContext:\n"""""\n${wikipediaContext}\n"""""`;
+          // Update the last message with Wikipedia context if present
+          const messagesWithContext = validMessages.map((msg, index) => ({
+            role: msg.role || "user",
+            content: index === validMessages.length - 1 && wikipediaContext
+              ? `${msg.content}\n\nContext:\n"""""\n${wikipediaContext}\n"`
+              : msg.content,
+          }));
+
+          console.log("🐮 Messages With Context", messagesWithContext);
 
           // ————————————————————————————————————o primary model —>
           //
@@ -44,10 +51,7 @@ export async function POST(req: Request) {
             model: "gpt-4o",
             messages: [
               { role: "system", content: worksPrimary.content },
-              ...validMessages.map((msg) => ({
-                role: msg.role || "user",
-                content: msg.content,
-              })),
+              ...messagesWithContext,
             ],
             response_format: {
               type: "json_schema",
