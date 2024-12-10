@@ -54,50 +54,53 @@ export async function POST(req: Request) {
               ...messagesWithContext,
             ],
             response_format: {
-              type: "json_schema",
-              json_schema: {
-                name: "works_schema",
-                strict: true,
-                schema: {
-                  type: "object",
-                  properties: {
-                    works: {
-                      type: "array",
-                      description:
-                        "A collection of works that include an 'id', 'option', and 'edit'.",
-                      items: {
-                        type: "object",
-                        properties: {
-                          id: {
-                            type: "number",
-                            description: "A unique identifier for each work."
+              "type": "json_schema",
+              "json_schema": {
+                "name": "works_schema",
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "works"
+                  ],
+                  "properties": {
+                    "works": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "option",
+                          "edit"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "A unique identifier for each work."
                           },
-                          option: {
-                            type: "string",
-                            description:
-                              "A description of the strategy and approach taken in the work."
+                          "edit": {
+                            "type": "string",
+                            "description": "The detailed commentary or analysis regarding the work."
                           },
-                          edit: {
-                            type: "string",
-                            description:
-                              "The detailed commentary or analysis regarding the work."
+                          "option": {
+                            "type": "string",
+                            "description": "A description of the strategy and approach taken in the work."
                           }
                         },
-                        required: ["id", "option", "edit"],
-                        additionalProperties: false
-                      }
+                        "additionalProperties": false
+                      },
+                      "description": "A collection of works that include an 'id', 'option', and 'edit'."
                     }
                   },
-                  required: ["works"],
-                  additionalProperties: false
-                }
+                  "additionalProperties": false
+                },
+                "strict": true
               }
             },
             temperature: 0.91,
-            max_tokens: 4095,
+            max_tokens: 2000,
             top_p: 1,
             frequency_penalty: 0,
-            presence_penalty: 0,
+            presence_penalty: 0.3
           });
 
           const primaryResult = primaryCompletion.choices[0].message.content;
