@@ -19,9 +19,6 @@ const ResearchDiscography = () => {
       <div className="h-full">
         {reDiscography ? (
           <>
-            <h3 className="pb-1 text-2xl text-darkslateblue-300 font-normal">
-              Discography
-            </h3>
             <div className="pt-4 leading-6">
               {reDiscography.map((release, index) => (
                 <div key={index} className="pb-8">

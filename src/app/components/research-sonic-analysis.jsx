@@ -18,12 +18,7 @@ const ResearchSonicAnalysis = () => {
     >
       <div className="h-full">
         {reSonic ? (
-          <>
-            <h3 className="pb-1 text-2xl text-darkslateblue-300 font-normal">
-              Sonic Analysis
-            </h3>
-            <div className="text-base leading-6">{reSonic}</div>
-          </>
+          <div className="text-base leading-6">{reSonic}</div>
         ) : (
           reSonicProg && (
             <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">

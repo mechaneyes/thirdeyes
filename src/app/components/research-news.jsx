@@ -17,9 +17,6 @@ const ResearchNews = () => {
       <div className="h-full">
         {reNews ? (
           <>
-            <h3 className="pb-1 text-2xl text-darkslateblue-300 font-normal">
-              Recent News
-            </h3>
             <div className="">
               {reNews.map((result) => (
                 <article key={result.link} className="pt-5 pb-4">

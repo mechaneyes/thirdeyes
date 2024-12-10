@@ -18,12 +18,7 @@ const ResearchDiscourse = () => {
     >
       <div className="h-full">
         {reDiscourse ? (
-          <>
-            <h3 className="pb-1 text-2xl text-darkslateblue-300 font-normal">
-              Discourse
-            </h3>
-            <div className="text-base leading-6">{reDiscourse}</div>
-          </>
+          <div className="text-base leading-6">{reDiscourse}</div>
         ) : (
           reDiscourseProg && (
             <div className="w-full h-[calc(100%-30px)] flex flex-col items-center justify-center">

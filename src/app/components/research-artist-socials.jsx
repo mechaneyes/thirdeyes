@@ -20,9 +20,6 @@ const ResearchArtistSocials = () => {
       <div className="h-full">
         {reArtistSocials ? (
           <>
-            <h3 className="pb-1 text-2xl text-darkslateblue-300 font-normal">
-              Artist Socials
-            </h3>
             <div className="">
               {reArtistSocials.map((result) => (
                 <article key={result.link} className="pt-4 pb-2">

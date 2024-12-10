@@ -32,8 +32,8 @@ export async function POST(req: Request) {
       temperature: 0.37,
       max_tokens: 800,
       top_p: 1,
-      frequency_penalty: 0.24,
-      presence_penalty: 0.25,
+      frequency_penalty: 0.05,
+      presence_penalty: 0.2,
     });
 
     return new Response(
