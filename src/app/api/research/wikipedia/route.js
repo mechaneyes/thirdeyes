@@ -18,7 +18,7 @@ export async function POST(req) {
 
     const wikipediaTool = new WikipediaQueryRun({
       topKResults: 3,
-      maxDocContentLength: 3000,
+      maxDocContentLength: 8000,
     });
 
     async function getWikipediaContext(searchQuery) {
