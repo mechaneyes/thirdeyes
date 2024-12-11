@@ -36,22 +36,29 @@ export async function POST(req: Request) {
           // console.log("🐮 Valid Messages", validMessages);
 
           // Update the last message with Wikipedia context if present
-          const messagesWithContext = validMessages.map((msg, index) => ({
-            role: msg.role || "user",
-            content: index === validMessages.length - 1 && wikipediaContext
-              ? `${msg.content}\n\nContext:\n"""""\n${wikipediaContext}\n"`
-              : msg.content,
-          }));
+          // const messagesWithContext = validMessages.map((msg, index) => ({
+          //   role: msg.role || "user",
+          //   content: index === validMessages.length - 1 && wikipediaContext
+          //     ? `${msg.content}\n\nContext:\n"""""\n${wikipediaContext}\n"`
+          //     : msg.content,
+          // }));
 
-          console.log("🐮 Messages With Context", messagesWithContext);
+          // console.log("🐮 Messages With Context", messagesWithContext);
 
           // ————————————————————————————————————o primary model —>
           //
           const primaryCompletion = await openai.beta.chat.completions.parse({
             model: "gpt-4o",
+            // messages: [
+            //   { role: "system", content: worksPrimary.content },
+            //   ...messagesWithContext,
+            // ],
             messages: [
               { role: "system", content: worksPrimary.content },
-              ...messagesWithContext,
+              ...validMessages.map((msg) => ({
+                role: msg.role || "user",
+                content: msg.content,
+              })),
             ],
             response_format: {
               "type": "json_schema",
